@@ -14,7 +14,7 @@ Required fields per member:
 - `name.en`, `name.ko`: English/Korean names
 - `role`: `PI`, `Researcher`, `Graduate`, `Undergraduate`, `Alumni`
 - `status`: `current` or `alumni`
-- `program`: `PhD`, `MS`, `BS`, `Staff`
+- `program`: `PhD`, `MSPhD`, `MS`, `BS`, `Staff`
 - `startYear`: year joined
 
 Optional fields:

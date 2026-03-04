@@ -20,12 +20,14 @@ const ROLE_LABELS = {
 const PROGRAM_LABELS = {
   en: {
     PhD: 'PhD',
+    MSPhD: 'MS-PhD',
     MS: 'MS',
     BS: 'BS',
     Staff: 'Staff'
   },
   ko: {
     PhD: '박사과정',
+    MSPhD: '석박통합과정',
     MS: '석사과정',
     BS: '학사과정',
     Staff: '스태프'
