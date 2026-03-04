@@ -58,7 +58,7 @@ export function HomePage({ locale }) {
           <CardContent className="space-y-4">
             <p className="text-sm text-slate-600 md:text-base">{content.joinDescription}</p>
             <Button asChild size="sm" variant="outline">
-              <Link to={pagePath(locale, 'contact')}>{content.joinCta}</Link>
+              <a href="#site-contact">{content.joinCta}</a>
             </Button>
           </CardContent>
         </Card>

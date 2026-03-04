@@ -4,14 +4,14 @@ export const NAV_ITEMS = {
     { slug: 'members', label: 'Members' },
     { slug: 'research', label: 'Research' },
     { slug: 'publications', label: 'Publications' },
-    { slug: 'contact', label: 'Contact' }
+    { slug: 'news', label: 'News' }
   ],
   ko: [
     { slug: '', label: '홈' },
     { slug: 'members', label: '구성원' },
     { slug: 'research', label: '연구' },
     { slug: 'publications', label: '논문' },
-    { slug: 'contact', label: '문의' }
+    { slug: 'news', label: '소식' }
   ]
 };
 
@@ -56,7 +56,7 @@ export const HOME_CONTENT = {
     joinTitle: 'Join Bae Lab',
     joinDescription:
       'We welcome students and collaborators in battery materials, modeling, and battery management. Please contact the PI via email with your CV and research interests.',
-    joinCta: 'Contact PI'
+    joinCta: 'Contact Details'
   },
   ko: {
     title: '배재형 교수 연구실 (Bae Lab)',
@@ -87,7 +87,7 @@ export const HOME_CONTENT = {
     joinTitle: '연구실 지원',
     joinDescription:
       '대학원 진학 및 공동연구 문의를 환영합니다. 이메일로 CV와 연구 관심 분야를 보내주시면 검토 후 회신드립니다.',
-    joinCta: '문의하기'
+    joinCta: '연락처 보기'
   }
 };
 
@@ -211,6 +211,54 @@ export const PUBLICATIONS_CONTENT = {
     loading: '논문 정보를 불러오는 중입니다...',
     empty: '해당 조건의 논문이 없습니다.',
     paperLink: '원문 링크'
+  }
+};
+
+export const NEWS_CONTENT = {
+  en: {
+    title: 'News',
+    description:
+      'Major updates from Bae Lab including awards, startup programs, publication highlights, and research milestones.',
+    sectionTitle: 'Recent Lab News',
+    items: [
+      {
+        date: '2025.10',
+        title: 'Grand Prize at 2025 Korea Mobility Society',
+        body: 'Bae Lab received the top award at the 2025 spring conference for outstanding battery diagnostics research.'
+      },
+      {
+        date: '2025.05',
+        title: 'Selected for Haedong Junior Startup Program',
+        body: 'Our team joined the startup support program to advance wireless battery diagnosis technologies.'
+      },
+      {
+        date: '2025.03',
+        title: 'MSE Cover Article Feature',
+        body: 'Our all-solid-state battery research was highlighted as a cover-featured study in the March issue of MSE.'
+      }
+    ]
+  },
+  ko: {
+    title: '연구실 소식',
+    description: 'Bae Lab의 수상, 창업 프로그램 선정, 주요 논문/연구 성과 소식을 정리합니다.',
+    sectionTitle: '최근 소식',
+    items: [
+      {
+        date: '2025.10',
+        title: '2025 대한민국 모빌리티학회 춘계학술대회 대상',
+        body: '배터리 진단 연구 성과를 바탕으로 학술대회에서 대상을 수상했습니다.'
+      },
+      {
+        date: '2025.05',
+        title: '해동 주니어 스타트업 프로그램 선정',
+        body: '무선 배터리 진단 기술의 사업화를 위해 해동 주니어 스타트업 프로그램에 선정되었습니다.'
+      },
+      {
+        date: '2025.03',
+        title: 'MSE 3월호 표지 논문 소개',
+        body: '전고체전지 연구가 MSE 3월호 표지 관련 주요 연구로 소개되었습니다.'
+      }
+    ]
   }
 };
 

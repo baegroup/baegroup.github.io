@@ -1,15 +1,12 @@
-import { PageHero } from '@/components/site/PageHero';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CONTACT_CONTENT } from '@/content/site-content';
 
-export function ContactPage({ locale }) {
+export function SiteContactSection({ locale }) {
   const content = CONTACT_CONTENT[locale];
   const labels = content.labels;
 
   return (
-    <>
-      <PageHero description={content.description} title={content.title} />
-
+    <section className="mx-auto mb-4 mt-4 w-full max-w-6xl px-5" id="site-contact">
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
@@ -65,6 +62,6 @@ export function ContactPage({ locale }) {
           </CardContent>
         </Card>
       </div>
-    </>
+    </section>
   );
 }

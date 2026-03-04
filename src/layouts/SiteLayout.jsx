@@ -1,5 +1,6 @@
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { SiteHeader } from '@/components/site/SiteHeader';
+import { SiteContactSection } from '@/components/site/SiteContactSection';
 
 export function SiteLayout({ locale, children }) {
   return (
@@ -12,6 +13,7 @@ export function SiteLayout({ locale, children }) {
       </a>
       <SiteHeader locale={locale} />
       <main className="mx-auto w-full max-w-6xl space-y-4 px-5 py-6 md:py-8" id="main-content">{children}</main>
+      <SiteContactSection locale={locale} />
       <SiteFooter locale={locale} />
     </div>
   );
