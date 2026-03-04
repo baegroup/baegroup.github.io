@@ -1,72 +1,73 @@
 # Content Update Guide (Obsidian Friendly)
 
-This project separates content editing from React code.
+This project is designed so you can edit site text directly in Obsidian.
 
-## 1) Edit Site Text in Obsidian
+## 1) Open Obsidian Vault
 
-Use these folders as your content source:
+Open this folder as your vault:
+
+- `/Users/bnc/Desktop/codex_project/codex_github_homepage/content`
+
+Edit files in:
 
 - `content/en/*.md`
 - `content/ko/*.md`
 
-Recommended files to edit:
+## 2) Edit in Markdown Body (No YAML Required)
 
-- `home.md`: hero text, home cards, home news summary
-- `news.md`: news page items
-- `research.md`: research cards and methods
-- `members.md`: members page labels (not member list data)
-- `publications.md`: publications page labels (not publication list data)
-- `contact.md`: global bottom contact section labels/text
-- `brand.md`: lab title/subtitle in header/footer
-- `navigation.md`: top menu labels
+Each file uses simple section headings:
 
-## 2) Generate App Content
+```md
+## title
+Your title
 
-After editing Markdown, run:
+## description
+Your paragraph text
 
-```bash
-npm run content:build
+## items
+- 2026.01 | Title | Body
 ```
 
-This updates:
+Common list formats:
 
-- `src/content/site-content.generated.json`
+- Navigation: `- slug | label`
+- Home news: `- date | text`
+- Research cards: `- title | body`
+- News page items: `- date | title | body`
+- Contact labels: `- key | label`
 
-Notes:
+## 3) Publish in One Command
 
-- `npm run dev` automatically runs content generation once at startup.
-- If dev server is already running, rerun `npm run content:build` and refresh.
+From terminal at project root, run:
 
-## 3) Update Members and Publications Data
+```bash
+npm run publish -m "Update homepage content"
+```
 
-These are separate from page text:
+What it does automatically:
+
+1. Generate app JSON from Markdown (`npm run content:build`)
+2. Stage content files and generated JSON
+3. Commit with your message
+4. Push to `origin/main`
+
+If you only want to test generation without commit/push:
+
+```bash
+npm run publish:dry
+```
+
+## 4) Members/Publications Data
+
+These remain JSON data files (not page text):
 
 - `public/data/members.json`
 - `public/data/publications.json`
 
-### Members required fields
-
-- `id`, `name.en`, `name.ko`, `role`, `status`, `program`, `startYear`
-
-### Publications required fields
-
-- `id`, `year`, `type`, `title.en`, `title.ko`, `authors`, `venue`
-
-## 4) Local Verification
+## 5) Verify
 
 ```bash
 npm run build
 ```
 
-Check:
-
-- `/` redirects to `/en`
-- language switch works (`/en` <-> `/ko`)
-- news page and bottom contact section render correctly
-- members/publications data render correctly
-
-## 5) Deploy
-
-1. Commit and push to `main`
-2. Confirm GitHub Action `Deploy GitHub Pages` passes
-3. Verify production URL
+Check `/en`, `/ko`, `news`, and bottom contact section render correctly.

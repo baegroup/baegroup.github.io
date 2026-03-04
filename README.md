@@ -15,19 +15,19 @@ The site runs on **React + Vite + Tailwind + shadcn/ui** and deploys with GitHub
 
 1. Open `/content` as an Obsidian Vault.
 2. Edit Markdown files in `/content/en` and `/content/ko`.
-3. Generate app content:
+3. Publish in one command:
 
 ```bash
-npm run content:build
+npm run publish -m "Update homepage content"
 ```
 
-4. Run dev server:
+This command runs content generation, commit, and push automatically.
+
+If you want generation only:
 
 ```bash
-npm run dev
+npm run publish:dry
 ```
-
-If `npm run dev` is started fresh, content generation runs automatically (`predev`).
 
 ## Quick Start
 
@@ -49,6 +49,7 @@ npm run preview
 
 - `/content/*/*.md`: Obsidian-editable site text source
 - `/scripts/build-content.mjs`: Markdown -> JSON generator
+- `/scripts/publish-content.mjs`: one-command content publish tool
 - `/src/content/site-content.generated.json`: generated content (auto)
 - `/src/content/site-content.js`: content export bridge
 - `/src/App.jsx`: route configuration (`/en`, `/ko`)

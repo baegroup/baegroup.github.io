@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "content:build": "node scripts/build-content.mjs",
+    "publish": "node scripts/publish-content.mjs",
+    "publish:dry": "node scripts/publish-content.mjs --dry-run",
     "predev": "npm run content:build",
     "prebuild": "npm run content:build",
     "dev": "vite",
