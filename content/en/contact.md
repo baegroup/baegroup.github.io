@@ -7,7 +7,7 @@ Contact
 For collaboration, graduate admissions, and research inquiries, please contact the PI directly via email.
 
 ## leftTitle
-Lab Contact
+Lab
 
 ## rightTitle
 Address & Applications

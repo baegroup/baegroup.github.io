@@ -47,8 +47,8 @@
   },
   "BRAND": {
     "en": {
-      "name": "Bae Lab for Electrochemical Energy Storage",
-      "subtitle": "Department of Chemical Engineering, Kyung Hee University"
+      "name": "Bae Lab",
+      "subtitle": "3D Printing Functional Materials"
     },
     "ko": {
       "name": "배재형 교수 연구실 (Bae Lab)",
@@ -287,7 +287,7 @@
     "en": {
       "title": "Contact",
       "description": "For collaboration, graduate admissions, and research inquiries, please contact the PI directly via email.",
-      "leftTitle": "Lab Contact",
+      "leftTitle": "Lab",
       "rightTitle": "Address & Applications",
       "labels": {
         "email": "Email",
