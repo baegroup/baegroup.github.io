@@ -15,7 +15,8 @@ The site runs on **React + Vite + Tailwind + shadcn/ui** and deploys with GitHub
 
 1. Open `/content` as an Obsidian Vault.
 2. Edit Markdown files in `/content/en` and `/content/ko`.
-3. Publish in one command:
+3. If needed, reuse template notes from `/content/_templates`.
+4. Publish in one command:
 
 ```bash
 npm run publish -m "Update homepage content"
@@ -48,6 +49,7 @@ npm run preview
 ## Project Structure
 
 - `/content/*/*.md`: Obsidian-editable site text source
+- `/content/_templates/*/*.md`: reusable template notes for Obsidian
 - `/scripts/build-content.mjs`: Markdown -> JSON generator
 - `/scripts/publish-content.mjs`: one-command content publish tool
 - `/src/content/site-content.generated.json`: generated content (auto)

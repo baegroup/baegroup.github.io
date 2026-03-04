@@ -36,7 +36,22 @@ Common list formats:
 - News page items: `- date | title | body`
 - Contact labels: `- key | label`
 
-## 3) Publish in One Command
+## 3) Use Template Notes (Optional)
+
+Template notes are available here:
+
+- `content/_templates/en/*.md`
+- `content/_templates/ko/*.md`
+
+Example:
+
+```bash
+cp content/_templates/ko/news.md content/ko/news.md
+```
+
+Then edit in Obsidian and publish.
+
+## 4) Publish in One Command
 
 From terminal at project root, run:
 
@@ -57,14 +72,14 @@ If you only want to test generation without commit/push:
 npm run publish:dry
 ```
 
-## 4) Members/Publications Data
+## 5) Members/Publications Data
 
 These remain JSON data files (not page text):
 
 - `public/data/members.json`
 - `public/data/publications.json`
 
-## 5) Verify
+## 6) Verify
 
 ```bash
 npm run build
