@@ -19,9 +19,9 @@ export function SiteHeader({ locale }) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-white/80 backdrop-blur-md">
-      <div className="mx-auto flex min-h-24 w-full max-w-6xl items-center justify-between px-5 md:min-h-28">
-        <Link className="flex items-center gap-3 no-underline" to={pagePath(locale, '')}>
-          <img alt="Bae Lab logo" className="h-20 w-20 object-contain md:h-24 md:w-24" src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`} />
+      <div className="mx-auto flex min-h-28 w-full max-w-6xl items-center justify-between px-5 md:min-h-32">
+        <Link className="flex items-center gap-4 no-underline" to={pagePath(locale, '')}>
+          <img alt="Bae Lab logo" className="h-24 w-24 object-contain md:h-32 md:w-32" src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`} />
           <div className="leading-tight">
             <p className="font-serif text-lg font-semibold text-slate-950">{brand.name}</p>
             <p className="text-xs font-medium text-slate-500 max-md:hidden">{brand.subtitle}</p>
