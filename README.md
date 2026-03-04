@@ -1,37 +1,46 @@
-# Bae Lab Website (Kyung Hee University)
+# Bae Lab Website (React + shadcn/ui)
 
-Bilingual (`/en`, `/ko`) static website for **Bae Lab for Electrochemical Energy Storage**.
-The site is deployed with GitHub Pages via GitHub Actions.
+Bilingual (`/en`, `/ko`) website for **Bae Lab for Electrochemical Energy Storage**.
+The site now runs on **React + Vite + Tailwind + shadcn/ui** and deploys to GitHub Pages with GitHub Actions.
+
+## Tech Stack
+
+- React 18 + React Router
+- Vite
+- Tailwind CSS
+- shadcn/ui style components (`Button`, `Card`, `Badge`, `Tabs`)
 
 ## Quick Start
 
-1. Clone the repository.
-2. Run a local static server.
-3. Push to `main` to deploy.
-
-### Local Preview
-
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:8000`.
+Then open `http://localhost:5173`.
+
+## Build
+
+```bash
+npm run build
+npm run preview
+```
 
 ## Project Structure
 
-- `/index.html`: root redirect to English (`/en/`)
-- `/en`, `/ko`: localized pages (Home, Members, Research, Publications, Contact)
-- `/assets/css/main.css`: global styles and responsive layout
-- `/assets/js/site.js`: navigation and language switch logic
-- `/assets/js/data-loader.js`: members/publications data loading and rendering
-- `/data/members.json`: member data
-- `/data/publications.json`: publication data
-- `/.github/workflows/pages.yml`: GitHub Pages deployment workflow
-- `/CONTENT_GUIDE.md`: content update guide
+- `/src/App.jsx`: route configuration (`/en`, `/ko`)
+- `/src/layouts/SiteLayout.jsx`: shared layout/header/footer
+- `/src/pages/*`: page implementations
+- `/src/components/ui/*`: shadcn-style UI components
+- `/src/components/site/*`: site-specific UI blocks
+- `/src/lib/data.js`: JSON loader and formatting logic
+- `/public/data/members.json`: member data
+- `/public/data/publications.json`: publication data
+- `/.github/workflows/pages.yml`: GitHub Pages build/deploy workflow
 
 ## Data Contracts
 
-### `data/members.json`
+### `public/data/members.json`
 
 ```json
 {
@@ -43,13 +52,13 @@ Then open `http://localhost:8000`.
   "email": "jbae@khu.ac.kr",
   "website": "https://www.baelab.khu.ac.kr",
   "interests": { "en": ["Electrolyte Design"], "ko": ["전해질 설계"] },
-  "photo": "/assets/img/members/bae-jaehyeong.jpg",
+  "photo": "",
   "startYear": 2023,
   "endYear": null
 }
 ```
 
-### `data/publications.json`
+### `public/data/publications.json`
 
 ```json
 {
@@ -66,9 +75,8 @@ Then open `http://localhost:8000`.
 }
 ```
 
-## Deployment (GitHub Pages)
+## GitHub Pages
 
-1. Go to repository **Settings > Pages**.
-2. Set source to **GitHub Actions**.
-3. Push to `main`.
-4. Confirm workflow success in **Actions**.
+1. Repository Settings > Pages > Source = **GitHub Actions**
+2. Push to `main`
+3. Confirm `Deploy GitHub Pages` workflow success

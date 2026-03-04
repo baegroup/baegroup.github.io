@@ -1,12 +1,12 @@
 # Content Update Guide
 
-This guide explains how to update lab members and publications without changing page code.
+This guide explains how to update Bae Lab content without changing React page code.
 
 ## 1) Update Members
 
 Edit:
 
-- `data/members.json`
+- `public/data/members.json`
 
 Required fields per member:
 
@@ -23,14 +23,14 @@ Optional fields:
 
 Photo policy:
 
-- If `photo` is missing or invalid, initials avatar is shown automatically.
-- Preferred photo path format: `/assets/img/members/<file-name>.jpg`
+- If `photo` is missing or broken, initials avatar is shown automatically.
+- Recommended path format: `/assets/img/members/<file-name>.jpg`
 
 ## 2) Update Publications
 
 Edit:
 
-- `data/publications.json`
+- `public/data/publications.json`
 
 Required fields per publication:
 
@@ -47,34 +47,33 @@ Optional fields:
 
 Display behavior:
 
-- Publications are sorted by year (descending).
+- Publications are sorted by year descending.
 - IEEE-style citation string is generated automatically.
 - Type filters are available in both language pages.
 
-## 3) Bilingual Content Rules
+## 3) Local Check Before Push
 
-- Always fill both `en` and `ko` fields.
-- If one language is missing, UI falls back to English.
-- Keep terminology consistent across languages (lab terminology list recommended).
-
-## 4) Local Check Before Push
-
-1. Run a local static server:
+1. Install dependencies:
 
 ```bash
-python3 -m http.server 8000
+npm install
 ```
 
-2. Open `http://localhost:8000`.
+2. Run local server:
+
+```bash
+npm run dev
+```
+
 3. Confirm:
 
-- `/` redirects to `/en/`
+- `/` redirects to `/en`
 - language switch works (`/en` <-> `/ko`)
-- Members and Publications render correctly
-- mobile menu works on narrow width
+- members and publications render correctly
+- mobile nav menu opens/closes correctly
 
-## 5) Deploy
+## 4) Deploy
 
-1. Commit and push changes to `main`.
-2. Open GitHub **Actions** and confirm `Deploy GitHub Pages` succeeds.
-3. Open the Pages URL and verify no missing styles, scripts, or data.
+1. Commit and push to `main`
+2. Confirm GitHub Action `Deploy GitHub Pages` passes
+3. Verify production URL and data rendering

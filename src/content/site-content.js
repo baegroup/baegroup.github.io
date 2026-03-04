@@ -1,0 +1,257 @@
+export const NAV_ITEMS = {
+  en: [
+    { slug: '', label: 'Home' },
+    { slug: 'members', label: 'Members' },
+    { slug: 'research', label: 'Research' },
+    { slug: 'publications', label: 'Publications' },
+    { slug: 'contact', label: 'Contact' }
+  ],
+  ko: [
+    { slug: '', label: '홈' },
+    { slug: 'members', label: '구성원' },
+    { slug: 'research', label: '연구' },
+    { slug: 'publications', label: '논문' },
+    { slug: 'contact', label: '문의' }
+  ]
+};
+
+export const BRAND = {
+  en: {
+    name: 'Bae Lab for Electrochemical Energy Storage',
+    subtitle: 'Department of Chemical Engineering, Kyung Hee University'
+  },
+  ko: {
+    name: '배재형 교수 연구실 (Bae Lab)',
+    subtitle: '경희대학교 화학공학과'
+  }
+};
+
+export const HOME_CONTENT = {
+  en: {
+    title: 'Bae Lab for Electrochemical Energy Storage',
+    description:
+      'We develop core materials and diagnostics technologies for next-generation rechargeable batteries, including all-solid-state batteries, electrolyte design, computational simulation, and battery safety.',
+    tags: ['All-Solid-State Batteries', 'Electrolyte Additives', 'Battery Simulation', 'Condition Diagnosis'],
+    primaryCta: 'Explore Research',
+    secondaryCta: 'View Publications',
+    newsTitle: 'News and Updates',
+    newsItems: [
+      {
+        date: '2025.10',
+        text: 'Bae Lab won the Grand Prize at the 2025 Korea Mobility Society Spring Conference.'
+      },
+      {
+        date: '2025.05',
+        text: 'The team was selected for the Haedong Junior Startup Program (wireless battery diagnosis).'
+      },
+      {
+        date: '2025.03',
+        text: 'Our all-solid-state battery research was featured on the MSE March issue cover article.'
+      }
+    ],
+    focusTitle: 'Research Focus',
+    focusDescription:
+      'Our lab integrates electrochemistry, multiphysics simulation, and data-driven methods to improve performance, lifetime, and safety of advanced battery systems.',
+    focusCta: 'See Detailed Topics',
+    joinTitle: 'Join Bae Lab',
+    joinDescription:
+      'We welcome students and collaborators in battery materials, modeling, and battery management. Please contact the PI via email with your CV and research interests.',
+    joinCta: 'Contact PI'
+  },
+  ko: {
+    title: '배재형 교수 연구실 (Bae Lab)',
+    description:
+      'Bae Lab은 차세대 이차전지를 위한 핵심 소재 및 진단기술을 연구합니다. 전고체전지, 전해질 설계, 계산 시뮬레이션, 배터리 안전 진단을 주요 주제로 다룹니다.',
+    tags: ['전고체전지', '전해질 첨가제', '배터리 시뮬레이션', '상태 진단'],
+    primaryCta: '연구 주제 보기',
+    secondaryCta: '논문 보기',
+    newsTitle: '최근 소식',
+    newsItems: [
+      {
+        date: '2025.10',
+        text: '2025 대한민국 모빌리티학회 춘계학술대회에서 대상 수상.'
+      },
+      {
+        date: '2025.05',
+        text: '해동 주니어 스타트업 프로그램 선정 (무선 배터리 진단 기술).'
+      },
+      {
+        date: '2025.03',
+        text: '전고체전지 관련 연구가 MSE 3월호 표지 논문으로 소개됨.'
+      }
+    ],
+    focusTitle: '연구 방향',
+    focusDescription:
+      '전기화학 실험, 물리기반 시뮬레이션, 데이터 기반 모델을 결합해 배터리 성능·수명·안전성 향상을 목표로 연구합니다.',
+    focusCta: '상세 주제',
+    joinTitle: '연구실 지원',
+    joinDescription:
+      '대학원 진학 및 공동연구 문의를 환영합니다. 이메일로 CV와 연구 관심 분야를 보내주시면 검토 후 회신드립니다.',
+    joinCta: '문의하기'
+  }
+};
+
+export const MEMBERS_CONTENT = {
+  en: {
+    title: 'Members',
+    description:
+      'Our members work on electrochemical materials, battery computational simulation, and battery state/safety diagnostics across cell to pack levels.',
+    sectionTitle: 'Lab Roster',
+    current: 'Current Members',
+    alumni: 'Alumni',
+    loading: 'Loading members...',
+    empty: 'No members found in this category.'
+  },
+  ko: {
+    title: '구성원',
+    description:
+      'Bae Lab 구성원은 전해질 설계, 전고체전지, 배터리 계산 시뮬레이션, 배터리 상태/안전 진단을 중심으로 연구를 수행하고 있습니다.',
+    sectionTitle: '연구실 명단',
+    current: '재학생/재직자',
+    alumni: '동문',
+    loading: '구성원 정보를 불러오는 중입니다...',
+    empty: '해당 분류에 구성원이 없습니다.'
+  }
+};
+
+export const RESEARCH_CONTENT = {
+  en: {
+    title: 'Research',
+    description:
+      'Bae Lab studies rechargeable battery systems with an emphasis on electrochemical mechanisms, practical design parameters, and data-enabled diagnostics.',
+    cards: [
+      {
+        title: 'Electrolyte Additive Development',
+        body: 'Design and screening of additive chemistries for improved interface stability, cycle life, and high-rate performance.'
+      },
+      {
+        title: 'Electrolyte Design for Rechargeable Batteries',
+        body: 'Structure-property optimization of liquid and solid electrolytes for lithium-ion and all-solid-state battery platforms.'
+      },
+      {
+        title: 'Battery Computational Simulation',
+        body: 'Physics-based and multi-scale simulation to analyze transport, overpotential, and thermal behavior under practical operating conditions.'
+      },
+      {
+        title: 'Battery Condition Diagnosis',
+        body: 'Data-driven algorithms for SOC/SOH/SOP estimation, incipient short-circuit detection, and safety-oriented battery management.'
+      }
+    ],
+    methodsTitle: 'Research Methodology',
+    methods: [
+      {
+        title: 'Electrochemical Experiment + Characterization',
+        body: 'Material synthesis, cell fabrication, and interface analysis.'
+      },
+      {
+        title: 'Simulation + Mechanism Modeling',
+        body: 'Electrochemical and thermal coupled simulation for behavior prediction.'
+      },
+      {
+        title: 'Machine Learning + Diagnostics',
+        body: 'Data-centric models for battery condition estimation and anomaly detection.'
+      }
+    ]
+  },
+  ko: {
+    title: '연구 분야',
+    description:
+      'Bae Lab은 이차전지의 전기화학 메커니즘을 기반으로 소재, 시뮬레이션, 진단 알고리즘을 연계하는 융합 연구를 수행합니다.',
+    cards: [
+      {
+        title: '전해질 첨가제 개발',
+        body: '계면 안정성, 수명, 고율 성능 향상을 위한 전해질 첨가제를 설계하고 검증합니다.'
+      },
+      {
+        title: '이차전지용 전해질 설계',
+        body: '액체/고체 전해질의 구조-물성 상관관계를 분석해 리튬이온전지 및 전고체전지 성능을 최적화합니다.'
+      },
+      {
+        title: '배터리 계산 시뮬레이션',
+        body: '물리 기반 다중스케일 모델링으로 과전압, 농도 분극, 발열 거동을 해석하고 설계 변수를 도출합니다.'
+      },
+      {
+        title: '배터리 상태 진단',
+        body: '데이터 기반 기법을 활용해 SOC/SOH/SOP 추정과 초기 내부단락 진단 등 안전 중심 BMS 기술을 연구합니다.'
+      }
+    ],
+    methodsTitle: '연구 방법론',
+    methods: [
+      {
+        title: '전기화학 실험 및 특성 분석',
+        body: '소재 합성, 셀 제작, 계면 반응 특성 분석.'
+      },
+      {
+        title: '시뮬레이션 및 메커니즘 모델링',
+        body: '전기화학-열 연성 모델 기반 거동 예측 및 설계 최적화.'
+      },
+      {
+        title: '머신러닝 기반 진단',
+        body: '배터리 상태 추정, 열화 추적, 이상징후 조기 감지.'
+      }
+    ]
+  }
+};
+
+export const PUBLICATIONS_CONTENT = {
+  en: {
+    title: 'Publications',
+    description:
+      'Publication records from the previous Bae Lab website were migrated into this list. Entries are maintained in JSON and rendered automatically in IEEE-style format.',
+    sectionTitle: 'Publication List',
+    loading: 'Loading publications...',
+    empty: 'No publications found for this filter.',
+    paperLink: 'Paper Link'
+  },
+  ko: {
+    title: '연구 성과',
+    description:
+      '이전 Bae Lab 홈페이지에 공개되어 있던 주요 논문 목록을 현재 사이트 데이터 구조로 이관했습니다. 항목은 JSON 기반으로 관리되며 IEEE 형식으로 자동 렌더링됩니다.',
+    sectionTitle: '논문 목록',
+    loading: '논문 정보를 불러오는 중입니다...',
+    empty: '해당 조건의 논문이 없습니다.',
+    paperLink: '원문 링크'
+  }
+};
+
+export const CONTACT_CONTENT = {
+  en: {
+    title: 'Contact',
+    description:
+      'For collaboration, graduate admissions, and research inquiries, please contact the PI directly via email.',
+    leftTitle: 'Lab Contact',
+    rightTitle: 'Address & Applications',
+    labels: {
+      email: 'Email',
+      phone: 'Phone',
+      fax: 'Fax',
+      office: 'Office',
+      address: 'Address',
+      map: 'Map',
+      apply: 'Prospective Students'
+    },
+    office: '#912-1, Department of Chemical Engineering, Kyung Hee University',
+    address: '1732 Deogyeong-daero, Giheung-gu, Yongin-si, Gyeonggi-do 17104, Republic of Korea',
+    map: 'Open in Google Maps',
+    apply: 'Please include your CV, transcript, and research interests in your email.'
+  },
+  ko: {
+    title: '문의',
+    description: '공동연구, 대학원 진학, 연구 관련 문의는 지도교수 이메일로 연락해 주세요.',
+    leftTitle: '연구실 연락처',
+    rightTitle: '위치 및 지원 안내',
+    labels: {
+      email: '이메일',
+      phone: '전화',
+      fax: '팩스',
+      office: '연구실',
+      address: '주소',
+      map: '지도',
+      apply: '지원 문의'
+    },
+    office: '경희대학교 화학공학과 912-1호',
+    address: '경기도 용인시 기흥구 덕영대로 1732 (우편번호 17104)',
+    map: 'Google 지도에서 보기',
+    apply: '이메일에 이력서, 성적표, 관심 연구 주제를 함께 첨부해 주세요.'
+  }
+};
