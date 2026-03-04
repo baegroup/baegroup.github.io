@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Lab Mark</title>
+  <desc id="desc">Abstract laboratory emblem</desc>
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0d2f5f"/>
+      <stop offset="1" stop-color="#0a4b78"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#g1)"/>
+  <circle cx="22" cy="22" r="8" fill="#f7d27a"/>
+  <circle cx="42" cy="22" r="8" fill="#f0e4c0"/>
+  <path d="M16 40h32v8H16z" fill="#f7d27a"/>
+  <path d="M20 34h24l4 6H16z" fill="#fff" opacity="0.9"/>
+</svg>

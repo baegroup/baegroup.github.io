@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Members | Advanced Computing Systems Lab</title>
+    <meta name="description" content="Members of the Advanced Computing Systems Lab.">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <script defer src="../assets/js/site.js"></script>
+    <script type="module" src="../assets/js/data-loader.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="Advanced Computing Systems Lab Home">
+          <img class="brand-mark" src="../assets/img/lab-mark.svg" alt="Lab logo">
+          <div class="brand-copy">
+            <div class="brand-name">Advanced Computing Systems Lab</div>
+            <div class="brand-sub">Department of Computer Science</div>
+          </div>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-menu">
+            Menu
+          </button>
+          <ul class="nav-list" id="primary-menu" data-nav-menu>
+            <li><a data-nav-link href="./index.html">Home</a></li>
+            <li><a data-nav-link href="./members.html">Members</a></li>
+            <li><a data-nav-link href="./research.html">Research</a></li>
+            <li><a data-nav-link href="./publications.html">Publications</a></li>
+            <li><a data-nav-link href="./contact.html">Contact</a></li>
+            <li><a class="lang-switch" data-lang-switch href="../ko/members.html">한국어</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <div class="container">
+        <section class="hero">
+          <h1>Members</h1>
+          <p>
+            Meet the people driving our research in AI systems, scalable computing, and trustworthy software.
+          </p>
+        </section>
+
+        <section class="section-card">
+          <h2>Lab Roster</h2>
+          <div class="filter-group" role="tablist" aria-label="Member status filters">
+            <button type="button" class="filter-btn active" data-member-status="current">Current Members</button>
+            <button type="button" class="filter-btn" data-member-status="alumni">Alumni</button>
+          </div>
+          <div class="member-groups" data-members-root>
+            <p class="notice">Loading members...</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© <span data-current-year></span> Advanced Computing Systems Lab. All rights reserved.</p>
+        <p>Department of Computer Science, Example University</p>
+      </div>
+    </footer>
+  </body>
+</html>

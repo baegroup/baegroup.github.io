@@ -1,0 +1,135 @@
+[
+  {
+    "id": "kim-jh",
+    "name": {
+      "en": "Jihun Kim",
+      "ko": "김지훈"
+    },
+    "role": "PI",
+    "status": "current",
+    "program": "Staff",
+    "email": "pi@example.edu",
+    "website": "https://example.edu/faculty/jihun-kim",
+    "interests": {
+      "en": ["Reliable AI", "Distributed Systems"],
+      "ko": ["신뢰 가능한 AI", "분산 시스템"]
+    },
+    "photo": "/assets/img/members/kim-jh.jpg",
+    "startYear": 2022,
+    "endYear": null
+  },
+  {
+    "id": "lee-sy",
+    "name": {
+      "en": "Seoyeon Lee",
+      "ko": "이서연"
+    },
+    "role": "Researcher",
+    "status": "current",
+    "program": "Staff",
+    "email": "seoyeon.lee@example.edu",
+    "website": "",
+    "interests": {
+      "en": ["Edge Inference", "Systems Optimization"],
+      "ko": ["엣지 추론", "시스템 최적화"]
+    },
+    "photo": "",
+    "startYear": 2023,
+    "endYear": null
+  },
+  {
+    "id": "choi-mj",
+    "name": {
+      "en": "Minjun Choi",
+      "ko": "최민준"
+    },
+    "role": "Graduate",
+    "status": "current",
+    "program": "PhD",
+    "email": "mchoi@example.edu",
+    "website": "",
+    "interests": {
+      "en": ["Model Robustness", "Monitoring"],
+      "ko": ["모델 강건성", "모니터링"]
+    },
+    "photo": "",
+    "startYear": 2021,
+    "endYear": null
+  },
+  {
+    "id": "park-jy",
+    "name": {
+      "en": "Jiyeon Park",
+      "ko": "박지연"
+    },
+    "role": "Graduate",
+    "status": "current",
+    "program": "MS",
+    "email": "jypark@example.edu",
+    "website": "",
+    "interests": {
+      "en": ["Privacy-Preserving ML"],
+      "ko": ["프라이버시 보존 ML"]
+    },
+    "photo": "",
+    "startYear": 2024,
+    "endYear": null
+  },
+  {
+    "id": "han-dw",
+    "name": {
+      "en": "Daewon Han",
+      "ko": "한대원"
+    },
+    "role": "Undergraduate",
+    "status": "current",
+    "program": "BS",
+    "email": "dwhan@example.edu",
+    "website": "",
+    "interests": {
+      "en": ["AI Compiler", "Benchmarking"],
+      "ko": ["AI 컴파일러", "벤치마킹"]
+    },
+    "photo": "",
+    "startYear": 2025,
+    "endYear": null
+  },
+  {
+    "id": "yoon-hs",
+    "name": {
+      "en": "Hyesu Yoon",
+      "ko": "윤혜수"
+    },
+    "role": "Alumni",
+    "status": "alumni",
+    "program": "MS",
+    "email": "",
+    "website": "https://example.com/hyesu-yoon",
+    "interests": {
+      "en": ["Federated Learning"],
+      "ko": ["연합학습"]
+    },
+    "photo": "",
+    "startYear": 2022,
+    "endYear": 2025
+  },
+  {
+    "id": "jung-wh",
+    "name": {
+      "en": "Woojin Jung",
+      "ko": "정우진"
+    },
+    "role": "Alumni",
+    "status": "alumni",
+    "program": "BS",
+    "email": "",
+    "website": "",
+    "interests": {
+      "en": ["Edge Scheduling"],
+      "ko": ["엣지 스케줄링"]
+    },
+    "photo": "",
+    "startYear": 2021,
+    "endYear": 2024
+  }
+]

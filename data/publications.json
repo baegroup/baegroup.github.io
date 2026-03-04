@@ -1,0 +1,77 @@
+[
+  {
+    "id": "2026-iotj-lee",
+    "year": 2026,
+    "type": "journal",
+    "title": {
+      "en": "Adaptive Edge Orchestration for Reliable Urban Sensing",
+      "ko": "신뢰 가능한 도시 센싱을 위한 적응형 엣지 오케스트레이션"
+    },
+    "authors": ["S. Lee", "M. Choi", "J. Kim"],
+    "venue": "IEEE Internet of Things Journal",
+    "doi": "10.1109/JIOT.2026.000001",
+    "url": "https://doi.org/10.1109/JIOT.2026.000001",
+    "labAuthors": ["lee-sy", "choi-mj", "kim-jh"],
+    "featured": true
+  },
+  {
+    "id": "2025-icra-choi",
+    "year": 2025,
+    "type": "conference",
+    "title": {
+      "en": "Failure-Aware Inference Scheduling in Heterogeneous Robot Fleets",
+      "ko": "이기종 로봇 군집에서의 장애 인지 추론 스케줄링"
+    },
+    "authors": ["M. Choi", "J. Park", "J. Kim"],
+    "venue": "Proceedings of ICRA 2025",
+    "doi": "10.1109/ICRA.2025.123456",
+    "url": "https://example.org/papers/2025-icra-choi",
+    "labAuthors": ["choi-mj", "park-jy", "kim-jh"],
+    "featured": true
+  },
+  {
+    "id": "2025-arxiv-park",
+    "year": 2025,
+    "type": "preprint",
+    "title": {
+      "en": "Privacy-Constrained Data Curation for Continual Learning",
+      "ko": "지속학습을 위한 프라이버시 제약 데이터 큐레이션"
+    },
+    "authors": ["J. Park", "S. Lee", "J. Kim"],
+    "venue": "arXiv preprint arXiv:2508.01234",
+    "doi": "",
+    "url": "https://arxiv.org/abs/2508.01234",
+    "labAuthors": ["park-jy", "lee-sy", "kim-jh"],
+    "featured": false
+  },
+  {
+    "id": "2024-kipo-kim",
+    "year": 2024,
+    "type": "patent",
+    "title": {
+      "en": "Method and System for Energy-Aware Federated Edge Learning",
+      "ko": "에너지 인지형 연합 엣지 학습 방법 및 시스템"
+    },
+    "authors": ["J. Kim", "H. Yoon"],
+    "venue": "Korean Intellectual Property Office",
+    "doi": "",
+    "url": "https://example.org/patents/energy-federated-edge",
+    "labAuthors": ["kim-jh", "yoon-hs"],
+    "featured": false
+  },
+  {
+    "id": "2024-ieeeaccess-lee",
+    "year": 2024,
+    "type": "journal",
+    "title": {
+      "en": "Transparent Runtime Diagnostics for Distributed Model Serving",
+      "ko": "분산 모델 서빙을 위한 투명한 런타임 진단 기법"
+    },
+    "authors": ["S. Lee", "W. Jung", "J. Kim"],
+    "venue": "IEEE Access",
+    "doi": "10.1109/ACCESS.2024.987654",
+    "url": "https://doi.org/10.1109/ACCESS.2024.987654",
+    "labAuthors": ["lee-sy", "jung-wh", "kim-jh"],
+    "featured": false
+  }
+]
