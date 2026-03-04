@@ -1,79 +1,72 @@
-# Content Update Guide
+# Content Update Guide (Obsidian Friendly)
 
-This guide explains how to update Bae Lab content without changing React page code.
+This project separates content editing from React code.
 
-## 1) Update Members
+## 1) Edit Site Text in Obsidian
 
-Edit:
+Use these folders as your content source:
+
+- `content/en/*.md`
+- `content/ko/*.md`
+
+Recommended files to edit:
+
+- `home.md`: hero text, home cards, home news summary
+- `news.md`: news page items
+- `research.md`: research cards and methods
+- `members.md`: members page labels (not member list data)
+- `publications.md`: publications page labels (not publication list data)
+- `contact.md`: global bottom contact section labels/text
+- `brand.md`: lab title/subtitle in header/footer
+- `navigation.md`: top menu labels
+
+## 2) Generate App Content
+
+After editing Markdown, run:
+
+```bash
+npm run content:build
+```
+
+This updates:
+
+- `src/content/site-content.generated.json`
+
+Notes:
+
+- `npm run dev` automatically runs content generation once at startup.
+- If dev server is already running, rerun `npm run content:build` and refresh.
+
+## 3) Update Members and Publications Data
+
+These are separate from page text:
 
 - `public/data/members.json`
-
-Required fields per member:
-
-- `id`: unique identifier (`kebab-case`)
-- `name.en`, `name.ko`: English/Korean names
-- `role`: `PI`, `Researcher`, `Graduate`, `Undergraduate`, `Alumni`
-- `status`: `current` or `alumni`
-- `program`: `PhD`, `MSPhD`, `MS`, `BS`, `Staff`
-- `startYear`: year joined
-
-Optional fields:
-
-- `email`, `website`, `interests.en`, `interests.ko`, `photo`, `endYear`
-
-Photo policy:
-
-- If `photo` is missing or broken, initials avatar is shown automatically.
-- Recommended path format: `/assets/img/members/<file-name>.jpg`
-
-## 2) Update Publications
-
-Edit:
-
 - `public/data/publications.json`
 
-Required fields per publication:
+### Members required fields
 
-- `id`: unique identifier
-- `year`: publication year (number)
-- `type`: `conference`, `journal`, `preprint`, `patent`
-- `title.en`, `title.ko`
-- `authors`: author array in citation order
-- `venue`
+- `id`, `name.en`, `name.ko`, `role`, `status`, `program`, `startYear`
 
-Optional fields:
+### Publications required fields
 
-- `doi`, `url`, `labAuthors`, `featured`
+- `id`, `year`, `type`, `title.en`, `title.ko`, `authors`, `venue`
 
-Display behavior:
-
-- Publications are sorted by year descending.
-- IEEE-style citation string is generated automatically.
-- Type filters are available in both language pages.
-
-## 3) Local Check Before Push
-
-1. Install dependencies:
+## 4) Local Verification
 
 ```bash
-npm install
+npm run build
 ```
 
-2. Run local server:
-
-```bash
-npm run dev
-```
-
-3. Confirm:
+Check:
 
 - `/` redirects to `/en`
 - language switch works (`/en` <-> `/ko`)
-- members and publications render correctly
-- mobile nav menu opens/closes correctly
+- news page and bottom contact section render correctly
+- members/publications data render correctly
 
-## 4) Deploy
+## 5) Deploy
 
 1. Commit and push to `main`
 2. Confirm GitHub Action `Deploy GitHub Pages` passes
-3. Verify production URL and data rendering
+3. Verify production URL
