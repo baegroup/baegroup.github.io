@@ -28,7 +28,7 @@ function MemberItem({ member, locale }) {
       </div>
       <div>
         <p className="font-semibold text-slate-950">{member.localizedName}</p>
-        <p className="text-sm text-slate-600">{member.programLabel || member.roleLabel}</p>
+        <p className="text-base text-slate-600">{member.programLabel || member.roleLabel}</p>
         <div className="mt-2 flex flex-wrap gap-1.5">
           <Badge variant="outline">{period}</Badge>
           {member.localizedInterests.map((item) => (
@@ -59,7 +59,7 @@ function MemberGroupList({ groups, locale }) {
     <div className="space-y-4">
       {groups.map((group) => (
         <section className="rounded-md border border-border bg-slate-50/60 p-3" key={group.role}>
-          <h3 className="font-serif text-xl font-semibold text-slate-900">{group.label}</h3>
+          <h3 className="text-xl font-semibold text-slate-900">{group.label}</h3>
           <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {group.members.map((member) => (
               <MemberItem key={member.id} locale={locale} member={member} />
@@ -126,10 +126,10 @@ export function MembersPage({ locale }) {
               <TabsTrigger value="alumni">{alumniLabel}</TabsTrigger>
             </TabsList>
             <TabsContent value={status}>
-              {loading ? <p className="rounded-md border border-dashed border-border p-4 text-sm text-slate-600">{content.loading}</p> : null}
-              {!loading && error ? <p className="rounded-md border border-red-200 bg-red-50 p-4 text-sm text-red-700">{error}</p> : null}
+              {loading ? <p className="rounded-md border border-dashed border-border p-4 text-base text-slate-600">{content.loading}</p> : null}
+              {!loading && error ? <p className="rounded-md border border-red-200 bg-red-50 p-4 text-base text-red-700">{error}</p> : null}
               {!loading && !error && groups.length === 0 ? (
-                <p className="rounded-md border border-dashed border-border p-4 text-sm text-slate-600">{content.empty}</p>
+                <p className="rounded-md border border-dashed border-border p-4 text-base text-slate-600">{content.empty}</p>
               ) : null}
               {!loading && !error && groups.length > 0 ? <MemberGroupList groups={groups} locale={locale} /> : null}
             </TabsContent>

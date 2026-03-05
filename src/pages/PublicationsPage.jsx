@@ -20,12 +20,12 @@ function PublicationList({ items, locale, paperLabel }) {
     <div className="space-y-4">
       {years.map((year) => (
         <section key={year}>
-          <h3 className="mb-2 border-l-4 border-[#0b3a64] pl-2 font-serif text-2xl font-semibold text-slate-900">{year}</h3>
+          <h3 className="mb-2 border-l-4 border-[#0b3a64] pl-2 text-2xl font-semibold text-slate-900">{year}</h3>
           <ol className="grid gap-2">
             {grouped.get(year).map((pub) => (
               <li className="rounded-md border border-border bg-white p-4" key={pub.id}>
                 <p className="font-semibold text-slate-900">{pub.localizedTitle}</p>
-                <p className="mt-1 text-sm text-slate-600 md:text-base">{pub.citation}</p>
+                <p className="mt-1 text-base text-slate-600">{pub.citation}</p>
                 <div className="mt-2 flex flex-wrap gap-3 text-xs font-semibold text-[#0b3a64]">
                   {pub.doi ? (
                     <a href={`https://doi.org/${pub.doi}`} rel="noreferrer" target="_blank">
@@ -109,10 +109,10 @@ export function PublicationsPage({ locale }) {
               ))}
             </TabsList>
             <TabsContent value={filter}>
-              {loading ? <p className="rounded-md border border-dashed border-border p-4 text-sm text-slate-600">{content.loading}</p> : null}
-              {!loading && error ? <p className="rounded-md border border-red-200 bg-red-50 p-4 text-sm text-red-700">{error}</p> : null}
+              {loading ? <p className="rounded-md border border-dashed border-border p-4 text-base text-slate-600">{content.loading}</p> : null}
+              {!loading && error ? <p className="rounded-md border border-red-200 bg-red-50 p-4 text-base text-red-700">{error}</p> : null}
               {!loading && !error && items.length === 0 ? (
-                <p className="rounded-md border border-dashed border-border p-4 text-sm text-slate-600">{content.empty}</p>
+                <p className="rounded-md border border-dashed border-border p-4 text-base text-slate-600">{content.empty}</p>
               ) : null}
               {!loading && !error && items.length > 0 ? (
                 <PublicationList items={items} locale={locale} paperLabel={content.paperLink} />

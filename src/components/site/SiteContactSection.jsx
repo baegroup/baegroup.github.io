@@ -33,7 +33,7 @@ export function SiteContactSection({ locale }) {
     <section className="mx-auto mb-4 mt-4 w-full max-w-6xl px-5" id="site-contact">
       <div className="rounded-lg border border-border bg-white/95 px-5 py-5 shadow-soft md:px-7 md:py-6">
         <div className="mb-5 border-b border-border pb-4">
-          <h2 className="font-serif text-3xl font-semibold tracking-tight text-slate-950">Bae Lab</h2>
+          <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Bae Lab</h2>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">

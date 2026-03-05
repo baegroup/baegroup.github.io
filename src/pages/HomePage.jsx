@@ -31,7 +31,7 @@ export function HomePage({ locale }) {
             {content.newsItems.map((item) => (
               <li className="rounded-md border border-border bg-white px-4 py-3" key={`${item.date}-${item.text}`}>
                 <p className="text-xs font-bold uppercase tracking-wide text-[#1d4f7a]">{item.date}</p>
-                <p className="mt-1 text-sm text-slate-600 md:text-base">{item.text}</p>
+                <p className="mt-1 text-base text-slate-600">{item.text}</p>
               </li>
             ))}
           </ul>
@@ -44,7 +44,7 @@ export function HomePage({ locale }) {
             <CardTitle>{content.focusTitle}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p className="text-sm text-slate-600 md:text-base">{content.focusDescription}</p>
+            <p className="text-base text-slate-600">{content.focusDescription}</p>
             <Button asChild size="sm" variant="outline">
               <Link to={pagePath(locale, 'research')}>{content.focusCta}</Link>
             </Button>
@@ -56,7 +56,7 @@ export function HomePage({ locale }) {
             <CardTitle>{content.joinTitle}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p className="text-sm text-slate-600 md:text-base">{content.joinDescription}</p>
+            <p className="text-base text-slate-600">{content.joinDescription}</p>
             <Button asChild size="sm" variant="outline">
               <a href="#site-contact">{content.joinCta}</a>
             </Button>

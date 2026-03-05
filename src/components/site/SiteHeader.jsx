@@ -25,8 +25,8 @@ export function SiteHeader({ locale }) {
     <header className="sticky top-0 z-50 border-b border-slate-200/90 bg-white/90 backdrop-blur-md">
       <div className="border-b border-[#68101b] bg-[#7a0f1f]">
         <div className="mx-auto flex h-8 w-full max-w-6xl items-center justify-between px-5 md:h-9">
-          <p className="font-serif text-sm font-semibold tracking-[0.01em] text-white">{universityLabel}</p>
-          <p className="text-[11px] font-medium tracking-[0.08em] text-white/85 max-md:hidden">{affiliationLabel}</p>
+          <p className="text-sm font-semibold tracking-[0.01em] text-white">{universityLabel}</p>
+          <p className="text-xs font-medium tracking-[0.08em] text-white/85 max-md:hidden">{affiliationLabel}</p>
         </div>
       </div>
 
@@ -37,7 +37,7 @@ export function SiteHeader({ locale }) {
           to={pagePath(locale, '')}
         >
           <img alt="Bae Lab logo" className="h-20 w-20 object-contain md:h-24 md:w-24" src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`} />
-          <p className="max-w-[360px] text-[11px] font-medium uppercase tracking-[0.10em] text-slate-600 max-md:hidden md:text-xs">{tagline}</p>
+          <p className="max-w-[360px] text-xs font-medium uppercase tracking-[0.10em] text-slate-600 max-md:hidden">{tagline}</p>
           <span className="sr-only">{isKorean ? '배랩 메인으로 이동' : 'Go to Bae Lab home'}</span>
         </Link>
 

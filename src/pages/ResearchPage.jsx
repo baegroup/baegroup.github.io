@@ -16,7 +16,7 @@ export function ResearchPage({ locale }) {
               <CardTitle>{card.title}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-slate-600 md:text-base">{card.body}</p>
+              <p className="text-base text-slate-600">{card.body}</p>
             </CardContent>
           </Card>
         ))}
@@ -30,8 +30,8 @@ export function ResearchPage({ locale }) {
           <ul className="grid gap-3">
             {content.methods.map((method) => (
               <li className="rounded-md border border-border px-4 py-3" key={method.title}>
-                <p className="text-sm font-semibold text-slate-900 md:text-base">{method.title}</p>
-                <p className="mt-1 text-sm text-slate-600 md:text-base">{method.body}</p>
+                <p className="text-base font-semibold text-slate-900">{method.title}</p>
+                <p className="mt-1 text-base text-slate-600">{method.body}</p>
               </li>
             ))}
           </ul>
