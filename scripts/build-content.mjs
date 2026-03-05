@@ -197,7 +197,8 @@ async function build() {
 
     output.BRAND[locale] = {
       name: readString(brand, 'name'),
-      subtitle: readString(brand, 'subtitle')
+      subtitle: readString(brand, 'subtitle'),
+      tagline: readString(brand, 'tagline')
     };
 
     output.HOME_CONTENT[locale] = {

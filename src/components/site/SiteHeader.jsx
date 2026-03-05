@@ -4,13 +4,15 @@ import { Languages, Menu, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { NAV_ITEMS } from '@/content/site-content';
+import { BRAND, NAV_ITEMS } from '@/content/site-content';
 import { pagePath, switchLocalePath } from '@/lib/i18n';
 
 export function SiteHeader({ locale }) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const isKorean = locale === 'ko';
+  const brand = BRAND[locale] || BRAND.en || {};
+  const tagline = (brand.tagline || '').trim() || 'Functional Materials Additive Manufacturing';
   const universityLabel = isKorean ? '경희대학교' : 'Kyung Hee University';
   const affiliationLabel = isKorean ? '화학공학과' : 'Department of Chemical Engineering';
 
@@ -21,8 +23,8 @@ export function SiteHeader({ locale }) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/90 bg-white/90 backdrop-blur-md">
-      <div className="border-b border-[#7f1121] bg-gradient-to-r from-[#7a0f1f] via-[#98132a] to-[#7a0f1f]">
-        <div className="mx-auto flex h-9 w-full max-w-6xl items-center justify-between px-5">
+      <div className="border-b border-[#68101b] bg-[#7a0f1f]">
+        <div className="mx-auto flex h-8 w-full max-w-6xl items-center justify-between px-5 md:h-9">
           <p className="font-serif text-sm font-semibold tracking-[0.01em] text-white">{universityLabel}</p>
           <p className="text-[11px] font-medium tracking-[0.08em] text-white/85 max-md:hidden">{affiliationLabel}</p>
         </div>
@@ -31,10 +33,11 @@ export function SiteHeader({ locale }) {
       <div className="mx-auto flex min-h-24 w-full max-w-6xl items-center justify-between px-5 md:min-h-28">
         <Link
           aria-label={isKorean ? '배랩 홈페이지' : 'Bae Lab home'}
-          className="flex items-center no-underline"
+          className="flex items-center gap-3.5 no-underline md:gap-4"
           to={pagePath(locale, '')}
         >
           <img alt="Bae Lab logo" className="h-20 w-20 object-contain md:h-24 md:w-24" src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`} />
+          <p className="max-w-[360px] text-[11px] font-medium uppercase tracking-[0.10em] text-slate-600 max-md:hidden md:text-xs">{tagline}</p>
           <span className="sr-only">{isKorean ? '배랩 메인으로 이동' : 'Go to Bae Lab home'}</span>
         </Link>
 
@@ -42,7 +45,7 @@ export function SiteHeader({ locale }) {
           <Button
             aria-controls="site-nav"
             aria-expanded={open}
-            className="md:hidden"
+            className="border-slate-200 text-slate-700 hover:bg-slate-50 md:hidden"
             onClick={() => setOpen((value) => !value)}
             size="icon"
             type="button"
@@ -54,9 +57,9 @@ export function SiteHeader({ locale }) {
 
           <ul
             className={cn(
-              'hidden items-center gap-1 md:flex md:rounded-full md:border md:border-slate-200 md:bg-white/75 md:px-2 md:py-1 md:shadow-[0_12px_28px_-20px_rgba(2,6,23,0.55)]',
+              'hidden md:flex md:items-center md:gap-6',
               open &&
-                'absolute right-0 top-12 z-40 flex w-56 flex-col rounded-lg border border-border bg-white p-2 shadow-soft md:static md:w-auto md:flex-row md:rounded-full md:border-slate-200 md:bg-white/75 md:px-2 md:py-1 md:shadow-[0_12px_28px_-20px_rgba(2,6,23,0.55)]'
+                'absolute right-0 top-12 z-40 flex w-56 flex-col gap-1 rounded-lg border border-slate-200 bg-white p-2 shadow-soft md:static md:w-auto md:flex-row md:items-center md:gap-6 md:border-0 md:bg-transparent md:p-0 md:shadow-none'
             )}
             id="site-nav"
           >
@@ -65,8 +68,8 @@ export function SiteHeader({ locale }) {
                 <NavLink
                   className={({ isActive }) =>
                     cn(
-                      'inline-flex w-full rounded-md border border-transparent px-3 py-2 text-sm font-semibold text-slate-700 no-underline transition-colors hover:border-border hover:bg-slate-50',
-                      isActive && 'border-[#0b3a64]/20 bg-[#0b3a64]/10 text-[#0b3a64]'
+                      'inline-flex w-full items-center rounded-md px-3 py-2 text-sm font-medium text-slate-700 no-underline transition-colors hover:bg-slate-50 hover:text-[#0b3a64] md:w-auto md:rounded-none md:border-b-2 md:border-transparent md:px-0 md:py-1 md:hover:bg-transparent',
+                      isActive && 'bg-slate-50 text-[#0b3a64] md:border-b-[#0b3a64] md:bg-transparent md:font-semibold'
                     )
                   }
                   end={item.slug === ''}
@@ -79,11 +82,11 @@ export function SiteHeader({ locale }) {
             ))}
             <li className="w-full md:w-auto">
               <Link
-                className="inline-flex w-full items-center gap-1.5 rounded-md border border-border px-3 py-2 text-sm font-semibold text-slate-800 no-underline hover:bg-slate-50"
+                className="inline-flex w-full items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-slate-700 no-underline transition-colors hover:bg-slate-50 hover:text-[#0b3a64] md:w-auto md:rounded-none md:px-0 md:py-1 md:hover:bg-transparent"
                 onClick={() => setOpen(false)}
                 to={localePath}
               >
-                <Languages className="h-4 w-4" />
+                <Languages className="h-3.5 w-3.5" />
                 {languageLabel}
               </Link>
             </li>

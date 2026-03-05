@@ -5,3 +5,6 @@
 
 ## subtitle
 경희대학교 화학공학과
+
+## tagline
+Functional Materials Additive Manufacturing
