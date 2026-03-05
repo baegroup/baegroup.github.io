@@ -1,20 +1,22 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { HOME_MEDIA, resolveHomeMedia } from '@/content/home-media';
+import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { pagePath } from '@/lib/i18n';
 
 function ResearchAreaCard({ card, imagePath, locale }) {
-  const [broken, setBroken] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
+  const imageCandidates = mediaCandidates(imagePath);
+  const exhausted = imageIndex >= imageCandidates.length;
 
   return (
     <article className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-soft">
-      {!broken ? (
+      {!exhausted ? (
         <img
           alt={card.title}
           className="aspect-[16/10] w-full object-cover"
-          onError={() => setBroken(true)}
-          src={resolveHomeMedia(imagePath)}
+          onError={() => setImageIndex((index) => index + 1)}
+          src={imageCandidates[imageIndex]}
         />
       ) : (
         <div className="flex aspect-[16/10] items-center justify-center bg-slate-100 text-sm font-medium text-slate-500">

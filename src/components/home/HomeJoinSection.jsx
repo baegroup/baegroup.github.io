@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { HOME_MEDIA, resolveHomeMedia } from '@/content/home-media';
+import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { pagePath } from '@/lib/i18n';
 
 export function HomeJoinSection({ content, locale }) {
-  const [broken, setBroken] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
+  const joinImages = mediaCandidates(HOME_MEDIA.joinTeam);
+  const exhausted = imageIndex >= joinImages.length;
   const secondaryLabel = locale === 'ko' ? '연구실 문화 보기' : 'Our Lab Culture';
 
   return (
@@ -29,12 +31,12 @@ export function HomeJoinSection({ content, locale }) {
         </div>
       </div>
 
-      {!broken ? (
+      {!exhausted ? (
         <img
           alt={content.joinTitle}
           className="aspect-[16/10] w-full rounded-md object-cover"
-          onError={() => setBroken(true)}
-          src={resolveHomeMedia(HOME_MEDIA.joinTeam)}
+          onError={() => setImageIndex((index) => index + 1)}
+          src={joinImages[imageIndex]}
         />
       ) : (
         <div className="flex aspect-[16/10] w-full items-center justify-center rounded-md bg-slate-100 text-sm font-medium text-slate-500">

@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { HOME_MEDIA, resolveHomeMedia } from '@/content/home-media';
+import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { pagePath } from '@/lib/i18n';
 
 export function HomeNewsSection({ content, locale }) {
-  const [broken, setBroken] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
+  const featuredImages = mediaCandidates(HOME_MEDIA.newsFeatured);
+  const exhausted = imageIndex >= featuredImages.length;
   const items = content.items || [];
   const featured = items[0];
   const listItems = items.slice(1, 5);
@@ -27,12 +29,12 @@ export function HomeNewsSection({ content, locale }) {
 
       {featured ? (
         <article className="grid overflow-hidden rounded-lg border border-slate-200 bg-white shadow-soft md:grid-cols-[1.1fr_1fr]">
-          {!broken ? (
+          {!exhausted ? (
             <img
               alt={featured.title}
               className="h-full w-full object-cover"
-              onError={() => setBroken(true)}
-              src={resolveHomeMedia(HOME_MEDIA.newsFeatured)}
+              onError={() => setImageIndex((index) => index + 1)}
+              src={featuredImages[imageIndex]}
             />
           ) : (
             <div className="flex min-h-52 items-center justify-center bg-slate-100 text-sm font-medium text-slate-500">

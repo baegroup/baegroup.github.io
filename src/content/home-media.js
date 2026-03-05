@@ -12,3 +12,15 @@ export const HOME_MEDIA = {
 export function resolveHomeMedia(path) {
   return `${import.meta.env.BASE_URL}${path}`;
 }
+
+const SUPPORTED_IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp'];
+
+export function mediaCandidates(path) {
+  const dotIndex = path.lastIndexOf('.');
+  if (dotIndex < 0) {
+    return [resolveHomeMedia(path)];
+  }
+
+  const basePath = path.slice(0, dotIndex);
+  return SUPPORTED_IMAGE_EXTENSIONS.map((ext) => resolveHomeMedia(`${basePath}.${ext}`));
+}

@@ -83,10 +83,10 @@ These remain JSON data files (not page text):
 
 Replace image files below to update the homepage sections:
 
-- Hero background: `public/assets/img/home/hero/cover.jpg`
-- Research cards: `public/assets/img/home/research/area-1.jpg`, `area-2.jpg`, `area-3.jpg`
-- Featured news image: `public/assets/img/home/news/featured.jpg`
-- Join section image: `public/assets/img/home/join/team.jpg`
+- Hero background: `public/assets/img/home/hero/cover.[jpg|jpeg|png|webp]`
+- Research cards: `public/assets/img/home/research/area-1.[jpg|jpeg|png|webp]`, `area-2.*`, `area-3.*`
+- Featured news image: `public/assets/img/home/news/featured.[jpg|jpeg|png|webp]`
+- Join section image: `public/assets/img/home/join/team.[jpg|jpeg|png|webp]`
 
 Recommended image sizes:
 
@@ -95,7 +95,7 @@ Recommended image sizes:
 - Featured news: 1600x1000
 - Join: 1800x1125 (16:10 ratio)
 
-Keep filenames unchanged for automatic updates.
+Keep base filenames unchanged (`cover`, `area-1`, `area-2`, `area-3`, `featured`, `team`). Extension can be jpg/jpeg/png/webp.
 
 ## 7) Home News Rule
 

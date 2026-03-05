@@ -34,14 +34,14 @@ npm run publish:dry
 
 Replace these fixed files to update the homepage visuals:
 
-- `public/assets/img/home/hero/cover.jpg`
-- `public/assets/img/home/research/area-1.jpg`
-- `public/assets/img/home/research/area-2.jpg`
-- `public/assets/img/home/research/area-3.jpg`
-- `public/assets/img/home/news/featured.jpg`
-- `public/assets/img/home/join/team.jpg`
+- `public/assets/img/home/hero/cover.[jpg|jpeg|png|webp]`
+- `public/assets/img/home/research/area-1.[jpg|jpeg|png|webp]`
+- `public/assets/img/home/research/area-2.[jpg|jpeg|png|webp]`
+- `public/assets/img/home/research/area-3.[jpg|jpeg|png|webp]`
+- `public/assets/img/home/news/featured.[jpg|jpeg|png|webp]`
+- `public/assets/img/home/join/team.[jpg|jpeg|png|webp]`
 
-No code or path changes are needed if filenames stay the same.
+No code or path changes are needed if base filenames stay the same.
 
 ## Quick Start
 

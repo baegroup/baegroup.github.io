@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { HOME_MEDIA, resolveHomeMedia } from '@/content/home-media';
+import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { pagePath } from '@/lib/i18n';
 
 export function HomeHeroSection({ content, locale }) {
-  const [broken, setBroken] = useState(false);
-  const heroImage = resolveHomeMedia(HOME_MEDIA.heroCover);
+  const [imageIndex, setImageIndex] = useState(0);
+  const heroImages = mediaCandidates(HOME_MEDIA.heroCover);
+  const exhausted = imageIndex >= heroImages.length;
 
   return (
     <section className="relative overflow-hidden rounded-lg border border-slate-200 bg-slate-900 shadow-soft">
-      {!broken ? (
+      {!exhausted ? (
         <img
           alt={content.title}
           className="absolute inset-0 h-full w-full object-cover"
-          onError={() => setBroken(true)}
-          src={heroImage}
+          onError={() => setImageIndex((index) => index + 1)}
+          src={heroImages[imageIndex]}
         />
       ) : null}
       <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/75 to-slate-900/55" />
