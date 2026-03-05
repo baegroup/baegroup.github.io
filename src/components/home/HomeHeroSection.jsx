@@ -2,15 +2,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { pagePath } from '@/lib/i18n';
 
-export function HomeHeroSection({ content, locale }) {
+export function HomeHeroSection({ content, locale, revealDelay = 0 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const heroImages = mediaCandidates(HOME_MEDIA.heroCover);
   const exhausted = imageIndex >= heroImages.length;
+  const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   return (
-    <section className="relative overflow-hidden rounded-lg border border-slate-200 bg-slate-900 shadow-soft">
+    <section className={`relative overflow-hidden rounded-lg border border-slate-200 bg-slate-900 shadow-soft ${revealClassName}`} ref={ref} style={revealStyle}>
       {!exhausted ? (
         <img
           alt={content.title}

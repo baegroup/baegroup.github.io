@@ -2,20 +2,22 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { pagePath } from '@/lib/i18n';
 
-export function HomeJoinSection({ content, locale }) {
+export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const joinImages = mediaCandidates(HOME_MEDIA.joinTeam);
   const exhausted = imageIndex >= joinImages.length;
   const secondaryLabel = locale === 'ko' ? '연구실 문화 보기' : 'Our Lab Culture';
+  const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   return (
-    <section className="grid gap-6 rounded-lg border border-slate-200 bg-white px-6 py-6 shadow-soft md:grid-cols-2 md:items-center md:px-8 md:py-8">
+    <section className={`grid gap-5 rounded-lg border border-slate-200 bg-white px-5 py-5 shadow-soft md:grid-cols-2 md:items-center md:gap-6 md:px-7 md:py-7 ${revealClassName}`} ref={ref} style={revealStyle}>
       <div>
-        <h2 className="text-4xl font-semibold tracking-tight text-slate-950">{content.joinTitle}</h2>
-        <p className="mt-4 text-base text-slate-600 md:text-lg">{content.joinDescription}</p>
-        <div className="mt-6 flex flex-wrap gap-2.5">
+        <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">{content.joinTitle}</h2>
+        <p className="mt-3.5 text-base text-slate-600 md:text-lg">{content.joinDescription}</p>
+        <div className="mt-5 flex flex-wrap gap-2.5">
           <a
             className="inline-flex h-11 items-center rounded-full bg-[#7a0f1f] px-6 text-sm font-semibold text-white no-underline transition-colors hover:bg-[#68101b]"
             href="#site-contact"

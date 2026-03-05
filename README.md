@@ -43,6 +43,12 @@ Replace these fixed files to update the homepage visuals:
 
 No code or path changes are needed if base filenames stay the same.
 
+## Home Motion and News Layout
+
+- Homepage sections use subtle reveal motion on first viewport entry.
+- If `prefers-reduced-motion` is enabled, motion is automatically disabled.
+- Home news is rendered as one compact board: `1 featured + 3 rows`.
+
 ## Quick Start
 
 ```bash

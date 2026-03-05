@@ -10,11 +10,13 @@ export function HomePage({ locale }) {
   const newsContent = NEWS_CONTENT[locale];
 
   return (
-    <>
-      <HomeHeroSection content={homeContent} locale={locale} />
-      <HomeResearchAreasSection content={researchContent} locale={locale} />
-      <HomeNewsSection content={newsContent} locale={locale} />
-      <HomeJoinSection content={homeContent} locale={locale} />
-    </>
+    <div className="space-y-8 md:space-y-12 xl:space-y-14">
+      <HomeHeroSection content={homeContent} locale={locale} revealDelay={0} />
+      <div className="pt-1 md:pt-2">
+        <HomeResearchAreasSection content={researchContent} locale={locale} revealDelay={70} />
+      </div>
+      <HomeNewsSection content={newsContent} locale={locale} revealDelay={120} />
+      <HomeJoinSection content={homeContent} locale={locale} revealDelay={170} />
+    </div>
   );
 }

@@ -102,11 +102,18 @@ Keep base filenames unchanged (`cover`, `area-1`, `area-2`, `area-3`, `featured`
 Homepage news renders as:
 
 - 1 featured card (latest item in `content/*/news.md`)
-- 4 text items (next four latest items)
+- 3 compact rows (next three latest items)
 
-Add at least 5 items in `news.md` to fully populate the section.
+Add at least 4 items in `news.md` to fully populate the section.
 
-## 8) Verify
+## 8) Home Motion (Accessibility)
+
+Homepage sections use subtle reveal motion on scroll.
+
+- Motion runs once when each section enters viewport.
+- If OS setting `Reduce Motion` is enabled, animations are disabled automatically.
+
+## 9) Verify
 
 ```bash
 npm run build

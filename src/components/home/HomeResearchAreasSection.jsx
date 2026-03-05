@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { pagePath } from '@/lib/i18n';
 
 function ResearchAreaCard({ card, imagePath, locale }) {
@@ -23,27 +24,28 @@ function ResearchAreaCard({ card, imagePath, locale }) {
           {locale === 'ko' ? '이미지 준비 중' : 'Image Placeholder'}
         </div>
       )}
-      <div className="p-5">
-        <h3 className="text-2xl font-semibold tracking-tight text-slate-950">{card.title}</h3>
-        <p className="mt-3 text-base text-slate-600">{card.body}</p>
+      <div className="p-4 md:p-5">
+        <h3 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{card.title}</h3>
+        <p className="mt-2.5 text-base leading-relaxed text-slate-600">{card.body}</p>
       </div>
     </article>
   );
 }
 
-export function HomeResearchAreasSection({ content, locale }) {
+export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
   const cards = (content.cards || []).slice(0, 3);
   const title = locale === 'ko' ? '연구 분야' : 'Research Area';
   const learnMoreLabel = locale === 'ko' ? '연구 더보기' : 'Learn more about our research';
   const publicationLabel = locale === 'ko' ? '논문 전체 보기' : 'See all publications';
+  const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   if (!cards.length) {
     return null;
   }
 
   return (
-    <section className="space-y-5">
-      <h2 className="text-4xl font-semibold tracking-tight text-slate-950">{title}</h2>
+    <section className={`space-y-5 ${revealClassName}`} ref={ref} style={revealStyle}>
+      <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">{title}</h2>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {cards.map((card, index) => (
           <ResearchAreaCard
