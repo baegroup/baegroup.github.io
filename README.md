@@ -1,6 +1,6 @@
 # Bae Lab Website (React + shadcn/ui + Obsidian Content)
 
-Bilingual (`/en`, `/ko`) website for **Bae Lab for Electrochemical Energy Storage**.
+Bilingual (`/en`, `/ko`) website for **Bae Lab**.
 The site runs on **React + Vite + Tailwind + shadcn/ui** and deploys with GitHub Pages.
 
 ## Tech Stack
