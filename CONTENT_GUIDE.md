@@ -79,7 +79,34 @@ These remain JSON data files (not page text):
 - `public/data/members.json`
 - `public/data/publications.json`
 
-## 6) Verify
+## 6) Homepage Image Update (Fixed Filenames)
+
+Replace image files below to update the homepage sections:
+
+- Hero background: `public/assets/img/home/hero/cover.jpg`
+- Research cards: `public/assets/img/home/research/area-1.jpg`, `area-2.jpg`, `area-3.jpg`
+- Featured news image: `public/assets/img/home/news/featured.jpg`
+- Join section image: `public/assets/img/home/join/team.jpg`
+
+Recommended image sizes:
+
+- Hero: 2400x1200 (or wider, 2:1 ratio)
+- Research cards: 1600x1000 each
+- Featured news: 1600x1000
+- Join: 1800x1125 (16:10 ratio)
+
+Keep filenames unchanged for automatic updates.
+
+## 7) Home News Rule
+
+Homepage news renders as:
+
+- 1 featured card (latest item in `content/*/news.md`)
+- 4 text items (next four latest items)
+
+Add at least 5 items in `news.md` to fully populate the section.
+
+## 8) Verify
 
 ```bash
 npm run build

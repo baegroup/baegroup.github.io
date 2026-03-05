@@ -30,6 +30,19 @@ If you want generation only:
 npm run publish:dry
 ```
 
+## Home Media Update
+
+Replace these fixed files to update the homepage visuals:
+
+- `public/assets/img/home/hero/cover.jpg`
+- `public/assets/img/home/research/area-1.jpg`
+- `public/assets/img/home/research/area-2.jpg`
+- `public/assets/img/home/research/area-3.jpg`
+- `public/assets/img/home/news/featured.jpg`
+- `public/assets/img/home/join/team.jpg`
+
+No code or path changes are needed if filenames stay the same.
+
 ## Quick Start
 
 ```bash
@@ -60,6 +73,7 @@ npm run preview
 - `/src/pages/*`: page implementations
 - `/public/data/members.json`: member data
 - `/public/data/publications.json`: publication data
+- `/public/assets/img/home/*`: homepage media (replace by fixed filename)
 - `/.github/workflows/pages.yml`: GitHub Pages build/deploy workflow
 
 ## GitHub Pages

@@ -59,70 +59,68 @@
   },
   "HOME_CONTENT": {
     "en": {
-      "title": "Bae Lab for Electrochemical Energy Storage",
-      "description": "We develop core materials and diagnostics technologies for next-generation rechargeable batteries, including all-solid-state batteries, electrolyte design, computational simulation, and battery safety.",
+      "title": "Advancing Printing Technologies for Energy, Environment, and Biology",
+      "description": "Bae Lab develops functional materials and additive manufacturing strategies that make hard-to-print systems manufacturable for real-world impact across energy, environmental, and biomedical applications.",
       "tags": [
-        "All-Solid-State Batteries",
-        "Electrolyte Additives",
-        "Battery Simulation",
-        "Condition Diagnosis"
+        "Printing Technology",
+        "Energy & Environmental Technology",
+        "Bio Technology"
       ],
       "primaryCta": "Explore Research",
       "secondaryCta": "View Publications",
-      "newsTitle": "News and Updates",
+      "newsTitle": "Recent Lab News",
       "newsItems": [
         {
-          "date": "2025.10",
-          "text": "Bae Lab won the Grand Prize at the 2025 Korea Mobility Society Spring Conference."
+          "date": "2025.12",
+          "text": "KHU Chemical Engineering Undergraduate Research Award."
         },
         {
-          "date": "2025.05",
-          "text": "The team was selected for the Haedong Junior Startup Program (wireless battery diagnosis)."
+          "date": "2025.11",
+          "text": "Best Poster Award at the 8th ICAE 2025."
         },
         {
-          "date": "2025.03",
-          "text": "Our all-solid-state battery research was featured on the MSE March issue cover article."
+          "date": "2025.07",
+          "text": "KIChE Best Poster Award recognition."
         }
       ],
-      "focusTitle": "Research Focus",
-      "focusDescription": "Our lab integrates electrochemistry, multiphysics simulation, and data-driven methods to improve performance, lifetime, and safety of advanced battery systems.",
-      "focusCta": "See Detailed Topics",
-      "joinTitle": "Join Bae Lab",
-      "joinDescription": "We welcome students and collaborators in battery materials, modeling, and battery management. Please contact the PI via email with your CV and research interests.",
-      "joinCta": "Contact Details"
+      "focusTitle": "Research Area",
+      "focusDescription": "Our lab combines material formulation, additive manufacturing process engineering, and application-focused validation to deliver deployable functional systems.",
+      "focusCta": "Learn more about our research",
+      "joinTitle": "Join Our Team",
+      "joinDescription": "Bae Lab is actively recruiting motivated undergraduate students, graduate students, and postdoctoral researchers. We welcome applicants from chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life science backgrounds.",
+      "joinCta": "Read more about joining our team"
     },
     "ko": {
-      "title": "배재형 교수 연구실 (Bae Lab)",
-      "description": "Bae Lab은 차세대 이차전지를 위한 핵심 소재 및 진단기술을 연구합니다. 전고체전지, 전해질 설계, 계산 시뮬레이션, 배터리 안전 진단을 주요 주제로 다룹니다.",
+      "title": "에너지·환경·바이오를 위한 프린팅 기술 고도화",
+      "description": "Bae Lab은 프린팅이 어려운 기능성 소재를 실제 제조 가능한 시스템으로 구현하기 위해 소재 설계, 공정 최적화, 응용 검증을 통합한 연구를 수행합니다.",
       "tags": [
-        "전고체전지",
-        "전해질 첨가제",
-        "배터리 시뮬레이션",
-        "상태 진단"
+        "프린팅 기술",
+        "에너지·환경 기술",
+        "바이오 기술"
       ],
       "primaryCta": "연구 주제 보기",
       "secondaryCta": "논문 보기",
       "newsTitle": "최근 소식",
       "newsItems": [
         {
-          "date": "2025.10",
-          "text": "2025 대한민국 모빌리티학회 춘계학술대회에서 대상 수상."
+          "date": "2025.12",
+          "text": "경희대 화학공학과 학부연구생 최우수상 수상."
         },
         {
-          "date": "2025.05",
-          "text": "해동 주니어 스타트업 프로그램 선정 (무선 배터리 진단 기술)."
+          "date": "2025.11",
+          "text": "제8회 ICAE 2025 베스트 포스터상 수상."
         },
         {
-          "date": "2025.03",
-          "text": "전고체전지 관련 연구가 MSE 3월호 표지 논문으로 소개됨."
+          "date": "2025.07",
+          "text": "한국화학공학회 포스터 부문 우수논문발표상 수상."
         }
       ],
-      "focusTitle": "연구 방향",
-      "focusDescription": "전기화학 실험, 물리기반 시뮬레이션, 데이터 기반 모델을 결합해 배터리 성능·수명·안전성 향상을 목표로 연구합니다.",
-      "focusCta": "상세 주제",
-      "joinTitle": "연구실 지원",
-      "joinDescription": "대학원 진학 및 공동연구 문의를 환영합니다. 이메일로 CV와 연구 관심 분야를 보내주시면 검토 후 회신드립니다.",
-      "joinCta": "연락처 보기"
+      "focusTitle": "연구 분야",
+      "focusDescription": "기능성 소재 설계, 적층제조 공정 엔지니어링, 응용 성능 검증을 유기적으로 연결해 실사용 가능한 기술로 확장합니다.",
+      "focusCta": "연구 더보기",
+      "joinTitle": "Join Our Team",
+      "joinDescription": "Bae Lab은 학부연구생, 대학원생, 박사후연구원을 상시 모집하고 있습니다. 화학공학, 재료공학, 고분자공학, 기계공학, 전기전자공학, 컴퓨터공학, 생명과학 등 다양한 전공 배경의 지원자를 환영합니다.",
+      "joinCta": "연구실 합류 안내 보기"
     }
   },
   "MEMBERS_CONTENT": {
@@ -148,75 +146,67 @@
   "RESEARCH_CONTENT": {
     "en": {
       "title": "Research",
-      "description": "Bae Lab studies rechargeable battery systems with an emphasis on electrochemical mechanisms, practical design parameters, and data-enabled diagnostics.",
+      "description": "Bae Lab's research is structured around three complementary domains that connect material innovation with practical implementation.",
       "cards": [
         {
-          "title": "Electrolyte Additive Development",
-          "body": "Design and screening of additive chemistries for improved interface stability, cycle life, and high-rate performance."
+          "title": "Printing Technology",
+          "body": "We develop advanced additive manufacturing strategies and AI-assisted printable inks to fabricate high-performance functional systems that are difficult to realize with conventional methods."
         },
         {
-          "title": "Electrolyte Design for Rechargeable Batteries",
-          "body": "Structure-property optimization of liquid and solid electrolytes for lithium-ion and all-solid-state battery platforms."
+          "title": "Energy & Environmental Technology",
+          "body": "We design functional polymers and chemical materials for next-generation energy harvesters, lithium metal batteries, environmental sensors, and carbon-capture related platforms."
         },
         {
-          "title": "Battery Computational Simulation",
-          "body": "Physics-based and multi-scale simulation to analyze transport, overpotential, and thermal behavior under practical operating conditions."
-        },
-        {
-          "title": "Battery Condition Diagnosis",
-          "body": "Data-driven algorithms for SOC/SOH/SOP estimation, incipient short-circuit detection, and safety-oriented battery management."
+          "title": "Bio Technology",
+          "body": "We engineer soft and functional materials for biosensors, bioelectronics, and soft robotic applications requiring compliant, high-performance interfaces."
         }
       ],
       "methodsTitle": "Research Methodology",
       "methods": [
         {
-          "title": "Electrochemical Experiment + Characterization",
-          "body": "Material synthesis, cell fabrication, and interface analysis."
+          "title": "Materials Design and Synthesis",
+          "body": "Molecular and formulation-level design of functional materials tailored for additive manufacturing."
         },
         {
-          "title": "Simulation + Mechanism Modeling",
-          "body": "Electrochemical and thermal coupled simulation for behavior prediction."
+          "title": "Additive Manufacturing and Process Engineering",
+          "body": "Process-window optimization, rheology control, and scalable patterning for robust device fabrication."
         },
         {
-          "title": "Machine Learning + Diagnostics",
-          "body": "Data-centric models for battery condition estimation and anomaly detection."
+          "title": "Application Validation and Data-Driven Optimization",
+          "body": "Electrochemical, mechanical, and biological performance evaluation coupled with data-guided feedback loops."
         }
       ]
     },
     "ko": {
       "title": "연구 분야",
-      "description": "Bae Lab은 이차전지의 전기화학 메커니즘을 기반으로 소재, 시뮬레이션, 진단 알고리즘을 연계하는 융합 연구를 수행합니다.",
+      "description": "Bae Lab의 연구는 소재 혁신과 실제 구현을 연결하는 세 가지 핵심 축으로 구성되어 있습니다.",
       "cards": [
         {
-          "title": "전해질 첨가제 개발",
-          "body": "계면 안정성, 수명, 고율 성능 향상을 위한 전해질 첨가제를 설계하고 검증합니다."
+          "title": "Printing Technology",
+          "body": "기존 방식으로 구현이 어려운 기능성 시스템을 제작하기 위해 고도화된 적층제조 공정 전략과 AI 보조 프린팅 잉크를 개발합니다."
         },
         {
-          "title": "이차전지용 전해질 설계",
-          "body": "액체/고체 전해질의 구조-물성 상관관계를 분석해 리튬이온전지 및 전고체전지 성능을 최적화합니다."
+          "title": "Energy & Environmental Technology",
+          "body": "차세대 에너지 하베스터, 리튬 금속전지, 환경 센서, 탄소 포집 응용을 위한 기능성 고분자 및 화학 소재를 설계합니다."
         },
         {
-          "title": "배터리 계산 시뮬레이션",
-          "body": "물리 기반 다중스케일 모델링으로 과전압, 농도 분극, 발열 거동을 해석하고 설계 변수를 도출합니다."
-        },
-        {
-          "title": "배터리 상태 진단",
-          "body": "데이터 기반 기법을 활용해 SOC/SOH/SOP 추정과 초기 내부단락 진단 등 안전 중심 BMS 기술을 연구합니다."
+          "title": "Bio Technology",
+          "body": "바이오센서, 바이오일렉트로닉스, 소프트 로보틱스에 필요한 유연·기능성 소재와 인터페이스를 개발합니다."
         }
       ],
       "methodsTitle": "연구 방법론",
       "methods": [
         {
-          "title": "전기화학 실험 및 특성 분석",
-          "body": "소재 합성, 셀 제작, 계면 반응 특성 분석."
+          "title": "소재 설계 및 합성",
+          "body": "적층제조 친화적 기능성 소재의 분자 구조 및 조성 설계."
         },
         {
-          "title": "시뮬레이션 및 메커니즘 모델링",
-          "body": "전기화학-열 연성 모델 기반 거동 예측 및 설계 최적화."
+          "title": "적층제조 공정 엔지니어링",
+          "body": "공정 윈도우, 유변학 거동, 패터닝 정밀도 최적화를 통한 안정적 제작."
         },
         {
-          "title": "머신러닝 기반 진단",
-          "body": "배터리 상태 추정, 열화 추적, 이상징후 조기 감지."
+          "title": "응용 검증 및 데이터 기반 고도화",
+          "body": "전기화학·기계·바이오 성능 검증과 데이터 기반 피드백 최적화."
         }
       ]
     }
@@ -242,45 +232,65 @@
   "NEWS_CONTENT": {
     "en": {
       "title": "News",
-      "description": "Major updates from Bae Lab including awards, startup programs, publication highlights, and research milestones.",
+      "description": "Major updates from Bae Lab, including awards, conference highlights, and team milestones.",
       "sectionTitle": "Recent Lab News",
       "items": [
         {
-          "date": "2025.10",
-          "title": "Grand Prize at 2025 Korea Mobility Society",
-          "body": "Bae Lab received the top award at the 2025 spring conference for outstanding battery diagnostics research."
+          "date": "2025.12.05",
+          "title": "Myeong Lee won the KHU Chemical Engineering Undergraduate Research Award",
+          "body": "Myeong Lee received the top undergraduate research honor from the Department of Chemical Engineering at Kyung Hee University."
         },
         {
-          "date": "2025.05",
-          "title": "Selected for Haedong Junior Startup Program",
-          "body": "Our team joined the startup support program to advance wireless battery diagnosis technologies."
+          "date": "2025.11.27",
+          "title": "Myeong Lee won the Best Poster Award at 8th ICAE 2025",
+          "body": "Our lab was recognized with the Best Poster Award at the 8th International Conference on Advanced Engineering."
         },
         {
-          "date": "2025.03",
-          "title": "MSE Cover Article Feature",
-          "body": "Our all-solid-state battery research was highlighted as a cover-featured study in the March issue of MSE."
+          "date": "2025.11.14",
+          "title": "Myeong Lee won the Best Undergraduate Research Award (Oral)",
+          "body": "Myeong Lee received the best oral presentation award at the 2nd Convergence and Innovation Undergraduate Research Festival."
+        },
+        {
+          "date": "2025.10.22",
+          "title": "[Photo] Prof. Bae's Birthday Celebration",
+          "body": "The team celebrated Prof. Bae's birthday together with current lab members."
+        },
+        {
+          "date": "2025.07.14",
+          "title": "Xiaoling Zhu won the KIChE Best Poster Award",
+          "body": "Xiaoling Zhu received an outstanding poster presentation award from the Korean Institute of Chemical Engineers."
         }
       ]
     },
     "ko": {
       "title": "연구실 소식",
-      "description": "Bae Lab의 수상, 창업 프로그램 선정, 주요 논문/연구 성과 소식을 정리합니다.",
+      "description": "Bae Lab의 수상, 학회 성과, 팀 주요 이벤트를 소개합니다.",
       "sectionTitle": "최근 소식",
       "items": [
         {
-          "date": "2025.10",
-          "title": "2025 대한민국 모빌리티학회 춘계학술대회 대상",
-          "body": "배터리 진단 연구 성과를 바탕으로 학술대회에서 대상을 수상했습니다."
+          "date": "2025.12.05",
+          "title": "이명 학생, 경희대 화학공학과 학부연구생 최우수상 수상",
+          "body": "이명 학생이 경희대학교 화학공학과 학부연구생 학술제에서 최우수상을 수상했습니다."
         },
         {
-          "date": "2025.05",
-          "title": "해동 주니어 스타트업 프로그램 선정",
-          "body": "무선 배터리 진단 기술의 사업화를 위해 해동 주니어 스타트업 프로그램에 선정되었습니다."
+          "date": "2025.11.27",
+          "title": "이명 학생, 제8회 ICAE 2025 베스트 포스터상 수상",
+          "body": "Bae Lab은 제8회 ICAE 2025에서 베스트 포스터상을 수상했습니다."
         },
         {
-          "date": "2025.03",
-          "title": "MSE 3월호 표지 논문 소개",
-          "body": "전고체전지 연구가 MSE 3월호 표지 관련 주요 연구로 소개되었습니다."
+          "date": "2025.11.14",
+          "title": "이명 학생, 제2회 융합과 혁신 학부연구생 학술제 구두발표 최우수상 수상",
+          "body": "이명 학생이 융합과 혁신 학부연구생 학술제 구두발표 부문 최우수상을 수상했습니다."
+        },
+        {
+          "date": "2025.10.22",
+          "title": "[사진] 배 교수님 생일 기념 모임",
+          "body": "연구실 구성원들이 함께 교수님 생일을 기념하는 자리를 가졌습니다."
+        },
+        {
+          "date": "2025.07.14",
+          "title": "Zhu Xiaoling 학생, 한국화학공학회 포스터 부문 우수논문발표상 수상",
+          "body": "Zhu Xiaoling 학생이 한국화학공학회 포스터 발표 부문 우수논문발표상을 수상했습니다."
         }
       ]
     }

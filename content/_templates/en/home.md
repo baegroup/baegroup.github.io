@@ -3,16 +3,15 @@
 # Home
 
 ## title
-Bae Lab for Electrochemical Energy Storage
+Advancing Printing Technologies for Energy, Environment, and Biology
 
 ## description
-We develop core materials and diagnostics technologies for next-generation rechargeable batteries, including all-solid-state batteries, electrolyte design, computational simulation, and battery safety.
+Bae Lab develops functional materials and additive manufacturing strategies that make hard-to-print systems manufacturable for real-world impact across energy, environmental, and biomedical applications.
 
 ## tags
-- All-Solid-State Batteries
-- Electrolyte Additives
-- Battery Simulation
-- Condition Diagnosis
+- Printing Technology
+- Energy & Environmental Technology
+- Bio Technology
 
 ## primaryCta
 Explore Research
@@ -21,27 +20,27 @@ Explore Research
 View Publications
 
 ## newsTitle
-News and Updates
+Recent Lab News
 
 ## newsItems
-- 2025.10 | Bae Lab won the Grand Prize at the 2025 Korea Mobility Society Spring Conference.
-- 2025.05 | The team was selected for the Haedong Junior Startup Program (wireless battery diagnosis).
-- 2025.03 | Our all-solid-state battery research was featured on the MSE March issue cover article.
+- 2025.12 | KHU Chemical Engineering Undergraduate Research Award.
+- 2025.11 | Best Poster Award at the 8th ICAE 2025.
+- 2025.07 | KIChE Best Poster Award recognition.
 
 ## focusTitle
-Research Focus
+Research Area
 
 ## focusDescription
-Our lab integrates electrochemistry, multiphysics simulation, and data-driven methods to improve performance, lifetime, and safety of advanced battery systems.
+Our lab combines material formulation, additive manufacturing process engineering, and application-focused validation to deliver deployable functional systems.
 
 ## focusCta
-See Detailed Topics
+Learn more about our research
 
 ## joinTitle
-Join Bae Lab
+Join Our Team
 
 ## joinDescription
-We welcome students and collaborators in battery materials, modeling, and battery management. Please contact the PI via email with your CV and research interests.
+Bae Lab is actively recruiting motivated undergraduate students, graduate students, and postdoctoral researchers. We welcome applicants from chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life science backgrounds.
 
 ## joinCta
-Contact Details
+Read more about joining our team
