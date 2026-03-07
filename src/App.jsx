@@ -30,6 +30,7 @@ function SiteRoutes() {
         <Route element={<PublicationsPage locale={locale} />} path="publications" />
         <Route element={<NewsPage locale={locale} />} path="news" />
         <Route element={<ContactPage locale={locale} />} path="contact" />
+        <Route element={<Navigate replace to="/contact" />} path="join" />
         <Route element={<Navigate replace to="/" />} path="*" />
       </Routes>
     </SiteLayout>

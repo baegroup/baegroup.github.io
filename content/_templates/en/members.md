@@ -12,19 +12,19 @@ People and culture at the lab.
 Lab Identity
 
 ## aboutBody
-Briefly explain the lab mission, research domains, and what makes your team distinct.
+Introduce the team in one concise paragraph.
 
 ## cultureTitle
-Lab Culture
+Lab Culture | The Fearless Lab
 
 ## cultureBody
-Summarize the working style and research philosophy in 2-3 sentences.
+Summarize your culture in one concise paragraph.
 
 ## culturePrinciples
-- Principle 1 title | One-sentence explanation.
-- Principle 2 title | One-sentence explanation.
-- Principle 3 title | One-sentence explanation.
-- Principle 4 title | One-sentence explanation.
+- Diversity, Inclusion, and Belonging | One-paragraph explanation.
+- Open Conversation | One-paragraph explanation.
+- Attitude to Risk and Failure | One-paragraph explanation.
+- Willingness to Help | One-paragraph explanation.
 
 ## professorTitle
 Professor
@@ -36,13 +36,13 @@ Current Students
 Alumni
 
 ## jumpNav
-- identity | Lab Identity
+- identity | About & Culture
 - professor | Professor
 - current | Current Students
 - alumni | Alumni
 
 ## joinCta
-Contact the Lab
+Information for joining our team
 
 ## sectionTitle
 Team Directory

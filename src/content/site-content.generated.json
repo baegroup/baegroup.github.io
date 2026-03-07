@@ -69,25 +69,25 @@
       "title": "Team",
       "description": "People and culture at Bae Lab.",
       "aboutTitle": "Lab Identity",
-      "aboutBody": "Bae Lab is a multidisciplinary research team advancing functional materials and additive manufacturing for energy, environmental, and bio applications. We integrate materials design, process engineering, and validation to deliver rigorous and deployable outcomes.",
-      "cultureTitle": "Lab Culture",
-      "cultureBody": "We cultivate a high-standard, high-trust environment where members can test ambitious ideas, communicate clearly, and grow through collaborative problem-solving.",
+      "aboutBody": "We are a multidisciplinary team of undergraduate, graduate, and postdoctoral researchers with expertise in chemical engineering, materials science, fluid mechanics, additive manufacturing, and carbon capture. We pursue a highly innovative and collaborative research environment, and we strongly value the different backgrounds, experiences, skills, and cultures in our team.",
+      "cultureTitle": "Lab Culture | The Fearless Lab",
+      "cultureBody": "We pursue a research environment with high standards and psychological safety for innovation, learning, and growth. To build a creative environment full of new ideas, challenges, and critical thought, Bae Lab cultivates strong psychological safety so that every member feels safe taking risks, giving and receiving criticism, and embracing challenges.",
       "culturePrinciples": [
         {
           "title": "Diversity, Inclusion, and Belonging",
-          "body": "We value diverse backgrounds and perspectives as a foundation for creative scientific thinking."
+          "body": "We are committed to diversity, inclusion, and belonging through equitable and inclusive policies and practices. We recruit diverse students, postdoctoral researchers, and staff to create a welcoming environment where individuals of all identities, backgrounds, and experiences can thrive, build a strong sense of belonging, and pursue excellence."
         },
         {
           "title": "Open Conversation",
-          "body": "We encourage direct, respectful discussion and constructive feedback across all levels."
+          "body": "We strongly encourage open and candid conversation on sensitive, controversial, and difficult issues to address scientific and societal problems. We welcome first-principles reasoning, as well as unfinished thoughts and unconventional questions, because talking through ideas is essential to the creative process."
         },
         {
           "title": "Attitude to Risk and Failure",
-          "body": "We treat well-designed failure as data and use it to improve research quality."
+          "body": "We believe innovation requires failure on the path to success. We do not hold mistakes against each other when learning from them drives growth, development, and innovation. Through timely feedback and course correction, we maximize research quality, value, and impact with efficient use of time, effort, and cost."
         },
         {
           "title": "Willingness to Help",
-          "body": "We prioritize shared ownership and active support to raise collective performance."
+          "body": "We become safer, more effective, and more intelligent when we help each other and feel appreciated by colleagues. By helping, interacting, and learning from one another in Bae Lab, we expand our roles as scientists, engineers, and educators. We value collective effort and actively pursue collaborative multidisciplinary research."
         }
       ],
       "professorTitle": "Professor",
@@ -96,7 +96,7 @@
       "jumpNav": [
         {
           "id": "identity",
-          "label": "Lab Identity"
+          "label": "About & Culture"
         },
         {
           "id": "professor",
@@ -111,7 +111,7 @@
           "label": "Alumni"
         }
       ],
-      "joinCta": "Contact the Lab",
+      "joinCta": "Information for joining our team",
       "sectionTitle": "Team Directory",
       "current": "Current Members",
       "alumni": "Alumni",

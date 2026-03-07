@@ -9,13 +9,13 @@ import { pagePath } from '@/lib/i18n';
 
 const DEFAULT_JUMP_NAV = {
   en: [
-    { id: 'identity', label: 'Lab Identity' },
+    { id: 'identity', label: 'About & Culture' },
     { id: 'professor', label: 'Professor' },
     { id: 'current', label: 'Current Students' },
     { id: 'alumni', label: 'Alumni' }
   ],
   ko: [
-    { id: 'identity', label: '연구실 정체성' },
+    { id: 'identity', label: '소개 · 문화' },
     { id: 'professor', label: '교수' },
     { id: 'current', label: '현재 학생' },
     { id: 'alumni', label: '졸업생' }
@@ -24,6 +24,7 @@ const DEFAULT_JUMP_NAV = {
 
 const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'alumni']);
 const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
+const FEARLESS_IMAGE_PATH = 'assets/img/team/culture/fearless-organization.png';
 
 function MemberCard({ member, locale, prominent = false, showRoleBadge = false }) {
   const [broken, setBroken] = useState(false);
@@ -90,10 +91,10 @@ function Principles({ principles }) {
   }
 
   return (
-    <div className="mt-5 grid gap-3 md:grid-cols-2">
+    <div className="divide-y divide-slate-200 border-t border-slate-200">
       {principles.map((item) => (
-        <article className="rounded-lg border border-slate-200 bg-slate-50/70 p-4" key={item.title}>
-          <h3 className="text-base font-semibold text-slate-900">{item.title}</h3>
+        <article className="py-5" key={item.title}>
+          <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
           <p className="mt-2 text-sm leading-relaxed text-slate-600 md:text-base">{item.body}</p>
         </article>
       ))}
@@ -108,6 +109,7 @@ export function MembersPage({ locale }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeSection, setActiveSection] = useState('identity');
+  const [cultureImageBroken, setCultureImageBroken] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -166,19 +168,6 @@ export function MembersPage({ locale }) {
     return [];
   }, [content.culturePrinciples]);
 
-  const identityParagraphs = useMemo(() => {
-    const seen = new Set();
-    return [content.aboutBody, content.cultureBody]
-      .map((value) => String(value || '').trim())
-      .filter((value) => {
-        if (!value || seen.has(value)) {
-          return false;
-        }
-        seen.add(value);
-        return true;
-      });
-  }, [content.aboutBody, content.cultureBody]);
-
   const professorMembers = useMemo(
     () => currentGroups.find((group) => group.role === 'PI')?.members || [],
     [currentGroups]
@@ -234,22 +223,20 @@ export function MembersPage({ locale }) {
   return (
     <>
       <section className="px-1 pt-1">
-        <h1 className="text-4xl font-semibold leading-tight tracking-tight text-slate-950 md:text-5xl">{content.title || (locale === 'ko' ? '연구진' : 'Team')}</h1>
+        <h1 className="text-4xl font-semibold leading-tight tracking-tight text-slate-950 md:text-5xl">{content.title || 'Team'}</h1>
       </section>
 
       <Card className="overflow-hidden">
         <CardContent className="p-0">
-          <div className="border-b border-slate-200 px-4 py-3 md:px-6">
-            <nav aria-label="Team section navigation" className="flex flex-wrap items-center gap-2">
+          <div className="border-b border-slate-200 px-4 pt-3 md:px-6 md:pt-4">
+            <nav aria-label="Team section navigation" className="flex flex-wrap gap-x-6 gap-y-2">
               {jumpNav.map((item) => {
                 const active = activeSection === item.id;
                 return (
                   <button
                     aria-pressed={active}
-                    className={`inline-flex items-center rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors md:text-sm ${
-                      active
-                        ? 'border-[#0b3a64] bg-[#0b3a64] text-white'
-                        : 'border-slate-200 bg-white text-slate-700 hover:border-[#0b3a64] hover:text-[#0b3a64]'
+                    className={`-mb-px border-b-2 bg-transparent pb-2 text-sm font-semibold transition-colors md:text-[0.95rem] ${
+                      active ? 'border-[#0b3a64] text-[#0b3a64]' : 'border-transparent text-slate-500 hover:text-slate-900'
                     }`}
                     key={item.id}
                     onClick={() => setActiveSection(item.id)}
@@ -262,33 +249,51 @@ export function MembersPage({ locale }) {
             </nav>
           </div>
 
-          <div className="px-4 py-5 md:px-6 md:py-6">
+          <div className="px-4 py-6 md:px-6 md:py-7">
             {activeSection === 'identity' ? (
-              <section className="space-y-5">
-                <h2 className="text-2xl font-semibold leading-tight tracking-tight text-slate-950 md:text-3xl">
-                  {content.aboutTitle || (locale === 'ko' ? '연구실 정체성' : 'Lab Identity')}
-                </h2>
-                <div className="space-y-3">
-                  {(identityParagraphs.length ? identityParagraphs : [String(content.description || '').trim()]).filter(Boolean).map((text) => (
-                    <p className="max-w-4xl text-sm leading-relaxed text-slate-700 md:text-base" key={text}>
-                      {text}
-                    </p>
-                  ))}
-                </div>
+              <section className="space-y-8">
+                <section className="space-y-3">
+                  <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">About our team</h2>
+                  <p className="max-w-4xl text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
+                  <div className="pt-1">
+                    <Link className="home-cta-primary" to={pagePath('join')}>
+                      {content.joinCta || 'Information for joining our team'}
+                    </Link>
+                  </div>
+                </section>
+
+                <section className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:items-start">
+                  <div className="space-y-3">
+                    <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'Lab Culture | The Fearless Lab'}</h2>
+                    <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
+                  </div>
+
+                  <figure className="overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
+                    {!cultureImageBroken ? (
+                      <img
+                        alt="The Fearless Organization matrix"
+                        className="h-auto w-full object-contain"
+                        onError={() => setCultureImageBroken(true)}
+                        src={`${import.meta.env.BASE_URL}${FEARLESS_IMAGE_PATH}`}
+                      />
+                    ) : (
+                      <div className="flex min-h-52 items-center justify-center px-4 text-center text-sm text-slate-500">
+                        Fearless organization image placeholder
+                      </div>
+                    )}
+                    <figcaption className="px-4 py-3 text-xs italic text-slate-500">
+                      From "The fearless organization" by Amy Edmondson
+                    </figcaption>
+                  </figure>
+                </section>
+
                 <Principles principles={culturePrinciples} />
-                <div className="pt-1">
-                  <Link className="home-cta-primary" to={pagePath(locale, 'contact')}>
-                    {content.joinCta || (locale === 'ko' ? '문의하기' : 'Contact the Lab')}
-                  </Link>
-                </div>
               </section>
             ) : null}
 
             {activeSection === 'professor' ? (
-              <section className="space-y-4">
-                <h2 className="text-2xl font-semibold leading-tight tracking-tight text-slate-950 md:text-3xl">
-                  {content.professorTitle || (locale === 'ko' ? '교수' : 'Professor')}
-                </h2>
+              <section>
+                <h2 className="sr-only">{content.professorTitle || 'Professor'}</h2>
                 {professorMembers.length > 0 ? (
                   <div className="grid gap-4 lg:grid-cols-2">
                     {professorMembers.map((member) => (
@@ -302,10 +307,8 @@ export function MembersPage({ locale }) {
             ) : null}
 
             {activeSection === 'current' ? (
-              <section className="space-y-5">
-                <h2 className="text-2xl font-semibold leading-tight tracking-tight text-slate-950 md:text-3xl">
-                  {content.currentStudentsTitle || (locale === 'ko' ? '현재 학생' : 'Current Students')}
-                </h2>
+              <section>
+                <h2 className="sr-only">{content.currentStudentsTitle || 'Current Students'}</h2>
                 {currentStudentGroups.length > 0 ? (
                   <div className="space-y-6">
                     {currentStudentGroups.map((group, index) => (
@@ -332,10 +335,8 @@ export function MembersPage({ locale }) {
             ) : null}
 
             {activeSection === 'alumni' ? (
-              <section className="space-y-4">
-                <h2 className="text-2xl font-semibold leading-tight tracking-tight text-slate-950 md:text-3xl">
-                  {content.alumniTitle || (locale === 'ko' ? '졸업생' : 'Alumni')}
-                </h2>
+              <section>
+                <h2 className="sr-only">{content.alumniTitle || 'Alumni'}</h2>
                 {alumniMembers.length > 0 ? (
                   <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                     {alumniMembers.map((member) => (

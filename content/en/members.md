@@ -10,19 +10,19 @@ People and culture at Bae Lab.
 Lab Identity
 
 ## aboutBody
-Bae Lab is a multidisciplinary research team advancing functional materials and additive manufacturing for energy, environmental, and bio applications. We integrate materials design, process engineering, and validation to deliver rigorous and deployable outcomes.
+We are a multidisciplinary team of undergraduate, graduate, and postdoctoral researchers with expertise in chemical engineering, materials science, fluid mechanics, additive manufacturing, and carbon capture. We pursue a highly innovative and collaborative research environment, and we strongly value the different backgrounds, experiences, skills, and cultures in our team.
 
 ## cultureTitle
-Lab Culture
+Lab Culture | The Fearless Lab
 
 ## cultureBody
-We cultivate a high-standard, high-trust environment where members can test ambitious ideas, communicate clearly, and grow through collaborative problem-solving.
+We pursue a research environment with high standards and psychological safety for innovation, learning, and growth. To build a creative environment full of new ideas, challenges, and critical thought, Bae Lab cultivates strong psychological safety so that every member feels safe taking risks, giving and receiving criticism, and embracing challenges.
 
 ## culturePrinciples
-- Diversity, Inclusion, and Belonging | We value diverse backgrounds and perspectives as a foundation for creative scientific thinking.
-- Open Conversation | We encourage direct, respectful discussion and constructive feedback across all levels.
-- Attitude to Risk and Failure | We treat well-designed failure as data and use it to improve research quality.
-- Willingness to Help | We prioritize shared ownership and active support to raise collective performance.
+- Diversity, Inclusion, and Belonging | We are committed to diversity, inclusion, and belonging through equitable and inclusive policies and practices. We recruit diverse students, postdoctoral researchers, and staff to create a welcoming environment where individuals of all identities, backgrounds, and experiences can thrive, build a strong sense of belonging, and pursue excellence.
+- Open Conversation | We strongly encourage open and candid conversation on sensitive, controversial, and difficult issues to address scientific and societal problems. We welcome first-principles reasoning, as well as unfinished thoughts and unconventional questions, because talking through ideas is essential to the creative process.
+- Attitude to Risk and Failure | We believe innovation requires failure on the path to success. We do not hold mistakes against each other when learning from them drives growth, development, and innovation. Through timely feedback and course correction, we maximize research quality, value, and impact with efficient use of time, effort, and cost.
+- Willingness to Help | We become safer, more effective, and more intelligent when we help each other and feel appreciated by colleagues. By helping, interacting, and learning from one another in Bae Lab, we expand our roles as scientists, engineers, and educators. We value collective effort and actively pursue collaborative multidisciplinary research.
 
 ## professorTitle
 Professor
@@ -34,13 +34,13 @@ Current Students
 Alumni
 
 ## jumpNav
-- identity | Lab Identity
+- identity | About & Culture
 - professor | Professor
 - current | Current Students
 - alumni | Alumni
 
 ## joinCta
-Contact the Lab
+Information for joining our team
 
 ## sectionTitle
 Team Directory
