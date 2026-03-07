@@ -13,6 +13,9 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
   const featured = items[0];
   const listItems = items.slice(1, 4);
   const sectionTitle = content.sectionTitle || (locale === 'ko' ? '최근 소식' : 'Recent Lab News');
+  const sectionKicker = locale === 'ko' ? '연구실 업데이트' : 'Lab Updates';
+  const featuredLabel = locale === 'ko' ? '주요 소식' : 'Featured';
+  const listLabel = locale === 'ko' ? '최근 알림' : 'Recent Highlights';
   const viewAllLabel = locale === 'ko' ? '소식 전체 보기' : 'View all news';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
@@ -22,18 +25,21 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
 
   return (
     <section className={`space-y-4 md:space-y-5 ${revealClassName}`} ref={ref} style={revealStyle}>
-      <div className="flex items-end justify-between gap-3">
-        <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">{sectionTitle}</h2>
+      <div className="home-section-header">
+        <div className="space-y-2">
+          <p className="home-kicker">{sectionKicker}</p>
+          <h2 className="home-section-title">{sectionTitle}</h2>
+        </div>
         <Link className="text-sm font-semibold text-[#0b3a64] underline-offset-4 hover:underline" to={pagePath(locale, 'news')}>
           {viewAllLabel}
         </Link>
       </div>
 
-      <article className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-soft">
-        <div className={featured && listItems.length ? 'grid md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]' : 'grid'}>
+      <article className="home-section overflow-hidden">
+        <div className={featured && listItems.length ? 'grid md:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)]' : 'grid'}>
           {featured ? (
             <div className={listItems.length ? 'border-b border-slate-200 md:border-b-0 md:border-r' : ''}>
-              <div className="relative h-40 overflow-hidden bg-slate-100 md:h-44">
+              <div className="relative h-48 overflow-hidden bg-slate-100 md:h-56">
                 {!exhausted ? (
                   <img
                     alt={featured.title}
@@ -46,24 +52,30 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
                     {locale === 'ko' ? '뉴스 대표 이미지' : 'Featured News Image'}
                   </div>
                 )}
+                <p className="absolute left-4 top-4 rounded-full bg-slate-900/75 px-2.5 py-1 text-xs font-semibold text-white">{featured.date}</p>
               </div>
-              <div className="p-4 md:p-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{featured.date}</p>
-                <h3 className="mt-1.5 text-xl font-semibold leading-tight text-slate-950 md:text-2xl">{featured.title}</h3>
-                <p className="mt-2 text-base text-slate-600">{featured.body}</p>
+              <div className="p-5 md:p-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0b3a64]">{featuredLabel}</p>
+                <h3 className="mt-2 text-xl font-semibold leading-tight text-slate-950 md:text-2xl">{featured.title}</h3>
+                <p className="mt-2.5 text-base leading-relaxed text-slate-600">{featured.body}</p>
               </div>
             </div>
           ) : null}
 
           {listItems.length ? (
-            <ul className="divide-y divide-slate-200">
-              {listItems.map((item) => (
-                <li className="px-4 py-3.5 md:px-5 md:py-4" key={`${item.date}-${item.title}`}>
-                  <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{item.date}</p>
-                  <p className="mt-1 text-base font-semibold leading-snug text-slate-900 md:text-lg">{item.title}</p>
-                </li>
-              ))}
-            </ul>
+            <div className="bg-slate-50/70">
+              <div className="px-5 pb-2 pt-5 md:px-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0b3a64]">{listLabel}</p>
+              </div>
+              <ul className="divide-y divide-slate-200">
+                {listItems.map((item) => (
+                  <li className="px-5 py-3.5 transition-colors hover:bg-white md:px-6 md:py-4" key={`${item.date}-${item.title}`}>
+                    <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{item.date}</p>
+                    <p className="mt-1 text-base font-semibold leading-snug text-slate-900 md:text-lg">{item.title}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ) : null}
         </div>
       </article>

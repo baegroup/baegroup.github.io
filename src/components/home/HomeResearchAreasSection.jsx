@@ -11,11 +11,11 @@ function ResearchAreaCard({ card, imagePath, locale }) {
   const exhausted = imageIndex >= imageCandidates.length;
 
   return (
-    <article className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-soft">
+    <article className="group overflow-hidden rounded-xl border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_44px_-32px_rgba(8,39,70,0.45)] focus-within:-translate-y-1 focus-within:shadow-[0_24px_44px_-32px_rgba(8,39,70,0.45)]">
       {!exhausted ? (
         <img
           alt={card.title}
-          className="aspect-[16/10] w-full object-cover"
+          className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           onError={() => setImageIndex((index) => index + 1)}
           src={imageCandidates[imageIndex]}
         />
@@ -24,8 +24,9 @@ function ResearchAreaCard({ card, imagePath, locale }) {
           {locale === 'ko' ? '이미지 준비 중' : 'Image Placeholder'}
         </div>
       )}
-      <div className="p-4 md:p-5">
-        <h3 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{card.title}</h3>
+      <div className="p-5 md:p-6">
+        <div className="h-1.5 w-12 rounded-full bg-[var(--brand-burgundy)]" />
+        <h3 className="mt-3 text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{card.title}</h3>
         <p className="mt-2.5 text-base leading-relaxed text-slate-600">{card.body}</p>
       </div>
     </article>
@@ -34,7 +35,9 @@ function ResearchAreaCard({ card, imagePath, locale }) {
 
 export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
   const cards = (content.cards || []).slice(0, 3);
-  const title = locale === 'ko' ? '연구 분야' : 'Research Area';
+  const title = content.title || (locale === 'ko' ? '연구 분야' : 'Research Area');
+  const description = content.description;
+  const kicker = locale === 'ko' ? '핵심 연구 축' : 'Core Research Domains';
   const learnMoreLabel = locale === 'ko' ? '연구 더보기' : 'Learn more about our research';
   const publicationLabel = locale === 'ko' ? '논문 전체 보기' : 'See all publications';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
@@ -45,7 +48,12 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
 
   return (
     <section className={`space-y-5 ${revealClassName}`} ref={ref} style={revealStyle}>
-      <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">{title}</h2>
+      <div className="space-y-2.5">
+        <p className="home-kicker">{kicker}</p>
+        <h2 className="home-section-title">{title}</h2>
+        {description ? <p className="max-w-4xl text-base leading-relaxed text-slate-600 md:text-lg">{description}</p> : null}
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {cards.map((card, index) => (
           <ResearchAreaCard
@@ -56,15 +64,16 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
           />
         ))}
       </div>
-      <div className="flex flex-wrap gap-2.5">
+
+      <div className="flex flex-wrap gap-2.5 pt-1">
         <Link
-          className="inline-flex h-11 items-center rounded-full bg-[#7a0f1f] px-6 text-sm font-semibold text-white no-underline transition-colors hover:bg-[#68101b]"
+          className="home-cta-primary"
           to={pagePath(locale, 'research')}
         >
           {learnMoreLabel}
         </Link>
         <Link
-          className="inline-flex h-11 items-center rounded-full bg-[#7a0f1f] px-6 text-sm font-semibold text-white no-underline transition-colors hover:bg-[#68101b]"
+          className="home-cta-secondary"
           to={pagePath(locale, 'publications')}
         >
           {publicationLabel}
