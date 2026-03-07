@@ -64,7 +64,7 @@
       "joinCta": "Contact Us"
     }
   },
-  "MEMBERS_CONTENT": {
+  "TEAM_CONTENT": {
     "en": {
       "title": "Team",
       "description": "People and culture at Bae Lab.",
@@ -113,7 +113,7 @@
       ],
       "joinCta": "Information for joining our team",
       "sectionTitle": "Team Directory",
-      "current": "Current Members",
+      "current": "Current Team",
       "alumni": "Alumni",
       "loading": "Loading team profiles...",
       "empty": "No profiles available in this section."
@@ -188,7 +188,7 @@
         {
           "date": "2025.10.22",
           "title": "[Photo] Prof. Bae's Birthday Celebration",
-          "body": "The team celebrated Prof. Bae's birthday together with current lab members."
+          "body": "The team celebrated Prof. Bae's birthday together with current lab team."
         },
         {
           "date": "2025.07.14",

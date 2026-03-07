@@ -2,7 +2,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { SiteLayout } from '@/layouts/SiteLayout';
 import { HomePage } from '@/pages/HomePage';
-import { MembersPage } from '@/pages/MembersPage';
+import { TeamPage } from '@/pages/TeamPage';
 import { NewsPage } from '@/pages/NewsPage';
 import { PublicationsPage } from '@/pages/PublicationsPage';
 import { ResearchPage } from '@/pages/ResearchPage';
@@ -24,8 +24,7 @@ function SiteRoutes() {
     <SiteLayout locale={locale}>
       <Routes>
         <Route element={<HomePage locale={locale} />} index />
-        <Route element={<MembersPage locale={locale} />} path="team" />
-        <Route element={<Navigate replace to="/team" />} path="members" />
+        <Route element={<TeamPage locale={locale} />} path="team" />
         <Route element={<ResearchPage locale={locale} />} path="research" />
         <Route element={<PublicationsPage locale={locale} />} path="publications" />
         <Route element={<NewsPage locale={locale} />} path="news" />

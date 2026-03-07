@@ -70,11 +70,11 @@ If you only want to test generation without commit/push:
 npm run publish:dry
 ```
 
-## 5) Members/Publications Data
+## 5) Team/Publications Data
 
 These remain JSON data files (not page text):
 
-- `public/data/members.json`
+- `public/data/team.json`
 - `public/data/publications.json`
 
 ## 6) Homepage Image Update (Fixed Filenames)

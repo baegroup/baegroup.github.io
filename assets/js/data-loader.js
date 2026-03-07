@@ -167,7 +167,7 @@ function sortMembers(members, status) {
 }
 
 export async function loadMembers(locale, status = 'current') {
-  const data = await fetchData('members.json');
+  const data = await fetchData('team.json');
   const filtered = data.filter((member) => member.status === status);
   const grouped = new Map();
 
@@ -295,7 +295,7 @@ function memberCard(member, locale) {
   `;
 }
 
-async function renderMembersPage() {
+async function renderTeamPage() {
   const root = document.querySelector('[data-members-root]');
   if (!root) {
     return;
@@ -461,7 +461,7 @@ async function renderPublicationsPage() {
 }
 
 async function bootstrap() {
-  await Promise.all([renderMembersPage(), renderPublicationsPage()]);
+  await Promise.all([renderTeamPage(), renderPublicationsPage()]);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

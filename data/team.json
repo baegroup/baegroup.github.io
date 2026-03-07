@@ -14,7 +14,7 @@
       "en": ["Electrolyte Design", "All-Solid-State Batteries", "Battery Diagnostics"],
       "ko": ["전해질 설계", "전고체전지", "배터리 진단"]
     },
-    "photo": "assets/img/members/Jaehyeong Bae.jpg",
+    "photo": "assets/img/team/profiles/Jaehyeong Bae.jpg",
     "startYear": 2023,
     "endYear": null
   },
@@ -33,7 +33,7 @@
       "en": ["Battery Computational Simulation"],
       "ko": ["배터리 계산 시뮬레이션"]
     },
-    "photo": "assets/img/members/Suha Cho.jpg",
+    "photo": "assets/img/team/profiles/Suha Cho.jpg",
     "startYear": 2024,
     "endYear": null
   },
@@ -52,7 +52,7 @@
       "en": ["Electrolyte Additives"],
       "ko": ["전해질 첨가제 개발"]
     },
-    "photo": "assets/img/members/Xiaoling Zhu.jpg",
+    "photo": "assets/img/team/profiles/Xiaoling Zhu.jpg",
     "startYear": 2024,
     "endYear": null
   },
@@ -71,7 +71,7 @@
       "en": ["Electrolyte Design for Rechargeable Batteries"],
       "ko": ["다양한 이차전지용 전해질 설계"]
     },
-    "photo": "assets/img/members/Jiechen Liu.jpg",
+    "photo": "assets/img/team/profiles/Jiechen Liu.jpg",
     "startYear": 2025,
     "endYear": null
   },
@@ -90,7 +90,7 @@
       "en": ["Incoming 2026 Spring"],
       "ko": ["2026년 봄학기 입학 예정"]
     },
-    "photo": "assets/img/members/Ruonan Tian.png",
+    "photo": "assets/img/team/profiles/Ruonan Tian.png",
     "startYear": 2026,
     "endYear": null
   },
@@ -109,7 +109,7 @@
       "en": ["Incoming 2026 Fall"],
       "ko": ["2026년 가을학기 입학 예정"]
     },
-    "photo": "assets/img/members/Qunbo Lin.png",
+    "photo": "assets/img/team/profiles/Qunbo Lin.png",
     "startYear": 2026,
     "endYear": null
   },
@@ -128,7 +128,7 @@
       "en": ["Battery Condition Diagnosis"],
       "ko": ["배터리 상태 진단"]
     },
-    "photo": "assets/img/members/Myeong Lee.jpg",
+    "photo": "assets/img/team/profiles/Myeong Lee.jpg",
     "startYear": 2024,
     "endYear": null
   },
@@ -147,7 +147,7 @@
       "en": ["Battery Data Analysis"],
       "ko": ["배터리 데이터 분석"]
     },
-    "photo": "assets/img/members/Yoonji Ko.jpg",
+    "photo": "assets/img/team/profiles/Yoonji Ko.jpg",
     "startYear": 2024,
     "endYear": null
   },
@@ -166,7 +166,7 @@
       "en": ["Electrochemical Testing"],
       "ko": ["전기화학 실험"]
     },
-    "photo": "assets/img/members/Nayeon Kim.webp",
+    "photo": "assets/img/team/profiles/Nayeon Kim.webp",
     "startYear": 2025,
     "endYear": null
   },
@@ -185,7 +185,7 @@
       "en": ["Current Affiliation: SK hynix"],
       "ko": ["현 소속: SK hynix"]
     },
-    "photo": "assets/img/members/Myeongjae Kim.jpg",
+    "photo": "assets/img/team/profiles/Myeongjae Kim.jpg",
     "startYear": 2024,
     "endYear": 2024
   }

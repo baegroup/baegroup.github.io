@@ -77,7 +77,7 @@ npm run preview
 - `/src/layouts/SiteLayout.jsx`: shared layout/header/footer
 - `/src/components/site/SiteContactSection.jsx`: global contact section
 - `/src/pages/*`: page implementations
-- `/public/data/members.json`: member data
+- `/public/data/team.json`: team profile data
 - `/public/data/publications.json`: publication data
 - `/public/assets/img/home/*`: homepage media (replace by fixed filename)
 - `/.github/workflows/pages.yml`: GitHub Pages build/deploy workflow

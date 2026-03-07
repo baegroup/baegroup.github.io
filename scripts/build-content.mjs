@@ -195,7 +195,7 @@ async function build() {
     NAV_ITEMS: {},
     BRAND: {},
     HOME_CONTENT: {},
-    MEMBERS_CONTENT: {},
+    TEAM_CONTENT: {},
     RESEARCH_CONTENT: {},
     PUBLICATIONS_CONTENT: {},
     NEWS_CONTENT: {},
@@ -206,7 +206,7 @@ async function build() {
     const navigation = await readSource(locale, 'navigation');
     const brand = await readSource(locale, 'brand');
     const home = await readSource(locale, 'home');
-    const members = await readSource(locale, 'members');
+    const team = await readSource(locale, 'team');
     const research = await readSource(locale, 'research');
     const publications = await readSource(locale, 'publications');
     const news = await readSource(locale, 'news');
@@ -236,24 +236,24 @@ async function build() {
       joinCta: readString(home, 'joinCta')
     };
 
-    output.MEMBERS_CONTENT[locale] = {
-      title: readString(members, 'title'),
-      description: readString(members, 'description'),
-      aboutTitle: readString(members, 'aboutTitle'),
-      aboutBody: readString(members, 'aboutBody'),
-      cultureTitle: readString(members, 'cultureTitle'),
-      cultureBody: readString(members, 'cultureBody'),
-      culturePrinciples: readPairItems(members, 'culturePrinciples', 'title', 'body'),
-      professorTitle: readString(members, 'professorTitle'),
-      currentStudentsTitle: readString(members, 'currentStudentsTitle'),
-      alumniTitle: readString(members, 'alumniTitle'),
-      jumpNav: readPairItems(members, 'jumpNav', 'id', 'label'),
-      joinCta: readString(members, 'joinCta'),
-      sectionTitle: readString(members, 'sectionTitle'),
-      current: readString(members, 'current'),
-      alumni: readString(members, 'alumni'),
-      loading: readString(members, 'loading'),
-      empty: readString(members, 'empty')
+    output.TEAM_CONTENT[locale] = {
+      title: readString(team, 'title'),
+      description: readString(team, 'description'),
+      aboutTitle: readString(team, 'aboutTitle'),
+      aboutBody: readString(team, 'aboutBody'),
+      cultureTitle: readString(team, 'cultureTitle'),
+      cultureBody: readString(team, 'cultureBody'),
+      culturePrinciples: readPairItems(team, 'culturePrinciples', 'title', 'body'),
+      professorTitle: readString(team, 'professorTitle'),
+      currentStudentsTitle: readString(team, 'currentStudentsTitle'),
+      alumniTitle: readString(team, 'alumniTitle'),
+      jumpNav: readPairItems(team, 'jumpNav', 'id', 'label'),
+      joinCta: readString(team, 'joinCta'),
+      sectionTitle: readString(team, 'sectionTitle'),
+      current: readString(team, 'current'),
+      alumni: readString(team, 'alumni'),
+      loading: readString(team, 'loading'),
+      empty: readString(team, 'empty')
     };
 
     output.RESEARCH_CONTENT[locale] = {

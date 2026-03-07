@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { MEMBERS_CONTENT } from '@/content/site-content';
-import { loadMembers } from '@/lib/data';
+import { TEAM_CONTENT } from '@/content/site-content';
+import { loadTeamProfiles } from '@/lib/data';
 import { pagePath } from '@/lib/i18n';
 
 const DEFAULT_JUMP_NAV = {
@@ -102,8 +102,8 @@ function Principles({ principles }) {
   );
 }
 
-export function MembersPage({ locale }) {
-  const content = MEMBERS_CONTENT[locale] || MEMBERS_CONTENT.en;
+export function TeamPage({ locale }) {
+  const content = TEAM_CONTENT[locale] || TEAM_CONTENT.en;
   const [currentGroups, setCurrentGroups] = useState([]);
   const [alumniGroups, setAlumniGroups] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -119,7 +119,7 @@ export function MembersPage({ locale }) {
       setError('');
 
       try {
-        const [current, alumni] = await Promise.all([loadMembers(locale, 'current'), loadMembers(locale, 'alumni')]);
+        const [current, alumni] = await Promise.all([loadTeamProfiles(locale, 'current'), loadTeamProfiles(locale, 'alumni')]);
         if (!mounted) {
           return;
         }

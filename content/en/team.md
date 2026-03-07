@@ -46,7 +46,7 @@ Information for joining our team
 Team Directory
 
 ## current
-Current Members
+Current Team
 
 ## alumni
 Alumni

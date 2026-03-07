@@ -106,8 +106,8 @@ async function fetchData(fileName) {
   return data;
 }
 
-function sortMembers(members, status) {
-  return [...members].sort((a, b) => {
+function sortTeamProfiles(profiles, status) {
+  return [...profiles].sort((a, b) => {
     if (status === 'alumni') {
       const endDelta = (b.endYear || 0) - (a.endYear || 0);
       if (endDelta !== 0) {
@@ -124,8 +124,8 @@ function sortMembers(members, status) {
   });
 }
 
-export async function loadMembers(locale, status = 'current') {
-  const data = await fetchData('members.json');
+export async function loadTeamProfiles(locale, status = 'current') {
+  const data = await fetchData('team.json');
   const filtered = data.filter((member) => member.status === status);
 
   const grouped = new Map();
@@ -143,7 +143,7 @@ export async function loadMembers(locale, status = 'current') {
   ];
 
   return orderedRoles.map((role) => {
-    const members = sortMembers(grouped.get(role), status).map((member) => {
+    const members = sortTeamProfiles(grouped.get(role), status).map((member) => {
       const localizedName = localize(member.name, locale);
       const roleLabel = ROLE_LABELS[locale]?.[role] || role;
 
