@@ -25,6 +25,7 @@ function SiteRoutes() {
       <Routes>
         <Route element={<HomePage locale={locale} />} index />
         <Route element={<TeamPage locale={locale} />} path="team" />
+        <Route element={<Navigate replace to="/team" />} path="members" />
         <Route element={<ResearchPage locale={locale} />} path="research" />
         <Route element={<PublicationsPage locale={locale} />} path="publications" />
         <Route element={<NewsPage locale={locale} />} path="news" />
