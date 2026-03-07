@@ -6,6 +6,7 @@ import { MembersPage } from '@/pages/MembersPage';
 import { NewsPage } from '@/pages/NewsPage';
 import { PublicationsPage } from '@/pages/PublicationsPage';
 import { ResearchPage } from '@/pages/ResearchPage';
+import { ContactPage } from '@/pages/ContactPage';
 import { isLocale } from '@/lib/i18n';
 
 function LocaleRoutes() {
@@ -23,6 +24,7 @@ function LocaleRoutes() {
         <Route element={<ResearchPage locale={locale} />} path="research" />
         <Route element={<PublicationsPage locale={locale} />} path="publications" />
         <Route element={<NewsPage locale={locale} />} path="news" />
+        <Route element={<ContactPage locale={locale} />} path="contact" />
         <Route element={<Navigate replace to={`/${locale}`} />} path="*" />
       </Routes>
     </SiteLayout>

@@ -20,6 +20,10 @@
       {
         "slug": "news",
         "label": "News"
+      },
+      {
+        "slug": "contact",
+        "label": "Contact"
       }
     ],
     "ko": [
@@ -42,18 +46,22 @@
       {
         "slug": "news",
         "label": "소식"
+      },
+      {
+        "slug": "contact",
+        "label": "문의"
       }
     ]
   },
   "BRAND": {
     "en": {
       "name": "Bae Lab",
-      "subtitle": "3D Printing Functional Materials",
+      "subtitle": "Functional Materials Additive Manufacturing",
       "tagline": "Functional Materials Additive Manufacturing"
     },
     "ko": {
       "name": "배재형 교수 연구실 (Bae Lab)",
-      "subtitle": "경희대학교 화학공학과",
+      "subtitle": "Functional Materials Additive Manufacturing",
       "tagline": "Functional Materials Additive Manufacturing"
     }
   },

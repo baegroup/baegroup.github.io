@@ -4,7 +4,7 @@
 배재형 교수 연구실 (Bae Lab)
 
 ## subtitle
-경희대학교 화학공학과
+Functional Materials Additive Manufacturing
 
 ## tagline
 Functional Materials Additive Manufacturing
