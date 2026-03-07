@@ -20,7 +20,7 @@ function MemberItem({ member, locale }) {
             alt={member.localizedName}
             className="h-full w-full object-cover"
             onError={() => setBroken(true)}
-            src={member.photo}
+            src={`${import.meta.env.BASE_URL}${member.photo}`}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-slate-100 text-sm font-bold text-slate-700">{member.initials}</div>
