@@ -5,7 +5,6 @@ These notes are reusable templates for editing site content in Obsidian.
 ## Folder
 
 - `content/_templates/en/*.md`
-- `content/_templates/ko/*.md`
 
 ## How to use
 
@@ -16,7 +15,7 @@ These notes are reusable templates for editing site content in Obsidian.
 Example:
 
 ```bash
-cp content/_templates/ko/news.md content/ko/news.md
+cp content/_templates/en/news.md content/en/news.md
 npm run publish -m "Update news content"
 ```
 

@@ -6,7 +6,7 @@ import matter from 'gray-matter';
 const ROOT = process.cwd();
 const CONTENT_ROOT = path.join(ROOT, 'content');
 const OUTPUT_PATH = path.join(ROOT, 'src', 'content', 'site-content.generated.json');
-const LOCALES = ['en', 'ko'];
+const LOCALES = ['en'];
 
 async function readSource(locale, slug) {
   const filePath = path.join(CONTENT_ROOT, locale, `${slug}.md`);

@@ -21,38 +21,11 @@
         "slug": "news",
         "label": "News"
       }
-    ],
-    "ko": [
-      {
-        "slug": "",
-        "label": "홈"
-      },
-      {
-        "slug": "team",
-        "label": "연구진"
-      },
-      {
-        "slug": "research",
-        "label": "연구"
-      },
-      {
-        "slug": "publications",
-        "label": "논문"
-      },
-      {
-        "slug": "news",
-        "label": "소식"
-      }
     ]
   },
   "BRAND": {
     "en": {
       "name": "Bae Lab",
-      "subtitle": "Functional Materials Additive Manufacturing",
-      "tagline": "Functional Materials Additive Manufacturing"
-    },
-    "ko": {
-      "name": "배재형 교수 연구실 (Bae Lab)",
       "subtitle": "Functional Materials Additive Manufacturing",
       "tagline": "Functional Materials Additive Manufacturing"
     }
@@ -89,38 +62,6 @@
       "joinTitle": "Join Our Team",
       "joinDescription": "Bae Lab welcomes motivated undergraduate researchers, graduate students, and postdoctoral scholars from diverse engineering and science backgrounds, including chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life science.",
       "joinCta": "Contact Us"
-    },
-    "ko": {
-      "title": "에너지·환경·바이오를 위한 기능성 소재 프린팅 연구",
-      "description": "Bae Lab은 소재 설계, 공정 엔지니어링, 응용 검증을 정밀하게 통합해 구현 난도가 높은 기능성 시스템을 재현성 높은 제조 기술로 전환합니다.",
-      "tags": [
-        "프린팅 기술",
-        "에너지·환경 기술",
-        "바이오 기술"
-      ],
-      "primaryCta": "연구 분야 살펴보기",
-      "secondaryCta": "주요 논문 보기",
-      "newsTitle": "최근 소식",
-      "newsItems": [
-        {
-          "date": "2025.12",
-          "text": "경희대 화학공학과 학부연구생 최우수상 수상."
-        },
-        {
-          "date": "2025.11",
-          "text": "제8회 ICAE 2025 베스트 포스터상 수상."
-        },
-        {
-          "date": "2025.07",
-          "text": "한국화학공학회 포스터 부문 우수논문발표상 수상."
-        }
-      ],
-      "focusTitle": "핵심 연구",
-      "focusDescription": "기능성 소재 설계, 적층제조 공정 엔지니어링, 응용 성능 검증을 하나의 연구 파이프라인으로 연결해 실사용 가능한 기술로 고도화합니다.",
-      "focusCta": "연구 상세 보기",
-      "joinTitle": "함께할 연구원을 찾습니다",
-      "joinDescription": "Bae Lab은 학부연구생, 대학원생, 박사후연구원을 상시 모집하며, 화학공학, 재료공학, 고분자공학, 기계공학, 전기전자공학, 컴퓨터공학, 생명과학 등 다양한 전공 배경의 연구자를 환영합니다.",
-      "joinCta": "합류 문의하기"
     }
   },
   "MEMBERS_CONTENT": {
@@ -176,59 +117,6 @@
       "alumni": "Alumni",
       "loading": "Loading team profiles...",
       "empty": "No profiles available in this section."
-    },
-    "ko": {
-      "title": "연구진",
-      "description": "Bae Lab 연구진과 연구 문화를 소개합니다.",
-      "aboutTitle": "연구실 정체성",
-      "aboutBody": "Bae Lab은 에너지·환경·바이오 응용을 위한 기능성 소재와 적층제조 기술을 연구하는 다학제 연구팀입니다. 소재 설계, 공정 엔지니어링, 성능 검증을 유기적으로 연결해 실사용 가능한 기술 성과를 만듭니다.",
-      "cultureTitle": "Lab Culture",
-      "cultureBody": "우리는 높은 기준과 높은 신뢰를 동시에 지향합니다. 각 구성원이 도전적인 문제를 탐구하고, 명확하게 소통하며, 협업을 통해 함께 성장하는 연구 환경을 지향합니다.",
-      "culturePrinciples": [
-        {
-          "title": "다양성·포용·소속감",
-          "body": "다양한 전공과 관점을 창의적 연구의 기반으로 존중합니다."
-        },
-        {
-          "title": "열린 대화",
-          "body": "직급과 배경에 관계없이 근거 중심으로 의견을 나누고 피드백합니다."
-        },
-        {
-          "title": "위험과 실패를 대하는 태도",
-          "body": "잘 설계된 실패를 학습 데이터로 활용해 연구 완성도를 높입니다."
-        },
-        {
-          "title": "기꺼이 돕는 문화",
-          "body": "개인 성과를 넘어 팀의 성장을 위해 적극적으로 협력합니다."
-        }
-      ],
-      "professorTitle": "교수",
-      "currentStudentsTitle": "현재 학생",
-      "alumniTitle": "졸업생",
-      "jumpNav": [
-        {
-          "id": "identity",
-          "label": "연구실 정체성"
-        },
-        {
-          "id": "professor",
-          "label": "교수"
-        },
-        {
-          "id": "current",
-          "label": "현재 학생"
-        },
-        {
-          "id": "alumni",
-          "label": "졸업생"
-        }
-      ],
-      "joinCta": "문의하기",
-      "sectionTitle": "연구진 디렉터리",
-      "current": "재학생/재직자",
-      "alumni": "동문",
-      "loading": "연구진 정보를 불러오는 중입니다...",
-      "empty": "해당 섹션에 표시할 프로필이 없습니다."
     }
   },
   "RESEARCH_CONTENT": {
@@ -264,39 +152,6 @@
           "body": "Electrochemical, mechanical, and biological performance evaluation coupled with data-guided feedback loops."
         }
       ]
-    },
-    "ko": {
-      "title": "연구 분야",
-      "description": "Bae Lab은 화학, 물리학, 재료과학의 원리를 바탕으로 프린팅, 에너지, 환경, 바이오메디컬 연구의 최전선을 개척하여 중요한 사회적 요구에 대응하고 있습니다. 재료과학, 적층제조, 유체역학, 포토닉스 분야의 전문성을 활용하여 차세대 구조·기능성 소재 개발에 집중합니다.",
-      "cards": [
-        {
-          "title": "Printing Tech",
-          "body": "다양한 응용 분야에서 요구되는 맞춤형 제작을 위해 새로운 3D 프린팅 잉크와 프린팅 방법을 개발하고 있습니다. 원하는 기능, 조성, 구조, 물리·화학적 특성을 구현하기 위해 맞춤형 프린트헤드와 AI 보조 프린팅 시스템을 설계하여 현재 3D 프린팅 기술의 물리적 설계 제약을 극복합니다. 고분자, 하이드로겔, 엘라스토머, 금속산화물, 금속, 자극 반응성 기능 및 열·전기 전도 특성을 가진 복합재 등 다양한 소재의 프린팅을 연구합니다."
-        },
-        {
-          "title": "Energy & Environmental Tech",
-          "body": "지속 가능한 미래를 위해 기능성 소재의 새로운 조합을 활용한 비전통적 에너지 하베스팅 및 탄소 포집 시스템을 개발하고 있습니다. 실제 응용을 위해 활물질의 분자 수준부터 최적 성능을 위한 통합 거시 구조까지 디바이스를 완전 설계합니다. 또한 차세대 환경 센서 및 리튬 금속 전지 응용을 위한 조절 가능한 기능성과 특성을 가진 하이드로겔 및 솔보겔도 연구합니다."
-        },
-        {
-          "title": "Biomedical Tech",
-          "body": "3D 프린팅 방법으로 맞춤화된, 모든 연령층을 위한 체내 및 표피 현장진단 디바이스를 개발하고 있습니다. 차세대 실시간 바이오센서, 최소 침습 바이오일렉트로닉스, 원격 제어 소프트 로보틱스를 위해 고성능 소프트·기능성 소재를 첨단 3D 프린팅 방법으로 개발 및 조립합니다."
-        }
-      ],
-      "methodsTitle": "연구 방법론",
-      "methods": [
-        {
-          "title": "소재 설계 및 합성",
-          "body": "적층제조 친화적 기능성 소재의 분자 구조 및 조성 설계."
-        },
-        {
-          "title": "적층제조 공정 엔지니어링",
-          "body": "공정 윈도우, 유변학 거동, 패터닝 정밀도 최적화를 통한 안정적 제작."
-        },
-        {
-          "title": "응용 검증 및 데이터 기반 고도화",
-          "body": "전기화학·기계·바이오 성능 검증과 데이터 기반 피드백 최적화."
-        }
-      ]
     }
   },
   "PUBLICATIONS_CONTENT": {
@@ -307,14 +162,6 @@
       "loading": "Loading publications...",
       "empty": "No publications found for this filter.",
       "paperLink": "Paper Link"
-    },
-    "ko": {
-      "title": "연구 성과",
-      "description": "Bae Lab의 주요 연구 논문 목록입니다. 논문 재인쇄 요청은 jbae@khu.ac.kr로 연락해 주세요.",
-      "sectionTitle": "논문 목록",
-      "loading": "논문 정보를 불러오는 중입니다...",
-      "empty": "해당 조건의 논문이 없습니다.",
-      "paperLink": "원문 링크"
     }
   },
   "NEWS_CONTENT": {
@@ -354,43 +201,6 @@
           "body": "Our Li-metal battery paper was featured as a Journal Front Cover Article in Advanced Energy Materials (April Issue)."
         }
       ]
-    },
-    "ko": {
-      "title": "연구실 소식",
-      "description": "Bae Lab의 수상, 학회 성과, 팀 주요 이벤트를 소개합니다.",
-      "sectionTitle": "최근 소식",
-      "items": [
-        {
-          "date": "2025.12.05",
-          "title": "이명 학생, 경희대 화학공학과 제1회 학술제 최우수상 수상",
-          "body": "이명 학생이 경희대학교 화학공학과 학부연구생 학술제에서 최우수상을 수상했습니다."
-        },
-        {
-          "date": "2025.11.27",
-          "title": "이명 학생, 제8회 ICAE 베스트 포스터상 수상",
-          "body": "이명 학생이 제8회 국제첨단전자재료학회(ICAE)에서 베스트 포스터상을 수상했습니다."
-        },
-        {
-          "date": "2025.11.14",
-          "title": "이명 학생, 제2회 융합과 혁신 학부연구생 학술제 구두발표 최우수상 수상",
-          "body": "이명 학생이 융합과 혁신 학부연구생 학술제 구두발표 부문 최우수상을 수상했습니다."
-        },
-        {
-          "date": "2025.10.22",
-          "title": "[사진] 배 교수님 생일 기념 모임",
-          "body": "연구실 구성원들이 함께 교수님 생일을 기념하는 자리를 가졌습니다."
-        },
-        {
-          "date": "2025.07.14",
-          "title": "Zhu Xiaoling 학생, 한국화학공학회 포스터 부문 우수논문발표상 수상",
-          "body": "Zhu Xiaoling 학생이 한국화학공학회 포스터 발표 부문 우수논문발표상을 수상했습니다."
-        },
-        {
-          "date": "2024.01.03",
-          "title": "리튬 금속 전지 논문 Advanced Energy Materials 저널 앞 표지 선정",
-          "body": "리튬 금속 전지 논문이 Advanced Energy Materials 4월호 저널 앞 표지 논문으로 선정되었습니다."
-        }
-      ]
     }
   },
   "CONTACT_CONTENT": {
@@ -412,25 +222,6 @@
       "address": "1732 Deogyeong-daero, Giheung-gu, Yongin-si, Gyeonggi-do 17104, Republic of Korea",
       "map": "Open in Google Maps",
       "apply": "Please include your CV, transcript, and research interests in your email."
-    },
-    "ko": {
-      "title": "문의",
-      "description": "공동연구, 대학원 진학, 연구 관련 문의는 지도교수 이메일로 연락해 주세요.",
-      "leftTitle": "연구실 연락처",
-      "rightTitle": "위치 및 지원 안내",
-      "labels": {
-        "email": "이메일",
-        "phone": "전화",
-        "fax": "팩스",
-        "office": "연구실",
-        "address": "주소",
-        "map": "지도",
-        "apply": "지원 문의"
-      },
-      "office": "경희대학교 화학공학과 912-1호",
-      "address": "경기도 용인시 기흥구 덕영대로 1732 (우편번호 17104)",
-      "map": "Google 지도에서 보기",
-      "apply": "이메일에 이력서, 성적표, 관심 연구 주제를 함께 첨부해 주세요."
     }
   }
 }

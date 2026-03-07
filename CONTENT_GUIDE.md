@@ -11,7 +11,6 @@ Open this folder as your vault:
 Edit files in:
 
 - `content/en/*.md`
-- `content/ko/*.md`
 
 ## 2) Edit in Markdown Body (No YAML Required)
 
@@ -41,12 +40,11 @@ Common list formats:
 Template notes are available here:
 
 - `content/_templates/en/*.md`
-- `content/_templates/ko/*.md`
 
 Example:
 
 ```bash
-cp content/_templates/ko/news.md content/ko/news.md
+cp content/_templates/en/news.md content/en/news.md
 ```
 
 Then edit in Obsidian and publish.
@@ -101,10 +99,10 @@ Keep base filenames unchanged (`cover`, `area-1`, `area-2`, `area-3`, `featured`
 
 Homepage news renders as:
 
-- 1 featured card (latest item in `content/*/news.md`)
-- 3 compact rows (next three latest items)
+- 1 featured card (latest item in `content/en/news.md`)
+- 5 compact rows (next five latest items)
 
-Add at least 4 items in `news.md` to fully populate the section.
+Add at least 6 items in `news.md` to fully populate the section.
 
 ## 8) Home Motion (Accessibility)
 
@@ -119,4 +117,4 @@ Homepage sections use subtle reveal motion on scroll.
 npm run build
 ```
 
-Check `/en`, `/ko`, `news`, and bottom contact section render correctly.
+Check `/`, `news`, and bottom contact section render correctly.

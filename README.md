@@ -1,6 +1,6 @@
 # Bae Lab Website (React + shadcn/ui + Obsidian Content)
 
-Bilingual (`/en`, `/ko`) website for **Bae Lab**.
+English-only website for **Bae Lab**.
 The site runs on **React + Vite + Tailwind + shadcn/ui** and deploys with GitHub Pages.
 
 ## Tech Stack
@@ -14,8 +14,8 @@ The site runs on **React + Vite + Tailwind + shadcn/ui** and deploys with GitHub
 ## Obsidian Workflow
 
 1. Open `/content` as an Obsidian Vault.
-2. Edit Markdown files in `/content/en` and `/content/ko`.
-3. If needed, reuse template notes from `/content/_templates`.
+2. Edit Markdown files in `/content/en`.
+3. If needed, reuse template notes from `/content/_templates/en`.
 4. Publish in one command:
 
 ```bash
@@ -47,7 +47,7 @@ No code or path changes are needed if base filenames stay the same.
 
 - Homepage sections use subtle reveal motion whenever each section re-enters the viewport.
 - If `prefers-reduced-motion` is enabled, motion is automatically disabled.
-- Home news is rendered as one compact board: `1 featured + 3 rows`.
+- Home news is rendered as one compact board: `1 featured + 5 rows`.
 
 ## Quick Start
 
@@ -67,13 +67,13 @@ npm run preview
 
 ## Project Structure
 
-- `/content/*/*.md`: Obsidian-editable site text source
-- `/content/_templates/*/*.md`: reusable template notes for Obsidian
+- `/content/en/*.md`: Obsidian-editable site text source
+- `/content/_templates/en/*.md`: reusable template notes for Obsidian
 - `/scripts/build-content.mjs`: Markdown -> JSON generator
 - `/scripts/publish-content.mjs`: one-command content publish tool
 - `/src/content/site-content.generated.json`: generated content (auto)
 - `/src/content/site-content.js`: content export bridge
-- `/src/App.jsx`: route configuration (`/en`, `/ko`)
+- `/src/App.jsx`: route configuration
 - `/src/layouts/SiteLayout.jsx`: shared layout/header/footer
 - `/src/components/site/SiteContactSection.jsx`: global contact section
 - `/src/pages/*`: page implementations

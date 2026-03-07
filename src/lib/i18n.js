@@ -1,28 +1,25 @@
-export const LOCALES = ['en', 'ko'];
+export const LOCALES = ['en'];
+export const DEFAULT_LOCALE = 'en';
 
 export function isLocale(value) {
-  return LOCALES.includes(value);
+  return value === DEFAULT_LOCALE;
 }
 
-export function switchLocalePath(pathname, targetLocale) {
-  const segments = pathname.split('/').filter(Boolean);
-
-  if (segments.length === 0) {
-    return `/${targetLocale}`;
-  }
-
-  const [first, ...rest] = segments;
-  if (isLocale(first)) {
-    return `/${[targetLocale, ...rest].join('/')}`;
-  }
-
-  return `/${[targetLocale, ...segments].join('/')}`;
+export function switchLocalePath(pathname) {
+  return pathname || '/';
 }
 
-export function homePath(locale) {
-  return `/${locale}`;
+function normalizeSlug(value) {
+  return String(value || '').replace(/^\/+|\/+$/g, '').trim();
 }
 
-export function pagePath(locale, slug) {
-  return slug ? `/${locale}/${slug}` : `/${locale}`;
+export function homePath() {
+  return '/';
+}
+
+// Backward compatible signature:
+// pagePath(locale, slug) OR pagePath(slug)
+export function pagePath(localeOrSlug, maybeSlug) {
+  const slug = normalizeSlug(typeof maybeSlug === 'string' ? maybeSlug : localeOrSlug);
+  return slug ? `/${slug}` : '/';
 }
