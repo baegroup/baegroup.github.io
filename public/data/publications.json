@@ -1,13 +1,118 @@
 [
   {
-    "id": "2025-ees-data-science-assb",
+    "id": "2025-apm-liquid-crystal-sodium",
     "year": 2025,
     "type": "journal",
     "title": {
-      "en": "Application of Data Science in All-Solid-State Battery Research",
-      "ko": "전고체전지 연구에서 데이터 과학의 활용"
+      "en": "Discovery of a Liquid Crystal Phase of Sodium Halides via a Nonclassical Nucleation Pathway",
+      "ko": "비고전적 핵생성 경로를 통한 할로겐화 나트륨의 액정 상 발견"
     },
-    "authors": ["Jooho Kye", "Sungjoo Choi", "Jeongho Park", "Jaehyeong Bae"],
+    "authors": ["Jaehyeong Bae†", "Bong Lim Suh†", "Hamin Shin", "Doo-Young Youn", "Jihan Kim*", "Il-Doo Kim*"],
+    "venue": "Advanced Powder Materials",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong"],
+    "featured": false
+  },
+  {
+    "id": "2025-pharmaceutics-carbamazepine",
+    "year": 2025,
+    "type": "journal",
+    "title": {
+      "en": "Two-Step Nucleation and Amorphization of Carbamazepine Using a Micro-Droplet Precipitation System",
+      "ko": "마이크로 드롭렛 침전 시스템을 이용한 카바마제핀의 2단계 핵생성 및 비정질화"
+    },
+    "authors": ["Xiaoling Zhu", "Cheonghee Lee", "Ju Hyun Park", "Eun Mi Go", "Suha Cho", "Jonghan Lee", "Sang Kyu Kwak", "Jaehyeong Bae*", "Tae Seok Seo*"],
+    "venue": "Pharmaceutics",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong", "zhu-xiaoling", "cho-suha"],
+    "featured": false
+  },
+  {
+    "id": "2025-am-surface-engineering-li-metal",
+    "year": 2025,
+    "type": "journal",
+    "title": {
+      "en": "Emerging Surface Engineering Methods for Lithium Metal Anodes: Critical Review Beyond Conventional SEI and Surface Coatings",
+      "ko": "리튬 금속 음극을 위한 표면 엔지니어링 기법: 기존 SEI 및 표면 코팅을 넘어선 리뷰"
+    },
+    "authors": ["Jaehyeong Bae*", "Keonwoo Choi", "Jun Young Cheong", "Seongcheol Ahn", "Suha Cho", "Sung Gap Im*", "Il-Doo Kim*"],
+    "venue": "Advanced Materials",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong", "cho-suha"],
+    "featured": true
+  },
+  {
+    "id": "2024-acsnano-nanofilter-breathability",
+    "year": 2024,
+    "type": "journal",
+    "title": {
+      "en": "Advancing Breathability of Respiratory Nanofilter by Optimizing Pore Structure and Alignment in Nanofiber Networks",
+      "ko": "나노파이버 네트워크의 기공 구조 및 정렬 최적화를 통한 호흡기 나노필터의 통기성 향상"
+    },
+    "authors": ["Jaehyeong Bae†", "Jiyoung Lee†", "Won-Tae Hwang†", "Doo-Young Youn", "Hyunsub Song", "Jong-Seok Nam", "Jaewan Ahn", "Hwar-Son Kim", "Doo-won Kim", "Ji-Soo Jang", "Pan-Kee Bae", "Il-Doo Kim*"],
+    "venue": "ACS Nano",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong"],
+    "featured": false
+  },
+  {
+    "id": "2023-aem-sei-scaffold-li-metal",
+    "year": 2023,
+    "type": "journal",
+    "title": {
+      "en": "Reinforcing Native Solid-Electrolyte Interphase Layer via Electrolyte-Swellable Soft-Scaffold for Lithium Metal Anode",
+      "ko": "전해질 팽윤 소프트 스캐폴드를 통한 리튬 금속 음극의 고유 SEI 강화"
+    },
+    "authors": ["Jaehyeong Bae†", "Keonwoo Choi†", "Hyunsub Song†", "Do Heung Kim", "Doo Young Youn", "Su-Ho Cho", "Dogyeong Jeon", "Jiyoung Lee", "Junyoung Lee", "wontae Jang", "Changhyeon Lee", "Youson Kim", "Chanhoon Kim", "Ji-Won Jung", "Sung Gap Im*", "Il-Doo Kim*"],
+    "venue": "Advanced Energy Materials",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong"],
+    "featured": true
+  },
+  {
+    "id": "2022-am-photoenergy-harvesting",
+    "year": 2022,
+    "type": "journal",
+    "title": {
+      "en": "Photoenergy Harvesting by Photoacid Solution",
+      "ko": "광산 용액을 이용한 광에너지 하베스팅"
+    },
+    "authors": ["Jaehyeong Bae†", "Haeseong Lim†", "Jaewan Ahn", "Youn Hwa Kim", "Min Soo Kim", "Il-Doo Kim*"],
+    "venue": "Advanced Materials",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong"],
+    "featured": true
+  },
+  {
+    "id": "2022-afm-thermochromic-sensor",
+    "year": 2022,
+    "type": "journal",
+    "title": {
+      "en": "Porous Nanofiber Membrane: Rational Design for Highly Sensitive Thermochromic Sensor",
+      "ko": "다공성 나노파이버 멤브레인: 고감도 열변색 센서의 합리적 설계"
+    },
+    "authors": ["Dong-Ha Kim†", "Jaehyeong Bae†", "Jiyoung Lee", "Jaewan Ahn", "Won-Tae Hwang", "Jaehyun Ko", "Il-Doo Kim*"],
+    "venue": "Advanced Functional Materials",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong"],
+    "featured": true
+  },
+  {
+    "id": "2022-ees-watt-scale-hydroelectric",
+    "year": 2022,
+    "type": "journal",
+    "title": {
+      "en": "Towards Watt-Scale Hydroelectric Energy Harvesting by Ti₃C₂Tₓ-Based Transpiration-Driven Electrokinetic Power Generators",
+      "ko": "Ti₃C₂Tₓ 기반 증산 구동 전기동력 발전기를 통한 와트급 수력 에너지 하베스팅"
+    },
+    "authors": ["Jaehyeong Bae†", "Min Soo Kim†", "Taegon Oh", "Bong Lim Suh", "Tae Gwang Yun", "Seungjun Lee", "Kahyun Hur", "Yury Gogotsi", "Chong Min Koo*", "Il-Doo Kim*"],
     "venue": "Energy & Environmental Science",
     "doi": "",
     "url": "",
@@ -15,239 +120,104 @@
     "featured": true
   },
   {
-    "id": "2025-jps-overpotential-safety",
-    "year": 2025,
+    "id": "2020-acsnano-single-atom-pt",
+    "year": 2020,
     "type": "journal",
     "title": {
-      "en": "Analysis of Overpotential and Safety on Li-Ion Batteries by Exploiting Heat Generation and Side Reaction",
-      "ko": "발열 및 부반응 분석 기반 리튬이온전지 과전압 및 안전성 해석"
+      "en": "Single Atom Pt Stabilized on One-Dimensional Nanostructure Support via Carbon Nitride/SnO₂ Heterojunction Trapping",
+      "ko": "탄소 질화물/SnO₂ 이종접합 트래핑을 통한 1차원 나노구조 지지체 위 단일 원자 Pt 안정화"
     },
-    "authors": ["Jooho Kye", "Sungjoo Choi", "Hyunseok Kim", "Kyungmin Park", "Jaehyeong Bae"],
-    "venue": "Journal of Power Sources",
+    "authors": ["Hamin Shin", "Wan-Gil Jung", "Dong-Ha Kim", "Ji-Soo Jang", "Yun-Hwa Kim", "Won-Tae Kim", "Jaehyeong Bae", "Su-Ho Cho", "Bong Joong Kim", "Il-Doo Kim*"],
+    "venue": "ACS Nano",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong"],
+    "featured": false
+  },
+  {
+    "id": "2020-acsnano-colorimetric-nanofiber",
+    "year": 2020,
+    "type": "journal",
+    "title": {
+      "en": "Colorimetric Dye-Loaded Nanofiber Yarn: Eye-Readable and Wearable Gas Sensing Platform",
+      "ko": "색변화 염료가 탑재된 나노파이버 실: 가시적·착용 가능한 가스 감지 플랫폼"
+    },
+    "authors": ["Dong-Ha Kim", "Jun-Hwee Chae", "Jae Young Lim", "Jaehyeong Bae", "Woonsung Lee", "Ki Ro Yoon", "Chanhaeng Kim", "Ji-Soo Jang", "Won-Tae Hwang", "Il-Doo Kim*"],
+    "venue": "ACS Nano",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong"],
+    "featured": false
+  },
+  {
+    "id": "2020-gc-recycling-tree-gum",
+    "year": 2020,
+    "type": "journal",
+    "title": {
+      "en": "Recycling Non-Food-Grade Tree Gum Wastes into Nanoporous Carbon for Sustainable Energy Harvester",
+      "ko": "비식품용 나무 수지 폐기물의 나노다공성 탄소 재활용을 통한 지속가능 에너지 하베스터"
+    },
+    "authors": ["Abhilash Venkateshaiah", "Jun Young Cheong", "Sung-Ho Shin", "Akshayakumar K.P", "Tae Gwang Yun", "Jaehyeong Bae", "Srantisree Vichniakov", "Miroslava Cermik", "Seema Agarwal", "Andreas Greiner", "Vinod V. T. Padil", "Il-Doo Kim*", "Rajendar S. Varma*"],
+    "venue": "Green Chemistry",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong"],
+    "featured": false
+  },
+  {
+    "id": "2019-ees-transpiration-electrokinetic",
+    "year": 2019,
+    "type": "journal",
+    "title": {
+      "en": "Self-Operating Transpiration Driven Electrokinetic Power Generator with an Artificial Hydrological Cycle",
+      "ko": "인공 수문 순환을 활용한 자율 작동 증산 구동 전기동력 발전기"
+    },
+    "authors": ["Jaehyeong Bae†", "Tae Gwang Yun†", "Bong Lim Suh", "Jihan Kim", "Il-Doo Kim*"],
+    "venue": "Energy & Environmental Science",
     "doi": "",
     "url": "",
     "labAuthors": ["bae-jaehyeong"],
     "featured": true
   },
   {
-    "id": "2025-jes-concentration-polarization",
-    "year": 2025,
-    "type": "journal",
-    "title": {
-      "en": "Understanding Concentration Polarization in All-Solid-State Batteries: A Physics-Based Simulation and Data-Driven Analysis",
-      "ko": "전고체전지 농도 분극의 물리 기반 시뮬레이션 및 데이터 기반 분석"
-    },
-    "authors": ["Jeongho Park", "Sungjoo Choi", "Kyungmin Park", "Jaehyeong Bae"],
-    "venue": "Journal of The Electrochemical Society",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": true
-  },
-  {
-    "id": "2024-applsci-uam-lion",
-    "year": 2024,
-    "type": "journal",
-    "title": {
-      "en": "A Study on the Application of Lithium-Ion Batteries Depending on Their Degradation in Urban Air Mobility Aircraft Through Simulation",
-      "ko": "시뮬레이션 기반 UAM 항공기용 리튬이온전지 열화 상태별 적용 연구"
-    },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Applied Sciences",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": false
-  },
-  {
-    "id": "2023-electrochimica-aging-ocv",
-    "year": 2023,
-    "type": "journal",
-    "title": {
-      "en": "Temperature-Dependent Aging Behavior and Life Prediction of Commercial NCM Lithium-Ion Batteries Based on Open Circuit Voltage Evolution",
-      "ko": "개방회로전압 기반 상용 NCM 리튬이온전지의 온도 의존 열화 거동 및 수명 예측"
-    },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Electrochimica Acta",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": false
-  },
-  {
-    "id": "2022-jemax-output-assb",
-    "year": 2022,
-    "type": "journal",
-    "title": {
-      "en": "Maximizing Output in All-Solid-State Batteries by Applying Structural Parameters to Composite Electrodes",
-      "ko": "복합 전극 구조 파라미터 적용을 통한 전고체전지 출력 극대화"
-    },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Journal of Energy Chemistry",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": false
-  },
-  {
-    "id": "2022-esm-3d-structured-electrode",
-    "year": 2022,
-    "type": "journal",
-    "title": {
-      "en": "Construction of 3D Structured Electrode Based on Dynamic Surface: Machine Learning and Computational Modeling Approaches for Electrodeposition of Lithium Metal Anode",
-      "ko": "동적 표면 기반 3차원 구조 전극 설계: 리튬 금속 음극 전착을 위한 머신러닝 및 계산모델링 접근"
-    },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Energy Storage Materials",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": false
-  },
-  {
-    "id": "2022-energies-soc-sop-ml",
-    "year": 2022,
-    "type": "journal",
-    "title": {
-      "en": "Machine Learning-Based Estimation of State of Charge and State of Power of Lithium-Ion Batteries",
-      "ko": "머신러닝 기반 리튬이온전지 SOC/SOP 추정"
-    },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Energies",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": false
-  },
-  {
-    "id": "2022-srep-isc-diagnosis-lstm",
-    "year": 2022,
-    "type": "journal",
-    "title": {
-      "en": "Incipient Short Circuit Diagnosis of Li-Ion Batteries Based on Long Short-Term Memory Networks",
-      "ko": "LSTM 기반 리튬이온전지 초기 내부단락 진단"
-    },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Scientific Reports",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": false
-  },
-  {
-    "id": "2022-cej-ncm-assb",
-    "year": 2022,
-    "type": "journal",
-    "title": {
-      "en": "LiNi0.5Co0.2Mn0.3O2 Positive Electrode-Based All-Solid-State Batteries via Liquid-Phase Process",
-      "ko": "액상 공정 기반 LiNi0.5Co0.2Mn0.3O2 양극 전고체전지 연구"
-    },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Chemical Engineering Journal",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": false
-  },
-  {
-    "id": "2020-jps-soh-dva-svr",
-    "year": 2020,
-    "type": "journal",
-    "title": {
-      "en": "State of Health Estimation of NCM Batteries Based on Differential Voltage Analysis and Support Vector Regression",
-      "ko": "미분 전압 분석 및 SVR 기반 NCM 배터리 SOH 추정"
-    },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Journal of Power Sources",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": false
-  },
-  {
-    "id": "2020-jes-aging-strain-fracture",
-    "year": 2020,
-    "type": "journal",
-    "title": {
-      "en": "Aging Strain and Mechanical Fracture of High-Areal-Capacity Electrode in Lithium-Ion Batteries",
-      "ko": "고면적 용량 전극의 열화 변형 및 기계적 파손 분석"
-    },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Journal of The Electrochemical Society",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": false
-  },
-  {
-    "id": "2019-jps-thermal-analysis-18650",
+    "id": "2019-acsnano-transpiration-power-generator",
     "year": 2019,
     "type": "journal",
     "title": {
-      "en": "Electrochemical and Thermal Analyses of 18650 Lithium-Ion Cells Using a 3D Electrochemical-Thermal Coupled Model",
-      "ko": "3차원 전기화학-열 연성 모델 기반 18650 리튬이온전지 해석"
+      "en": "Transpiration Driven Electrokinetic Power Generator",
+      "ko": "증산 구동 전기동력 발전기"
     },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Journal of Power Sources",
+    "authors": ["Tae Gwang Yun†", "Jaehyeong Bae†", "Avner Rothschild", "Il-Doo Kim*"],
+    "venue": "ACS Nano",
     "doi": "",
     "url": "",
     "labAuthors": ["bae-jaehyeong"],
     "featured": false
   },
   {
-    "id": "2019-electrochimica-phase-field-pore",
+    "id": "2019-acsnano-stretchable-electrochromic",
     "year": 2019,
     "type": "journal",
     "title": {
-      "en": "Phase-Field Modeling of Pore Structure Effect on Surface Degradation and Cracking in Ni-Rich Layered Cathode Materials",
-      "ko": "Ni-rich 층상 양극의 기공 구조 영향에 대한 phase-field 모델링"
+      "en": "All-Transparent Stretchable Electrochromic Supercapacitor Wearable Patch Device",
+      "ko": "전투명 신축성 전기변색 슈퍼커패시터 웨어러블 패치 디바이스"
     },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Electrochimica Acta",
+    "authors": ["Tae Gwang Yun", "Minkyu Park", "Dong-Ha Kim", "Donghyuk Kim", "Jun Young Cheong", "Jin Gook Bae", "Seung Mo Han*", "Il-Doo Kim*"],
+    "venue": "ACS Nano",
     "doi": "",
     "url": "",
     "labAuthors": ["bae-jaehyeong"],
     "featured": false
   },
   {
-    "id": "2019-jps-soc-diagnosis-svm",
-    "year": 2019,
-    "type": "journal",
-    "title": {
-      "en": "State of Charge Estimation and Diagnosis of NCM-Based Li-Ion Batteries Using Incremental Capacity Analysis and Support Vector Machine",
-      "ko": "증분 용량 분석 및 SVM 기반 NCM 배터리 SOC 추정/진단"
-    },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Journal of Power Sources",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": false
-  },
-  {
-    "id": "2018-ssi-ionic-conduction-sulfide",
+    "id": "2018-ea-nb2o5-fibers-lithium",
     "year": 2018,
     "type": "journal",
     "title": {
-      "en": "Ionic Conduction in a Sulfide-Based Glass-Ceramic Electrolyte: Electrochemical and Structural Insights",
-      "ko": "황화물계 유리세라믹 전해질의 이온전도 특성 분석"
+      "en": "Ag-Coated One-Dimensional Orthorhombic Nb₂O₅ Fibers as High Performance Electrodes for Lithium Storage",
+      "ko": "리튬 저장용 고성능 전극으로서의 Ag 코팅 1차원 직방정계 Nb₂O₅ 파이버"
     },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "Solid State Ionics",
-    "doi": "",
-    "url": "",
-    "labAuthors": ["bae-jaehyeong"],
-    "featured": false
-  },
-  {
-    "id": "2017-electrochimica-artificial-interphase",
-    "year": 2017,
-    "type": "journal",
-    "title": {
-      "en": "Artificially Engineered Interphases for Stable Cycling of Lithium Metal in Sulfide Solid Electrolytes",
-      "ko": "황화물 고체전해질에서 리튬금속 안정 사이클링을 위한 인공 계면 설계"
-    },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
+    "authors": ["Jun Young Cheong", "Doo Young Youn", "Chanhoon Kim", "Ji Won Jung", "Alana F. Ogata", "Jin Gook Bae", "Il-Doo Kim*"],
     "venue": "Electrochimica Acta",
     "doi": "",
     "url": "",
@@ -255,15 +225,45 @@
     "featured": false
   },
   {
-    "id": "2017-npj-threshold-descriptor",
+    "id": "2017-small-silver-nanowires",
     "year": 2017,
     "type": "journal",
     "title": {
-      "en": "Threshold and Descriptor Analysis for Fast Ion Conduction in Sulfide Solid Electrolytes: A Machine Learning Study",
-      "ko": "황화물 고체전해질의 고속 이온전도를 위한 임계값/디스크립터 분석"
+      "en": "Growth of Silver Nanowires from Controlled Silver Chloride Seeds and Their Application for Fluorescence Enhancement Based on Localized Surface Plasmon Resonance",
+      "ko": "제어된 염화은 시드로부터의 은 나노와이어 성장 및 국소 표면 플라즈몬 공명 기반 형광 증강 응용"
     },
-    "authors": ["Bae Lab Members", "Jaehyeong Bae"],
-    "venue": "npj Computational Materials",
+    "authors": ["Sunwoong Bae", "Hyeji Han", "Jin Gook Bae", "Eun Yeol Lee", "Sang Hyuk Im", "Do Hyun Kim", "Tae Seok Seo*"],
+    "venue": "Small",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong"],
+    "featured": false
+  },
+  {
+    "id": "2016-npgam-graphene-assembly",
+    "year": 2016,
+    "type": "journal",
+    "title": {
+      "en": "Tunable Three-Dimensional Graphene Assembly Architectures Through Controlled Diffusion of Aqueous Solution from a Micro-Droplet",
+      "ko": "마이크로 드롭렛으로부터의 수용액 확산 제어를 통한 3차원 그래핀 조립 구조 튜닝"
+    },
+    "authors": ["Jin Gook Bae", "Minsu Park", "Do hyun Kim", "Eun Yeol Lee", "Woo-Sik Kim", "Tae Seok Seo*"],
+    "venue": "NPG Asia Materials",
+    "doi": "",
+    "url": "",
+    "labAuthors": ["bae-jaehyeong"],
+    "featured": false
+  },
+  {
+    "id": "2015-nice-microfluidic-crystallization",
+    "year": 2015,
+    "type": "journal",
+    "title": {
+      "en": "Microfluidic Device Based Crystallization Technique",
+      "ko": "마이크로플루이딕 디바이스 기반 결정화 기술"
+    },
+    "authors": ["Sunwoong Bae", "Hyun Young Heo", "Jin Gook Bae", "Tae Seok Seo*", "Jun Young Kim", "Youn Seok Heo"],
+    "venue": "News & Information for Chemical Engineers",
     "doi": "",
     "url": "",
     "labAuthors": ["bae-jaehyeong"],
