@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" role="img" aria-labelledby="title desc">
+  <title id="title">Fearless Organization Matrix</title>
+  <desc id="desc">Quadrant chart showing psychological safety and performance standards.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#eef3f8"/>
+    </linearGradient>
+    <style>
+      .title { font: 700 34px 'IBM Plex Sans', 'Noto Sans KR', Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 500 20px 'IBM Plex Sans', 'Noto Sans KR', Arial, sans-serif; fill: #334155; }
+      .axis { font: 600 19px 'IBM Plex Sans', 'Noto Sans KR', Arial, sans-serif; fill: #1f2937; }
+      .label { font: 600 22px 'IBM Plex Sans', 'Noto Sans KR', Arial, sans-serif; fill: #1e293b; }
+      .cell { font: 600 24px 'IBM Plex Sans', 'Noto Sans KR', Arial, sans-serif; fill: #0f172a; }
+      .note { font: 500 18px 'IBM Plex Sans', 'Noto Sans KR', Arial, sans-serif; fill: #475569; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="860" fill="url(#bg)" rx="24"/>
+
+  <text class="title" x="72" y="78">The Fearless Organization Matrix</text>
+  <text class="subtitle" x="72" y="112">High Standards + Psychological Safety</text>
+
+  <rect x="272" y="190" width="790" height="560" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" rx="18"/>
+
+  <line x1="667" y1="190" x2="667" y2="750" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="272" y1="470" x2="1062" y2="470" stroke="#cbd5e1" stroke-width="2"/>
+
+  <rect x="272" y="190" width="395" height="280" fill="#e6eef7"/>
+  <rect x="667" y="190" width="395" height="280" fill="#dbe7f5"/>
+  <rect x="272" y="470" width="395" height="280" fill="#f1f5f9"/>
+  <rect x="667" y="470" width="395" height="280" fill="#edf2f7"/>
+
+  <text class="axis" x="402" y="160">Low Standards</text>
+  <text class="axis" x="772" y="160">High Standards</text>
+
+  <text class="axis" x="96" y="336" transform="rotate(-90 96 336)">High Psychological Safety</text>
+  <text class="axis" x="96" y="622" transform="rotate(-90 96 622)">Low Psychological Safety</text>
+
+  <text class="cell" x="374" y="335">Comfort Zone</text>
+  <text class="cell" x="730" y="320">Learning &amp;</text>
+  <text class="cell" x="730" y="355">High Performance Zone</text>
+  <text class="cell" x="384" y="612">Apathy Zone</text>
+  <text class="cell" x="760" y="612">Anxiety Zone</text>
+
+  <text class="note" x="72" y="804">Source concept: The Fearless Organization, Amy C. Edmondson</text>
+</svg>

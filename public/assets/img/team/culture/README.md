@@ -1,9 +1,9 @@
 # Team Culture Image
 
-Place the Fearless Organization reference image here using this filename:
+Default image used by Team page:
 
-- `fearless-organization.png`
+- `fearless-organization.svg`
 
-The Team page reads this path:
+If you want to replace it with your own image, keep the same filename:
 
-- `public/assets/img/team/culture/fearless-organization.png`
+- `public/assets/img/team/culture/fearless-organization.svg`

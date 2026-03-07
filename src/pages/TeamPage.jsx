@@ -24,7 +24,19 @@ const DEFAULT_JUMP_NAV = {
 
 const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'alumni']);
 const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
-const FEARLESS_IMAGE_PATH = 'assets/img/team/culture/fearless-organization.png';
+const FEARLESS_IMAGE_PATH = 'assets/img/team/culture/fearless-organization.svg';
+const IDENTITY_COPY = {
+  en: {
+    sectionLabel: 'Lab Identity',
+    aboutHeading: 'About our team',
+    principlesHeading: 'Core Principles'
+  },
+  ko: {
+    sectionLabel: 'Research Group Identity',
+    aboutHeading: 'Team Overview',
+    principlesHeading: 'Core Principles'
+  }
+};
 
 function MemberCard({ member, locale, prominent = false, showRoleBadge = false }) {
   const [broken, setBroken] = useState(false);
@@ -91,11 +103,11 @@ function Principles({ principles }) {
   }
 
   return (
-    <div className="divide-y divide-slate-200 border-t border-slate-200">
+    <div className="grid gap-3 sm:grid-cols-2">
       {principles.map((item) => (
-        <article className="py-5" key={item.title}>
-          <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600 md:text-base">{item.body}</p>
+        <article className="rounded-lg border border-slate-200/90 bg-slate-50/70 p-4 md:p-5" key={item.title}>
+          <h3 className="text-base font-semibold text-slate-900 md:text-lg">{item.title}</h3>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.body}</p>
         </article>
       ))}
     </div>
@@ -104,6 +116,7 @@ function Principles({ principles }) {
 
 export function TeamPage({ locale }) {
   const content = TEAM_CONTENT[locale] || TEAM_CONTENT.en;
+  const identityCopy = IDENTITY_COPY[locale] || IDENTITY_COPY.en;
   const [currentGroups, setCurrentGroups] = useState([]);
   const [alumniGroups, setAlumniGroups] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -251,43 +264,51 @@ export function TeamPage({ locale }) {
 
           <div className="px-4 py-6 md:px-6 md:py-7">
             {activeSection === 'identity' ? (
-              <section className="space-y-8">
-                <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">About our team</h2>
-                  <p className="max-w-4xl text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
-                  <div className="pt-1">
+              <section className="space-y-8 md:space-y-10">
+                <section className="space-y-5 border-b border-slate-200 pb-6 md:pb-8">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0b3a64]">{identityCopy.sectionLabel}</p>
+                  <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-8">
+                    <div className="space-y-3">
+                      <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
+                      <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
+                    </div>
+
+                    <div className="space-y-3 lg:border-l lg:border-slate-200 lg:pl-8">
+                      <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'Lab Culture | The Fearless Lab'}</h2>
+                      <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
+                    </div>
+                  </div>
+                  <div>
                     <Link className="home-cta-primary" to={pagePath('join')}>
                       {content.joinCta || 'Information for joining our team'}
                     </Link>
                   </div>
                 </section>
 
-                <section className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:items-start">
-                  <div className="space-y-3">
-                    <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'Lab Culture | The Fearless Lab'}</h2>
-                    <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
+                <section className="grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)] xl:items-start">
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold tracking-tight text-slate-900 md:text-xl">{identityCopy.principlesHeading}</h3>
+                    <Principles principles={culturePrinciples} />
                   </div>
 
-                  <figure className="overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
+                  <figure className="overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
                     {!cultureImageBroken ? (
                       <img
                         alt="The Fearless Organization matrix"
-                        className="h-auto w-full object-contain"
+                        className="h-auto w-full object-contain p-3 md:p-4"
                         onError={() => setCultureImageBroken(true)}
                         src={`${import.meta.env.BASE_URL}${FEARLESS_IMAGE_PATH}`}
                       />
                     ) : (
                       <div className="flex min-h-52 items-center justify-center px-4 text-center text-sm text-slate-500">
-                        Fearless organization image placeholder
+                        Culture image placeholder
                       </div>
                     )}
-                    <figcaption className="px-4 py-3 text-xs italic text-slate-500">
+                    <figcaption className="border-t border-slate-200 px-4 py-3 text-xs italic text-slate-500">
                       From "The fearless organization" by Amy Edmondson
                     </figcaption>
                   </figure>
                 </section>
-
-                <Principles principles={culturePrinciples} />
               </section>
             ) : null}
 
