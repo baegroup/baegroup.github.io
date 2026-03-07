@@ -20,10 +20,6 @@
       {
         "slug": "news",
         "label": "News"
-      },
-      {
-        "slug": "contact",
-        "label": "Contact"
       }
     ],
     "ko": [
@@ -46,10 +42,6 @@
       {
         "slug": "news",
         "label": "소식"
-      },
-      {
-        "slug": "contact",
-        "label": "문의"
       }
     ]
   },
