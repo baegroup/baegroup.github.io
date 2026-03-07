@@ -1,15 +1,52 @@
 # Template: members.md
 
-# Members
+# Team
 
 ## title
-Members
+Team
 
 ## description
-Our members work on electrochemical materials, battery computational simulation, and battery state/safety diagnostics across cell to pack levels.
+Meet our people and culture.
+
+## aboutTitle
+About the Lab
+
+## aboutBody
+Briefly explain the lab mission, research domains, and what makes your team distinct.
+
+## cultureTitle
+Lab Culture
+
+## cultureBody
+Summarize the working style and research philosophy in 2-3 sentences.
+
+## culturePrinciples
+- Principle 1 title | One-sentence explanation.
+- Principle 2 title | One-sentence explanation.
+- Principle 3 title | One-sentence explanation.
+- Principle 4 title | One-sentence explanation.
+
+## professorTitle
+Professor
+
+## currentStudentsTitle
+Current Students
+
+## alumniTitle
+Alumni
+
+## jumpNav
+- about | About
+- culture | Culture
+- professor | Professor
+- current | Current Students
+- alumni | Alumni
+
+## joinCta
+Contact the Lab
 
 ## sectionTitle
-Lab Roster
+Team Directory
 
 ## current
 Current Members
@@ -18,7 +55,7 @@ Current Members
 Alumni
 
 ## loading
-Loading members...
+Loading team profiles...
 
 ## empty
-No members found in this category.
+No profiles available in this section.

@@ -4,7 +4,7 @@
 
 ## items
 - / | Home
-- members | Members
+- team | Team
 - research | Research
 - publications | Publications
 - news | News

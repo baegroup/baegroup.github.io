@@ -141,6 +141,25 @@ function readCardItems(source, key) {
   return parseDelimitedItems(source.sections[key], 2).map(([title, body]) => ({ title, body }));
 }
 
+function readPairItems(source, key, leftKey, rightKey) {
+  const fromFrontmatter = source.data[key];
+  if (Array.isArray(fromFrontmatter)) {
+    return fromFrontmatter
+      .map((item) => ({
+        [leftKey]: String(item[leftKey] || '').trim(),
+        [rightKey]: normalizeText(item[rightKey])
+      }))
+      .filter((item) => item[leftKey] && item[rightKey]);
+  }
+
+  return parseDelimitedItems(source.sections[key], 2)
+    .map(([left, right]) => ({
+      [leftKey]: left,
+      [rightKey]: right
+    }))
+    .filter((item) => item[leftKey] && item[rightKey]);
+}
+
 function readNewsPageItems(source) {
   const fromFrontmatter = source.data.items;
   if (Array.isArray(fromFrontmatter)) {
@@ -220,6 +239,16 @@ async function build() {
     output.MEMBERS_CONTENT[locale] = {
       title: readString(members, 'title'),
       description: readString(members, 'description'),
+      aboutTitle: readString(members, 'aboutTitle'),
+      aboutBody: readString(members, 'aboutBody'),
+      cultureTitle: readString(members, 'cultureTitle'),
+      cultureBody: readString(members, 'cultureBody'),
+      culturePrinciples: readPairItems(members, 'culturePrinciples', 'title', 'body'),
+      professorTitle: readString(members, 'professorTitle'),
+      currentStudentsTitle: readString(members, 'currentStudentsTitle'),
+      alumniTitle: readString(members, 'alumniTitle'),
+      jumpNav: readPairItems(members, 'jumpNav', 'id', 'label'),
+      joinCta: readString(members, 'joinCta'),
       sectionTitle: readString(members, 'sectionTitle'),
       current: readString(members, 'current'),
       alumni: readString(members, 'alumni'),

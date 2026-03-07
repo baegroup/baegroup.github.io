@@ -137,15 +137,21 @@ export async function loadMembers(locale, status = 'current') {
     grouped.get(role).push(member);
   });
 
-  return ROLE_ORDER.filter((role) => grouped.has(role)).map((role) => {
+  const orderedRoles = [
+    ...ROLE_ORDER.filter((role) => grouped.has(role)),
+    ...[...grouped.keys()].filter((role) => !ROLE_ORDER.includes(role)).sort((a, b) => String(a).localeCompare(String(b)))
+  ];
+
+  return orderedRoles.map((role) => {
     const members = sortMembers(grouped.get(role), status).map((member) => {
       const localizedName = localize(member.name, locale);
+      const roleLabel = ROLE_LABELS[locale]?.[role] || role;
 
       return {
         ...member,
         localizedName,
         role,
-        roleLabel: ROLE_LABELS[locale][role] || role,
+        roleLabel,
         localizedInterests: localizeList(member.interests, locale),
         programLabel: PROGRAM_LABELS[locale][member.program] || member.program || '',
         initials: getInitials(localizedName)
@@ -154,7 +160,7 @@ export async function loadMembers(locale, status = 'current') {
 
     return {
       role,
-      label: ROLE_LABELS[locale][role] || role,
+      label: ROLE_LABELS[locale]?.[role] || role,
       members
     };
   });

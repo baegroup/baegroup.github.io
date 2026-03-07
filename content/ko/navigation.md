@@ -2,7 +2,7 @@
 
 ## items
 - / | 홈
-- members | 구성원
+- team | 연구진
 - research | 연구
 - publications | 논문
 - news | 소식
