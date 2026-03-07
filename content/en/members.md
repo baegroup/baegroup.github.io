@@ -4,7 +4,7 @@
 Members
 
 ## description
-Our members work on electrochemical materials, battery computational simulation, and battery state/safety diagnostics across cell to pack levels.
+We are a multidisciplinary team of undergraduate, graduate, and postdoctoral researchers with expertise in chemical engineering, materials science, fluid mechanics, additive manufacturing, and carbon capture. We pursue a highly innovative and collaborative research environment.
 
 ## sectionTitle
 Lab Roster

@@ -9,10 +9,10 @@
     "status": "current",
     "program": "Staff",
     "email": "jbae@khu.ac.kr",
-    "website": "https://www.baelab.khu.ac.kr",
+    "website": "https://baegroup.github.io",
     "interests": {
-      "en": ["Electrolyte Design", "All-Solid-State Batteries", "Battery Diagnostics"],
-      "ko": ["전해질 설계", "전고체전지", "배터리 진단"]
+      "en": ["Additive Manufacturing", "Functional Materials", "Energy Harvesting"],
+      "ko": ["적층제조", "기능성 소재", "에너지 하베스팅"]
     },
     "photo": "",
     "startYear": 2023,
@@ -27,11 +27,11 @@
     "role": "Graduate",
     "status": "current",
     "program": "MSPhD",
-    "email": "ass950715@gmail.com",
+    "email": "suha0116@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Battery Computational Simulation"],
-      "ko": ["배터리 계산 시뮬레이션"]
+      "en": ["3D Printing for Environmental Applications"],
+      "ko": ["환경 응용 3D 프린팅"]
     },
     "photo": "",
     "startYear": 2024,
@@ -46,11 +46,11 @@
     "role": "Graduate",
     "status": "current",
     "program": "PhD",
-    "email": "xiaolingzhu@khu.ac.kr",
+    "email": "zxl@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Electrolyte Additives"],
-      "ko": ["전해질 첨가제 개발"]
+      "en": ["Photo-Chemo-Mechanical Energy Harvesting"],
+      "ko": ["광-화학-기계 에너지 하베스팅"]
     },
     "photo": "",
     "startYear": 2024,
@@ -68,8 +68,8 @@
     "email": "liujiechen@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Electrolyte Design for Rechargeable Batteries"],
-      "ko": ["다양한 이차전지용 전해질 설계"]
+      "en": ["Aerogel 3D Printing & Printed Sensors"],
+      "ko": ["에어로겔 3D 프린팅 및 프린팅 센서"]
     },
     "photo": "",
     "startYear": 2025,
@@ -84,7 +84,7 @@
     "role": "Graduate",
     "status": "current",
     "program": "PhD",
-    "email": "tianruonan99@khu.ac.kr",
+    "email": "",
     "website": "",
     "interests": {
       "en": ["Incoming 2026 Spring"],
@@ -103,7 +103,7 @@
     "role": "Graduate",
     "status": "current",
     "program": "MSPhD",
-    "email": "qunbo_lin@khu.ac.kr",
+    "email": "",
     "website": "",
     "interests": {
       "en": ["Incoming 2026 Fall"],
@@ -122,11 +122,11 @@
     "role": "Graduate",
     "status": "current",
     "program": "MS",
-    "email": "r_a2@khu.ac.kr",
+    "email": "dlaud619@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Battery Condition Diagnosis"],
-      "ko": ["배터리 상태 진단"]
+      "en": ["Photo-Chemo-Mechanical Energy Harvesting", "Zn-ion Battery"],
+      "ko": ["광-화학-기계 에너지 하베스팅", "아연이온전지"]
     },
     "photo": "",
     "startYear": 2024,
@@ -141,11 +141,11 @@
     "role": "Undergraduate",
     "status": "current",
     "program": "BS",
-    "email": "dbswldla123@khu.ac.kr",
+    "email": "yoonjik24@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Battery Data Analysis"],
-      "ko": ["배터리 데이터 분석"]
+      "en": ["Embedded 3D Printing for Biomedical Applications"],
+      "ko": ["바이오메디컬 응용 임베디드 3D 프린팅"]
     },
     "photo": "",
     "startYear": 2024,
@@ -160,11 +160,11 @@
     "role": "Undergraduate",
     "status": "current",
     "program": "BS",
-    "email": "wre256256@khu.ac.kr",
+    "email": "amo0813@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Electrochemical Testing"],
-      "ko": ["전기화학 실험"]
+      "en": ["Photo-Chemo-Mechanical Energy Harvesting"],
+      "ko": ["광-화학-기계 에너지 하베스팅"]
     },
     "photo": "",
     "startYear": 2025,
@@ -179,11 +179,11 @@
     "role": "Alumni",
     "status": "alumni",
     "program": "BS",
-    "email": "zhagus3137@khu.ac.kr",
+    "email": "myeongjaekim@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Current Affiliation: SK hynix"],
-      "ko": ["현 소속: SK hynix"]
+      "en": ["3D Printing for Environmental Applications", "Current: SK hynix"],
+      "ko": ["환경 응용 3D 프린팅", "현 소속: SK hynix"]
     },
     "photo": "",
     "startYear": 2024,

@@ -126,7 +126,7 @@
   "MEMBERS_CONTENT": {
     "en": {
       "title": "Members",
-      "description": "Our members work on electrochemical materials, battery computational simulation, and battery state/safety diagnostics across cell to pack levels.",
+      "description": "We are a multidisciplinary team of undergraduate, graduate, and postdoctoral researchers with expertise in chemical engineering, materials science, fluid mechanics, additive manufacturing, and carbon capture. We pursue a highly innovative and collaborative research environment.",
       "sectionTitle": "Lab Roster",
       "current": "Current Members",
       "alumni": "Alumni",
@@ -135,7 +135,7 @@
     },
     "ko": {
       "title": "구성원",
-      "description": "Bae Lab 구성원은 전해질 설계, 전고체전지, 배터리 계산 시뮬레이션, 배터리 상태/안전 진단을 중심으로 연구를 수행하고 있습니다.",
+      "description": "Bae Lab은 화학공학, 재료공학, 유체역학, 적층제조, 탄소 포집 분야에 전문성을 갖춘 학부생, 대학원생, 박사후연구원으로 구성된 다학제 연구팀입니다. 혁신적이고 협력적인 연구 환경을 추구합니다.",
       "sectionTitle": "연구실 명단",
       "current": "재학생/재직자",
       "alumni": "동문",
@@ -146,19 +146,19 @@
   "RESEARCH_CONTENT": {
     "en": {
       "title": "Research",
-      "description": "Bae Lab's research is structured around three complementary domains that connect material innovation with practical implementation.",
+      "description": "The mission of Bae Lab is advancing the frontiers of printing, energy, environment and biomedical research through principles from chemistry, physics, and materials science to address important societal needs. Our research focuses on creating the next-generation structural & functional materials by leveraging our expertise in materials science, additive manufacturing, fluid mechanics, and photonics.",
       "cards": [
         {
-          "title": "Printing Technology",
-          "body": "We develop advanced additive manufacturing strategies and AI-assisted printable inks to fabricate high-performance functional systems that are difficult to realize with conventional methods."
+          "title": "Printing Tech",
+          "body": "We are developing novel 3D printing inks and printing methods to address point-of-need fabrication required in various applications. To achieve a desired function, composition, structure, and physical & chemical properties, we design customized printheads and AI-assisted printing system to overcome current physical design constraints in 3D printing technology. We investigate printing various materials including polymers, hydrogels, elastomers, metal oxides, metals, and composites with stimuli-responsive functions and heat & electrical conductive properties."
         },
         {
-          "title": "Energy & Environmental Technology",
-          "body": "We design functional polymers and chemical materials for next-generation energy harvesters, lithium metal batteries, environmental sensors, and carbon-capture related platforms."
+          "title": "Energy & Environmental Tech",
+          "body": "For a sustainable future, we are developing unconventional energy harvesting and carbon capture systems by employing novel combination of functional materials. For real-world applications, we completely design a device from a molecular level of active materials to a integrated macrostructure for their optimal performance. Besides, we also study hydrogel & solvogel with tunable functionalities and properties for next-generation environmental sensor and Li-metal battery applications."
         },
         {
-          "title": "Bio Technology",
-          "body": "We engineer soft and functional materials for biosensors, bioelectronics, and soft robotic applications requiring compliant, high-performance interfaces."
+          "title": "Biomedical Tech",
+          "body": "We are developing a practical translational device for in-vivo and epidermal point-of-care applications for all ages, personalized by 3D printing method. High performance soft & functional materials are being developed and assembled by advanced 3D printing method for next-generation real-time biosensors, minimally-invasive bioelectronics, and soft robotics with remote control."
         }
       ],
       "methodsTitle": "Research Methodology",
@@ -179,19 +179,19 @@
     },
     "ko": {
       "title": "연구 분야",
-      "description": "Bae Lab의 연구는 소재 혁신과 실제 구현을 연결하는 세 가지 핵심 축으로 구성되어 있습니다.",
+      "description": "Bae Lab은 화학, 물리학, 재료과학의 원리를 바탕으로 프린팅, 에너지, 환경, 바이오메디컬 연구의 최전선을 개척하여 중요한 사회적 요구에 대응하고 있습니다. 재료과학, 적층제조, 유체역학, 포토닉스 분야의 전문성을 활용하여 차세대 구조·기능성 소재 개발에 집중합니다.",
       "cards": [
         {
-          "title": "Printing Technology",
-          "body": "기존 방식으로 구현이 어려운 기능성 시스템을 제작하기 위해 고도화된 적층제조 공정 전략과 AI 보조 프린팅 잉크를 개발합니다."
+          "title": "Printing Tech",
+          "body": "다양한 응용 분야에서 요구되는 맞춤형 제작을 위해 새로운 3D 프린팅 잉크와 프린팅 방법을 개발하고 있습니다. 원하는 기능, 조성, 구조, 물리·화학적 특성을 구현하기 위해 맞춤형 프린트헤드와 AI 보조 프린팅 시스템을 설계하여 현재 3D 프린팅 기술의 물리적 설계 제약을 극복합니다. 고분자, 하이드로겔, 엘라스토머, 금속산화물, 금속, 자극 반응성 기능 및 열·전기 전도 특성을 가진 복합재 등 다양한 소재의 프린팅을 연구합니다."
         },
         {
-          "title": "Energy & Environmental Technology",
-          "body": "차세대 에너지 하베스터, 리튬 금속전지, 환경 센서, 탄소 포집 응용을 위한 기능성 고분자 및 화학 소재를 설계합니다."
+          "title": "Energy & Environmental Tech",
+          "body": "지속 가능한 미래를 위해 기능성 소재의 새로운 조합을 활용한 비전통적 에너지 하베스팅 및 탄소 포집 시스템을 개발하고 있습니다. 실제 응용을 위해 활물질의 분자 수준부터 최적 성능을 위한 통합 거시 구조까지 디바이스를 완전 설계합니다. 또한 차세대 환경 센서 및 리튬 금속 전지 응용을 위한 조절 가능한 기능성과 특성을 가진 하이드로겔 및 솔보겔도 연구합니다."
         },
         {
-          "title": "Bio Technology",
-          "body": "바이오센서, 바이오일렉트로닉스, 소프트 로보틱스에 필요한 유연·기능성 소재와 인터페이스를 개발합니다."
+          "title": "Biomedical Tech",
+          "body": "3D 프린팅 방법으로 맞춤화된, 모든 연령층을 위한 체내 및 표피 현장진단 디바이스를 개발하고 있습니다. 차세대 실시간 바이오센서, 최소 침습 바이오일렉트로닉스, 원격 제어 소프트 로보틱스를 위해 고성능 소프트·기능성 소재를 첨단 3D 프린팅 방법으로 개발 및 조립합니다."
         }
       ],
       "methodsTitle": "연구 방법론",
@@ -222,7 +222,7 @@
     },
     "ko": {
       "title": "연구 성과",
-      "description": "이전 Bae Lab 홈페이지에 공개되어 있던 주요 논문 목록을 현재 사이트 데이터 구조로 이관했습니다. 항목은 JSON 기반으로 관리되며 IEEE 형식으로 자동 렌더링됩니다.",
+      "description": "Bae Lab의 주요 연구 논문 목록입니다. 논문 재인쇄 요청은 jbae@khu.ac.kr로 연락해 주세요.",
       "sectionTitle": "논문 목록",
       "loading": "논문 정보를 불러오는 중입니다...",
       "empty": "해당 조건의 논문이 없습니다.",
@@ -237,13 +237,13 @@
       "items": [
         {
           "date": "2025.12.05",
-          "title": "Myeong Lee won the KHU Chemical Engineering Undergraduate Research Award",
+          "title": "Myeong Lee won the KHU Chemical Engineering 1st Research Festival Award",
           "body": "Myeong Lee received the top undergraduate research honor from the Department of Chemical Engineering at Kyung Hee University."
         },
         {
           "date": "2025.11.27",
-          "title": "Myeong Lee won the Best Poster Award at 8th ICAE 2025",
-          "body": "Our lab was recognized with the Best Poster Award at the 8th International Conference on Advanced Engineering."
+          "title": "Myeong Lee won the Best Poster Award at 8th ICAE",
+          "body": "Myeong Lee was recognized with the Best Poster Award at the 8th International Conference on Advanced Electromaterials (ICAE)."
         },
         {
           "date": "2025.11.14",
@@ -259,6 +259,11 @@
           "date": "2025.07.14",
           "title": "Xiaoling Zhu won the KIChE Best Poster Award",
           "body": "Xiaoling Zhu received an outstanding poster presentation award from the Korean Institute of Chemical Engineers."
+        },
+        {
+          "date": "2024.01.03",
+          "title": "Li-metal battery paper featured as Journal Front Cover in Advanced Energy Materials",
+          "body": "Our Li-metal battery paper was featured as a Journal Front Cover Article in Advanced Energy Materials (April Issue)."
         }
       ]
     },
@@ -269,13 +274,13 @@
       "items": [
         {
           "date": "2025.12.05",
-          "title": "이명 학생, 경희대 화학공학과 학부연구생 최우수상 수상",
+          "title": "이명 학생, 경희대 화학공학과 제1회 학술제 최우수상 수상",
           "body": "이명 학생이 경희대학교 화학공학과 학부연구생 학술제에서 최우수상을 수상했습니다."
         },
         {
           "date": "2025.11.27",
-          "title": "이명 학생, 제8회 ICAE 2025 베스트 포스터상 수상",
-          "body": "Bae Lab은 제8회 ICAE 2025에서 베스트 포스터상을 수상했습니다."
+          "title": "이명 학생, 제8회 ICAE 베스트 포스터상 수상",
+          "body": "이명 학생이 제8회 국제첨단전자재료학회(ICAE)에서 베스트 포스터상을 수상했습니다."
         },
         {
           "date": "2025.11.14",
@@ -291,6 +296,11 @@
           "date": "2025.07.14",
           "title": "Zhu Xiaoling 학생, 한국화학공학회 포스터 부문 우수논문발표상 수상",
           "body": "Zhu Xiaoling 학생이 한국화학공학회 포스터 발표 부문 우수논문발표상을 수상했습니다."
+        },
+        {
+          "date": "2024.01.03",
+          "title": "리튬 금속 전지 논문 Advanced Energy Materials 저널 앞 표지 선정",
+          "body": "리튬 금속 전지 논문이 Advanced Energy Materials 4월호 저널 앞 표지 논문으로 선정되었습니다."
         }
       ]
     }

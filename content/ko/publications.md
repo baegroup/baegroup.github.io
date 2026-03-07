@@ -4,7 +4,7 @@
 연구 성과
 
 ## description
-이전 Bae Lab 홈페이지에 공개되어 있던 주요 논문 목록을 현재 사이트 데이터 구조로 이관했습니다. 항목은 JSON 기반으로 관리되며 IEEE 형식으로 자동 렌더링됩니다.
+Bae Lab의 주요 연구 논문 목록입니다. 논문 재인쇄 요청은 jbae@khu.ac.kr로 연락해 주세요.
 
 ## sectionTitle
 논문 목록

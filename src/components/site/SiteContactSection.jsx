@@ -6,8 +6,8 @@ export function SiteContactSection({ locale }) {
 
   const leftItems = [
     { key: 'email', label: labels.email, value: <a href="mailto:jbae@khu.ac.kr">jbae@khu.ac.kr</a> },
-    { key: 'phone', label: labels.phone, value: <a href="tel:+82312012498">+82-31-201-2498</a> },
-    { key: 'fax', label: labels.fax, value: '+82-31-203-4589' },
+    { key: 'phone', label: labels.phone, value: <a href="tel:+82312012477">+82-31-201-2477</a> },
+    { key: 'fax', label: labels.fax, value: '+82-31-204-8114' },
     { key: 'office', label: labels.office, value: content.office }
   ];
 
