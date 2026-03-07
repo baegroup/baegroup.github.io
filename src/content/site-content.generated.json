@@ -59,15 +59,15 @@
   },
   "HOME_CONTENT": {
     "en": {
-      "title": "Printing Functional Materials for Energy, Environment, and Biology",
-      "description": "Bae Lab integrates materials design, process engineering, and application validation to turn difficult-to-print functional systems into practical manufacturing solutions.",
+      "title": "Functional Material Printing for Energy, Environment, and Biology",
+      "description": "Bae Lab unifies materials design, process engineering, and application validation to transform high-complexity functional systems into precise, reproducible manufacturing platforms.",
       "tags": [
         "Printing Technology",
         "Energy & Environmental Technology",
         "Bio Technology"
       ],
-      "primaryCta": "Explore Core Research",
-      "secondaryCta": "Browse Publications",
+      "primaryCta": "Explore Research Areas",
+      "secondaryCta": "View Key Publications",
       "newsTitle": "Recent Lab News",
       "newsItems": [
         {
@@ -83,23 +83,23 @@
           "text": "KIChE Best Poster Award recognition."
         }
       ],
-      "focusTitle": "Research Area",
-      "focusDescription": "Our lab combines material formulation, additive manufacturing process engineering, and application-focused validation to deliver deployable functional systems.",
+      "focusTitle": "Core Research",
+      "focusDescription": "We connect materials innovation, additive manufacturing process design, and rigorous validation into a single research pipeline for deployable technologies.",
       "focusCta": "See Research Details",
       "joinTitle": "Join Our Team",
-      "joinDescription": "Bae Lab welcomes motivated undergraduate researchers, graduate students, and postdoctoral fellows from chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life science.",
-      "joinCta": "Contact Us to Apply"
+      "joinDescription": "Bae Lab welcomes motivated undergraduate researchers, graduate students, and postdoctoral scholars from chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life science.",
+      "joinCta": "Contact Us"
     },
     "ko": {
-      "title": "에너지·환경·바이오 혁신을 여는 기능성 소재 프린팅",
-      "description": "Bae Lab은 프린팅이 어려운 기능성 소재를 실제 제조 가능한 시스템으로 전환하기 위해 소재 설계, 공정 최적화, 응용 검증을 유기적으로 통합한 연구를 수행합니다.",
+      "title": "기능성 소재 프린팅으로 여는 에너지·환경·바이오 혁신",
+      "description": "Bae Lab은 소재 설계, 공정 엔지니어링, 응용 검증을 정밀하게 통합해 구현 난도가 높은 기능성 시스템을 재현성 있는 제조 기술로 확장합니다.",
       "tags": [
         "프린팅 기술",
         "에너지·환경 기술",
         "바이오 기술"
       ],
-      "primaryCta": "핵심 연구 보기",
-      "secondaryCta": "대표 논문 보기",
+      "primaryCta": "연구 분야 살펴보기",
+      "secondaryCta": "주요 논문 보기",
       "newsTitle": "최근 소식",
       "newsItems": [
         {
@@ -115,12 +115,12 @@
           "text": "한국화학공학회 포스터 부문 우수논문발표상 수상."
         }
       ],
-      "focusTitle": "연구 분야",
-      "focusDescription": "기능성 소재 설계, 적층제조 공정 엔지니어링, 응용 성능 검증을 유기적으로 연결해 실사용 가능한 기술로 확장합니다.",
+      "focusTitle": "핵심 연구",
+      "focusDescription": "기능성 소재 설계, 적층제조 공정 엔지니어링, 응용 성능 검증을 하나의 연구 흐름으로 연결해 실사용 가능한 기술로 확장합니다.",
       "focusCta": "연구 상세 보기",
       "joinTitle": "함께할 연구원을 찾습니다",
-      "joinDescription": "Bae Lab은 학부연구생, 대학원생, 박사후연구원을 상시 모집합니다. 화학공학, 재료공학, 고분자공학, 기계공학, 전기전자공학, 컴퓨터공학, 생명과학 등 다양한 전공의 도전을 환영합니다.",
-      "joinCta": "합류 안내 문의하기"
+      "joinDescription": "Bae Lab은 학부연구생, 대학원생, 박사후연구원을 상시 모집합니다. 화학공학, 재료공학, 고분자공학, 기계공학, 전기전자공학, 컴퓨터공학, 생명과학 등 다양한 전공 배경의 연구자를 환영합니다.",
+      "joinCta": "합류 문의하기"
     }
   },
   "MEMBERS_CONTENT": {

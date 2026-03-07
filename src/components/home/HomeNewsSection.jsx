@@ -26,7 +26,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
     return String(b.title || '').localeCompare(String(a.title || ''));
   });
   const featured = items[0];
-  const listItems = items.slice(1, 5);
+  const listItems = items.slice(1, 6);
   const sectionTitle = content.sectionTitle || (locale === 'ko' ? '최근 소식' : 'Recent Lab News');
   const featuredLabel = locale === 'ko' ? '주요 소식' : 'Featured';
   const listLabel = locale === 'ko' ? '최근 알림' : 'Recent Highlights';
