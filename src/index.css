@@ -22,10 +22,13 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 210 90% 32%;
     --radius: 0.78rem;
-    --brand-burgundy: #7a0f1f;
-    --brand-burgundy-deep: #5f0d19;
-    --brand-navy: #0b3a64;
-    --brand-navy-deep: #082746;
+    --brand-burgundy: #ad1d19;
+    --brand-burgundy-deep: #8f1714;
+    --brand-navy: #0d326f;
+    --brand-navy-deep: #0a2858;
+    --brand-gold: #c0a353;
+    --brand-cool-gray: #717171;
+    --brand-silver: #b5b5b5;
     --brand-surface: #f8fafc;
     --brand-surface-soft: #eef3f8;
   }
