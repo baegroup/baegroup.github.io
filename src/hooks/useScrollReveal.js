@@ -21,6 +21,11 @@ export function useScrollReveal(delay = 0) {
       return undefined;
     }
 
+    if (typeof window.IntersectionObserver === 'undefined') {
+      setRevealed(true);
+      return undefined;
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         setRevealed(entry.isIntersecting);

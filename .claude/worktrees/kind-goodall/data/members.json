@@ -1,0 +1,192 @@
+[
+  {
+    "id": "bae-jaehyeong",
+    "name": {
+      "en": "Jaehyeong Bae",
+      "ko": "배재형"
+    },
+    "role": "PI",
+    "status": "current",
+    "program": "Staff",
+    "email": "jbae@khu.ac.kr",
+    "website": "https://www.baelab.khu.ac.kr",
+    "interests": {
+      "en": ["Electrolyte Design", "All-Solid-State Batteries", "Battery Diagnostics"],
+      "ko": ["전해질 설계", "전고체전지", "배터리 진단"]
+    },
+    "photo": "",
+    "startYear": 2023,
+    "endYear": null
+  },
+  {
+    "id": "cho-suha",
+    "name": {
+      "en": "Suha Cho",
+      "ko": "조수하"
+    },
+    "role": "Graduate",
+    "status": "current",
+    "program": "MSPhD",
+    "email": "ass950715@gmail.com",
+    "website": "",
+    "interests": {
+      "en": ["Battery Computational Simulation"],
+      "ko": ["배터리 계산 시뮬레이션"]
+    },
+    "photo": "",
+    "startYear": 2024,
+    "endYear": null
+  },
+  {
+    "id": "zhu-xiaoling",
+    "name": {
+      "en": "Xiaoling Zhu",
+      "ko": "Xiaoling Zhu"
+    },
+    "role": "Graduate",
+    "status": "current",
+    "program": "PhD",
+    "email": "xiaolingzhu@khu.ac.kr",
+    "website": "",
+    "interests": {
+      "en": ["Electrolyte Additives"],
+      "ko": ["전해질 첨가제 개발"]
+    },
+    "photo": "",
+    "startYear": 2024,
+    "endYear": null
+  },
+  {
+    "id": "liu-jiechen",
+    "name": {
+      "en": "Jiechen Liu",
+      "ko": "Jiechen Liu"
+    },
+    "role": "Graduate",
+    "status": "current",
+    "program": "MSPhD",
+    "email": "liujiechen@khu.ac.kr",
+    "website": "",
+    "interests": {
+      "en": ["Electrolyte Design for Rechargeable Batteries"],
+      "ko": ["다양한 이차전지용 전해질 설계"]
+    },
+    "photo": "",
+    "startYear": 2025,
+    "endYear": null
+  },
+  {
+    "id": "tian-ruonan",
+    "name": {
+      "en": "Ruonan Tian",
+      "ko": "Ruonan Tian"
+    },
+    "role": "Graduate",
+    "status": "current",
+    "program": "PhD",
+    "email": "tianruonan99@khu.ac.kr",
+    "website": "",
+    "interests": {
+      "en": ["Incoming 2026 Spring"],
+      "ko": ["2026년 봄학기 입학 예정"]
+    },
+    "photo": "",
+    "startYear": 2026,
+    "endYear": null
+  },
+  {
+    "id": "lin-qunbo",
+    "name": {
+      "en": "Qunbo Lin",
+      "ko": "Qunbo Lin"
+    },
+    "role": "Graduate",
+    "status": "current",
+    "program": "MSPhD",
+    "email": "qunbo_lin@khu.ac.kr",
+    "website": "",
+    "interests": {
+      "en": ["Incoming 2026 Fall"],
+      "ko": ["2026년 가을학기 입학 예정"]
+    },
+    "photo": "",
+    "startYear": 2026,
+    "endYear": null
+  },
+  {
+    "id": "lee-myeong",
+    "name": {
+      "en": "Myeong Lee",
+      "ko": "이명"
+    },
+    "role": "Graduate",
+    "status": "current",
+    "program": "MS",
+    "email": "r_a2@khu.ac.kr",
+    "website": "",
+    "interests": {
+      "en": ["Battery Condition Diagnosis"],
+      "ko": ["배터리 상태 진단"]
+    },
+    "photo": "",
+    "startYear": 2024,
+    "endYear": null
+  },
+  {
+    "id": "ko-yoonji",
+    "name": {
+      "en": "Yoonji Ko",
+      "ko": "고윤지"
+    },
+    "role": "Undergraduate",
+    "status": "current",
+    "program": "BS",
+    "email": "dbswldla123@khu.ac.kr",
+    "website": "",
+    "interests": {
+      "en": ["Battery Data Analysis"],
+      "ko": ["배터리 데이터 분석"]
+    },
+    "photo": "",
+    "startYear": 2024,
+    "endYear": null
+  },
+  {
+    "id": "kim-nayeon",
+    "name": {
+      "en": "Nayeon Kim",
+      "ko": "김나연"
+    },
+    "role": "Undergraduate",
+    "status": "current",
+    "program": "BS",
+    "email": "wre256256@khu.ac.kr",
+    "website": "",
+    "interests": {
+      "en": ["Electrochemical Testing"],
+      "ko": ["전기화학 실험"]
+    },
+    "photo": "",
+    "startYear": 2025,
+    "endYear": null
+  },
+  {
+    "id": "kim-myeongjae",
+    "name": {
+      "en": "Myeongjae Kim",
+      "ko": "김명재"
+    },
+    "role": "Alumni",
+    "status": "alumni",
+    "program": "BS",
+    "email": "zhagus3137@khu.ac.kr",
+    "website": "",
+    "interests": {
+      "en": ["Current Affiliation: SK hynix"],
+      "ko": ["현 소속: SK hynix"]
+    },
+    "photo": "",
+    "startYear": 2024,
+    "endYear": 2024
+  }
+]

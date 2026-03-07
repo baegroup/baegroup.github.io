@@ -110,7 +110,7 @@ Add at least 4 items in `news.md` to fully populate the section.
 
 Homepage sections use subtle reveal motion on scroll.
 
-- Motion runs once when each section enters viewport.
+- Motion runs each time a section re-enters the viewport.
 - If OS setting `Reduce Motion` is enabled, animations are disabled automatically.
 
 ## 9) Verify

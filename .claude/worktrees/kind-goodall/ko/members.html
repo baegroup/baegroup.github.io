@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>구성원 | 배재형 교수 연구실</title>
+    <meta name="description" content="배재형 교수 연구실(Bae Lab) 구성원 소개">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <script defer src="../assets/js/site.js"></script>
+    <script type="module" src="../assets/js/data-loader.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">본문 바로가기</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./index.html" aria-label="Bae Lab 홈">
+          <img class="brand-mark" src="../assets/img/lab-mark.svg" alt="Bae Lab 로고">
+          <div class="brand-copy">
+            <div class="brand-name">배재형 교수 연구실 (Bae Lab)</div>
+            <div class="brand-sub">경희대학교 화학공학과</div>
+          </div>
+        </a>
+        <nav class="site-nav" aria-label="주요 메뉴">
+          <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-menu">
+            메뉴
+          </button>
+          <ul class="nav-list" id="primary-menu" data-nav-menu>
+            <li><a data-nav-link href="./index.html">홈</a></li>
+            <li><a data-nav-link href="./members.html">구성원</a></li>
+            <li><a data-nav-link href="./research.html">연구</a></li>
+            <li><a data-nav-link href="./publications.html">논문</a></li>
+            <li><a data-nav-link href="./contact.html">문의</a></li>
+            <li><a class="lang-switch" data-lang-switch href="../en/members.html">English</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <div class="container">
+        <section class="hero">
+          <h1>구성원</h1>
+          <p>
+            Bae Lab 구성원은 전해질 설계, 전고체전지, 배터리 계산 시뮬레이션,
+            배터리 상태/안전 진단을 중심으로 연구를 수행하고 있습니다.
+          </p>
+        </section>
+
+        <section class="section-card">
+          <h2>연구실 명단</h2>
+          <div class="filter-group" role="tablist" aria-label="구성원 상태 필터">
+            <button type="button" class="filter-btn active" data-member-status="current">재학생/재직자</button>
+            <button type="button" class="filter-btn" data-member-status="alumni">동문</button>
+          </div>
+          <div class="member-groups" data-members-root>
+            <p class="notice">구성원 정보를 불러오는 중입니다...</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© <span data-current-year></span> Bae Lab for Electrochemical Energy Storage. All rights reserved.</p>
+        <p>경희대학교 화학공학과</p>
+      </div>
+    </footer>
+  </body>
+</html>
