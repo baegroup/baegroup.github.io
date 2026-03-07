@@ -37,6 +37,91 @@ const IDENTITY_COPY = {
     principlesHeading: 'Core Principles'
   }
 };
+const PROFESSOR_COPY = {
+  en: {
+    sectionLead: 'Professor Profile',
+    profileTitle: 'Principal Investigator',
+    department: 'Chemical Engineering',
+    affiliation: 'Department of Chemical Engineering, Kyung Hee University',
+    contactLabel: 'Contact PI',
+    websiteLabel: 'Website',
+    publicationsLabel: 'View Publications',
+    educationTitle: 'Education',
+    appointmentsTitle: 'Academic Appointments',
+    honorsTitle: 'Honors & Award',
+    publicationsTitle: 'Selected Publications'
+  },
+  ko: {
+    sectionLead: 'Professor Profile',
+    profileTitle: 'Principal Investigator',
+    department: 'Chemical Engineering',
+    affiliation: 'Department of Chemical Engineering, Kyung Hee University',
+    contactLabel: 'Contact PI',
+    websiteLabel: 'Website',
+    publicationsLabel: 'View Publications',
+    educationTitle: 'Education',
+    appointmentsTitle: 'Academic Appointments',
+    honorsTitle: 'Honors & Award',
+    publicationsTitle: 'Selected Publications'
+  }
+};
+const PROFESSOR_PROFILE_DETAILS = {
+  'bae-jaehyeong': {
+    phone: '+82-31-201-2477',
+    fax: '+82-31-204-8114',
+    education: [
+      { year: '2020', text: 'Ph.D. in Materials Science and Engineering, KAIST, Korea' },
+      { year: '2016', text: 'M.S. in Chemical and Biomolecular Engineering, KAIST, Korea' },
+      { year: '2013', text: 'B.S. in Chemical Engineering, Tsinghua University, China' }
+    ],
+    appointments: [
+      { year: '2023.03-Present', text: 'Assistant Professor, Dept. of Chemical Engineering, Kyung Hee University' },
+      { year: '2022.04-2022.10', text: 'Postdoctoral Fellow, Harvard University (Prof. Jennifer A. Lewis)' },
+      { year: '2021.06-2022.11', text: 'Postdoctoral Fellow, Harvard University (Prof. Jennifer A. Lewis)' },
+      { year: '2020.09-2023.02', text: 'Postdoctoral Fellow, KAIST (Prof. Il-Doo Kim)' },
+      { year: '2018.03-2018.06', text: 'Visiting Scholar, University of California, Irvine (Prof. Reginald M. Penner)' }
+    ],
+    honors: [
+      { year: '2021.03', text: 'Sejong Science Fellowship, National Research Foundation of Korea (NRF)' },
+      { year: '2021.02', text: 'Best PhD Dissertation Award, KAIST' },
+      { year: '2020.09', text: 'Research Fellowship of BK21 Plus Program' },
+      { year: '2019.12', text: 'Best Poster Award, International Conference on Advanced Electromaterials (ICAE) 2019' },
+      { year: '2017.12', text: 'Best Poster Award, ICAE 2017' },
+      { year: '2016-2020', text: 'KAIST Scholarship, KAIST' },
+      { year: '2014-2016', text: 'Korean Government Scholarship, KAIST' },
+      { year: '2011', text: 'Academic Excellence Award, Tsinghua University' },
+      { year: '2010-2013', text: 'Beijing Government International Student Full Scholarship, Tsinghua University' }
+    ],
+    publications: [
+      {
+        authors: 'Jaehyeong Bae, Haeseong Lim, Jaewan Ahn, Youn Hwa Kim, Min Soo Kim, and Il-Doo Kim',
+        title: 'Photoenergy harvesting by photoacid solution',
+        journal: 'Advanced Materials, 2201734, 2022. Featured as Journal Inside Front Cover.'
+      },
+      {
+        authors:
+          'Jaehyeong Bae, Keonwoo Choi, Hyunsun Song, Do Heung Kim, Doo Young Youn, Su-Ho Cho, Dogyeong Jeon, Jiyoung Lee, Junyoung Lee, wontae Jang, Changhyeon Lee, Youson Kim, Chanhoon Kim, Ji-Won Jung, Sung Gap Im, and Il-Doo Kim',
+        title: 'Reinforcing Native Solid-Electrolyte Interphase Layer via Electrolyte-Swellable Soft-Scaffold for Lithium Metal Anode',
+        journal: 'Advanced Energy Materials, 2203818, 2023.'
+      },
+      {
+        authors: 'Dong-Ha Kim, Jaehyeong Bae, Jiyoung Lee, Jaewan Ahn, Won-Tae Hwang, Jaehyun Ko, and Il-Doo Kim',
+        title: 'Porous Nanofiber Membrane: Rational Design for Highly Sensitive Thermochromic Sensor',
+        journal: 'Advanced Functional Materials, 2200463, 2022. Featured as Journal Front Cover.'
+      },
+      {
+        authors: 'Jaehyeong Bae, Min Soo Kim, Taegon Oh, Bong Lim Suh, Tae Gwang Yun, Seungjun Lee, Kahyun Hur, Yury Gogotsi, Chong Min Koo, and Il-Doo Kim',
+        title: 'Towards Watt-scale hydroelectric energy harvesting by Ti3C2Tx-based transpiration-driven electrokinetic power generators',
+        journal: 'Energy & Environmental Science, 15, 123-135, 2022. Featured as Journal Inside Front Cover.'
+      },
+      {
+        authors: 'Jaehyeong Bae, Tae Gwang Yun, Bong Lim Suh, Jihan Kim, and Il-Doo Kim',
+        title: 'Self-operating transpiration driven electrokinetic power generator with an artificial hydrological cycle',
+        journal: 'Energy & Environmental Science, 13, 527-534, 2019. Featured as Journal Back Cover.'
+      }
+    ]
+  }
+};
 
 function MemberCard({ member, locale, prominent = false, showRoleBadge = false }) {
   const [broken, setBroken] = useState(false);
@@ -114,6 +199,140 @@ function Principles({ principles }) {
   );
 }
 
+function ProfessorTimeline({ title, items }) {
+  if (!items.length) {
+    return null;
+  }
+
+  return (
+    <section className="space-y-3">
+      <h3 className="text-3xl font-semibold tracking-tight text-slate-950">{title}</h3>
+      <ul className="space-y-2">
+        {items.map((item) => (
+          <li className="flex flex-col gap-0.5 text-sm leading-relaxed text-slate-700 md:flex-row md:gap-2 md:text-base" key={`${item.year}-${item.text}`}>
+            <span className="font-semibold text-[#2563eb] md:min-w-[130px]">{item.year}</span>
+            <span>{item.text}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function ProfessorPublications({ title, items }) {
+  if (!items.length) {
+    return null;
+  }
+
+  return (
+    <section className="space-y-3">
+      <h3 className="text-3xl font-semibold tracking-tight text-slate-950">{title}</h3>
+      <ul className="space-y-4 text-sm leading-relaxed text-slate-700 md:text-base">
+        {items.map((item) => (
+          <li className="list-disc pl-1" key={`${item.title}-${item.journal}`}>
+            <span>{item.authors}, </span>
+            <Link className="font-semibold text-[#0d326f] underline-offset-2 hover:underline" to={pagePath('publications')}>
+              {item.title}
+            </Link>
+            <span>, {item.journal}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function ProfessorShowcase({ professor, locale }) {
+  const [broken, setBroken] = useState(false);
+  const hasPhoto = Boolean(professor.photo) && !broken;
+  const copy = PROFESSOR_COPY[locale] || PROFESSOR_COPY.en;
+  const profile = PROFESSOR_PROFILE_DETAILS[professor.id] || PROFESSOR_PROFILE_DETAILS['bae-jaehyeong'];
+
+  return (
+    <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-soft">
+      <div className="border-b border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
+        <div className="grid gap-5 p-5 md:p-7 lg:grid-cols-[minmax(240px,320px)_minmax(0,1fr)] lg:items-start">
+          <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+            <div className="relative min-h-[320px] lg:min-h-[380px]">
+          {hasPhoto ? (
+            <img
+              alt={professor.localizedName}
+                  className="h-full w-full object-cover object-top"
+              onError={() => setBroken(true)}
+              src={`${import.meta.env.BASE_URL}${professor.photo}`}
+            />
+          ) : (
+                  <div className="flex h-full w-full items-center justify-center text-6xl font-semibold tracking-tight text-slate-600">{professor.initials}</div>
+          )}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/40 to-transparent px-4 pb-4 pt-10 text-xs font-semibold uppercase tracking-[0.11em] text-white">
+                {copy.profileTitle}
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="space-y-1.5">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#7a0f1f]">{copy.sectionLead}</p>
+              <h3 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">Prof. {professor.localizedName}</h3>
+              <p className="text-2xl font-semibold text-slate-900">{copy.department}</p>
+              <p className="text-sm text-slate-600 md:text-base">{copy.affiliation}</p>
+            </div>
+
+            <ul className="space-y-1.5 text-sm text-slate-700 md:text-base">
+              {professor.email ? (
+                <li>
+                  <span className="font-semibold">E-mail:</span>{' '}
+                  <a className="text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${professor.email}`}>
+                    {professor.email}
+                  </a>
+                </li>
+              ) : null}
+              {profile?.phone ? (
+                <li>
+                  <span className="font-semibold">Phone:</span> {profile.phone}
+                </li>
+              ) : null}
+              {profile?.fax ? (
+                <li>
+                  <span className="font-semibold">Fax:</span> {profile.fax}
+                </li>
+              ) : null}
+            </ul>
+
+              <div className="flex flex-wrap gap-2">
+                {professor.email ? (
+                  <a className="home-cta-primary h-10 px-5 text-xs tracking-[0.03em]" href={`mailto:${professor.email}`}>
+                    {copy.contactLabel}
+                  </a>
+                ) : null}
+                {professor.website ? (
+                  <a
+                    className="home-cta-secondary h-10 px-5 text-xs tracking-[0.03em]"
+                    href={professor.website}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    {copy.websiteLabel}
+                  </a>
+                ) : null}
+                <Link className="home-cta-secondary h-10 px-5 text-xs tracking-[0.03em]" to={pagePath('publications')}>
+                  {copy.publicationsLabel}
+                </Link>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div className="space-y-8 p-5 md:space-y-10 md:p-7">
+        <ProfessorTimeline items={profile?.education || []} title={copy.educationTitle} />
+        <ProfessorTimeline items={profile?.appointments || []} title={copy.appointmentsTitle} />
+        <ProfessorTimeline items={profile?.honors || []} title={copy.honorsTitle} />
+        <ProfessorPublications items={profile?.publications || []} title={copy.publicationsTitle} />
+      </div>
+    </article>
+  );
+}
+
 export function TeamPage({ locale }) {
   const content = TEAM_CONTENT[locale] || TEAM_CONTENT.en;
   const identityCopy = IDENTITY_COPY[locale] || IDENTITY_COPY.en;
@@ -185,6 +404,8 @@ export function TeamPage({ locale }) {
     () => currentGroups.find((group) => group.role === 'PI')?.members || [],
     [currentGroups]
   );
+  const leadProfessor = professorMembers[0] || null;
+  const additionalProfessors = professorMembers.slice(1);
 
   const currentStudentGroups = useMemo(
     () =>
@@ -315,11 +536,16 @@ export function TeamPage({ locale }) {
             {activeSection === 'professor' ? (
               <section>
                 <h2 className="sr-only">{content.professorTitle || 'Professor'}</h2>
-                {professorMembers.length > 0 ? (
-                  <div className="grid gap-4 lg:grid-cols-2">
-                    {professorMembers.map((member) => (
-                      <MemberCard key={member.id} locale={locale} member={member} prominent />
-                    ))}
+                {leadProfessor ? (
+                  <div className="space-y-4">
+                    <ProfessorShowcase locale={locale} professor={leadProfessor} />
+                    {additionalProfessors.length ? (
+                      <div className="grid gap-4 lg:grid-cols-2">
+                        {additionalProfessors.map((member) => (
+                          <MemberCard key={member.id} locale={locale} member={member} prominent />
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
                 ) : (
                   <SectionState content={content} error={error} loading={loading} />
