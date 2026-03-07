@@ -4,7 +4,7 @@
 Bae Lab
 
 ## subtitle
-3D Printing Functional Materials
+Functional Materials Additive Manufacturing
 
 ## tagline
 Functional Materials Additive Manufacturing
