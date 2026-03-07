@@ -8,8 +8,8 @@ export function SiteFooter({ locale }) {
   const content = CONTACT_CONTENT[locale] || CONTACT_CONTENT.en || {};
   const labels = content.labels || {};
   const navItems = NAV_ITEMS[locale] || NAV_ITEMS.en || [];
-  const contactLabel = locale === 'ko' ? 'Contact' : 'Contact';
-  const quickLinksLabel = locale === 'ko' ? 'Quick Links' : 'Quick Links';
+  const contactLabel = 'Contact';
+  const quickLinksLabel = 'Quick Links';
   const rightsLabel = locale === 'ko' ? '모든 권리 보유.' : 'All rights reserved.';
   const affiliationLabel = locale === 'ko' ? '경희대학교 화학공학과' : 'Department of Chemical Engineering, Kyung Hee University';
   const description = (brand.tagline || brand.subtitle || '').trim();
@@ -21,7 +21,6 @@ export function SiteFooter({ locale }) {
 
   return (
     <footer className="mt-8 border-t border-[#d8d8d8] bg-[linear-gradient(180deg,#ffffff_0%,#f7f7f7_100%)] text-[#222222]">
-      <div className="h-[3px] w-full bg-[linear-gradient(90deg,#ad1d19_0%,#ad1d19_78%,#c0a353_100%)]" />
       <div className="mx-auto w-full max-w-6xl px-5 py-8 md:py-10">
         <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-start">
           <div>
@@ -42,17 +41,17 @@ export function SiteFooter({ locale }) {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-3 border-t border-[#e1e1e1] pt-5 md:grid-cols-2">
-          <div className="rounded-md border border-[#e7e7e7] bg-white/75 px-4 py-3">
+        <div className="mt-6 grid gap-4 border-t border-[#e1e1e1] pt-5 md:grid-cols-2">
+          <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#717171]">{labels.address || 'Address'}</p>
             <p className="mt-1 text-sm leading-relaxed text-[#2a2a2a]">{content.address}</p>
           </div>
 
-          <div className="rounded-md border border-[#e7e7e7] bg-white/75 px-4 py-3">
+          <div className="md:justify-self-end md:text-right">
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#717171]">{labels.email || 'Email'}</p>
             <a className="mt-1 inline-block text-sm text-[#2a2a2a] no-underline transition-colors hover:text-[#ad1d19]" href="mailto:jbae@khu.ac.kr">
-                jbae@khu.ac.kr
-              </a>
+              jbae@khu.ac.kr
+            </a>
           </div>
         </div>
 
