@@ -1,10 +1,10 @@
 # Home
 
 ## title
-Functional Material Printing for Energy, Environment, and Biology
+Functional Material Printing for Energy, Environment, and Bio Applications
 
 ## description
-Bae Lab unifies materials design, process engineering, and application validation to transform high-complexity functional systems into precise, reproducible manufacturing platforms.
+Bae Lab integrates materials design, process engineering, and application validation to convert difficult-to-print functional systems into precise, reproducible manufacturing technologies.
 
 ## tags
 - Printing Technology
@@ -29,7 +29,7 @@ Recent Lab News
 Core Research
 
 ## focusDescription
-We connect materials innovation, additive manufacturing process design, and rigorous validation into a single research pipeline for deployable technologies.
+We connect materials innovation, additive manufacturing process design, and rigorous validation in a unified research pipeline that delivers deployable technologies.
 
 ## focusCta
 See Research Details
@@ -38,7 +38,7 @@ See Research Details
 Join Our Team
 
 ## joinDescription
-Bae Lab welcomes motivated undergraduate researchers, graduate students, and postdoctoral scholars from chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life science.
+Bae Lab welcomes motivated undergraduate researchers, graduate students, and postdoctoral scholars from diverse engineering and science backgrounds, including chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life science.
 
 ## joinCta
 Contact Us

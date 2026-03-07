@@ -59,8 +59,8 @@
   },
   "HOME_CONTENT": {
     "en": {
-      "title": "Functional Material Printing for Energy, Environment, and Biology",
-      "description": "Bae Lab unifies materials design, process engineering, and application validation to transform high-complexity functional systems into precise, reproducible manufacturing platforms.",
+      "title": "Functional Material Printing for Energy, Environment, and Bio Applications",
+      "description": "Bae Lab integrates materials design, process engineering, and application validation to convert difficult-to-print functional systems into precise, reproducible manufacturing technologies.",
       "tags": [
         "Printing Technology",
         "Energy & Environmental Technology",
@@ -84,15 +84,15 @@
         }
       ],
       "focusTitle": "Core Research",
-      "focusDescription": "We connect materials innovation, additive manufacturing process design, and rigorous validation into a single research pipeline for deployable technologies.",
+      "focusDescription": "We connect materials innovation, additive manufacturing process design, and rigorous validation in a unified research pipeline that delivers deployable technologies.",
       "focusCta": "See Research Details",
       "joinTitle": "Join Our Team",
-      "joinDescription": "Bae Lab welcomes motivated undergraduate researchers, graduate students, and postdoctoral scholars from chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life science.",
+      "joinDescription": "Bae Lab welcomes motivated undergraduate researchers, graduate students, and postdoctoral scholars from diverse engineering and science backgrounds, including chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life science.",
       "joinCta": "Contact Us"
     },
     "ko": {
-      "title": "기능성 소재 프린팅으로 여는 에너지·환경·바이오 혁신",
-      "description": "Bae Lab은 소재 설계, 공정 엔지니어링, 응용 검증을 정밀하게 통합해 구현 난도가 높은 기능성 시스템을 재현성 있는 제조 기술로 확장합니다.",
+      "title": "에너지·환경·바이오를 위한 기능성 소재 프린팅 연구",
+      "description": "Bae Lab은 소재 설계, 공정 엔지니어링, 응용 검증을 정밀하게 통합해 구현 난도가 높은 기능성 시스템을 재현성 높은 제조 기술로 전환합니다.",
       "tags": [
         "프린팅 기술",
         "에너지·환경 기술",
@@ -116,10 +116,10 @@
         }
       ],
       "focusTitle": "핵심 연구",
-      "focusDescription": "기능성 소재 설계, 적층제조 공정 엔지니어링, 응용 성능 검증을 하나의 연구 흐름으로 연결해 실사용 가능한 기술로 확장합니다.",
+      "focusDescription": "기능성 소재 설계, 적층제조 공정 엔지니어링, 응용 성능 검증을 하나의 연구 파이프라인으로 연결해 실사용 가능한 기술로 고도화합니다.",
       "focusCta": "연구 상세 보기",
       "joinTitle": "함께할 연구원을 찾습니다",
-      "joinDescription": "Bae Lab은 학부연구생, 대학원생, 박사후연구원을 상시 모집합니다. 화학공학, 재료공학, 고분자공학, 기계공학, 전기전자공학, 컴퓨터공학, 생명과학 등 다양한 전공 배경의 연구자를 환영합니다.",
+      "joinDescription": "Bae Lab은 학부연구생, 대학원생, 박사후연구원을 상시 모집하며, 화학공학, 재료공학, 고분자공학, 기계공학, 전기전자공학, 컴퓨터공학, 생명과학 등 다양한 전공 배경의 연구자를 환영합니다.",
       "joinCta": "합류 문의하기"
     }
   },
