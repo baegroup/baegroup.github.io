@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -66,7 +66,22 @@
   }
 
   .home-section-title {
-    @apply text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl;
+    font-family: 'Newsreader', 'Noto Serif KR', serif;
+    @apply text-[2rem] font-semibold leading-[1.1] tracking-[-0.01em] text-slate-950 md:text-[2.35rem];
+  }
+
+  .home-display-hero {
+    font-family: 'Newsreader', 'Noto Serif KR', serif;
+    @apply text-[2.25rem] font-semibold leading-[1.04] tracking-[-0.012em] md:text-[4rem];
+  }
+
+  .home-display-subtitle {
+    font-family: 'Newsreader', 'Noto Serif KR', serif;
+    @apply text-[1.45rem] font-semibold leading-[1.18] tracking-[-0.008em] md:text-[1.85rem];
+  }
+
+  .home-body-copy {
+    @apply text-base leading-relaxed text-slate-600 md:text-lg;
   }
 
   .home-cta-primary {

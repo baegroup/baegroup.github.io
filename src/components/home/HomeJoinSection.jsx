@@ -21,7 +21,7 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_8%_14%,rgba(11,58,100,0.08),transparent_34%),radial-gradient(circle_at_100%_80%,rgba(122,15,31,0.08),transparent_40%)]" />
 
       <div className="relative z-10">
-        <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">{content.joinTitle}</h2>
+        <h2 className="home-section-title">{content.joinTitle}</h2>
         <div className="mt-5 flex flex-wrap gap-2.5">
           <a
             className="home-cta-primary"
@@ -36,7 +36,7 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
             {secondaryLabel}
           </Link>
         </div>
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-600 md:text-lg">{content.joinDescription}</p>
+        <p className="home-body-copy mt-4 max-w-xl">{content.joinDescription}</p>
       </div>
 
       {!exhausted ? (

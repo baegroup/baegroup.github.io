@@ -5,13 +5,28 @@ import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { pagePath } from '@/lib/i18n';
 
+function parseNewsDate(value) {
+  const raw = String(value || '').trim();
+  const parts = raw.split(/[./-]/).filter(Boolean);
+  const year = Number(parts[0]) || 0;
+  const month = Math.min(12, Math.max(1, Number(parts[1]) || 1));
+  const day = Math.min(31, Math.max(1, Number(parts[2]) || 1));
+  return Date.UTC(year, month - 1, day);
+}
+
 export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const featuredImages = mediaCandidates(HOME_MEDIA.newsFeatured);
   const exhausted = imageIndex >= featuredImages.length;
-  const items = content.items || [];
+  const items = [...(content.items || [])].sort((a, b) => {
+    const dateDelta = parseNewsDate(b.date) - parseNewsDate(a.date);
+    if (dateDelta !== 0) {
+      return dateDelta;
+    }
+    return String(b.title || '').localeCompare(String(a.title || ''));
+  });
   const featured = items[0];
-  const listItems = items.slice(1, 4);
+  const listItems = items.slice(1, 5);
   const sectionTitle = content.sectionTitle || (locale === 'ko' ? '최근 소식' : 'Recent Lab News');
   const featuredLabel = locale === 'ko' ? '주요 소식' : 'Featured';
   const listLabel = locale === 'ko' ? '최근 알림' : 'Recent Highlights';
@@ -52,8 +67,8 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
               </div>
               <div className="p-5 md:p-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0b3a64]">{featuredLabel}</p>
-                <h3 className="mt-2 text-xl font-semibold leading-tight text-slate-950 md:text-2xl">{featured.title}</h3>
-                <p className="mt-2.5 text-base leading-relaxed text-slate-600">{featured.body}</p>
+                <h3 className="home-display-subtitle mt-2 text-slate-950">{featured.title}</h3>
+                <p className="mt-2.5 text-[0.98rem] leading-relaxed text-slate-600 md:text-base">{featured.body}</p>
               </div>
             </div>
           ) : null}
@@ -65,9 +80,9 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
               </div>
               <ul className="divide-y divide-slate-200">
                 {listItems.map((item) => (
-                  <li className="px-5 py-3.5 transition-colors hover:bg-white md:px-6 md:py-4" key={`${item.date}-${item.title}`}>
+                  <li className="px-5 py-3 transition-colors hover:bg-white md:px-6 md:py-3.5" key={`${item.date}-${item.title}`}>
                     <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{item.date}</p>
-                    <p className="mt-1 text-base font-semibold leading-snug text-slate-900 md:text-lg">{item.title}</p>
+                    <p className="mt-1 text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</p>
                   </li>
                 ))}
               </ul>

@@ -21,11 +21,11 @@ export function HomeHeroSection({ content, locale, revealDelay = 0 }) {
           src={heroImages[imageIndex]}
         />
       ) : null}
-      <div className="absolute inset-0 bg-[linear-gradient(130deg,rgba(13,50,111,0.9)_0%,rgba(13,50,111,0.72)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(130deg,rgba(13,50,111,0.9)_0%,rgba(22,73,143,0.76)_100%)]" />
 
       <div className="relative z-10 px-6 py-10 md:px-10 md:py-14">
-        <h1 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-white md:text-6xl">{content.title}</h1>
-        <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-100/95 md:text-xl">{content.description}</p>
+        <h1 className="home-display-hero max-w-4xl text-white">{content.title}</h1>
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-100/95 md:text-lg">{content.description}</p>
 
         <div className="mt-8 flex flex-wrap gap-2.5">
           <Link
