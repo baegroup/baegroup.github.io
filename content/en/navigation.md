@@ -6,4 +6,3 @@
 - research | Research
 - publications | Publications
 - news | News
-- contact | Contact
