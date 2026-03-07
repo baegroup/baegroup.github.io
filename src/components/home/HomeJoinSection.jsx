@@ -9,7 +9,6 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const joinImages = mediaCandidates(HOME_MEDIA.joinTeam);
   const exhausted = imageIndex >= joinImages.length;
-  const sectionKicker = locale === 'ko' ? 'Bae Lab 합류 안내' : 'Join Bae Lab';
   const secondaryLabel = locale === 'ko' ? '구성원 소개 보기' : 'Meet Our Members';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
@@ -22,8 +21,7 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_8%_14%,rgba(11,58,100,0.08),transparent_34%),radial-gradient(circle_at_100%_80%,rgba(122,15,31,0.08),transparent_40%)]" />
 
       <div className="relative z-10">
-        <p className="home-kicker">{sectionKicker}</p>
-        <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">{content.joinTitle}</h2>
+        <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">{content.joinTitle}</h2>
         <div className="mt-5 flex flex-wrap gap-2.5">
           <a
             className="home-cta-primary"

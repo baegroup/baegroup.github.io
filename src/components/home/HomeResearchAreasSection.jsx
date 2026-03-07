@@ -37,7 +37,6 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
   const cards = (content.cards || []).slice(0, 3);
   const title = content.title || (locale === 'ko' ? '연구 분야' : 'Research Area');
   const description = content.description;
-  const kicker = locale === 'ko' ? '핵심 연구 축' : 'Core Research Domains';
   const learnMoreLabel = locale === 'ko' ? '연구 더보기' : 'Learn more about our research';
   const publicationLabel = locale === 'ko' ? '논문 전체 보기' : 'See all publications';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
@@ -49,7 +48,6 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
   return (
     <section className={`space-y-5 ${revealClassName}`} ref={ref} style={revealStyle}>
       <div className="space-y-2.5">
-        <p className="home-kicker">{kicker}</p>
         <h2 className="home-section-title">{title}</h2>
         {description ? <p className="max-w-4xl text-base leading-relaxed text-slate-600 md:text-lg">{description}</p> : null}
       </div>

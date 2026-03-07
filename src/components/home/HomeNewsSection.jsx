@@ -13,7 +13,6 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
   const featured = items[0];
   const listItems = items.slice(1, 4);
   const sectionTitle = content.sectionTitle || (locale === 'ko' ? '최근 소식' : 'Recent Lab News');
-  const sectionKicker = locale === 'ko' ? '연구실 업데이트' : 'Lab Updates';
   const featuredLabel = locale === 'ko' ? '주요 소식' : 'Featured';
   const listLabel = locale === 'ko' ? '최근 알림' : 'Recent Highlights';
   const viewAllLabel = locale === 'ko' ? '소식 전체 보기' : 'View all news';
@@ -26,10 +25,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
   return (
     <section className={`space-y-4 md:space-y-5 ${revealClassName}`} ref={ref} style={revealStyle}>
       <div className="home-section-header">
-        <div className="space-y-2">
-          <p className="home-kicker">{sectionKicker}</p>
-          <h2 className="home-section-title">{sectionTitle}</h2>
-        </div>
+        <h2 className="home-section-title">{sectionTitle}</h2>
         <Link className="text-sm font-semibold text-[#0b3a64] underline-offset-4 hover:underline" to={pagePath(locale, 'news')}>
           {viewAllLabel}
         </Link>
