@@ -4,10 +4,10 @@
 연구진
 
 ## description
-Bae Lab의 사람과 연구 문화를 소개합니다.
+Bae Lab 연구진과 연구 문화를 소개합니다.
 
 ## aboutTitle
-연구실 소개
+연구실 정체성
 
 ## aboutBody
 Bae Lab은 에너지·환경·바이오 응용을 위한 기능성 소재와 적층제조 기술을 연구하는 다학제 연구팀입니다. 소재 설계, 공정 엔지니어링, 성능 검증을 유기적으로 연결해 실사용 가능한 기술 성과를 만듭니다.
@@ -34,8 +34,7 @@ Lab Culture
 졸업생
 
 ## jumpNav
-- about | 소개
-- culture | 문화
+- identity | 연구실 정체성
 - professor | 교수
 - current | 현재 학생
 - alumni | 졸업생

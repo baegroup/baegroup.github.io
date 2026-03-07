@@ -4,10 +4,10 @@
 Team
 
 ## description
-Meet Bae Lab's people and culture.
+People and culture at Bae Lab.
 
 ## aboutTitle
-About the Lab
+Lab Identity
 
 ## aboutBody
 Bae Lab is a multidisciplinary research team advancing functional materials and additive manufacturing for energy, environmental, and bio applications. We integrate materials design, process engineering, and validation to deliver rigorous and deployable outcomes.
@@ -34,8 +34,7 @@ Current Students
 Alumni
 
 ## jumpNav
-- about | About
-- culture | Culture
+- identity | Lab Identity
 - professor | Professor
 - current | Current Students
 - alumni | Alumni

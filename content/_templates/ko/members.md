@@ -6,10 +6,10 @@
 연구진
 
 ## description
-연구실 사람과 문화를 간단히 소개합니다.
+연구실 연구진과 문화를 간단히 소개합니다.
 
 ## aboutTitle
-연구실 소개
+연구실 정체성
 
 ## aboutBody
 연구실의 미션, 주요 연구 분야, 차별화된 강점을 2-3문장으로 작성합니다.
@@ -36,8 +36,7 @@ Lab Culture
 졸업생
 
 ## jumpNav
-- about | 소개
-- culture | 문화
+- identity | 연구실 정체성
 - professor | 교수
 - current | 현재 학생
 - alumni | 졸업생

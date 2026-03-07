@@ -126,8 +126,8 @@
   "MEMBERS_CONTENT": {
     "en": {
       "title": "Team",
-      "description": "Meet Bae Lab's people and culture.",
-      "aboutTitle": "About the Lab",
+      "description": "People and culture at Bae Lab.",
+      "aboutTitle": "Lab Identity",
       "aboutBody": "Bae Lab is a multidisciplinary research team advancing functional materials and additive manufacturing for energy, environmental, and bio applications. We integrate materials design, process engineering, and validation to deliver rigorous and deployable outcomes.",
       "cultureTitle": "Lab Culture",
       "cultureBody": "We cultivate a high-standard, high-trust environment where members can test ambitious ideas, communicate clearly, and grow through collaborative problem-solving.",
@@ -154,12 +154,8 @@
       "alumniTitle": "Alumni",
       "jumpNav": [
         {
-          "id": "about",
-          "label": "About"
-        },
-        {
-          "id": "culture",
-          "label": "Culture"
+          "id": "identity",
+          "label": "Lab Identity"
         },
         {
           "id": "professor",
@@ -183,8 +179,8 @@
     },
     "ko": {
       "title": "연구진",
-      "description": "Bae Lab의 사람과 연구 문화를 소개합니다.",
-      "aboutTitle": "연구실 소개",
+      "description": "Bae Lab 연구진과 연구 문화를 소개합니다.",
+      "aboutTitle": "연구실 정체성",
       "aboutBody": "Bae Lab은 에너지·환경·바이오 응용을 위한 기능성 소재와 적층제조 기술을 연구하는 다학제 연구팀입니다. 소재 설계, 공정 엔지니어링, 성능 검증을 유기적으로 연결해 실사용 가능한 기술 성과를 만듭니다.",
       "cultureTitle": "Lab Culture",
       "cultureBody": "우리는 높은 기준과 높은 신뢰를 동시에 지향합니다. 각 구성원이 도전적인 문제를 탐구하고, 명확하게 소통하며, 협업을 통해 함께 성장하는 연구 환경을 지향합니다.",
@@ -211,12 +207,8 @@
       "alumniTitle": "졸업생",
       "jumpNav": [
         {
-          "id": "about",
-          "label": "소개"
-        },
-        {
-          "id": "culture",
-          "label": "문화"
+          "id": "identity",
+          "label": "연구실 정체성"
         },
         {
           "id": "professor",

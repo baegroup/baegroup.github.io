@@ -6,10 +6,10 @@
 Team
 
 ## description
-Meet our people and culture.
+People and culture at the lab.
 
 ## aboutTitle
-About the Lab
+Lab Identity
 
 ## aboutBody
 Briefly explain the lab mission, research domains, and what makes your team distinct.
@@ -36,8 +36,7 @@ Current Students
 Alumni
 
 ## jumpNav
-- about | About
-- culture | Culture
+- identity | Lab Identity
 - professor | Professor
 - current | Current Students
 - alumni | Alumni
