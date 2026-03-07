@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { MEMBERS_CONTENT } from '@/content/site-content';
 import { loadMembers } from '@/lib/data';
 import { pagePath } from '@/lib/i18n';
@@ -31,7 +31,7 @@ function MemberCard({ member, locale, prominent = false, showRoleBadge = false }
   const period = locale === 'ko' ? `${member.startYear || '-'} ~ ${member.endYear || '현재'}` : `${member.startYear || '-'} - ${member.endYear || 'Present'}`;
 
   return (
-    <article className={`rounded-lg border border-slate-200 bg-white ${prominent ? 'p-5 md:p-6' : 'p-4'}`}>
+    <article className={`rounded-lg border border-slate-200 ${prominent ? 'bg-white p-5 md:p-6' : 'bg-slate-50/60 p-4'}`}>
       <div className={`grid gap-4 ${prominent ? 'md:grid-cols-[96px_1fr]' : 'grid-cols-[64px_1fr]'}`}>
         <div className={`overflow-hidden rounded-md border border-slate-200 bg-slate-50 ${prominent ? 'h-24 w-24' : 'h-16 w-16'}`}>
           {hasPhoto ? (
@@ -76,12 +76,12 @@ function MemberCard({ member, locale, prominent = false, showRoleBadge = false }
 
 function SectionState({ content, loading, error }) {
   if (loading) {
-    return <p className="rounded-lg border border-dashed border-slate-300 bg-white p-4 text-sm text-slate-600 md:text-base">{content.loading}</p>;
+    return <p className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600 md:text-base">{content.loading}</p>;
   }
   if (error) {
     return <p className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700 md:text-base">{error}</p>;
   }
-  return <p className="rounded-lg border border-dashed border-slate-300 bg-white p-4 text-sm text-slate-600 md:text-base">{content.empty}</p>;
+  return <p className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600 md:text-base">{content.empty}</p>;
 }
 
 function Principles({ principles }) {
@@ -185,7 +185,27 @@ export function MembersPage({ locale }) {
   );
 
   const currentStudentGroups = useMemo(
-    () => currentGroups.filter((group) => group.role !== 'PI' && group.role !== 'Alumni'),
+    () =>
+      currentGroups
+        .filter((group) => group.role !== 'PI' && group.role !== 'Alumni')
+        .map((group) => ({
+          ...group,
+          members: [...group.members].sort((a, b) => {
+            const startA = Number.isFinite(a.startYear) ? a.startYear : Number.MAX_SAFE_INTEGER;
+            const startB = Number.isFinite(b.startYear) ? b.startYear : Number.MAX_SAFE_INTEGER;
+            if (startA !== startB) {
+              return startA - startB;
+            }
+
+            const endA = Number.isFinite(a.endYear) ? a.endYear : Number.MAX_SAFE_INTEGER;
+            const endB = Number.isFinite(b.endYear) ? b.endYear : Number.MAX_SAFE_INTEGER;
+            if (endA !== endB) {
+              return endA - endB;
+            }
+
+            return String(a.localizedName || '').localeCompare(String(b.localizedName || ''));
+          })
+        })),
     [currentGroups]
   );
 
@@ -194,11 +214,19 @@ export function MembersPage({ locale }) {
       alumniGroups
         .flatMap((group) => group.members)
         .sort((a, b) => {
-          const endDelta = (b.endYear || 0) - (a.endYear || 0);
-          if (endDelta !== 0) {
-            return endDelta;
+          const endA = Number.isFinite(a.endYear) ? a.endYear : -1;
+          const endB = Number.isFinite(b.endYear) ? b.endYear : -1;
+          if (endA !== endB) {
+            return endB - endA;
           }
-          return (b.startYear || 0) - (a.startYear || 0);
+
+          const startA = Number.isFinite(a.startYear) ? a.startYear : -1;
+          const startB = Number.isFinite(b.startYear) ? b.startYear : -1;
+          if (startA !== startB) {
+            return startB - startA;
+          }
+
+          return String(a.localizedName || '').localeCompare(String(b.localizedName || ''));
         }),
     [alumniGroups]
   );
@@ -209,122 +237,119 @@ export function MembersPage({ locale }) {
         <h1 className="text-4xl font-semibold leading-tight tracking-tight text-slate-950 md:text-5xl">{content.title || (locale === 'ko' ? '연구진' : 'Team')}</h1>
       </section>
 
-      <Card>
-        <CardContent className="px-4 py-3 md:px-6">
-          <nav aria-label="Team section navigation" className="flex flex-wrap items-center gap-2">
-            {jumpNav.map((item) => {
-              const active = activeSection === item.id;
-              return (
-                <button
-                  aria-pressed={active}
-                  className={`inline-flex items-center rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors md:text-sm ${
-                    active
-                      ? 'border-[#0b3a64] bg-[#0b3a64] text-white'
-                      : 'border-slate-200 bg-white text-slate-700 hover:border-[#0b3a64] hover:text-[#0b3a64]'
-                  }`}
-                  key={item.id}
-                  onClick={() => setActiveSection(item.id)}
-                  type="button"
-                >
-                  {item.label}
-                </button>
-              );
-            })}
-          </nav>
+      <Card className="overflow-hidden">
+        <CardContent className="p-0">
+          <div className="border-b border-slate-200 px-4 py-3 md:px-6">
+            <nav aria-label="Team section navigation" className="flex flex-wrap items-center gap-2">
+              {jumpNav.map((item) => {
+                const active = activeSection === item.id;
+                return (
+                  <button
+                    aria-pressed={active}
+                    className={`inline-flex items-center rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors md:text-sm ${
+                      active
+                        ? 'border-[#0b3a64] bg-[#0b3a64] text-white'
+                        : 'border-slate-200 bg-white text-slate-700 hover:border-[#0b3a64] hover:text-[#0b3a64]'
+                    }`}
+                    key={item.id}
+                    onClick={() => setActiveSection(item.id)}
+                    type="button"
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
+
+          <div className="px-4 py-5 md:px-6 md:py-6">
+            {activeSection === 'identity' ? (
+              <section className="space-y-5">
+                <h2 className="text-2xl font-semibold leading-tight tracking-tight text-slate-950 md:text-3xl">
+                  {content.aboutTitle || (locale === 'ko' ? '연구실 정체성' : 'Lab Identity')}
+                </h2>
+                <div className="space-y-3">
+                  {(identityParagraphs.length ? identityParagraphs : [String(content.description || '').trim()]).filter(Boolean).map((text) => (
+                    <p className="max-w-4xl text-sm leading-relaxed text-slate-700 md:text-base" key={text}>
+                      {text}
+                    </p>
+                  ))}
+                </div>
+                <Principles principles={culturePrinciples} />
+                <div className="pt-1">
+                  <Link className="home-cta-primary" to={pagePath(locale, 'contact')}>
+                    {content.joinCta || (locale === 'ko' ? '문의하기' : 'Contact the Lab')}
+                  </Link>
+                </div>
+              </section>
+            ) : null}
+
+            {activeSection === 'professor' ? (
+              <section className="space-y-4">
+                <h2 className="text-2xl font-semibold leading-tight tracking-tight text-slate-950 md:text-3xl">
+                  {content.professorTitle || (locale === 'ko' ? '교수' : 'Professor')}
+                </h2>
+                {professorMembers.length > 0 ? (
+                  <div className="grid gap-4 lg:grid-cols-2">
+                    {professorMembers.map((member) => (
+                      <MemberCard key={member.id} locale={locale} member={member} prominent />
+                    ))}
+                  </div>
+                ) : (
+                  <SectionState content={content} error={error} loading={loading} />
+                )}
+              </section>
+            ) : null}
+
+            {activeSection === 'current' ? (
+              <section className="space-y-5">
+                <h2 className="text-2xl font-semibold leading-tight tracking-tight text-slate-950 md:text-3xl">
+                  {content.currentStudentsTitle || (locale === 'ko' ? '현재 학생' : 'Current Students')}
+                </h2>
+                {currentStudentGroups.length > 0 ? (
+                  <div className="space-y-6">
+                    {currentStudentGroups.map((group, index) => (
+                      <section className="space-y-3" key={group.role}>
+                        <h3 className="text-lg font-semibold text-slate-900">{group.label}</h3>
+                        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                          {group.members.map((member) => (
+                            <MemberCard
+                              key={member.id}
+                              locale={locale}
+                              member={member}
+                              showRoleBadge={!PRIMARY_STUDENT_ROLES.has(group.role)}
+                            />
+                          ))}
+                        </div>
+                        {index < currentStudentGroups.length - 1 ? <div className="h-px bg-slate-200" /> : null}
+                      </section>
+                    ))}
+                  </div>
+                ) : (
+                  <SectionState content={content} error={error} loading={loading} />
+                )}
+              </section>
+            ) : null}
+
+            {activeSection === 'alumni' ? (
+              <section className="space-y-4">
+                <h2 className="text-2xl font-semibold leading-tight tracking-tight text-slate-950 md:text-3xl">
+                  {content.alumniTitle || (locale === 'ko' ? '졸업생' : 'Alumni')}
+                </h2>
+                {alumniMembers.length > 0 ? (
+                  <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                    {alumniMembers.map((member) => (
+                      <MemberCard key={member.id} locale={locale} member={member} />
+                    ))}
+                  </div>
+                ) : (
+                  <SectionState content={content} error={error} loading={loading} />
+                )}
+              </section>
+            ) : null}
+          </div>
         </CardContent>
       </Card>
-
-      {activeSection === 'identity' ? (
-        <Card>
-          <CardHeader>
-            <CardTitle>{content.aboutTitle || (locale === 'ko' ? '연구실 정체성' : 'Lab Identity')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {(identityParagraphs.length ? identityParagraphs : [String(content.description || '').trim()]).filter(Boolean).map((text) => (
-                <p className="max-w-4xl text-sm leading-relaxed text-slate-700 md:text-base" key={text}>
-                  {text}
-                </p>
-              ))}
-            </div>
-            <Principles principles={culturePrinciples} />
-            <div className="mt-5">
-              <Link className="home-cta-primary" to={pagePath(locale, 'contact')}>
-                {content.joinCta || (locale === 'ko' ? '문의하기' : 'Contact the Lab')}
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
-      ) : null}
-
-      {activeSection === 'professor' ? (
-        <Card>
-          <CardHeader>
-            <CardTitle>{content.professorTitle || (locale === 'ko' ? '교수' : 'Professor')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {professorMembers.length > 0 ? (
-              <div className="grid gap-4 lg:grid-cols-2">
-                {professorMembers.map((member) => (
-                  <MemberCard key={member.id} locale={locale} member={member} prominent />
-                ))}
-              </div>
-            ) : (
-              <SectionState content={content} error={error} loading={loading} />
-            )}
-          </CardContent>
-        </Card>
-      ) : null}
-
-      {activeSection === 'current' ? (
-        <Card>
-          <CardHeader>
-            <CardTitle>{content.currentStudentsTitle || (locale === 'ko' ? '현재 학생' : 'Current Students')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {currentStudentGroups.length > 0 ? (
-              <div className="space-y-4">
-                {currentStudentGroups.map((group) => (
-                  <section className="rounded-lg border border-slate-200 bg-slate-50/60 p-4" key={group.role}>
-                    <h3 className="text-lg font-semibold text-slate-900">{group.label}</h3>
-                    <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                      {group.members.map((member) => (
-                        <MemberCard
-                          key={member.id}
-                          locale={locale}
-                          member={member}
-                          showRoleBadge={!PRIMARY_STUDENT_ROLES.has(group.role)}
-                        />
-                      ))}
-                    </div>
-                  </section>
-                ))}
-              </div>
-            ) : (
-              <SectionState content={content} error={error} loading={loading} />
-            )}
-          </CardContent>
-        </Card>
-      ) : null}
-
-      {activeSection === 'alumni' ? (
-        <Card>
-          <CardHeader>
-            <CardTitle>{content.alumniTitle || (locale === 'ko' ? '졸업생' : 'Alumni')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {alumniMembers.length > 0 ? (
-              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                {alumniMembers.map((member) => (
-                  <MemberCard key={member.id} locale={locale} member={member} />
-                ))}
-              </div>
-            ) : (
-              <SectionState content={content} error={error} loading={loading} />
-            )}
-          </CardContent>
-        </Card>
-      ) : null}
     </>
   );
 }
