@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
@@ -16,8 +16,6 @@ function parseNewsDate(value) {
 
 export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
   const [imageIndex, setImageIndex] = useState(0);
-  const featuredImages = mediaCandidates(HOME_MEDIA.newsFeatured);
-  const exhausted = imageIndex >= featuredImages.length;
   const items = [...(content.items || [])].sort((a, b) => {
     const dateDelta = parseNewsDate(b.date) - parseNewsDate(a.date);
     if (dateDelta !== 0) {
@@ -26,12 +24,19 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
     return String(b.title || '').localeCompare(String(a.title || ''));
   });
   const featured = items[0];
+  const featuredPath = featured?.image || HOME_MEDIA.newsFeatured;
+  const featuredImages = mediaCandidates(featuredPath);
+  const exhausted = imageIndex >= featuredImages.length;
   const listItems = items.slice(1, 6);
-  const sectionTitle = content.sectionTitle || 'Recent Lab News';
+  const sectionTitle = content.newsTitle || content.sectionTitle || 'Recent Lab News';
   const featuredLabel = 'Featured';
   const listLabel = 'Recent Highlights';
   const viewAllLabel = 'View all news';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
+
+  useEffect(() => {
+    setImageIndex(0);
+  }, [featuredPath]);
 
   if (!featured && !listItems.length) {
     return null;
@@ -54,7 +59,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
                 {!exhausted ? (
                   <img
                     alt={featured.title}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full bg-slate-50 object-contain p-1"
                     onError={() => setImageIndex((index) => index + 1)}
                     src={featuredImages[imageIndex]}
                   />

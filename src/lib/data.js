@@ -350,6 +350,7 @@ export async function loadLatestNewsItems(limit = 6) {
   return deduped.slice(0, Math.max(1, limit)).map((item) => ({
     date: item.date,
     title: item.title,
-    body: item.summary || ''
+    body: item.summary || '',
+    image: (item.images || [])[0] || ''
   }));
 }

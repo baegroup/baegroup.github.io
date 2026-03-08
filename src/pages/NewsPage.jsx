@@ -437,8 +437,8 @@ export function NewsPage({ locale }) {
     <div className="space-y-6 md:space-y-8">
       <PageHero description={content.description} title={content.title} />
 
-      <div className="grid gap-5 xl:grid-cols-[minmax(208px,246px)_minmax(0,1fr)]">
-        <aside className="space-y-4 xl:sticky xl:top-24 xl:self-start">
+      <div className="grid gap-5 lg:grid-cols-[minmax(194px,232px)_minmax(0,1fr)]">
+        <aside className="order-2 space-y-4 lg:order-1 lg:sticky lg:top-24 lg:self-start">
           <Card className="border-slate-200 bg-white">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg text-slate-900">{content.sectionTitle || 'Sections'}</CardTitle>
@@ -486,19 +486,33 @@ export function NewsPage({ locale }) {
 
           <section className="space-y-3 px-1">
             {latestInstagramEmbedUrl ? (
-              <div className="mx-auto w-full max-w-[260px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5">
-                <iframe
-                  allowTransparency
-                  className="block w-full"
-                  loading="lazy"
-                  scrolling="no"
-                  src={latestInstagramEmbedUrl}
-                  style={{ border: 0, height: '820px' }}
-                  title={latestInstagramPost?.title || 'Instagram embed'}
-                />
-              </div>
+              <>
+                <div className="mx-auto hidden w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5 xl:block">
+                  <iframe
+                    allowTransparency
+                    className="block w-full"
+                    loading="lazy"
+                    scrolling="no"
+                    src={latestInstagramEmbedUrl}
+                    style={{ border: 0, height: '840px' }}
+                    title={latestInstagramPost?.title || 'Instagram embed'}
+                  />
+                </div>
+                <a
+                  className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white xl:hidden"
+                  href={latestInstagramPermalink || feed.instagram.profileUrl || '#'}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  {latestInstagramImage ? (
+                    <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
+                  ) : (
+                    <div className="p-3 text-xs text-slate-500">Open latest Instagram post</div>
+                  )}
+                </a>
+              </>
             ) : latestInstagramImage ? (
-              <a className="mx-auto block w-full max-w-[260px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
+              <a className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
                 <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
               </a>
             ) : (
@@ -507,7 +521,7 @@ export function NewsPage({ locale }) {
           </section>
         </aside>
 
-        <section className="space-y-3" ref={listTopRef}>
+        <section className="order-1 space-y-3 lg:order-2" ref={listTopRef}>
           <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-3">
             <h2 className="text-2xl font-semibold tracking-tight text-slate-950">{activeLabel}</h2>
             <div className="text-right text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
