@@ -51,6 +51,8 @@ const PUB_TYPE_LABELS = {
   }
 };
 
+const NEWS_SECTION_KEYS = ['labNews', 'gallery', 'videos'];
+
 const cache = new Map();
 
 function localize(value, locale) {
@@ -220,4 +222,122 @@ export async function loadPublications(locale, filterType = 'all') {
 
 export function publicationTypeLabels(locale) {
   return PUB_TYPE_LABELS[locale] || PUB_TYPE_LABELS.en;
+}
+
+function normalizeNewsSection(value) {
+  const raw = String(value || '')
+    .trim()
+    .toLowerCase();
+
+  if (raw === 'labnews' || raw === 'lab-news' || raw === 'lab news' || raw === 'news') {
+    return 'labNews';
+  }
+  if (raw === 'gallery' || raw === 'photos' || raw === 'photo') {
+    return 'gallery';
+  }
+  if (raw === 'videos' || raw === 'video') {
+    return 'videos';
+  }
+  return 'labNews';
+}
+
+function parseNewsDateValue(value) {
+  const raw = String(value || '').trim();
+  if (!raw) {
+    return 0;
+  }
+
+  const parsed = Date.parse(raw);
+  if (Number.isFinite(parsed)) {
+    return parsed;
+  }
+
+  const parts = raw.split(/[./-]/).filter(Boolean);
+  const year = Number(parts[0]) || 0;
+  const month = Math.min(12, Math.max(1, Number(parts[1]) || 1));
+  const day = Math.min(31, Math.max(1, Number(parts[2]) || 1));
+  return Date.UTC(year, month - 1, day);
+}
+
+function toSlug(value, fallback) {
+  const normalized = String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return normalized || fallback;
+}
+
+function normalizeNewsItems(items, sectionKey) {
+  return (Array.isArray(items) ? items : [])
+    .map((item, index) => {
+      const title = String(item?.title || '').trim();
+      const date = String(item?.date || '').trim();
+      const summary = localize(item?.summary || item?.body || '', 'en');
+      const id = String(item?.id || '').trim() || `${sectionKey}-${toSlug(title || date, String(index + 1))}`;
+      const images = Array.isArray(item?.images)
+        ? item.images.map((image) => String(image || '').trim()).filter(Boolean)
+        : String(item?.image || '').trim()
+          ? [String(item.image).trim()]
+          : [];
+
+      return {
+        id,
+        section: normalizeNewsSection(item?.section || sectionKey),
+        date,
+        title,
+        summary,
+        url: String(item?.url || '').trim(),
+        videoUrl: String(item?.videoUrl || '').trim(),
+        images
+      };
+    })
+    .sort((a, b) => {
+      const dateDelta = parseNewsDateValue(b.date) - parseNewsDateValue(a.date);
+      if (dateDelta !== 0) {
+        return dateDelta;
+      }
+      return String(a.title || '').localeCompare(String(b.title || ''));
+    });
+}
+
+function normalizePiLinks(value) {
+  const input = value && typeof value === 'object' ? value : {};
+  return {
+    linkedin: String(input.linkedin || '').trim(),
+    webOfScience: String(input.webOfScience || '').trim(),
+    orcid: String(input.orcid || '').trim(),
+    scopus: String(input.scopus || '').trim(),
+    googleScholar: String(input.googleScholar || '').trim(),
+    researchGate: String(input.researchGate || '').trim()
+  };
+}
+
+function normalizeInstagram(value) {
+  const input = value && typeof value === 'object' ? value : {};
+  return {
+    handle: String(input.handle || '').trim(),
+    profileUrl: String(input.profileUrl || '').trim(),
+    recent: normalizeNewsItems(input.recent, 'gallery').map((item) => ({
+      ...item,
+      section: 'instagram'
+    }))
+  };
+}
+
+export async function loadNewsFeed() {
+  const data = await fetchData('news.json');
+  const sectionsSource = data?.sections && typeof data.sections === 'object' ? data.sections : {};
+
+  const sections = NEWS_SECTION_KEYS.reduce((acc, key) => {
+    acc[key] = normalizeNewsItems(sectionsSource[key], key);
+    return acc;
+  }, {});
+
+  return {
+    updatedAt: String(data?.updatedAt || '').trim(),
+    sections,
+    instagram: normalizeInstagram(data?.instagram),
+    piLinks: normalizePiLinks(data?.piLinks)
+  };
 }

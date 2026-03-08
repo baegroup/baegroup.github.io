@@ -196,7 +196,30 @@
     "en": {
       "title": "News",
       "description": "Major updates from Bae Lab, including awards, conference highlights, and team milestones.",
-      "sectionTitle": "Recent Lab News",
+      "sectionTitle": "Sections",
+      "sectionTabs": [
+        {
+          "id": "labNews",
+          "label": "Lab News"
+        },
+        {
+          "id": "gallery",
+          "label": "Gallery"
+        },
+        {
+          "id": "videos",
+          "label": "Videos"
+        }
+      ],
+      "emptySection": "No items available in this section yet.",
+      "openLabel": "Open",
+      "closeLabel": "Close",
+      "instagramTitle": "Lab Instagram",
+      "instagramDescription": "Latest updates from our lab account.",
+      "instagramButton": "Open profile",
+      "piLinksTitle": "Professor Profiles",
+      "piLinksDescription": "External research profiles and citation services.",
+      "updatedAt": "",
       "items": [
         {
           "date": "2025.12.05",

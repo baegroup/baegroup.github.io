@@ -7,7 +7,36 @@ News
 Major updates from Bae Lab, including awards, conference highlights, and team milestones.
 
 ## sectionTitle
-Recent Lab News
+Sections
+
+## sectionTabs
+- labNews | Lab News
+- gallery | Gallery
+- videos | Videos
+
+## emptySection
+No items available in this section yet.
+
+## openLabel
+Open
+
+## closeLabel
+Close
+
+## instagramTitle
+Lab Instagram
+
+## instagramDescription
+Latest updates from our lab account.
+
+## instagramButton
+Open profile
+
+## piLinksTitle
+Professor Profiles
+
+## piLinksDescription
+External research profiles and citation services.
 
 ## items
 - 2025.12.05 | Myeong Lee won the KHU Chemical Engineering 1st Research Festival Award | Myeong Lee received the top undergraduate research honor from the Department of Chemical Engineering at Kyung Hee University.

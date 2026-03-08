@@ -207,6 +207,22 @@ function readNewsPageItems(source) {
   }));
 }
 
+function readSectionTabs(source, key = 'sectionTabs') {
+  const fromFrontmatter = source.data[key];
+  if (Array.isArray(fromFrontmatter)) {
+    return fromFrontmatter
+      .map((item) => ({
+        id: String(item.id || '').trim(),
+        label: String(item.label || '').trim()
+      }))
+      .filter((item) => item.id && item.label);
+  }
+
+  return parseDelimitedItems(source.sections[key], 2)
+    .map(([id, label]) => ({ id, label }))
+    .filter((item) => item.id && item.label);
+}
+
 function readLabels(source) {
   const fromFrontmatter = source.data.labels;
   if (fromFrontmatter && typeof fromFrontmatter === 'object' && !Array.isArray(fromFrontmatter)) {
@@ -311,6 +327,16 @@ async function build() {
       title: readString(news, 'title'),
       description: readString(news, 'description'),
       sectionTitle: readString(news, 'sectionTitle'),
+      sectionTabs: readSectionTabs(news),
+      emptySection: readString(news, 'emptySection'),
+      openLabel: readString(news, 'openLabel'),
+      closeLabel: readString(news, 'closeLabel'),
+      instagramTitle: readString(news, 'instagramTitle'),
+      instagramDescription: readString(news, 'instagramDescription'),
+      instagramButton: readString(news, 'instagramButton'),
+      piLinksTitle: readString(news, 'piLinksTitle'),
+      piLinksDescription: readString(news, 'piLinksDescription'),
+      updatedAt: readString(news, 'updatedAt'),
       items: readNewsPageItems(news)
     };
 

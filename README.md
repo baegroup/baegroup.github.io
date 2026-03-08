@@ -30,6 +30,27 @@ If you want generation only:
 npm run publish:dry
 ```
 
+## News Content Management
+
+News page uses a single-page section switch layout:
+
+- Lab News
+- Gallery
+- Videos
+
+Data source:
+
+- `public/data/news.json`
+
+Optional Notion sync command:
+
+```bash
+npm run news:sync:notion
+```
+
+This sync downloads Notion file uploads into `public/assets/img/news/notion` and updates `public/data/news.json`.
+Detailed setup: `NOTION_NEWS_SETUP.md`
+
 ## Home Media Update
 
 Replace these fixed files to update the homepage visuals:

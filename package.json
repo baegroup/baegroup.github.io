@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "content:build": "node scripts/build-content.mjs",
+    "news:sync:notion": "node scripts/sync-news-from-notion.mjs",
     "publish": "node scripts/publish-content.mjs",
     "publish:dry": "node scripts/publish-content.mjs --dry-run",
     "predev": "npm run content:build",

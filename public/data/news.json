@@ -1,0 +1,120 @@
+{
+  "updatedAt": "2026-03-08",
+  "instagram": {
+    "handle": "@baelab.khu",
+    "profileUrl": "https://www.instagram.com/baelab.khu/",
+    "recent": [
+      {
+        "id": "ig-2025-12-05-award",
+        "date": "2025-12-05",
+        "title": "KHU Chemical Engineering Research Festival Award",
+        "summary": "Myeong Lee received the top undergraduate research honor.",
+        "url": "https://www.instagram.com/baelab.khu/",
+        "images": [
+          "assets/img/news/instagram/ig-2025-12-05-award"
+        ]
+      },
+      {
+        "id": "ig-2025-11-27-icae",
+        "date": "2025-11-27",
+        "title": "Best Poster Award at 8th ICAE",
+        "summary": "Lab update from the 8th International Conference on Advanced Electromaterials.",
+        "url": "https://www.instagram.com/baelab.khu/",
+        "images": [
+          "assets/img/news/instagram/ig-2025-11-27-icae"
+        ]
+      }
+    ]
+  },
+  "piLinks": {
+    "linkedin": "https://www.linkedin.com/in/baelabkhu/",
+    "webOfScience": "https://www.webofscience.com/wos/author/search",
+    "orcid": "https://orcid.org/0000-0001-6426-4310",
+    "scopus": "https://www.scopus.com/",
+    "googleScholar": "https://scholar.google.com/citations?user=F4hhc78AAAAJ&hl=en",
+    "researchGate": "https://www.researchgate.net/"
+  },
+  "sections": {
+    "labNews": [
+      {
+        "id": "news-2025-12-05-khu-festival-award",
+        "date": "2025-12-05",
+        "title": "Myeong Lee won the KHU Chemical Engineering 1st Research Festival Award",
+        "summary": "Myeong Lee received the top undergraduate research honor from the Department of Chemical Engineering at Kyung Hee University.",
+        "url": "",
+        "images": []
+      },
+      {
+        "id": "news-2025-11-27-icae-best-poster",
+        "date": "2025-11-27",
+        "title": "Myeong Lee won the Best Poster Award at 8th ICAE",
+        "summary": "Myeong Lee was recognized with the Best Poster Award at the 8th International Conference on Advanced Electromaterials (ICAE).",
+        "url": "",
+        "images": []
+      },
+      {
+        "id": "news-2025-11-14-best-undergraduate-oral",
+        "date": "2025-11-14",
+        "title": "Myeong Lee won the Best Undergraduate Research Award (Oral)",
+        "summary": "Myeong Lee received the best oral presentation award at the 2nd Convergence and Innovation Undergraduate Research Festival.",
+        "url": "",
+        "images": []
+      },
+      {
+        "id": "news-2025-10-22-prof-birthday",
+        "date": "2025-10-22",
+        "title": "[Photo] Prof. Bae's Birthday Celebration",
+        "summary": "The team celebrated Prof. Bae's birthday together with current lab members.",
+        "url": "",
+        "images": [
+          "assets/img/news/gallery/prof-birthday-2025"
+        ]
+      },
+      {
+        "id": "news-2025-07-14-kiche-best-poster",
+        "date": "2025-07-14",
+        "title": "Xiaoling Zhu won the KIChE Best Poster Award",
+        "summary": "Xiaoling Zhu received an outstanding poster presentation award from the Korean Institute of Chemical Engineers.",
+        "url": "",
+        "images": []
+      },
+      {
+        "id": "news-2024-01-03-front-cover-aem",
+        "date": "2024-01-03",
+        "title": "Li-metal battery paper featured as Journal Front Cover in Advanced Energy Materials",
+        "summary": "Our Li-metal battery paper was featured as a Journal Front Cover Article in Advanced Energy Materials.",
+        "url": "",
+        "images": [
+          "assets/img/news/gallery/aem-front-cover-2024"
+        ]
+      }
+    ],
+    "gallery": [
+      {
+        "id": "gallery-2025-10-22-birthday",
+        "date": "2025-10-22",
+        "title": "Prof. Bae Birthday Celebration",
+        "summary": "Team celebration photos from October 2025.",
+        "images": [
+          "assets/img/news/gallery/prof-birthday-2025-1",
+          "assets/img/news/gallery/prof-birthday-2025-2",
+          "assets/img/news/gallery/prof-birthday-2025-3"
+        ],
+        "url": ""
+      }
+    ],
+    "videos": [
+      {
+        "id": "video-2025-lab-overview",
+        "date": "2025-09-01",
+        "title": "Bae Lab Research Overview",
+        "summary": "Introduction video for current research areas and student projects.",
+        "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "images": [
+          "assets/img/news/videos/lab-overview-thumb"
+        ],
+        "url": ""
+      }
+    ]
+  }
+}
