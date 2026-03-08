@@ -341,3 +341,27 @@ export async function loadNewsFeed() {
     piLinks: normalizePiLinks(data?.piLinks)
   };
 }
+
+export async function loadLatestNewsItems(limit = 6) {
+  const feed = await loadNewsFeed();
+  const merged = [
+    ...(feed.sections?.labNews || []),
+    ...(feed.sections?.gallery || []),
+    ...(feed.sections?.videos || [])
+  ];
+
+  const deduped = [...new Map(merged.map((item) => [item.id, item])).values()];
+  deduped.sort((a, b) => {
+    const dateDelta = parseNewsDateValue(b.date) - parseNewsDateValue(a.date);
+    if (dateDelta !== 0) {
+      return dateDelta;
+    }
+    return String(a.title || '').localeCompare(String(b.title || ''));
+  });
+
+  return deduped.slice(0, Math.max(1, limit)).map((item) => ({
+    date: item.date,
+    title: item.title,
+    body: item.summary || ''
+  }));
+}
