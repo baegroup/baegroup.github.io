@@ -48,32 +48,7 @@
         ]
       }
     ],
-    "gallery": [
-      {
-        "id": "gallery-2025-10-22-birthday",
-        "date": "2025-10-22",
-        "title": "Prof. Bae Birthday Celebration",
-        "summary": "Team celebration photos from October 2025.",
-        "images": [
-          "assets/img/news/gallery/prof-birthday-2025-1",
-          "assets/img/news/gallery/prof-birthday-2025-2",
-          "assets/img/news/gallery/prof-birthday-2025-3"
-        ],
-        "url": ""
-      }
-    ],
-    "videos": [
-      {
-        "id": "video-2025-lab-overview",
-        "date": "2025-09-01",
-        "title": "Bae Lab Research Overview",
-        "summary": "Introduction video for current research areas and student projects.",
-        "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        "images": [
-          "assets/img/news/videos/lab-overview-thumb"
-        ],
-        "url": ""
-      }
-    ]
+    "gallery": [],
+    "videos": []
   }
 }

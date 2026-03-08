@@ -73,14 +73,56 @@ function normalizeSection(value) {
   const raw = String(value || '')
     .trim()
     .toLowerCase();
+  const normalized = raw.split(/[|,/]/).map((part) => part.trim()).find(Boolean) || '';
 
-  if (raw === 'labnews' || raw === 'lab news' || raw === 'news' || raw === 'lab-news') {
+  if (
+    normalized === 'labnews' ||
+    normalized === 'lab news' ||
+    normalized === 'news' ||
+    normalized === 'lab-news' ||
+    normalized.includes('lab news') ||
+    normalized.includes('랩뉴스') ||
+    normalized.includes('뉴스')
+  ) {
     return 'labNews';
   }
-  if (raw === 'gallery' || raw === 'photos' || raw === 'photo') {
+  if (
+    normalized === 'gallery' ||
+    normalized === 'photos' ||
+    normalized === 'photo' ||
+    normalized.includes('gallery') ||
+    normalized.includes('갤러리') ||
+    normalized.includes('사진')
+  ) {
     return 'gallery';
   }
-  if (raw === 'videos' || raw === 'video') {
+  if (
+    normalized === 'videos' ||
+    normalized === 'video' ||
+    normalized.includes('video') ||
+    normalized.includes('videos') ||
+    normalized.includes('동영상') ||
+    normalized.includes('영상') ||
+    normalized.includes('릴스')
+  ) {
+    return 'videos';
+  }
+  return 'labNews';
+}
+
+function inferSection({ sectionValue, title, videoUrl }) {
+  const normalizedInput = String(sectionValue || '').trim();
+  if (normalizedInput) {
+    return normalizeSection(normalizedInput);
+  }
+
+  const titleText = String(title || '')
+    .trim()
+    .toLowerCase();
+  if (titleText.includes('gallery') || titleText.includes('photo') || titleText.includes('갤러리') || titleText.includes('사진')) {
+    return 'gallery';
+  }
+  if (videoUrl || titleText.includes('video') || titleText.includes('동영상') || titleText.includes('영상') || titleText.includes('릴스')) {
     return 'videos';
   }
   return 'labNews';
@@ -161,6 +203,12 @@ function propertyToText(property) {
   }
   if (property.type === 'select') {
     return String(property.select?.name || '').trim();
+  }
+  if (property.type === 'multi_select') {
+    return (Array.isArray(property.multi_select) ? property.multi_select : [])
+      .map((item) => String(item?.name || '').trim())
+      .filter(Boolean)
+      .join(', ');
   }
   if (property.type === 'status') {
     return String(property.status?.name || '').trim();
@@ -361,10 +409,10 @@ async function notionRequest({ token, endpoint, method = 'GET', body = null }) {
   return response.json();
 }
 
-async function resolveNotionDataSourceId({ token, databaseId }) {
+async function resolveNotionDataSourceIds({ token, databaseId }) {
   const preferred = String(process.env.NOTION_NEWS_DATA_SOURCE_ID || '').trim();
   if (preferred) {
-    return preferred;
+    return [preferred];
   }
 
   const database = await notionRequest({
@@ -378,65 +426,74 @@ async function resolveNotionDataSourceId({ token, databaseId }) {
 
   if (ids.length === 0) {
     // Legacy fallback for older database responses.
-    return databaseId;
+    return [databaseId];
   }
 
   if (ids.length > 1) {
-    console.log(`[info] Database has multiple data sources. Using first one: ${ids[0]}`);
-    console.log('[info] Set NOTION_NEWS_DATA_SOURCE_ID to select a different source if needed.');
+    console.log(`[info] Database has multiple data sources. Merging all sources: ${ids.join(', ')}`);
+    console.log('[info] You can pin one source with NOTION_NEWS_DATA_SOURCE_ID if needed.');
   }
 
-  return ids[0];
+  return ids;
 }
 
 async function fetchNotionPages({ token, databaseId }) {
   const pages = [];
-  let cursor = '';
-  const dataSourceId = await resolveNotionDataSourceId({ token, databaseId });
+  const dataSourceIds = await resolveNotionDataSourceIds({ token, databaseId });
 
-  while (true) {
-    const payload = { page_size: 100 };
+  for (const dataSourceId of dataSourceIds) {
+    let cursor = '';
+    let sourceCount = 0;
 
-    if (cursor) {
-      payload.start_cursor = cursor;
-    }
+    while (true) {
+      const payload = { page_size: 100 };
 
-    let data = null;
-    try {
-      data = await notionRequest({
-        token,
-        endpoint: `/data_sources/${dataSourceId}/query`,
-        method: 'POST',
-        body: payload
-      });
-    } catch (error) {
-      const text = String(error?.message || '');
-      if (!text.includes('multiple_data_sources_for_database') && dataSourceId === databaseId) {
-        // Legacy fallback for older databases without data source endpoint.
+      if (cursor) {
+        payload.start_cursor = cursor;
+      }
+
+      let data = null;
+      try {
         data = await notionRequest({
           token,
-          endpoint: `/databases/${databaseId}/query`,
+          endpoint: `/data_sources/${dataSourceId}/query`,
           method: 'POST',
           body: payload
         });
-      } else {
-        throw error;
+      } catch (error) {
+        const text = String(error?.message || '');
+        if (!text.includes('multiple_data_sources_for_database') && dataSourceId === databaseId) {
+          // Legacy fallback for older databases without data source endpoint.
+          data = await notionRequest({
+            token,
+            endpoint: `/databases/${databaseId}/query`,
+            method: 'POST',
+            body: payload
+          });
+        } else {
+          throw error;
+        }
+      }
+
+      const results = data.results || [];
+      pages.push(...results);
+      sourceCount += results.length;
+
+      if (!data.has_more) {
+        break;
+      }
+
+      cursor = data.next_cursor || '';
+      if (!cursor) {
+        break;
       }
     }
 
-    pages.push(...(data.results || []));
-
-    if (!data.has_more) {
-      break;
-    }
-
-    cursor = data.next_cursor || '';
-    if (!cursor) {
-      break;
-    }
+    console.log(`[info] fetched ${sourceCount} pages from data source ${dataSourceId}`);
   }
 
-  return pages;
+  const deduped = [...new Map(pages.map((page) => [String(page?.id || ''), page])).values()];
+  return deduped;
 }
 
 async function convertNotionPagesToSections({ pages, token }) {
@@ -471,7 +528,7 @@ async function convertNotionPagesToSections({ pages, token }) {
       continue;
     }
 
-    const section = normalizeSection(propertyToText(sectionProp));
+    const sectionText = propertyToText(sectionProp);
     const date = propertyToText(dateProp);
     const summary = propertyToText(summaryProp);
     const url = propertyToText(linkProp);
@@ -485,6 +542,7 @@ async function convertNotionPagesToSections({ pages, token }) {
     if (!videoUrl && supplemental.videoUrl) {
       videoUrl = supplemental.videoUrl;
     }
+    const section = inferSection({ sectionValue: sectionText, title, videoUrl });
     const images = [];
 
     for (let index = 0; index < mergedMediaUrls.length; index += 1) {
@@ -601,11 +659,7 @@ async function main() {
   const pages = await fetchNotionPages({ token: notionToken, databaseId: notionDbId });
 
   const notionSections = await convertNotionPagesToSections({ pages, token: notionToken });
-  const sections = {
-    labNews: notionSections.labNews.length ? notionSections.labNews : Array.isArray(existing.sections?.labNews) ? existing.sections.labNews : [],
-    gallery: notionSections.gallery.length ? notionSections.gallery : Array.isArray(existing.sections?.gallery) ? existing.sections.gallery : [],
-    videos: notionSections.videos.length ? notionSections.videos : Array.isArray(existing.sections?.videos) ? existing.sections.videos : []
-  };
+  const sections = notionSections;
 
   const instagram = await fetchInstagramRecent(existing.instagram || {});
   const piLinks = resolvePiLinks(existing.piLinks || {});
