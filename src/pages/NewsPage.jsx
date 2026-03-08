@@ -136,11 +136,11 @@ function NewsItemRow({ closeLabel, item, onToggle, openLabel, opened }) {
             <p className="text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">{item.title}</p>
             <p className="mt-0.5 text-sm leading-relaxed text-slate-600">{item.summary}</p>
           </div>
-          {hasDetailContent ? <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[#7a0f1f]">{opened ? closeLabel : openLabel}</span> : null}
+          <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[#7a0f1f]">{opened ? closeLabel : openLabel}</span>
         </div>
       </button>
 
-      {opened && hasDetailContent ? (
+      {opened ? (
         <div className="border-t border-slate-200 px-4 pb-4 pt-3 md:px-5">
           <div className="space-y-3">
             {item.videoUrl ? (
@@ -174,6 +174,8 @@ function NewsItemRow({ closeLabel, item, onToggle, openLabel, opened }) {
                 Source link
               </a>
             ) : null}
+
+            {!hasDetailContent ? <p className="text-sm text-slate-500">No additional details yet.</p> : null}
           </div>
         </div>
       ) : null}

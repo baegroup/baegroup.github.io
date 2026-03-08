@@ -200,6 +200,105 @@ function propertyToFiles(property) {
     .filter(Boolean);
 }
 
+function extractBlockFileUrl(blockData) {
+  if (!blockData || typeof blockData !== 'object') {
+    return '';
+  }
+  if (blockData.type === 'file' && blockData.file?.url) {
+    return blockData.file.url;
+  }
+  if (blockData.type === 'external' && blockData.external?.url) {
+    return blockData.external.url;
+  }
+  if (blockData.url) {
+    return String(blockData.url).trim();
+  }
+  return '';
+}
+
+function extractBlockRichText(block) {
+  if (!block?.type || !block[block.type]) {
+    return '';
+  }
+  const node = block[block.type];
+  const richText = node.rich_text || node.text || [];
+  return richTextToPlain(richText);
+}
+
+async function fetchBlockChildren({ token, blockId }) {
+  const items = [];
+  let cursor = '';
+
+  while (true) {
+    const query = new URLSearchParams({ page_size: '100' });
+    if (cursor) {
+      query.set('start_cursor', cursor);
+    }
+
+    const data = await notionRequest({
+      token,
+      endpoint: `/blocks/${blockId}/children?${query.toString()}`,
+      method: 'GET'
+    });
+
+    items.push(...(data.results || []));
+
+    if (!data.has_more) {
+      break;
+    }
+
+    cursor = data.next_cursor || '';
+    if (!cursor) {
+      break;
+    }
+  }
+
+  return items;
+}
+
+async function fetchPageSupplementalContent({ token, pageId }) {
+  const images = [];
+  let summary = '';
+  let videoUrl = '';
+
+  const queue = await fetchBlockChildren({ token, blockId: pageId });
+  while (queue.length > 0) {
+    const block = queue.shift();
+    if (!block || !block.type) {
+      continue;
+    }
+
+    if (block.type === 'image') {
+      const imageUrl = extractBlockFileUrl(block.image);
+      if (imageUrl) {
+        images.push(imageUrl);
+      }
+    }
+
+    if (!videoUrl && block.type === 'video') {
+      videoUrl = extractBlockFileUrl(block.video);
+    }
+
+    if (!summary) {
+      const text = extractBlockRichText(block);
+      if (text) {
+        summary = text;
+      }
+    }
+
+    if (block.has_children) {
+      const children = await fetchBlockChildren({ token, blockId: block.id });
+      queue.push(...children);
+    }
+  }
+
+  return {
+    images,
+    summary,
+    videoUrl
+  };
+}
+
 function fileExtensionFromUrl(url, contentType = '') {
   try {
     const parsed = new URL(url);
@@ -340,7 +439,7 @@ async function fetchNotionPages({ token, databaseId }) {
   return pages;
 }
 
-async function convertNotionPagesToSections(pages) {
+async function convertNotionPagesToSections({ pages, token }) {
   const sections = {
     labNews: [],
     gallery: [],
@@ -354,14 +453,14 @@ async function convertNotionPagesToSections(pages) {
 
   for (const page of pages) {
     const properties = page.properties || {};
-    const titleProp = findProperty(properties, ['Title', 'Name'], 'title');
-    const sectionProp = findProperty(properties, ['Section', 'Category', 'Type']);
-    const dateProp = findProperty(properties, ['Date', 'Updated'], 'date');
-    const summaryProp = findProperty(properties, ['Summary', 'Description', 'Content'], 'rich_text');
-    const linkProp = findProperty(properties, ['Link', 'URL', 'Source'], 'url');
-    const videoProp = findProperty(properties, ['Video', 'Video URL', 'YouTube'], 'url');
-    const imageProp = findProperty(properties, ['Images', 'Image', 'Photos', 'Media'], 'files');
-    const publishedProp = findProperty(properties, ['Published', 'Visible', 'Show'], 'checkbox');
+    const titleProp = findProperty(properties, ['Title', 'Name', '제목', '이름'], 'title');
+    const sectionProp = findProperty(properties, ['Section', 'Category', 'Type', '섹션', '구분', '카테고리']);
+    const dateProp = findProperty(properties, ['Date', 'Updated', '날짜', '업데이트'], 'date');
+    const summaryProp = findProperty(properties, ['Summary', 'Description', 'Content', '요약', '설명', '내용'], 'rich_text');
+    const linkProp = findProperty(properties, ['Link', 'URL', 'Source', '링크', '출처'], 'url');
+    const videoProp = findProperty(properties, ['Video', 'Video URL', 'YouTube', '영상', '동영상'], 'url');
+    const imageProp = findProperty(properties, ['Images', 'Image', 'Photos', 'Media', '사진', '이미지'], 'files');
+    const publishedProp = findProperty(properties, ['Published', 'Visible', 'Show', '게시', '표시', '공개'], 'checkbox');
 
     if (!propertyToBool(publishedProp, true)) {
       continue;
@@ -376,14 +475,20 @@ async function convertNotionPagesToSections(pages) {
     const date = propertyToText(dateProp);
     const summary = propertyToText(summaryProp);
     const url = propertyToText(linkProp);
-    const videoUrl = propertyToText(videoProp);
+    let videoUrl = propertyToText(videoProp);
 
     const pageToken = String(page.id || '').replace(/-/g, '').slice(0, 10) || toSlug(title, 'item');
     const mediaUrls = propertyToFiles(imageProp);
+    const supplemental = await fetchPageSupplementalContent({ token, pageId: page.id });
+    const mergedMediaUrls = mediaUrls.length ? mediaUrls : supplemental.images;
+    const resolvedSummary = summary || supplemental.summary;
+    if (!videoUrl && supplemental.videoUrl) {
+      videoUrl = supplemental.videoUrl;
+    }
     const images = [];
 
-    for (let index = 0; index < mediaUrls.length; index += 1) {
-      const mediaUrl = mediaUrls[index];
+    for (let index = 0; index < mergedMediaUrls.length; index += 1) {
+      const mediaUrl = mergedMediaUrls[index];
       try {
         const fileName = await downloadAsset(mediaUrl, NOTION_ASSET_DIR, `${pageToken}-${index + 1}`);
         images.push(`assets/img/news/notion/${fileName}`);
@@ -397,7 +502,7 @@ async function convertNotionPagesToSections(pages) {
       id,
       date,
       title,
-      summary,
+      summary: resolvedSummary,
       url,
       videoUrl,
       images
@@ -495,7 +600,7 @@ async function main() {
   const existing = await readJsonIfExists(NEWS_OUTPUT_PATH, {});
   const pages = await fetchNotionPages({ token: notionToken, databaseId: notionDbId });
 
-  const notionSections = await convertNotionPagesToSections(pages);
+  const notionSections = await convertNotionPagesToSections({ pages, token: notionToken });
   const sections = {
     labNews: notionSections.labNews.length ? notionSections.labNews : Array.isArray(existing.sections?.labNews) ? existing.sections.labNews : [],
     gallery: notionSections.gallery.length ? notionSections.gallery : Array.isArray(existing.sections?.gallery) ? existing.sections.gallery : [],
