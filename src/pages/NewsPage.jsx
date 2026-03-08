@@ -14,12 +14,12 @@ const DEFAULT_SECTION_TABS = [
   { id: 'videos', label: 'Videos' }
 ];
 const LINK_META = [
-  { key: 'linkedin', label: 'LinkedIn', short: 'in', color: '#0A66C2' },
-  { key: 'webOfScience', label: 'Web of Science', short: 'WoS', color: '#111827' },
-  { key: 'orcid', label: 'ORCID', short: 'iD', color: '#A6CE39' },
-  { key: 'scopus', label: 'Scopus', short: 'SC', color: '#E9711C' },
-  { key: 'googleScholar', label: 'Scholar', short: 'GS', color: '#1A73E8' },
-  { key: 'researchGate', label: 'ResearchGate', short: 'RG', color: '#00CCBB' }
+  { key: 'linkedin', label: 'LinkedIn', icon: 'assets/img/news/profiles/linkedin.ico' },
+  { key: 'webOfScience', label: 'Web of Science', icon: 'assets/img/news/profiles/webofscience.ico' },
+  { key: 'orcid', label: 'ORCID', icon: 'assets/img/news/profiles/orcid.svg' },
+  { key: 'scopus', label: 'Scopus', icon: 'assets/img/news/profiles/scopus.svg' },
+  { key: 'googleScholar', label: 'Google Scholar', icon: 'assets/img/news/profiles/googlescholar.svg' },
+  { key: 'researchGate', label: 'ResearchGate', icon: 'assets/img/news/profiles/researchgate.svg' }
 ];
 
 function normalizeInstagramPermalink(value) {
@@ -50,7 +50,7 @@ function normalizeInstagramPermalink(value) {
 
 function toInstagramEmbedUrl(value) {
   const permalink = normalizeInstagramPermalink(value);
-  return permalink ? `${permalink}embed/captioned/` : '';
+  return permalink ? `${permalink}embed/` : '';
 }
 
 function toTimestamp(value) {
@@ -208,6 +208,7 @@ function NewsItemRow({ compactPreview = false, item, onToggle, opened }) {
 
           <div>
             <p className="text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">{item.title}</p>
+            {compactPreview ? <p className="mt-1 text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p> : null}
           </div>
 
           <span className="inline-flex items-center justify-center rounded-full border border-slate-200 p-1 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-700">
@@ -376,9 +377,6 @@ export function NewsPage({ locale }) {
   const activeItems = mergedSections[activeSection] || [];
   const activeLabel = sections.find((section) => section.id === activeSection)?.label || '';
   const emptySectionLabel = content.emptySection || 'No items available in this section yet.';
-  const instagramTitle = content.instagramTitle || 'Lab Instagram';
-  const instagramButton = content.instagramButton || 'Open profile';
-  const piLinksTitle = content.piLinksTitle || 'Professor Profiles';
   const piLinksDescription = content.piLinksDescription || 'External research profiles and citation services.';
   const updatedAt = feed.updatedAt || content.updatedAt || '';
   const profileLinks = LINK_META.map((meta) => ({ ...meta, href: feed.piLinks?.[meta.key] })).filter((item) => item.href);
@@ -391,7 +389,7 @@ export function NewsPage({ locale }) {
     <div className="space-y-6 md:space-y-8">
       <PageHero description={content.description} title={content.title} />
 
-      <div className="grid gap-5 xl:grid-cols-[minmax(230px,270px)_minmax(0,1fr)]">
+      <div className="grid gap-5 xl:grid-cols-[minmax(340px,380px)_minmax(0,1fr)]">
         <aside className="space-y-4 xl:sticky xl:top-24 xl:self-start">
           <Card className="border-slate-200 bg-white">
             <CardHeader className="pb-3">
@@ -416,27 +414,15 @@ export function NewsPage({ locale }) {
           </Card>
 
           <section className="space-y-3 px-1">
-            <div className="flex items-center gap-2">
-              <a
-                aria-label={instagramTitle}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[radial-gradient(circle_at_30%_107%,#fdf497_0%,#fdf497_5%,#fd5949_45%,#d6249f_60%,#285AEB_90%)]"
-                href={latestInstagramPermalink || feed.instagram.profileUrl || '#'}
-                rel="noreferrer"
-                target="_blank"
-              >
-                <span className="text-lg font-bold text-white">IG</span>
-              </a>
-              {latestInstagramPost?.date ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{latestInstagramPost.date}</p> : null}
-            </div>
-
             {latestInstagramEmbedUrl ? (
               <div className="overflow-hidden rounded-lg border border-slate-200 bg-white p-2">
                 <iframe
                   allowTransparency
                   className="w-full"
                   loading="lazy"
+                  scrolling="no"
                   src={latestInstagramEmbedUrl}
-                  style={{ border: 0, minHeight: '520px' }}
+                  style={{ border: 0, height: '640px' }}
                   title={latestInstagramPost?.title || 'Instagram embed'}
                 />
               </div>
@@ -447,29 +433,25 @@ export function NewsPage({ locale }) {
             ) : (
               <div className="rounded-lg border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-500">Instagram latest photo not available.</div>
             )}
-
-            {feed.instagram.profileUrl ? (
-              <a className="inline-flex text-sm font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={feed.instagram.profileUrl} rel="noreferrer" target="_blank">
-                {instagramButton} {feed.instagram.handle ? `(${feed.instagram.handle})` : ''}
-              </a>
-            ) : null}
           </section>
 
           <section className="space-y-2 px-1">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">{piLinksTitle}</p>
             <div className="flex flex-wrap gap-2">
               {profileLinks.map((item) => (
                 <a
                   aria-label={item.label}
-                  className="inline-flex h-10 min-w-10 items-center justify-center rounded-full px-2 text-[11px] font-bold text-white transition-transform hover:-translate-y-0.5"
+                  className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white transition-transform hover:-translate-y-0.5 hover:border-slate-300"
                   href={item.href}
                   key={item.key}
                   rel="noreferrer"
-                  style={{ backgroundColor: item.color }}
                   target="_blank"
                   title={item.label}
                 >
-                  {item.short}
+                  <img
+                    alt={item.label}
+                    className="h-full w-full object-contain p-1.5"
+                    src={`${import.meta.env.BASE_URL}${item.icon}`}
+                  />
                 </a>
               ))}
             </div>
