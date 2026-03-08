@@ -24,7 +24,7 @@ const DEFAULT_JUMP_NAV = {
 
 const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'alumni']);
 const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
-const LAB_GROUP_IMAGE_PATH = 'assets/img/team/group/group-photo.jpg';
+const LAB_GROUP_IMAGE_PATH = 'assets/img/team/group/group-photo.webp';
 const FEARLESS_IMAGE_PATH = 'assets/img/team/culture/fearless-organization.png';
 const IDENTITY_COPY = {
   en: {
