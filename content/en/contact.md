@@ -4,13 +4,13 @@
 Contact
 
 ## description
-For collaboration, graduate admissions, and research inquiries, please contact the PI directly via email.
+For collaboration and research inquiries, please contact the PI directly via email.
 
 ## leftTitle
 Lab
 
 ## rightTitle
-Address & Applications
+Address & Map
 
 ## labels
 - email | Email
@@ -19,7 +19,6 @@ Address & Applications
 - office | Office
 - address | Address
 - map | Map
-- apply | Prospective Students
 
 ## office
 #912-1, Department of Chemical Engineering, Kyung Hee University
@@ -29,6 +28,3 @@ Address & Applications
 
 ## map
 Open in Google Maps
-
-## apply
-Please include your CV, transcript, and research interests in your email.

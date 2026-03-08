@@ -1,6 +1,9 @@
+import { Link } from 'react-router-dom';
+
 import { PageHero } from '@/components/site/PageHero';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CONTACT_CONTENT } from '@/content/site-content';
+import { pagePath } from '@/lib/i18n';
 
 export function ContactPage({ locale }) {
   const content = CONTACT_CONTENT[locale];
@@ -31,49 +34,54 @@ export function ContactPage({ locale }) {
   ];
 
   return (
-    <>
+    <div className="space-y-5 md:space-y-6">
       <PageHero description={content.description} title={content.title} />
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{content.leftTitle}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {contactItems.map((item) => (
-              <li className="rounded-md border border-border bg-slate-50/70 px-4 py-3" key={item.key}>
-                <p className="text-xs font-semibold text-slate-500">{item.label}</p>
-                <div className="mt-0.5 text-slate-800">{item.value}</div>
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
+      <section className="grid gap-4 lg:grid-cols-2">
+        <Card className="border-slate-200 bg-white">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-2xl font-semibold tracking-tight text-slate-900">{content.leftTitle}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2.5">
+              {contactItems.map((item) => (
+                <li className="rounded-lg border border-slate-200 bg-slate-50/80 px-4 py-3" key={item.key}>
+                  <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{item.label}</p>
+                  <div className="mt-1 text-sm leading-relaxed text-slate-800 md:text-base">{item.value}</div>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{content.rightTitle}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {locationItems.map((item) => (
-              <li className="rounded-md border border-border bg-slate-50/70 px-4 py-3" key={item.key}>
-                <p className="text-xs font-semibold text-slate-500">{item.label}</p>
-                <div className="mt-0.5 text-slate-800">{item.value}</div>
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
+        <Card className="border-slate-200 bg-white">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-2xl font-semibold tracking-tight text-slate-900">{content.rightTitle}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2.5">
+              {locationItems.map((item) => (
+                <li className="rounded-lg border border-slate-200 bg-slate-50/80 px-4 py-3" key={item.key}>
+                  <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{item.label}</p>
+                  <div className="mt-1 text-sm leading-relaxed text-slate-800 md:text-base">{item.value}</div>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      </section>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{labels.apply}</CardTitle>
+      <Card className="border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f6f9fd_100%)]">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-2xl font-semibold tracking-tight text-slate-900">Interested in Joining Bae Lab?</CardTitle>
         </CardHeader>
-        <CardContent>
-          <p className="text-slate-700">{content.apply}</p>
+        <CardContent className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-sm leading-relaxed text-slate-700 md:text-base">
+            Detailed graduate, undergraduate, and postdoctoral opportunities are listed on the Join Our Team page.
+          </p>
+          <Link className="home-cta-primary" to={pagePath(locale, 'join')}>Go to Join Our Team</Link>
         </CardContent>
       </Card>
-    </>
+    </div>
   );
 }
