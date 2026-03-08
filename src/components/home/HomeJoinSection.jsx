@@ -9,7 +9,8 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const joinImages = mediaCandidates(HOME_MEDIA.joinTeam);
   const exhausted = imageIndex >= joinImages.length;
-  const secondaryLabel = locale === 'ko' ? '연구진 소개 보기' : 'Meet Our Team';
+  const primaryLabel = locale === 'ko' ? '합류 안내 자세히 보기' : 'Read More About Joining';
+  const secondaryLabel = locale === 'ko' ? '연구실 문화 보기' : 'Explore Our Lab Culture';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   return (
@@ -27,7 +28,7 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
             className="home-cta-primary"
             to={pagePath(locale, 'join')}
           >
-            {content.joinCta}
+            {primaryLabel}
           </Link>
           <Link
             className="home-cta-secondary"
