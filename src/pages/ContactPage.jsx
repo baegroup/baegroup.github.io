@@ -8,29 +8,13 @@ import { pagePath } from '@/lib/i18n';
 export function ContactPage({ locale }) {
   const content = CONTACT_CONTENT[locale];
   const labels = content.labels;
+  const mapEmbedUrl = 'https://www.google.com/maps?q=1732+Deogyeong-daero,+Giheung-gu,+Yongin-si,+Gyeonggi-do&output=embed';
 
   const contactItems = [
     { key: 'email', label: labels.email, value: <a href="mailto:jbae@khu.ac.kr">jbae@khu.ac.kr</a> },
     { key: 'phone', label: labels.phone, value: <a href="tel:+82312012477">+82-31-201-2477</a> },
     { key: 'fax', label: labels.fax, value: '+82-31-204-8114' },
     { key: 'office', label: labels.office, value: content.office },
-  ];
-
-  const locationItems = [
-    { key: 'address', label: labels.address, value: content.address },
-    {
-      key: 'map',
-      label: labels.map,
-      value: (
-        <a
-          href="https://maps.google.com/?q=1732+Deogyeong-daero,+Giheung-gu,+Yongin-si,+Gyeonggi-do"
-          rel="noreferrer"
-          target="_blank"
-        >
-          {content.map}
-        </a>
-      ),
-    },
   ];
 
   return (
@@ -58,15 +42,24 @@ export function ContactPage({ locale }) {
           <CardHeader className="pb-3">
             <CardTitle className="text-2xl font-semibold tracking-tight text-slate-900">{content.rightTitle}</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ul className="space-y-2.5">
-              {locationItems.map((item) => (
-                <li className="rounded-lg border border-slate-200 bg-slate-50/80 px-4 py-3" key={item.key}>
-                  <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{item.label}</p>
-                  <div className="mt-1 text-sm leading-relaxed text-slate-800 md:text-base">{item.value}</div>
-                </li>
-              ))}
-            </ul>
+          <CardContent className="space-y-2.5">
+            <div className="rounded-lg border border-slate-200 bg-slate-50/80 px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{labels.address}</p>
+              <p className="mt-1 text-sm leading-relaxed text-slate-800 md:text-base">{content.address}</p>
+            </div>
+
+            <div className="rounded-lg border border-slate-200 bg-slate-50/80 p-3">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{labels.map}</p>
+              <div className="overflow-hidden rounded-md border border-slate-200">
+                <iframe
+                  className="h-52 w-full"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  src={mapEmbedUrl}
+                  title="Bae Lab location map"
+                />
+              </div>
+            </div>
           </CardContent>
         </Card>
       </section>
