@@ -5,8 +5,43 @@ const ROOT = process.cwd();
 const NEWS_OUTPUT_PATH = path.join(ROOT, 'public', 'data', 'news.json');
 const NOTION_ASSET_DIR = path.join(ROOT, 'public', 'assets', 'img', 'news', 'notion');
 const INSTAGRAM_ASSET_DIR = path.join(ROOT, 'public', 'assets', 'img', 'news', 'instagram');
-const NOTION_API_VERSION = '2022-06-28';
+const NOTION_API_VERSION = '2025-09-03';
 const SECTION_KEYS = ['labNews', 'gallery', 'videos'];
+
+async function loadDotenv(fileName) {
+  const filePath = path.join(ROOT, fileName);
+  let source = '';
+
+  try {
+    source = await fs.readFile(filePath, 'utf8');
+  } catch {
+    return;
+  }
+
+  source
+    .replace(/\r/g, '')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('#'))
+    .forEach((line) => {
+      const index = line.indexOf('=');
+      if (index < 1) {
+        return;
+      }
+
+      const key = line.slice(0, index).trim();
+      if (!key || process.env[key]) {
+        return;
+      }
+
+      const rawValue = line.slice(index + 1).trim();
+      const normalized =
+        (rawValue.startsWith('"') && rawValue.endsWith('"')) || (rawValue.startsWith("'") && rawValue.endsWith("'"))
+          ? rawValue.slice(1, -1)
+          : rawValue;
+      process.env[key] = normalized;
+    });
+}
 
 function requireEnv(name) {
   const value = String(process.env[name] || '').trim();
@@ -227,31 +262,68 @@ async function notionRequest({ token, endpoint, method = 'GET', body = null }) {
   return response.json();
 }
 
+async function resolveNotionDataSourceId({ token, databaseId }) {
+  const preferred = String(process.env.NOTION_NEWS_DATA_SOURCE_ID || '').trim();
+  if (preferred) {
+    return preferred;
+  }
+
+  const database = await notionRequest({
+    token,
+    endpoint: `/databases/${databaseId}`,
+    method: 'GET'
+  });
+
+  const dataSources = Array.isArray(database?.data_sources) ? database.data_sources : [];
+  const ids = dataSources.map((entry) => String(entry?.id || '').trim()).filter(Boolean);
+
+  if (ids.length === 0) {
+    // Legacy fallback for older database responses.
+    return databaseId;
+  }
+
+  if (ids.length > 1) {
+    console.log(`[info] Database has multiple data sources. Using first one: ${ids[0]}`);
+    console.log('[info] Set NOTION_NEWS_DATA_SOURCE_ID to select a different source if needed.');
+  }
+
+  return ids[0];
+}
+
 async function fetchNotionPages({ token, databaseId }) {
   const pages = [];
   let cursor = '';
+  const dataSourceId = await resolveNotionDataSourceId({ token, databaseId });
 
   while (true) {
-    const payload = {
-      page_size: 100,
-      sorts: [
-        {
-          property: 'Date',
-          direction: 'descending'
-        }
-      ]
-    };
+    const payload = { page_size: 100 };
 
     if (cursor) {
       payload.start_cursor = cursor;
     }
 
-    const data = await notionRequest({
-      token,
-      endpoint: `/databases/${databaseId}/query`,
-      method: 'POST',
-      body: payload
-    });
+    let data = null;
+    try {
+      data = await notionRequest({
+        token,
+        endpoint: `/data_sources/${dataSourceId}/query`,
+        method: 'POST',
+        body: payload
+      });
+    } catch (error) {
+      const text = String(error?.message || '');
+      if (!text.includes('multiple_data_sources_for_database') && dataSourceId === databaseId) {
+        // Legacy fallback for older databases without data source endpoint.
+        data = await notionRequest({
+          token,
+          endpoint: `/databases/${databaseId}/query`,
+          method: 'POST',
+          body: payload
+        });
+      } else {
+        throw error;
+      }
+    }
 
     pages.push(...(data.results || []));
 
@@ -278,6 +350,7 @@ async function convertNotionPagesToSections(pages) {
   await fs.mkdir(NOTION_ASSET_DIR, { recursive: true });
   await fs.rm(NOTION_ASSET_DIR, { recursive: true, force: true });
   await fs.mkdir(NOTION_ASSET_DIR, { recursive: true });
+  await fs.writeFile(path.join(NOTION_ASSET_DIR, '.gitkeep'), '', 'utf8');
 
   for (const page of pages) {
     const properties = page.properties || {};
@@ -354,6 +427,7 @@ async function fetchInstagramRecent(existingInstagram = {}) {
   await fs.mkdir(INSTAGRAM_ASSET_DIR, { recursive: true });
   await fs.rm(INSTAGRAM_ASSET_DIR, { recursive: true, force: true });
   await fs.mkdir(INSTAGRAM_ASSET_DIR, { recursive: true });
+  await fs.writeFile(path.join(INSTAGRAM_ASSET_DIR, '.gitkeep'), '', 'utf8');
 
   const endpoint = `https://graph.instagram.com/${userId}/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp&limit=${Math.max(1, Math.min(limit, 20))}&access_token=${encodeURIComponent(accessToken)}`;
   const response = await fetch(endpoint);
@@ -412,6 +486,9 @@ function resolvePiLinks(existing = {}) {
 }
 
 async function main() {
+  await loadDotenv('.env.local');
+  await loadDotenv('.env');
+
   const notionToken = requireEnv('NOTION_TOKEN');
   const notionDbId = requireEnv('NOTION_NEWS_DB_ID');
 
