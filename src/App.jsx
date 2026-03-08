@@ -1,3 +1,4 @@
+import { useLayoutEffect } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { SiteLayout } from '@/layouts/SiteLayout';
@@ -9,6 +10,16 @@ import { ResearchPage } from '@/pages/ResearchPage';
 import { ContactPage } from '@/pages/ContactPage';
 
 const DEFAULT_LOCALE = 'en';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pathname]);
+
+  return null;
+}
 
 function LegacyLocaleRedirect() {
   const { pathname } = useLocation();
@@ -39,10 +50,13 @@ function SiteRoutes() {
 
 export default function App() {
   return (
-    <Routes>
-      <Route element={<LegacyLocaleRedirect />} path="en/*" />
-      <Route element={<LegacyLocaleRedirect />} path="ko/*" />
-      <Route element={<SiteRoutes />} path="*" />
-    </Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<LegacyLocaleRedirect />} path="en/*" />
+        <Route element={<LegacyLocaleRedirect />} path="ko/*" />
+        <Route element={<SiteRoutes />} path="*" />
+      </Routes>
+    </>
   );
 }

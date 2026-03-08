@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { pagePath } from '@/lib/i18n';
 
 const HOME_RESEARCH_BODY_OVERRIDES = {
   en: [
@@ -52,8 +50,6 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
     body: HOME_RESEARCH_BODY_OVERRIDES[locale]?.[index] || HOME_RESEARCH_BODY_OVERRIDES.en[index] || card.body
   }));
   const title = content.title || (locale === 'ko' ? '연구 분야' : 'Research Area');
-  const learnMoreLabel = locale === 'ko' ? '연구 더보기' : 'Learn more about our research';
-  const publicationLabel = locale === 'ko' ? '논문 전체 보기' : 'See all publications';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   if (!cards.length) {
@@ -75,21 +71,6 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
             locale={locale}
           />
         ))}
-      </div>
-
-      <div className="flex flex-wrap gap-2.5 pt-1">
-        <Link
-          className="home-cta-primary"
-          to={pagePath(locale, 'research')}
-        >
-          {learnMoreLabel}
-        </Link>
-        <Link
-          className="home-cta-secondary"
-          to={pagePath(locale, 'publications')}
-        >
-          {publicationLabel}
-        </Link>
       </div>
     </section>
   );
