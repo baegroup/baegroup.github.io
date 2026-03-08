@@ -121,9 +121,7 @@ export function ResearchPage({ locale }) {
 
       <section className="rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7">
         <h2 className="text-center text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">{missionTitle}</h2>
-        <div className="mx-auto mt-5 max-w-5xl rounded-xl border border-slate-200 bg-slate-50/80 p-5 md:p-6">
-          <p className="text-base leading-relaxed text-slate-700 md:text-lg">{content.description}</p>
-        </div>
+        <p className="mx-auto mt-5 max-w-5xl text-base leading-relaxed text-slate-700 md:text-lg">{content.description}</p>
       </section>
 
       <section className="space-y-4 md:space-y-5">
