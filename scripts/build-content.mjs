@@ -245,6 +245,7 @@ async function build() {
     RESEARCH_CONTENT: {},
     PUBLICATIONS_CONTENT: {},
     NEWS_CONTENT: {},
+    JOIN_CONTENT: {},
     CONTACT_CONTENT: {}
   };
 
@@ -256,6 +257,7 @@ async function build() {
     const research = await readSource(locale, 'research');
     const publications = await readSource(locale, 'publications');
     const news = await readSource(locale, 'news');
+    const join = await readSource(locale, 'join');
     const contact = await readSource(locale, 'contact');
 
     output.NAV_ITEMS[locale] = readNavigationItems(navigation);
@@ -338,6 +340,21 @@ async function build() {
       piLinksDescription: readString(news, 'piLinksDescription'),
       updatedAt: readString(news, 'updatedAt'),
       items: readNewsPageItems(news)
+    };
+
+    output.JOIN_CONTENT[locale] = {
+      title: readString(join, 'title'),
+      description: readString(join, 'description'),
+      graduateTitle: readString(join, 'graduateTitle'),
+      graduateBody: readString(join, 'graduateBody'),
+      graduateBenefits: readStringArray(join, 'graduateBenefits'),
+      undergraduateTitle: readString(join, 'undergraduateTitle'),
+      undergraduateBody: readString(join, 'undergraduateBody'),
+      postdocTitle: readString(join, 'postdocTitle'),
+      postdocBody: readString(join, 'postdocBody'),
+      admissionsLabel: readString(join, 'admissionsLabel'),
+      admissionsUrl: readString(join, 'admissionsUrl'),
+      contactEmail: readString(join, 'contactEmail')
     };
 
     output.CONTACT_CONTENT[locale] = {

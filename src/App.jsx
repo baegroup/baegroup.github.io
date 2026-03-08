@@ -8,6 +8,7 @@ import { NewsPage } from '@/pages/NewsPage';
 import { PublicationsPage } from '@/pages/PublicationsPage';
 import { ResearchPage } from '@/pages/ResearchPage';
 import { ContactPage } from '@/pages/ContactPage';
+import { JoinPage } from '@/pages/JoinPage';
 
 const DEFAULT_LOCALE = 'en';
 
@@ -40,8 +41,8 @@ function SiteRoutes() {
         <Route element={<ResearchPage locale={locale} />} path="research" />
         <Route element={<PublicationsPage locale={locale} />} path="publications" />
         <Route element={<NewsPage locale={locale} />} path="news" />
+        <Route element={<JoinPage locale={locale} />} path="join" />
         <Route element={<ContactPage locale={locale} />} path="contact" />
-        <Route element={<Navigate replace to="/contact" />} path="join" />
         <Route element={<Navigate replace to="/" />} path="*" />
       </Routes>
     </SiteLayout>

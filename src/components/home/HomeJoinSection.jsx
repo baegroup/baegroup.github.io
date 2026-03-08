@@ -23,12 +23,12 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
       <div className="relative z-10">
         <h2 className="home-section-title">{content.joinTitle}</h2>
         <div className="mt-5 flex flex-wrap gap-2.5">
-          <a
+          <Link
             className="home-cta-primary"
-            href="#site-contact"
+            to={pagePath(locale, 'join')}
           >
             {content.joinCta}
-          </a>
+          </Link>
           <Link
             className="home-cta-secondary"
             to={pagePath(locale, 'team')}
