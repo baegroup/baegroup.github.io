@@ -9,7 +9,7 @@ import { pagePath } from '@/lib/i18n';
 
 const DEFAULT_JUMP_NAV = {
   en: [
-    { id: 'identity', label: 'About & Culture' },
+    { id: 'identity', label: 'Lab Identity' },
     { id: 'professor', label: 'Professor' },
     { id: 'current', label: 'Current Students' },
     { id: 'alumni', label: 'Alumni' }
@@ -24,41 +24,33 @@ const DEFAULT_JUMP_NAV = {
 
 const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'alumni']);
 const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
-const FEARLESS_IMAGE_PATH = 'assets/img/team/culture/fearless-organization.svg';
+const FEARLESS_IMAGE_PATH = 'assets/img/team/culture/fearless-organization.png';
 const IDENTITY_COPY = {
   en: {
-    sectionLabel: 'Lab Identity',
     aboutHeading: 'About our team',
-    principlesHeading: 'Core Principles'
+    principlesHeading: 'Fearless Core Principles'
   },
   ko: {
-    sectionLabel: 'Research Group Identity',
     aboutHeading: 'Team Overview',
-    principlesHeading: 'Core Principles'
+    principlesHeading: 'Fearless Core Principles'
   }
 };
 const PROFESSOR_COPY = {
   en: {
-    sectionLead: 'Professor Profile',
+    sectionLead: 'Principal Investigator',
     profileTitle: 'Principal Investigator',
     department: 'Chemical Engineering',
     affiliation: 'Department of Chemical Engineering, Kyung Hee University',
-    contactLabel: 'Contact PI',
-    websiteLabel: 'Website',
-    publicationsLabel: 'View Publications',
     educationTitle: 'Education',
     appointmentsTitle: 'Academic Appointments',
     honorsTitle: 'Honors & Award',
     publicationsTitle: 'Selected Publications'
   },
   ko: {
-    sectionLead: 'Professor Profile',
+    sectionLead: 'Principal Investigator',
     profileTitle: 'Principal Investigator',
     department: 'Chemical Engineering',
     affiliation: 'Department of Chemical Engineering, Kyung Hee University',
-    contactLabel: 'Contact PI',
-    websiteLabel: 'Website',
-    publicationsLabel: 'View Publications',
     educationTitle: 'Education',
     appointmentsTitle: 'Academic Appointments',
     honorsTitle: 'Honors & Award',
@@ -227,14 +219,12 @@ function ProfessorPublications({ title, items }) {
   return (
     <section className="space-y-3">
       <h3 className="text-3xl font-semibold tracking-tight text-slate-950">{title}</h3>
-      <ul className="space-y-4 text-sm leading-relaxed text-slate-700 md:text-base">
+      <ul className="list-disc space-y-4 pl-6 text-sm leading-relaxed text-slate-700 md:text-base">
         {items.map((item) => (
-          <li className="list-disc pl-1" key={`${item.title}-${item.journal}`}>
+          <li key={`${item.title}-${item.journal}`}>
             <span>{item.authors}, </span>
-            <Link className="font-semibold text-[#0d326f] underline-offset-2 hover:underline" to={pagePath('publications')}>
-              {item.title}
-            </Link>
-            <span>, {item.journal}</span>
+            <span>"{item.title}", </span>
+            <strong className="font-semibold text-slate-900">{item.journal}</strong>
           </li>
         ))}
       </ul>
@@ -251,34 +241,33 @@ function ProfessorShowcase({ professor, locale }) {
   return (
     <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-soft">
       <div className="border-b border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
-        <div className="grid gap-5 p-5 md:p-7 lg:grid-cols-[minmax(240px,320px)_minmax(0,1fr)] lg:items-start">
+        <div className="grid gap-5 p-5 md:p-7 lg:grid-cols-[minmax(280px,360px)_minmax(0,1fr)] lg:gap-7 lg:items-start">
           <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
-            <div className="relative min-h-[320px] lg:min-h-[380px]">
-          {hasPhoto ? (
-            <img
-              alt={professor.localizedName}
+            <div className="min-h-[340px] lg:min-h-[440px]">
+              {hasPhoto ? (
+                <img
+                  alt={professor.localizedName}
                   className="h-full w-full object-cover object-top"
-              onError={() => setBroken(true)}
-              src={`${import.meta.env.BASE_URL}${professor.photo}`}
-            />
-          ) : (
-                  <div className="flex h-full w-full items-center justify-center text-6xl font-semibold tracking-tight text-slate-600">{professor.initials}</div>
-          )}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/40 to-transparent px-4 pb-4 pt-10 text-xs font-semibold uppercase tracking-[0.11em] text-white">
-                {copy.profileTitle}
-              </div>
+                  onError={() => setBroken(true)}
+                  src={`${import.meta.env.BASE_URL}${professor.photo}`}
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center text-6xl font-semibold tracking-tight text-slate-600">{professor.initials}</div>
+              )}
             </div>
           </div>
 
-          <div className="space-y-4">
-            <div className="space-y-1.5">
+          <div className="space-y-5">
+            <div className="space-y-2">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#7a0f1f]">{copy.sectionLead}</p>
-              <h3 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">Prof. {professor.localizedName}</h3>
-              <p className="text-2xl font-semibold text-slate-900">{copy.department}</p>
-              <p className="text-sm text-slate-600 md:text-base">{copy.affiliation}</p>
+              <h3 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
+                Prof. <span className="underline decoration-slate-400 decoration-2 underline-offset-8">{professor.localizedName}</span>
+              </h3>
+              <p className="text-2xl font-semibold leading-tight text-slate-900">{copy.department}</p>
+              <p className="text-sm leading-relaxed text-slate-600 md:text-base">{copy.affiliation}</p>
             </div>
 
-            <ul className="space-y-1.5 text-sm text-slate-700 md:text-base">
+            <ul className="space-y-2 text-sm leading-relaxed text-slate-700 md:text-base">
               {professor.email ? (
                 <li>
                   <span className="font-semibold">E-mail:</span>{' '}
@@ -298,29 +287,8 @@ function ProfessorShowcase({ professor, locale }) {
                 </li>
               ) : null}
             </ul>
-
-              <div className="flex flex-wrap gap-2">
-                {professor.email ? (
-                  <a className="home-cta-primary h-10 px-5 text-xs tracking-[0.03em]" href={`mailto:${professor.email}`}>
-                    {copy.contactLabel}
-                  </a>
-                ) : null}
-                {professor.website ? (
-                  <a
-                    className="home-cta-secondary h-10 px-5 text-xs tracking-[0.03em]"
-                    href={professor.website}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {copy.websiteLabel}
-                  </a>
-                ) : null}
-                <Link className="home-cta-secondary h-10 px-5 text-xs tracking-[0.03em]" to={pagePath('publications')}>
-                  {copy.publicationsLabel}
-                </Link>
-              </div>
-            </div>
           </div>
+        </div>
       </div>
 
       <div className="space-y-8 p-5 md:space-y-10 md:p-7">
@@ -485,50 +453,47 @@ export function TeamPage({ locale }) {
 
           <div className="px-4 py-6 md:px-6 md:py-7">
             {activeSection === 'identity' ? (
-              <section className="space-y-8 md:space-y-10">
-                <section className="space-y-5 border-b border-slate-200 pb-6 md:pb-8">
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0b3a64]">{identityCopy.sectionLabel}</p>
-                  <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-8">
-                    <div className="space-y-3">
+              <section>
+                <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+                  <div className="grid gap-6 p-5 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:gap-8">
+                    <div className="space-y-4">
                       <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
                       <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
+                      <div className="pt-1">
+                        <Link className="home-cta-primary" to={pagePath('join')}>
+                          {content.joinCta || 'Information for joining our team'}
+                        </Link>
+                      </div>
                     </div>
 
-                    <div className="space-y-3 lg:border-l lg:border-slate-200 lg:pl-8">
-                      <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'Lab Culture | The Fearless Lab'}</h2>
+                    <div className="space-y-4">
+                      <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'The Fearless Lab Culture'}</h2>
                       <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
+
+                      <figure className="overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
+                        {!cultureImageBroken ? (
+                          <img
+                            alt="The Fearless Organization matrix"
+                            className="h-auto w-full object-contain p-3 md:p-4"
+                            onError={() => setCultureImageBroken(true)}
+                            src={`${import.meta.env.BASE_URL}${FEARLESS_IMAGE_PATH}`}
+                          />
+                        ) : (
+                          <div className="flex min-h-52 items-center justify-center px-4 text-center text-sm text-slate-500">
+                            Culture image placeholder
+                          </div>
+                        )}
+                        <figcaption className="border-t border-slate-200 px-4 py-3 text-xs italic text-slate-500">
+                          From "The fearless organization" by Amy Edmondson
+                        </figcaption>
+                      </figure>
                     </div>
                   </div>
-                  <div>
-                    <Link className="home-cta-primary" to={pagePath('join')}>
-                      {content.joinCta || 'Information for joining our team'}
-                    </Link>
-                  </div>
-                </section>
 
-                <section className="grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)] xl:items-start">
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold tracking-tight text-slate-900 md:text-xl">{identityCopy.principlesHeading}</h3>
+                  <div className="border-t border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 md:p-7">
+                    <h3 className="mb-4 text-lg font-semibold tracking-tight text-slate-900 md:text-xl">{identityCopy.principlesHeading}</h3>
                     <Principles principles={culturePrinciples} />
                   </div>
-
-                  <figure className="overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
-                    {!cultureImageBroken ? (
-                      <img
-                        alt="The Fearless Organization matrix"
-                        className="h-auto w-full object-contain p-3 md:p-4"
-                        onError={() => setCultureImageBroken(true)}
-                        src={`${import.meta.env.BASE_URL}${FEARLESS_IMAGE_PATH}`}
-                      />
-                    ) : (
-                      <div className="flex min-h-52 items-center justify-center px-4 text-center text-sm text-slate-500">
-                        Culture image placeholder
-                      </div>
-                    )}
-                    <figcaption className="border-t border-slate-200 px-4 py-3 text-xs italic text-slate-500">
-                      From "The fearless organization" by Amy Edmondson
-                    </figcaption>
-                  </figure>
                 </section>
               </section>
             ) : null}

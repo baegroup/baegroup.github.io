@@ -15,7 +15,7 @@ Lab Identity
 Introduce the team in one concise paragraph.
 
 ## cultureTitle
-Lab Culture | The Fearless Lab
+The Fearless Lab Culture
 
 ## cultureBody
 Summarize your culture in one concise paragraph.
@@ -36,7 +36,7 @@ Current Students
 Alumni
 
 ## jumpNav
-- identity | About & Culture
+- identity | Lab Identity
 - professor | Professor
 - current | Current Students
 - alumni | Alumni

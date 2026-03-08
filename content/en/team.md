@@ -13,7 +13,7 @@ Lab Identity
 We are a multidisciplinary team of undergraduate, graduate, and postdoctoral researchers with expertise in chemical engineering, materials science, fluid mechanics, additive manufacturing, and carbon capture. We pursue a highly innovative and collaborative research environment, and we strongly value the different backgrounds, experiences, skills, and cultures in our team.
 
 ## cultureTitle
-Lab Culture | The Fearless Lab
+The Fearless Lab Culture
 
 ## cultureBody
 We pursue a research environment with high standards and psychological safety for innovation, learning, and growth. To build a creative environment full of new ideas, challenges, and critical thought, Bae Lab cultivates strong psychological safety so that every member feels safe taking risks, giving and receiving criticism, and embracing challenges.
@@ -34,7 +34,7 @@ Current Students
 Alumni
 
 ## jumpNav
-- identity | About & Culture
+- identity | Lab Identity
 - professor | Professor
 - current | Current Students
 - alumni | Alumni
