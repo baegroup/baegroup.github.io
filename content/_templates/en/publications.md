@@ -18,8 +18,6 @@ Preprints in Preparation
 Manuscripts currently in preparation and papers expected to be submitted or published soon.
 
 ## preprintItems
-- Add upcoming preprint/manuscript item 1.
-- Add upcoming preprint/manuscript item 2.
 
 ## loading
 Loading publications...

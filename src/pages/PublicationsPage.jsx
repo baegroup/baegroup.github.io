@@ -214,7 +214,10 @@ function PublicationList({ items, numbers, labAuthorNamesById, paperLabel }) {
           <ol className="space-y-3">
             {grouped.get(year).map((pub) => {
               const number = numbers.get(pub.id) || '-';
-              const labNames = (pub.labAuthors || []).map((id) => labAuthorNamesById[id]).filter(Boolean);
+              const labNamesFromIds = (pub.labAuthors || [])
+                .map((idOrName) => labAuthorNamesById[idOrName] || idOrName)
+                .filter(Boolean);
+              const labNames = [...new Set([...(pub.labAuthorNames || []), ...labNamesFromIds])];
 
               return (
                 <li className="rounded-lg border border-slate-200 bg-white p-4 md:p-5" key={pub.id}>
@@ -347,7 +350,10 @@ export function PublicationsPage({ locale }) {
 
         const names = {};
         team.forEach((member) => {
-          names[member.id] = member?.name?.en || member?.name?.ko || '';
+          names[member.id] =
+            typeof member?.name === 'string'
+              ? member.name
+              : member?.name?.en || '';
         });
         setLabAuthorNamesById(names);
       } catch {

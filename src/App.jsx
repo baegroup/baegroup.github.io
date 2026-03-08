@@ -55,7 +55,6 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route element={<LegacyLocaleRedirect />} path="en/*" />
-        <Route element={<LegacyLocaleRedirect />} path="ko/*" />
         <Route element={<SiteRoutes />} path="*" />
       </Routes>
     </>

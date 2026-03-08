@@ -17,24 +17,6 @@ Sections
 ## emptySection
 No items available in this section yet.
 
-## openLabel
-Open
-
-## closeLabel
-Close
-
-## instagramTitle
-Lab Instagram
-
-## instagramDescription
-Latest updates from our lab account.
-
-## instagramButton
-Open profile
-
-## piLinksTitle
-Professor Profiles
-
 ## piLinksDescription
 External research profiles and citation services.
 

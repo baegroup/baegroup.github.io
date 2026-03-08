@@ -4,7 +4,7 @@ import { HOME_RESEARCH_CARD_COPY } from '@/content/home-research-copy';
 import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
-function ResearchAreaCard({ card, imagePath, locale }) {
+function ResearchAreaCard({ card, imagePath }) {
   const [imageIndex, setImageIndex] = useState(0);
   const imageCandidates = mediaCandidates(imagePath);
   const exhausted = imageIndex >= imageCandidates.length;
@@ -20,7 +20,7 @@ function ResearchAreaCard({ card, imagePath, locale }) {
         />
       ) : (
         <div className="flex aspect-[16/10] max-h-[320px] w-full items-center justify-center bg-slate-100 text-sm font-medium text-slate-500 md:max-h-none">
-          {locale === 'ko' ? '이미지 준비 중' : 'Image Placeholder'}
+          Image Placeholder
         </div>
       )}
       <div className="p-5 md:p-6">
@@ -37,7 +37,7 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
     ...card,
     body: HOME_RESEARCH_CARD_COPY[locale]?.[index] || HOME_RESEARCH_CARD_COPY.en[index] || card.body
   }));
-  const title = content.title || (locale === 'ko' ? '연구 분야' : 'Research Area');
+  const title = content.title || 'Research Area';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   if (!cards.length) {
@@ -56,7 +56,6 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
             card={card}
             imagePath={HOME_MEDIA.researchAreas[index] || HOME_MEDIA.researchAreas[HOME_MEDIA.researchAreas.length - 1]}
             key={card.title}
-            locale={locale}
           />
         ))}
       </div>

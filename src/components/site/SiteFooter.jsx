@@ -11,8 +11,8 @@ export function SiteFooter({ locale }) {
   const contactLabel = 'Contact';
   const joinLabel = 'Join Our Team';
   const quickLinksLabel = 'Quick Links';
-  const rightsLabel = locale === 'ko' ? '모든 권리 보유.' : 'All rights reserved.';
-  const affiliationLabel = locale === 'ko' ? '경희대학교 화학공학과' : 'Department of Chemical Engineering, Kyung Hee University';
+  const rightsLabel = 'All rights reserved.';
+  const affiliationLabel = 'Department of Chemical Engineering, Kyung Hee University';
   const description = (brand.tagline || brand.subtitle || '').trim();
   const quickLinks = [...navItems, { slug: 'contact', label: contactLabel }, { slug: 'join', label: joinLabel }].filter((item, index, array) => {
     const key = item.slug || 'home';

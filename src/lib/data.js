@@ -1,54 +1,27 @@
 const ROLE_ORDER = ['PI', 'Researcher', 'Graduate', 'Undergraduate', 'Alumni'];
 
 const ROLE_LABELS = {
-  en: {
-    PI: 'Principal Investigator',
-    Researcher: 'Researchers',
-    Graduate: 'Graduate Students',
-    Undergraduate: 'Undergraduate Students',
-    Alumni: 'Alumni'
-  },
-  ko: {
-    PI: '지도교수',
-    Researcher: '연구원',
-    Graduate: '대학원생',
-    Undergraduate: '학부연구생',
-    Alumni: '동문'
-  }
+  PI: 'Principal Investigator',
+  Researcher: 'Researchers',
+  Graduate: 'Graduate Students',
+  Undergraduate: 'Undergraduate Students',
+  Alumni: 'Alumni'
 };
 
 const PROGRAM_LABELS = {
-  en: {
-    PhD: 'PhD',
-    MSPhD: 'MS-PhD',
-    MS: 'MS',
-    BS: 'BS',
-    Staff: 'Staff'
-  },
-  ko: {
-    PhD: '박사과정',
-    MSPhD: '석박통합과정',
-    MS: '석사과정',
-    BS: '학사과정',
-    Staff: '스태프'
-  }
+  PhD: 'PhD',
+  MSPhD: 'MS-PhD',
+  MS: 'MS',
+  BS: 'BS',
+  Staff: 'Staff'
 };
 
 const PUB_TYPE_LABELS = {
-  en: {
-    all: 'All',
-    conference: 'Conference',
-    journal: 'Journal',
-    preprint: 'Preprint',
-    patent: 'Patent'
-  },
-  ko: {
-    all: '전체',
-    conference: '학술대회',
-    journal: '저널',
-    preprint: '프리프린트',
-    patent: '특허'
-  }
+  all: 'All',
+  conference: 'Conference',
+  journal: 'Journal',
+  preprint: 'Preprint',
+  patent: 'Patent'
 };
 
 const NEWS_SECTION_KEYS = ['labNews', 'gallery', 'videos'];
@@ -147,7 +120,7 @@ export async function loadTeamProfiles(locale, status = 'current') {
   return orderedRoles.map((role) => {
     const members = sortTeamProfiles(grouped.get(role), status).map((member) => {
       const localizedName = localize(member.name, locale);
-      const roleLabel = ROLE_LABELS[locale]?.[role] || role;
+      const roleLabel = ROLE_LABELS[role] || role;
 
       return {
         ...member,
@@ -155,14 +128,14 @@ export async function loadTeamProfiles(locale, status = 'current') {
         role,
         roleLabel,
         localizedInterests: localizeList(member.interests, locale),
-        programLabel: PROGRAM_LABELS[locale][member.program] || member.program || '',
+        programLabel: PROGRAM_LABELS[member.program] || member.program || '',
         initials: getInitials(localizedName)
       };
     });
 
     return {
       role,
-      label: ROLE_LABELS[locale]?.[role] || role,
+      label: ROLE_LABELS[role] || role,
       members
     };
   });
@@ -221,7 +194,7 @@ export async function loadPublications(locale, filterType = 'all') {
 }
 
 export function publicationTypeLabels(locale) {
-  return PUB_TYPE_LABELS[locale] || PUB_TYPE_LABELS.en;
+  return PUB_TYPE_LABELS;
 }
 
 function normalizeNewsSection(value) {

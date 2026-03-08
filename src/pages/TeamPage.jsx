@@ -7,20 +7,12 @@ import { TEAM_CONTENT } from '@/content/site-content';
 import { loadTeamProfiles } from '@/lib/data';
 import { pagePath } from '@/lib/i18n';
 
-const DEFAULT_JUMP_NAV = {
-  en: [
-    { id: 'identity', label: 'Lab Identity' },
-    { id: 'professor', label: 'Professor' },
-    { id: 'current', label: 'Current Students' },
-    { id: 'alumni', label: 'Alumni' }
-  ],
-  ko: [
-    { id: 'identity', label: '소개 · 문화' },
-    { id: 'professor', label: '교수' },
-    { id: 'current', label: '현재 학생' },
-    { id: 'alumni', label: '졸업생' }
-  ]
-};
+const DEFAULT_JUMP_NAV = [
+  { id: 'identity', label: 'Lab Identity' },
+  { id: 'professor', label: 'Professor' },
+  { id: 'current', label: 'Current Students' },
+  { id: 'alumni', label: 'Alumni' }
+];
 
 const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'alumni']);
 const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
@@ -30,62 +22,30 @@ const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const LAB_GROUP_IMAGE_BASE = 'assets/img/team/group/group-photo';
 const FEARLESS_IMAGE_BASE = 'assets/img/team/culture/fearless-organization';
 const IDENTITY_COPY = {
-  en: {
-    aboutHeading: 'About our team'
-  },
-  ko: {
-    aboutHeading: 'Team Overview'
-  }
+  aboutHeading: 'About our team'
 };
 const MEMBER_FIELD_LABELS = {
-  en: {
-    course: 'Course',
-    joining: 'Year in joining group',
-    undergraduateSchool: 'Undergraduate school',
-    undergraduateMajor: 'Undergraduate major',
-    masterSchool: 'Master degree school',
-    masterMajor: 'Master degree major',
-    research: 'Research interests',
-    korean: 'Korean proficiency',
-    current: 'Current',
-    note: 'Note',
-    email: 'E-mail'
-  },
-  ko: {
-    course: 'Course',
-    joining: 'Year in joining group',
-    undergraduateSchool: 'Undergraduate school',
-    undergraduateMajor: 'Undergraduate major',
-    masterSchool: 'Master degree school',
-    masterMajor: 'Master degree major',
-    research: 'Research interests',
-    korean: 'Korean proficiency',
-    current: 'Current',
-    note: 'Note',
-    email: 'E-mail'
-  }
+  course: 'Course',
+  joining: 'Year in joining group',
+  undergraduateSchool: 'Undergraduate school',
+  undergraduateMajor: 'Undergraduate major',
+  masterSchool: 'Master degree school',
+  masterMajor: 'Master degree major',
+  research: 'Research interests',
+  korean: 'Korean proficiency',
+  current: 'Current',
+  note: 'Note',
+  email: 'E-mail'
 };
 const PROFESSOR_COPY = {
-  en: {
-    sectionLead: 'Principal Investigator',
-    profileTitle: 'Principal Investigator',
-    department: 'Chemical Engineering',
-    affiliation: 'Department of Chemical Engineering, Kyung Hee University',
-    educationTitle: 'Education',
-    appointmentsTitle: 'Academic Appointments',
-    honorsTitle: 'Honors & Award',
-    publicationsTitle: 'Selected Publications'
-  },
-  ko: {
-    sectionLead: 'Principal Investigator',
-    profileTitle: 'Principal Investigator',
-    department: 'Chemical Engineering',
-    affiliation: 'Department of Chemical Engineering, Kyung Hee University',
-    educationTitle: 'Education',
-    appointmentsTitle: 'Academic Appointments',
-    honorsTitle: 'Honors & Award',
-    publicationsTitle: 'Selected Publications'
-  }
+  sectionLead: 'Principal Investigator',
+  profileTitle: 'Principal Investigator',
+  department: 'Chemical Engineering',
+  affiliation: 'Department of Chemical Engineering, Kyung Hee University',
+  educationTitle: 'Education',
+  appointmentsTitle: 'Academic Appointments',
+  honorsTitle: 'Honors & Award',
+  publicationsTitle: 'Selected Publications'
 };
 const PROFESSOR_PROFILE_DETAILS = {
   'bae-jaehyeong': {
@@ -227,11 +187,11 @@ function MemberDetailRow({ label, value, type = 'text' }) {
   );
 }
 
-function MemberCard({ member, locale, prominent = false, showRoleBadge = false }) {
+function MemberCard({ member, prominent = false, showRoleBadge = false }) {
   const [broken, setBroken] = useState(false);
   const hasPhoto = Boolean(member.photo) && !broken;
-  const period = locale === 'ko' ? `${member.startYear || '-'} ~ ${member.endYear || '현재'}` : `${member.startYear || '-'} - ${member.endYear || 'Present'}`;
-  const labels = MEMBER_FIELD_LABELS[locale] || MEMBER_FIELD_LABELS.en;
+  const period = `${member.startYear || '-'} - ${member.endYear || 'Present'}`;
+  const labels = MEMBER_FIELD_LABELS;
   const joinValue = member.joiningGroup || period;
   const courseValue = member.courseLabel || member.programLabel || member.roleLabel;
   const researchValue = member.localizedInterests?.filter(Boolean).join(', ') || '';
@@ -427,10 +387,10 @@ function ProfessorPublications({ title, items }) {
   );
 }
 
-function ProfessorShowcase({ professor, locale }) {
+function ProfessorShowcase({ professor }) {
   const [broken, setBroken] = useState(false);
   const hasPhoto = Boolean(professor.photo) && !broken;
-  const copy = PROFESSOR_COPY[locale] || PROFESSOR_COPY.en;
+  const copy = PROFESSOR_COPY;
   const profile = PROFESSOR_PROFILE_DETAILS[professor.id] || PROFESSOR_PROFILE_DETAILS['bae-jaehyeong'];
 
   return (
@@ -496,7 +456,7 @@ function ProfessorShowcase({ professor, locale }) {
 
 export function TeamPage({ locale }) {
   const content = TEAM_CONTENT[locale] || TEAM_CONTENT.en;
-  const identityCopy = IDENTITY_COPY[locale] || IDENTITY_COPY.en;
+  const identityCopy = IDENTITY_COPY;
   const [currentGroups, setCurrentGroups] = useState([]);
   const [alumniGroups, setAlumniGroups] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -541,7 +501,7 @@ export function TeamPage({ locale }) {
   }, [locale]);
 
   const jumpNav = useMemo(() => {
-    const fallback = DEFAULT_JUMP_NAV[locale] || DEFAULT_JUMP_NAV.en;
+    const fallback = DEFAULT_JUMP_NAV;
     const fromContent = Array.isArray(content.jumpNav)
       ? content.jumpNav.filter((item) => item?.id && item?.label && SUPPORTED_SECTION_IDS.has(item.id))
       : [];
@@ -695,11 +655,11 @@ export function TeamPage({ locale }) {
                 <h2 className="sr-only">{content.professorTitle || 'Professor'}</h2>
                 {leadProfessor ? (
                   <div className="space-y-4">
-                    <ProfessorShowcase locale={locale} professor={leadProfessor} />
+                    <ProfessorShowcase professor={leadProfessor} />
                     {additionalProfessors.length ? (
                       <div className="grid gap-4 lg:grid-cols-2">
                         {additionalProfessors.map((member) => (
-                          <MemberCard key={member.id} locale={locale} member={member} prominent />
+                          <MemberCard key={member.id} member={member} prominent />
                         ))}
                       </div>
                     ) : null}
@@ -725,7 +685,6 @@ export function TeamPage({ locale }) {
                           {group.members.map((member) => (
                             <MemberCard
                               key={member.id}
-                              locale={locale}
                               member={member}
                               showRoleBadge={!PRIMARY_STUDENT_ROLES.has(group.role)}
                             />
@@ -747,7 +706,7 @@ export function TeamPage({ locale }) {
                 {alumniMembers.length > 0 ? (
                   <div className="grid gap-4 md:grid-cols-2">
                     {alumniMembers.map((member) => (
-                      <MemberCard key={member.id} locale={locale} member={member} />
+                      <MemberCard key={member.id} member={member} />
                     ))}
                   </div>
                 ) : (

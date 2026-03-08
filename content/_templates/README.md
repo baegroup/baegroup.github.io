@@ -1,6 +1,6 @@
-# Obsidian Template Notes
+# Content Templates
 
-These notes are reusable templates for editing site content in Obsidian.
+These files are reusable templates for editing static page copy.
 
 ## Folder
 

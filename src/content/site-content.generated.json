@@ -189,10 +189,7 @@
       "sectionTitle": "Publication List",
       "preprintTitle": "Preprints in Preparation",
       "preprintDescription": "Manuscripts currently in preparation and papers expected to be submitted or published soon.",
-      "preprintItems": [
-        "Add upcoming preprint/manuscript item 1.",
-        "Add upcoming preprint/manuscript item 2."
-      ],
+      "preprintItems": [],
       "loading": "Loading publications...",
       "empty": "No publications found for this filter.",
       "paperLink": "Paper Link"
@@ -218,12 +215,6 @@
         }
       ],
       "emptySection": "No items available in this section yet.",
-      "openLabel": "Open",
-      "closeLabel": "Close",
-      "instagramTitle": "Lab Instagram",
-      "instagramDescription": "Latest updates from our lab account.",
-      "instagramButton": "Open profile",
-      "piLinksTitle": "Professor Profiles",
       "piLinksDescription": "External research profiles and citation services.",
       "updatedAt": "",
       "items": [

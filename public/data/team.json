@@ -1,50 +1,32 @@
 [
   {
     "id": "bae-jaehyeong",
-    "name": {
-      "en": "Jaehyeong Bae",
-      "ko": "배재형"
-    },
+    "name": "Jaehyeong Bae",
     "role": "PI",
     "status": "current",
     "program": "Staff",
     "email": "jbae@khu.ac.kr",
     "website": "https://baegroup.github.io",
-    "interests": {
-      "en": [
-        "Additive Manufacturing",
-        "Functional Materials",
-        "Energy Harvesting"
-      ],
-      "ko": [
-        "적층제조",
-        "기능성 소재",
-        "에너지 하베스팅"
-      ]
-    },
+    "interests": [
+      "Additive Manufacturing",
+      "Functional Materials",
+      "Energy Harvesting"
+    ],
     "photo": "assets/img/team/profiles/Jaehyeong Bae.jpg",
     "startYear": 2023,
     "endYear": null
   },
   {
     "id": "cho-suha",
-    "name": {
-      "en": "Suha Cho",
-      "ko": "조수하"
-    },
+    "name": "Suha Cho",
     "role": "Graduate",
     "status": "current",
     "program": "MSPhD",
     "email": "suha0116@khu.ac.kr",
     "website": "",
-    "interests": {
-      "en": [
-        "3D printing for environmental applications"
-      ],
-      "ko": [
-        "환경 응용 3D 프린팅"
-      ]
-    },
+    "interests": [
+      "3D printing for environmental applications"
+    ],
     "photo": "assets/img/team/profiles/Suha Cho.jpg",
     "startYear": 2024,
     "endYear": null,
@@ -55,23 +37,15 @@
   },
   {
     "id": "zhu-xiaoling",
-    "name": {
-      "en": "Xiaoling Zhu",
-      "ko": "Xiaoling Zhu"
-    },
+    "name": "Xiaoling Zhu",
     "role": "Graduate",
     "status": "current",
     "program": "PhD",
     "email": "zxl@khu.ac.kr",
     "website": "",
-    "interests": {
-      "en": [
-        "Photo-Chemo-Mechanical Energy harvesting"
-      ],
-      "ko": [
-        "광-화학-기계 에너지 하베스팅"
-      ]
-    },
+    "interests": [
+      "Photo-Chemo-Mechanical Energy harvesting"
+    ],
     "photo": "assets/img/team/profiles/Xiaoling Zhu.jpg",
     "startYear": 2024,
     "endYear": null,
@@ -82,23 +56,15 @@
   },
   {
     "id": "liu-jiechen",
-    "name": {
-      "en": "Jiechen Liu",
-      "ko": "Jiechen Liu"
-    },
+    "name": "Jiechen Liu",
     "role": "Graduate",
     "status": "current",
     "program": "MSPhD",
     "email": "liujiechen@khu.ac.kr",
     "website": "",
-    "interests": {
-      "en": [
-        "Aerogel 3D printing & Printed sensors"
-      ],
-      "ko": [
-        "에어로겔 3D 프린팅 및 프린팅 센서"
-      ]
-    },
+    "interests": [
+      "Aerogel 3D printing & Printed sensors"
+    ],
     "photo": "assets/img/team/profiles/Jiechen Liu.jpg",
     "startYear": 2025,
     "endYear": null,
@@ -110,23 +76,15 @@
   },
   {
     "id": "tian-ruonan",
-    "name": {
-      "en": "Ruonan Tian",
-      "ko": "Ruonan Tian"
-    },
+    "name": "Ruonan Tian",
     "role": "Graduate",
     "status": "current",
     "program": "PhD",
     "email": "",
     "website": "",
-    "interests": {
-      "en": [
-        "TBD"
-      ],
-      "ko": [
-        "추후 업데이트"
-      ]
-    },
+    "interests": [
+      "TBD"
+    ],
     "photo": "assets/img/team/profiles/Ruonan Tian.png",
     "startYear": 2026,
     "endYear": null,
@@ -141,23 +99,15 @@
   },
   {
     "id": "lin-qunbo",
-    "name": {
-      "en": "Qunbo Lin",
-      "ko": "Qunbo Lin"
-    },
+    "name": "Qunbo Lin",
     "role": "Graduate",
     "status": "current",
     "program": "MSPhD",
     "email": "",
     "website": "",
-    "interests": {
-      "en": [
-        "TBD"
-      ],
-      "ko": [
-        "추후 업데이트"
-      ]
-    },
+    "interests": [
+      "TBD"
+    ],
     "photo": "assets/img/team/profiles/Qunbo Lin.png",
     "startYear": 2026,
     "endYear": null,
@@ -170,25 +120,16 @@
   },
   {
     "id": "lee-myeong",
-    "name": {
-      "en": "Myeong Lee",
-      "ko": "이명"
-    },
+    "name": "Myeong Lee",
     "role": "Graduate",
     "status": "current",
     "program": "MS",
     "email": "dlaud619@khu.ac.kr",
     "website": "",
-    "interests": {
-      "en": [
-        "Photo-Chemo-Mechanical Energy Harvesting",
-        "Zn-ion Battery"
-      ],
-      "ko": [
-        "광-화학-기계 에너지 하베스팅",
-        "아연이온전지"
-      ]
-    },
+    "interests": [
+      "Photo-Chemo-Mechanical Energy Harvesting",
+      "Zn-ion Battery"
+    ],
     "photo": "assets/img/team/profiles/Myeong Lee.jpg",
     "startYear": 2024,
     "endYear": null,
@@ -199,23 +140,15 @@
   },
   {
     "id": "ko-yoonji",
-    "name": {
-      "en": "Yoonji Ko",
-      "ko": "고윤지"
-    },
+    "name": "Yoonji Ko",
     "role": "Undergraduate",
     "status": "current",
     "program": "BS",
     "email": "yoonjik24@khu.ac.kr",
     "website": "",
-    "interests": {
-      "en": [
-        "Embedded 3D printing technology for biomedical application"
-      ],
-      "ko": [
-        "바이오메디컬 응용 임베디드 3D 프린팅"
-      ]
-    },
+    "interests": [
+      "Embedded 3D printing technology for biomedical application"
+    ],
     "photo": "assets/img/team/profiles/Yoonji Ko.jpg",
     "startYear": 2024,
     "endYear": null,
@@ -227,23 +160,15 @@
   },
   {
     "id": "kim-nayeon",
-    "name": {
-      "en": "Nayeon Kim",
-      "ko": "김나연"
-    },
+    "name": "Nayeon Kim",
     "role": "Undergraduate",
     "status": "current",
     "program": "BS",
     "email": "amo0813@khu.ac.kr",
     "website": "",
-    "interests": {
-      "en": [
-        "Photo-Chemo-Mechanical Energy harvesting"
-      ],
-      "ko": [
-        "광-화학-기계 에너지 하베스팅"
-      ]
-    },
+    "interests": [
+      "Photo-Chemo-Mechanical Energy harvesting"
+    ],
     "photo": "assets/img/team/profiles/Nayeon Kim.webp",
     "startYear": 2025,
     "endYear": null,
@@ -255,23 +180,15 @@
   },
   {
     "id": "kim-myeongjae",
-    "name": {
-      "en": "Myeongjae Kim",
-      "ko": "김명재"
-    },
+    "name": "Myeongjae Kim",
     "role": "Alumni",
     "status": "alumni",
     "program": "BS",
     "email": "myeongjaekim@khu.ac.kr",
     "website": "",
-    "interests": {
-      "en": [
-        "3D printing for environmental applications"
-      ],
-      "ko": [
-        "환경 응용 3D 프린팅"
-      ]
-    },
+    "interests": [
+      "3D printing for environmental applications"
+    ],
     "photo": "assets/img/team/profiles/Myeongjae Kim.jpg",
     "startYear": 2024,
     "endYear": 2024,

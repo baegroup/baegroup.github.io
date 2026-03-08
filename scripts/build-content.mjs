@@ -334,12 +334,6 @@ async function build() {
       sectionTitle: readString(news, 'sectionTitle'),
       sectionTabs: readSectionTabs(news),
       emptySection: readString(news, 'emptySection'),
-      openLabel: readString(news, 'openLabel'),
-      closeLabel: readString(news, 'closeLabel'),
-      instagramTitle: readString(news, 'instagramTitle'),
-      instagramDescription: readString(news, 'instagramDescription'),
-      instagramButton: readString(news, 'instagramButton'),
-      piLinksTitle: readString(news, 'piLinksTitle'),
       piLinksDescription: readString(news, 'piLinksDescription'),
       updatedAt: readString(news, 'updatedAt'),
       items: readNewsPageItems(news)

@@ -9,8 +9,8 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const joinImages = mediaCandidates(HOME_MEDIA.joinTeam);
   const exhausted = imageIndex >= joinImages.length;
-  const primaryLabel = locale === 'ko' ? '합류 안내 자세히 보기' : 'Read More About Joining';
-  const secondaryLabel = locale === 'ko' ? '연구실 문화 보기' : 'Explore Our Lab Culture';
+  const primaryLabel = 'Read More About Joining';
+  const secondaryLabel = 'Explore Our Lab Culture';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   return (
@@ -49,7 +49,7 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
         />
       ) : (
         <div className="relative z-10 mx-auto flex aspect-[16/10] max-h-[320px] w-full max-w-[36rem] items-center justify-center rounded-lg border border-slate-200/90 bg-slate-100 text-sm font-medium text-slate-500 md:max-h-none md:max-w-none">
-          {locale === 'ko' ? '팀 이미지 준비 중' : 'Team Image Placeholder'}
+          Team Image Placeholder
         </div>
       )}
     </section>

@@ -27,10 +27,10 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
   });
   const featured = items[0];
   const listItems = items.slice(1, 6);
-  const sectionTitle = content.sectionTitle || (locale === 'ko' ? '최근 소식' : 'Recent Lab News');
-  const featuredLabel = locale === 'ko' ? '주요 소식' : 'Featured';
-  const listLabel = locale === 'ko' ? '최근 알림' : 'Recent Highlights';
-  const viewAllLabel = locale === 'ko' ? '소식 전체 보기' : 'View all news';
+  const sectionTitle = content.sectionTitle || 'Recent Lab News';
+  const featuredLabel = 'Featured';
+  const listLabel = 'Recent Highlights';
+  const viewAllLabel = 'View all news';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   if (!featured && !listItems.length) {
@@ -60,7 +60,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
                   />
                 ) : (
                   <div className="flex h-full items-center justify-center text-sm font-medium text-slate-500">
-                    {locale === 'ko' ? '뉴스 대표 이미지' : 'Featured News Image'}
+                    Featured News Image
                   </div>
                 )}
                 <p className="absolute left-4 top-4 rounded-full bg-slate-900/75 px-2.5 py-1 text-xs font-semibold text-white">{featured.date}</p>
