@@ -528,7 +528,8 @@ async function convertNotionPagesToSections({ pages, token }) {
     const url = propertyToText(linkProp);
     let videoUrl = propertyToText(videoProp);
 
-    const pageToken = String(page.id || '').replace(/-/g, '').slice(0, 10) || toSlug(title, 'item');
+    // Use full page id token to prevent media filename collisions across entries.
+    const pageToken = String(page.id || '').replace(/-/g, '') || toSlug(title, 'item');
     const mediaUrls = propertyToFiles(imageProp);
     const supplemental = await fetchPageSupplementalContent({ token, pageId: page.id });
     const mergedMediaUrls = mediaUrls.length ? mediaUrls : supplemental.images;
