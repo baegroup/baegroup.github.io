@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { PageHero } from '@/components/site/PageHero';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -80,21 +81,120 @@ function LegendPanel({ shownCount, totalCount, updatedAt }) {
   );
 }
 
-function JournalCoverCard({ publication, number }) {
-  const image = useImageFallback(`${COVER_IMAGE_BASE}/${publication.id}`);
+function PreprintPanel({ description, items, title }) {
+  if (!description && !items.length) {
+    return null;
+  }
 
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-2.5 shadow-soft">
+    <Card className="border-slate-200 bg-[#fafcff]">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg text-slate-900">{title || 'Preprints'}</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        {description ? <p className="text-sm leading-relaxed text-slate-700">{description}</p> : null}
+        {items.length ? (
+          <ul className="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate-700">
+            {items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-slate-500">No preprint notes added yet.</p>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+function JournalCoverCard({ publication, number }) {
+  const imageBase = publication.coverImage || publication.id;
+  const image = useImageFallback(`${COVER_IMAGE_BASE}/${imageBase}`);
+
+  return (
+    <article className="rounded-lg border border-slate-200 bg-white p-3 shadow-soft">
       {!image.broken ? (
-        <img alt={`${publication.venue} cover`} className="aspect-[3/4] w-full rounded-md object-cover" onError={image.onError} src={image.src} />
+        <div className="flex aspect-[3/4] items-center justify-center rounded-md border border-slate-100 bg-slate-50 p-2">
+          <img alt={`${publication.venue} cover`} className="h-full w-full object-contain" onError={image.onError} src={image.src} />
+        </div>
       ) : (
-        <div className="flex aspect-[3/4] w-full items-center justify-center rounded-md bg-slate-100 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+        <div className="flex aspect-[3/4] w-full items-center justify-center rounded-md border border-slate-100 bg-slate-100 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
           Cover
         </div>
       )}
-      <p className="mt-2 text-xs font-semibold text-slate-700">#{number} · {publication.year}</p>
-      <p className="mt-0.5 text-xs text-slate-600">{publication.venue}</p>
+      <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">#{number}</p>
+      <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{publication.venue}</p>
+      <p className="mt-0.5 text-xs text-slate-600">{publication.year}</p>
     </article>
+  );
+}
+
+function JournalCoverCarousel({ items, numbers }) {
+  const [index, setIndex] = useState(0);
+  const total = items.length;
+
+  useEffect(() => {
+    setIndex(0);
+  }, [total]);
+
+  useEffect(() => {
+    if (total <= 1) {
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      setIndex((prev) => (prev + 1) % total);
+    }, 3600);
+
+    return () => window.clearInterval(timer);
+  }, [total]);
+
+  function goPrev() {
+    setIndex((prev) => (prev - 1 + total) % total);
+  }
+
+  function goNext() {
+    setIndex((prev) => (prev + 1) % total);
+  }
+
+  if (!total) {
+    return <p className="rounded-md border border-dashed border-slate-300 bg-slate-50 p-3 text-sm text-slate-500">No journal covers available.</p>;
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="overflow-hidden rounded-lg">
+        <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${index * 100}%)` }}>
+          {items.map((pub) => (
+            <div className="w-full shrink-0" key={`${pub.id}-slide`}>
+              <JournalCoverCard number={numbers.get(pub.id) || '-'} publication={pub} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {total > 1 ? (
+        <div className="flex items-center justify-between">
+          <button
+            aria-label="Previous journal cover"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50"
+            onClick={goPrev}
+            type="button"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{index + 1} / {total}</p>
+          <button
+            aria-label="Next journal cover"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50"
+            onClick={goNext}
+            type="button"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -174,7 +274,7 @@ function PublicationList({ items, numbers, labAuthorNamesById, paperLabel }) {
 export function PublicationsPage({ locale }) {
   const content = PUBLICATIONS_CONTENT[locale] || PUBLICATIONS_CONTENT.en;
   const labels = publicationTypeLabels(locale);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState('journal');
   const [items, setItems] = useState([]);
   const [allItems, setAllItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -266,7 +366,7 @@ export function PublicationsPage({ locale }) {
     };
   }, []);
 
-  const filters = useMemo(() => ['all', 'journal', 'conference', 'preprint', 'patent'], []);
+  const filters = useMemo(() => ['journal', 'all', 'patent'], []);
 
   const numbers = useMemo(() => {
     const chronological = [...allItems].sort((a, b) => {
@@ -297,6 +397,9 @@ export function PublicationsPage({ locale }) {
       }).format(new Date()),
     []
   );
+  const journalItems = useMemo(() => allItems.filter((pub) => pub.type === 'journal').slice(0, 6), [allItems]);
+  const preprintItems = Array.isArray(content.preprintItems) ? content.preprintItems.filter(Boolean) : [];
+  const showPreprintPanel = filter === 'journal' || filter === 'all';
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -324,7 +427,14 @@ export function PublicationsPage({ locale }) {
 
           {!loading && !error && items.length > 0 ? (
             <div className="grid gap-5 xl:grid-cols-[minmax(0,1.72fr)_minmax(260px,0.78fr)]">
-              <div>
+              <div className="space-y-4">
+                {showPreprintPanel ? (
+                  <PreprintPanel
+                    description={content.preprintDescription}
+                    items={preprintItems}
+                    title={content.preprintTitle || 'Preprints'}
+                  />
+                ) : null}
                 <PublicationList items={items} labAuthorNamesById={labAuthorNamesById} numbers={numbers} paperLabel={content.paperLink} />
               </div>
 
@@ -337,11 +447,7 @@ export function PublicationsPage({ locale }) {
                       <CardTitle className="text-lg text-slate-900">Journal Covers</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="max-h-[56vh] space-y-3 overflow-y-auto pr-1">
-                        {items.map((pub) => (
-                          <JournalCoverCard key={`${pub.id}-cover`} number={numbers.get(pub.id) || '-'} publication={pub} />
-                        ))}
-                      </div>
+                      <JournalCoverCarousel items={journalItems} numbers={numbers} />
                     </CardContent>
                   </Card>
                 </div>
