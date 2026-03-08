@@ -12,12 +12,12 @@ const DEFAULT_SECTION_TABS = [
   { id: 'videos', label: 'Videos' }
 ];
 const LINK_META = [
-  { key: 'linkedin', label: 'LinkedIn' },
-  { key: 'webOfScience', label: 'Web of Science ResearcherID' },
-  { key: 'orcid', label: 'ORCID' },
-  { key: 'scopus', label: 'Scopus' },
-  { key: 'googleScholar', label: 'Google Scholar' },
-  { key: 'researchGate', label: 'ResearchGate' }
+  { key: 'linkedin', label: 'LinkedIn', short: 'in', color: '#0A66C2' },
+  { key: 'webOfScience', label: 'Web of Science', short: 'WoS', color: '#111827' },
+  { key: 'orcid', label: 'ORCID', short: 'iD', color: '#A6CE39' },
+  { key: 'scopus', label: 'Scopus', short: 'SC', color: '#E9711C' },
+  { key: 'googleScholar', label: 'Scholar', short: 'GS', color: '#1A73E8' },
+  { key: 'researchGate', label: 'ResearchGate', short: 'RG', color: '#00CCBB' }
 ];
 
 function toTimestamp(value) {
@@ -134,7 +134,7 @@ function NewsItemRow({ closeLabel, item, onToggle, openLabel, opened }) {
           <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p>
           <div>
             <p className="text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">{item.title}</p>
-            <p className="mt-0.5 text-sm leading-relaxed text-slate-600">{item.summary}</p>
+            {item.summary ? <p className="mt-0.5 text-sm leading-relaxed text-slate-600">{item.summary}</p> : null}
           </div>
           <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[#7a0f1f]">{opened ? closeLabel : openLabel}</span>
         </div>
@@ -300,11 +300,13 @@ export function NewsPage({ locale }) {
   const openLabel = content.openLabel || 'Open';
   const closeLabel = content.closeLabel || 'Close';
   const instagramTitle = content.instagramTitle || 'Lab Instagram';
-  const instagramDescription = content.instagramDescription || 'Latest updates from our lab account.';
   const instagramButton = content.instagramButton || 'Open profile';
   const piLinksTitle = content.piLinksTitle || 'Professor Profiles';
   const piLinksDescription = content.piLinksDescription || 'External research profiles and citation services.';
   const updatedAt = feed.updatedAt || content.updatedAt || '';
+  const profileLinks = LINK_META.map((meta) => ({ ...meta, href: feed.piLinks?.[meta.key] })).filter((item) => item.href);
+  const latestInstagramPost = (feed.instagram.recent || []).find((post) => (post.images || []).length) || (feed.instagram.recent || [])[0] || null;
+  const latestInstagramImage = latestInstagramPost?.images?.[0] || '';
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -337,66 +339,55 @@ export function NewsPage({ locale }) {
             </CardContent>
           </Card>
 
-          <Card className="border-slate-200 bg-white">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg text-slate-900">{instagramTitle}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm text-slate-700">
-              <p>{instagramDescription}</p>
-              {feed.instagram.profileUrl ? (
-                <a className="inline-flex text-sm font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={feed.instagram.profileUrl} rel="noreferrer" target="_blank">
-                  {instagramButton} {feed.instagram.handle ? `(${feed.instagram.handle})` : ''}
+          <section className="space-y-3 px-1">
+            <div className="flex items-center gap-2">
+              <a
+                aria-label={instagramTitle}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[radial-gradient(circle_at_30%_107%,#fdf497_0%,#fdf497_5%,#fd5949_45%,#d6249f_60%,#285AEB_90%)]"
+                href={feed.instagram.profileUrl || latestInstagramPost?.url || '#'}
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span className="text-lg font-bold text-white">IG</span>
+              </a>
+              {latestInstagramPost?.date ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{latestInstagramPost.date}</p> : null}
+            </div>
+
+            {latestInstagramImage ? (
+              <a className="block overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPost?.url || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
+                <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
+              </a>
+            ) : (
+              <div className="rounded-lg border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-500">Instagram latest photo not available.</div>
+            )}
+
+            {feed.instagram.profileUrl ? (
+              <a className="inline-flex text-sm font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={feed.instagram.profileUrl} rel="noreferrer" target="_blank">
+                {instagramButton} {feed.instagram.handle ? `(${feed.instagram.handle})` : ''}
+              </a>
+            ) : null}
+          </section>
+
+          <section className="space-y-2 px-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">{piLinksTitle}</p>
+            <div className="flex flex-wrap gap-2">
+              {profileLinks.map((item) => (
+                <a
+                  aria-label={item.label}
+                  className="inline-flex h-10 min-w-10 items-center justify-center rounded-full px-2 text-[11px] font-bold text-white transition-transform hover:-translate-y-0.5"
+                  href={item.href}
+                  key={item.key}
+                  rel="noreferrer"
+                  style={{ backgroundColor: item.color }}
+                  target="_blank"
+                  title={item.label}
+                >
+                  {item.short}
                 </a>
-              ) : null}
-
-              {feed.instagram.recent?.length ? (
-                <ul className="space-y-2 border-t border-slate-200 pt-2">
-                  {feed.instagram.recent.slice(0, 5).map((post) => {
-                    const href = post.url || feed.instagram.profileUrl;
-                    return (
-                      <li key={post.id}>
-                        {href ? (
-                          <a className="block rounded-md border border-slate-200 bg-slate-50 px-3 py-2 hover:bg-slate-100" href={href} rel="noreferrer" target="_blank">
-                            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{post.date || '-'}</p>
-                            <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{post.title}</p>
-                          </a>
-                        ) : (
-                          <div className="block rounded-md border border-slate-200 bg-slate-50 px-3 py-2">
-                            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{post.date || '-'}</p>
-                            <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{post.title}</p>
-                          </div>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              ) : null}
-            </CardContent>
-          </Card>
-
-          <Card className="border-slate-200 bg-white">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg text-slate-900">{piLinksTitle}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm text-slate-700">
-              <p>{piLinksDescription}</p>
-              <ul className="space-y-1.5">
-                {LINK_META.map((meta) => {
-                  const href = feed.piLinks?.[meta.key];
-                  if (!href) {
-                    return null;
-                  }
-                  return (
-                    <li key={meta.key}>
-                      <a className="text-sm font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={href} rel="noreferrer" target="_blank">
-                        {meta.label}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            </CardContent>
-          </Card>
+              ))}
+            </div>
+            {profileLinks.length === 0 ? <p className="text-xs text-slate-500">{piLinksDescription}</p> : null}
+          </section>
         </aside>
 
         <section className="space-y-3">
