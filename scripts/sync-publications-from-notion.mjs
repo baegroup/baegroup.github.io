@@ -147,20 +147,6 @@ function propertyToBool(property, fallback = true) {
   return Boolean(property.checkbox);
 }
 
-function textToBool(value, fallback = false) {
-  const raw = String(value || '').trim().toLowerCase();
-  if (!raw) {
-    return fallback;
-  }
-  if (['true', 'yes', 'y', '1', 'featured', 'cover', 'o'].includes(raw)) {
-    return true;
-  }
-  if (['false', 'no', 'n', '0', 'x'].includes(raw)) {
-    return false;
-  }
-  return fallback;
-}
-
 function propertyToFiles(property) {
   if (!property || property.type !== 'files') {
     return [];
@@ -202,6 +188,21 @@ function normalizeDoi(value) {
     .replace(/^https?:\/\/(dx\.)?doi\.org\//i, '')
     .replace(/^doi:\s*/i, '')
     .trim();
+}
+
+function resolveDoiAndLink(value) {
+  const raw = String(value || '').trim();
+  if (!raw) {
+    return { doi: '', link: '' };
+  }
+
+  const doi = normalizeDoi(raw);
+  const doiPattern = /^10\.\d{4,9}\/[-._;()/:A-Z0-9]+$/i;
+  if (doi && doiPattern.test(doi)) {
+    return { doi, link: `https://doi.org/${doi}` };
+  }
+
+  return { doi: '', link: raw };
 }
 
 function fileExtensionFromUrl(url, contentType = '') {
@@ -358,14 +359,14 @@ async function convertPagesToPublications({ pages }) {
       new Date().getFullYear();
     const type = normalizeType(propertyToText(findProperty(properties, ['Type', 'Category', '구분'])));
     const authors = parseNameList(propertyToText(findProperty(properties, ['Authors', 'Author', 'Author List', '저자'])));
-    const venue = propertyToText(findProperty(properties, ['Venue', 'Journal', '학술지']));
-    const doi = normalizeDoi(propertyToText(findProperty(properties, ['DOI', 'doi'])));
-    const url = propertyToText(findProperty(properties, ['URL', 'Link', 'Paper URL', '논문링크'], 'url')) || propertyToText(findProperty(properties, ['URL', 'Link', 'Paper URL', '논문링크']));
-    const featuredCheckbox = findProperty(properties, ['Featured', 'Highlight', '대표'], 'checkbox');
-    const featuredText = propertyToText(findProperty(properties, ['Featured as cover', 'Featured']));
-    const featured = featuredCheckbox ? propertyToBool(featuredCheckbox, false) : textToBool(featuredText, false);
-    const labAuthorNames = parseNameList(propertyToText(findProperty(properties, ['Lab Authors', 'Bae Lab Authors', '연구실 저자'])));
-    const labAuthors = parseNameList(propertyToText(findProperty(properties, ['Lab Author IDs', 'Lab IDs', '저자 ID'])));
+    const journal = propertyToText(findProperty(properties, ['Journal', 'Venue', '학술지']));
+    const volume = propertyToText(findProperty(properties, ['Volume', 'Vol', '권']));
+    const issue = propertyToText(findProperty(properties, ['Issue', 'No', '호']));
+    const pagesText = propertyToText(findProperty(properties, ['Pages', 'Page', '페이지', '권호페이지']));
+    const doiOrUrlText =
+      propertyToText(findProperty(properties, ['DOI', 'doi', 'URL', 'Link', 'Paper URL', '논문링크'], 'url')) ||
+      propertyToText(findProperty(properties, ['DOI', 'doi', 'URL', 'Link', 'Paper URL', '논문링크']));
+    const { doi, link } = resolveDoiAndLink(doiOrUrlText);
 
     const coverFiles = propertyToFiles(findProperty(properties, ['Cover', 'Journal Cover', '표지'], 'files'));
     let coverImage = '';
@@ -385,12 +386,12 @@ async function convertPagesToPublications({ pages }) {
       type,
       title,
       authors,
-      venue,
+      journal,
+      volume,
+      issue,
+      pages: pagesText,
       doi,
-      url,
-      labAuthors,
-      labAuthorNames,
-      featured,
+      link,
       coverImage
     });
   }

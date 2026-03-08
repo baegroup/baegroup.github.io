@@ -100,19 +100,18 @@ npm run cms:sync:notion
 
 | Property | Type | Required | Notes |
 |---|---|---:|---|
+| Published | Checkbox | No | Unchecked items are hidden |
 | Title | Title | Yes | Paper title |
 | ID | Rich text | No | Slug-like ID; auto-generated if empty |
 | Year | Number | Yes | Publication year |
 | Type | Select | Yes | `journal` / `patent` (supports `preprint`, `conference`) |
 | Authors | Rich text | Yes | Use `;` or newline between authors |
-| Venue | Rich text | Yes | Journal or patent venue |
-| DOI | Rich text | No | Raw DOI or `https://doi.org/...` (normalized automatically) |
-| URL | URL | No | Paper link |
-| Lab Authors | Multi-select or Rich text | No | Names used for underline highlighting |
-| Lab Author IDs | Rich text | No | Optional IDs (comma-separated) |
-| Featured | Checkbox | No | Optional sort boost |
+| Journal | Rich text | Yes | Journal or patent venue (previous `Venue`) |
+| Volume | Rich text | No | Journal volume |
+| Issue | Rich text | No | Journal issue |
+| Pages | Rich text | No | Page range / article number |
+| DOI | URL | No | Single link field (DOI URL or external paper link) |
 | Cover | Files & media | No | Journal cover image (first file used) |
-| Published | Checkbox | No | Unchecked items are hidden |
 
 ## 6) Recommended Editing Rule
 

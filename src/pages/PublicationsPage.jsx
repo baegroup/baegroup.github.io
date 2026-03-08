@@ -108,12 +108,13 @@ function PreprintSection({ description, items, title }) {
 function JournalCoverCard({ publication, number }) {
   const imageBase = publication.coverImage || publication.id;
   const image = useImageFallback(`${COVER_IMAGE_BASE}/${imageBase}`);
+  const journalName = publication.journal || publication.venue || '';
 
   return (
     <article className="rounded-lg border border-slate-200 bg-white p-3 shadow-soft">
       {!image.broken ? (
         <div className="flex aspect-[3/4] items-center justify-center rounded-md border border-slate-100 bg-slate-50 p-2">
-          <img alt={`${publication.venue} cover`} className="h-full w-full object-contain" onError={image.onError} src={image.src} />
+          <img alt={`${journalName} cover`} className="h-full w-full object-contain" onError={image.onError} src={image.src} />
         </div>
       ) : (
         <div className="flex aspect-[3/4] w-full items-center justify-center rounded-md border border-slate-100 bg-slate-100 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
@@ -121,7 +122,7 @@ function JournalCoverCard({ publication, number }) {
         </div>
       )}
       <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">#{number}</p>
-      <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{publication.venue}</p>
+      <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{journalName}</p>
       <p className="mt-0.5 text-xs text-slate-600">{publication.year}</p>
     </article>
   );
@@ -196,7 +197,7 @@ function JournalCoverCarousel({ items, numbers }) {
   );
 }
 
-function PublicationList({ items, numbers, labAuthorNamesById, paperLabel }) {
+function PublicationList({ items, numbers, labAuthorNames, paperLabel }) {
   const grouped = items.reduce((acc, item) => {
     const bucket = acc.get(item.year) || [];
     bucket.push(item);
@@ -214,10 +215,11 @@ function PublicationList({ items, numbers, labAuthorNamesById, paperLabel }) {
           <ol className="space-y-3">
             {grouped.get(year).map((pub) => {
               const number = numbers.get(pub.id) || '-';
-              const labNamesFromIds = (pub.labAuthors || [])
-                .map((idOrName) => labAuthorNamesById[idOrName] || idOrName)
-                .filter(Boolean);
-              const labNames = [...new Set([...(pub.labAuthorNames || []), ...labNamesFromIds])];
+              const labNames = labAuthorNames;
+              const journalName = pub.journal || pub.venue || '';
+              const volumeIssue = pub.volume ? `${pub.volume}${pub.issue ? `(${pub.issue})` : ''}` : pub.issue ? `(${pub.issue})` : '';
+              const doiHref = pub.doi ? `https://doi.org/${pub.doi}` : '';
+              const paperHref = String(pub.link || pub.url || '').trim();
 
               return (
                 <li className="rounded-lg border border-slate-200 bg-white p-4 md:p-5" key={pub.id}>
@@ -243,19 +245,21 @@ function PublicationList({ items, numbers, labAuthorNamesById, paperLabel }) {
                       <p className="text-[1.02rem] leading-relaxed md:text-[1.05rem]">
                         <span className="font-semibold text-[#0d326f]">{pub.localizedTitle}</span>
                         <span className="text-slate-500">. </span>
-                        <span className="font-semibold text-[#7a0f1f]">{pub.venue}</span>
+                        <span className="font-semibold text-[#7a0f1f]">{journalName}</span>
                         {pub.year ? <span className="text-slate-600">, {pub.year}</span> : null}
+                        {volumeIssue ? <span className="text-slate-600">, {volumeIssue}</span> : null}
+                        {pub.pages ? <span className="text-slate-600">, {pub.pages}</span> : null}
                         {pub.doi ? <span className="text-slate-600">, doi: {pub.doi}</span> : null}
                       </p>
 
                       <div className="flex flex-wrap gap-3 text-xs font-semibold text-[#0d326f]">
-                        {pub.doi ? (
-                          <a href={`https://doi.org/${pub.doi}`} rel="noreferrer" target="_blank">
+                        {doiHref ? (
+                          <a href={doiHref} rel="noreferrer" target="_blank">
                             DOI
                           </a>
                         ) : null}
-                        {pub.url ? (
-                          <a href={pub.url} rel="noreferrer" target="_blank">
+                        {paperHref && paperHref !== doiHref ? (
+                          <a href={paperHref} rel="noreferrer" target="_blank">
                             {paperLabel}
                           </a>
                         ) : null}
@@ -280,7 +284,7 @@ export function PublicationsPage({ locale }) {
   const [allItems, setAllItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [labAuthorNamesById, setLabAuthorNamesById] = useState({});
+  const [labAuthorNames, setLabAuthorNames] = useState([]);
 
   useEffect(() => {
     let mounted = true;
@@ -348,17 +352,17 @@ export function PublicationsPage({ locale }) {
           return;
         }
 
-        const names = {};
+        const names = [];
         team.forEach((member) => {
-          names[member.id] =
-            typeof member?.name === 'string'
-              ? member.name
-              : member?.name?.en || '';
+          const name = typeof member?.name === 'string' ? member.name : member?.name?.en || '';
+          if (name) {
+            names.push(name);
+          }
         });
-        setLabAuthorNamesById(names);
+        setLabAuthorNames([...new Set(names)]);
       } catch {
         if (mounted) {
-          setLabAuthorNamesById({});
+          setLabAuthorNames([]);
         }
       }
     }
@@ -439,7 +443,7 @@ export function PublicationsPage({ locale }) {
                     title={content.preprintTitle || 'Preprints in Preparation'}
                   />
                 ) : null}
-                <PublicationList items={items} labAuthorNamesById={labAuthorNamesById} numbers={numbers} paperLabel={content.paperLink} />
+                <PublicationList items={items} labAuthorNames={labAuthorNames} numbers={numbers} paperLabel={content.paperLink} />
               </div>
 
               <aside className="xl:border-l xl:border-slate-200 xl:pl-5">

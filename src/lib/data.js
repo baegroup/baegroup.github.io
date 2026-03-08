@@ -154,6 +154,8 @@ export function formatIEEE(pub, locale = 'en') {
   const chunks = [];
   const authors = (pub.authors || []).join(', ');
   const title = localize(pub.title, locale);
+  const journal = pub.journal || pub.venue || '';
+  const volumeIssue = pub.volume ? `${pub.volume}${pub.issue ? `(${pub.issue})` : ''}` : pub.issue ? `(${pub.issue})` : '';
 
   if (authors) {
     chunks.push(`${authors},`);
@@ -163,12 +165,20 @@ export function formatIEEE(pub, locale = 'en') {
     chunks.push(`"${title},"`);
   }
 
-  if (pub.venue) {
-    chunks.push(`${pub.venue},`);
+  if (journal) {
+    chunks.push(`${journal},`);
   }
 
   if (pub.year) {
     chunks.push(String(pub.year));
+  }
+
+  if (volumeIssue) {
+    chunks.push(`${volumeIssue},`);
+  }
+
+  if (pub.pages) {
+    chunks.push(`${pub.pages},`);
   }
 
   if (pub.doi) {
@@ -187,10 +197,6 @@ export async function loadPublications(locale, filterType = 'all') {
       const yearDelta = (b.year || 0) - (a.year || 0);
       if (yearDelta !== 0) {
         return yearDelta;
-      }
-
-      if (a.featured !== b.featured) {
-        return a.featured ? -1 : 1;
       }
 
       return localize(a.title, locale).localeCompare(localize(b.title, locale));

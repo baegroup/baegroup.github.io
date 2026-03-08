@@ -511,42 +511,44 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
 
 async function pushPublications({ token, dataSourceId, siteBaseUrl }) {
   const publications = await readJson(PUBLICATIONS_JSON_PATH);
-  const dataSource = await ensureProperties({
+  let dataSource = await ensureProperties({
     token,
     dataSourceId,
     specs: [
+      { name: 'Published', type: 'checkbox' },
       { name: 'Title', type: 'title' },
       { name: 'ID', type: 'rich_text' },
       { name: 'Year', type: 'rich_text' },
       { name: 'Type', type: 'select', options: ['journal', 'patent', 'preprint', 'conference'] },
       { name: 'Author', type: 'rich_text' },
-      { name: 'Venue', type: 'rich_text' },
+      { name: 'Journal', type: 'rich_text' },
+      { name: 'Volume', type: 'rich_text' },
+      { name: 'Issue', type: 'rich_text' },
+      { name: 'Pages', type: 'rich_text' },
       { name: 'DOI', type: 'url' },
-      { name: 'URL', type: 'url' },
-      { name: 'Lab Authors', type: 'rich_text' },
-      { name: 'Lab Author IDs', type: 'rich_text' },
-      { name: 'Featured', type: 'checkbox' },
-      { name: 'Featured as cover', type: 'rich_text' },
       { name: 'Cover', type: 'files' },
-      { name: 'Published', type: 'checkbox' }
     ]
   });
 
+  dataSource = await removePropertiesByName({
+    token,
+    dataSourceId,
+    names: ['Venue', 'URL', 'Lab Authors', 'Lab Author IDs', 'Featured', 'Featured as cover']
+  });
+
   const propertyMap = propertyByNameMap(dataSource);
+  const publishedProp = pickProperty(propertyMap, ['Published', 'Publish']);
   const titleProp = pickProperty(propertyMap, ['Title']);
   const idProp = pickProperty(propertyMap, ['ID']);
   const yearProp = pickProperty(propertyMap, ['Year']);
   const typeProp = pickProperty(propertyMap, ['Type']);
   const authorProp = pickProperty(propertyMap, ['Author', 'Authors']);
-  const venueProp = pickProperty(propertyMap, ['Venue', 'Journal']);
+  const journalProp = pickProperty(propertyMap, ['Journal', 'Venue']);
+  const volumeProp = pickProperty(propertyMap, ['Volume', 'Vol']);
+  const issueProp = pickProperty(propertyMap, ['Issue', 'No']);
+  const pagesProp = pickProperty(propertyMap, ['Pages', 'Page']);
   const doiProp = pickProperty(propertyMap, ['DOI']);
-  const urlProp = pickProperty(propertyMap, ['URL', 'Link']);
-  const labAuthorsProp = pickProperty(propertyMap, ['Lab Authors']);
-  const labAuthorIdsProp = pickProperty(propertyMap, ['Lab Author IDs']);
-  const featuredProp = pickProperty(propertyMap, ['Featured']);
-  const featuredAsCoverProp = pickProperty(propertyMap, ['Featured as cover']);
   const coverProp = pickProperty(propertyMap, ['Cover']);
-  const publishedProp = pickProperty(propertyMap, ['Published', 'Publish']);
 
   const items = publications.map((publication) => ({
     key: publication.id,
@@ -576,27 +578,23 @@ async function pushPublications({ token, dataSourceId, siteBaseUrl }) {
       if (authorProp) {
         properties[authorProp] = richTextValue((publication.authors || []).join('; '));
       }
-      if (venueProp) {
-        properties[venueProp] = richTextValue(publication.venue || '');
+      if (journalProp) {
+        properties[journalProp] = richTextValue(publication.journal || publication.venue || '');
+      }
+      if (volumeProp) {
+        properties[volumeProp] = richTextValue(publication.volume || '');
+      }
+      if (issueProp) {
+        properties[issueProp] = richTextValue(publication.issue || '');
+      }
+      if (pagesProp) {
+        properties[pagesProp] = richTextValue(publication.pages || '');
       }
       if (doiProp) {
         const doi = normalizeDoi(publication.doi || '');
-        properties[doiProp] = urlValue(doi ? `https://doi.org/${doi}` : '');
-      }
-      if (urlProp) {
-        properties[urlProp] = urlValue(publication.url || '');
-      }
-      if (labAuthorsProp) {
-        properties[labAuthorsProp] = richTextValue((publication.labAuthorNames || []).join('; '));
-      }
-      if (labAuthorIdsProp) {
-        properties[labAuthorIdsProp] = richTextValue((publication.labAuthors || []).join(', '));
-      }
-      if (featuredProp) {
-        properties[featuredProp] = checkboxValue(Boolean(publication.featured));
-      }
-      if (featuredAsCoverProp) {
-        properties[featuredAsCoverProp] = richTextValue(publication.featured ? 'yes' : '');
+        const link = String(publication.link || publication.url || '').trim();
+        const doiUrl = doi ? `https://doi.org/${doi}` : '';
+        properties[doiProp] = urlValue(doiUrl || link);
       }
       if (coverProp) {
         const coverBase = String(publication.coverImage || '').trim();
