@@ -1,9 +1,12 @@
 # Team Culture Image
 
-Default image used by Team page:
+Team page accepts these files (same base name):
 
+- `fearless-organization.webp`
 - `fearless-organization.png`
+- `fearless-organization.jpg`
+- `fearless-organization.jpeg`
 
-If you want to replace it with your own image, keep the same filename:
+Path base used by Team page:
 
-- `public/assets/img/team/culture/fearless-organization.png`
+- `public/assets/img/team/culture/fearless-organization`

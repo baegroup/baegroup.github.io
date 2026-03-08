@@ -24,8 +24,9 @@ const DEFAULT_JUMP_NAV = {
 
 const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'alumni']);
 const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
-const LAB_GROUP_IMAGE_PATH = 'assets/img/team/group/group-photo.webp';
-const FEARLESS_IMAGE_PATH = 'assets/img/team/culture/fearless-organization.png';
+const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
+const LAB_GROUP_IMAGE_BASE = 'assets/img/team/group/group-photo';
+const FEARLESS_IMAGE_BASE = 'assets/img/team/culture/fearless-organization';
 const IDENTITY_COPY = {
   en: {
     aboutHeading: 'About our team'
@@ -118,6 +119,24 @@ const PROFESSOR_PROFILE_DETAILS = {
     ]
   }
 };
+
+function useImageFallback(basePath) {
+  const candidates = useMemo(() => IMAGE_EXTENSIONS.map((ext) => `${basePath}.${ext}`), [basePath]);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    setIndex(0);
+  }, [basePath]);
+
+  const broken = index >= candidates.length;
+  const src = broken ? '' : `${import.meta.env.BASE_URL}${candidates[index]}`;
+
+  const onError = () => {
+    setIndex((prev) => prev + 1);
+  };
+
+  return { broken, src, onError };
+}
 
 function MemberCard({ member, locale, prominent = false, showRoleBadge = false }) {
   const [broken, setBroken] = useState(false);
@@ -333,8 +352,8 @@ export function TeamPage({ locale }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeSection, setActiveSection] = useState('identity');
-  const [aboutImageBroken, setAboutImageBroken] = useState(false);
-  const [cultureImageBroken, setCultureImageBroken] = useState(false);
+  const aboutImage = useImageFallback(LAB_GROUP_IMAGE_BASE);
+  const cultureImage = useImageFallback(FEARLESS_IMAGE_BASE);
 
   useEffect(() => {
     let mounted = true;
@@ -480,7 +499,7 @@ export function TeamPage({ locale }) {
             {activeSection === 'identity' ? (
               <section>
                 <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-                  <div className="grid gap-6 p-5 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:gap-8">
+                  <div className="grid gap-6 p-5 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-start lg:gap-8">
                     <div className="space-y-4">
                       <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
                       <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
@@ -492,12 +511,12 @@ export function TeamPage({ locale }) {
                     </div>
 
                     <figure className="overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
-                      {!aboutImageBroken ? (
+                      {!aboutImage.broken ? (
                         <img
                           alt="Bae Lab group photo"
                           className="h-full w-full object-cover"
-                          onError={() => setAboutImageBroken(true)}
-                          src={`${import.meta.env.BASE_URL}${LAB_GROUP_IMAGE_PATH}`}
+                          onError={aboutImage.onError}
+                          src={aboutImage.src}
                         />
                       ) : (
                         <div className="flex min-h-56 items-center justify-center px-4 text-center text-sm text-slate-500">Lab group photo placeholder</div>
@@ -507,28 +526,31 @@ export function TeamPage({ locale }) {
 
                   <div className="h-px bg-slate-200" />
 
-                  <div className="grid gap-6 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:gap-8">
-                    <div className="space-y-4">
-                      <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'The Fearless Lab Culture'}</h2>
-                      <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
-                      <Principles principles={culturePrinciples} />
+                  <div className="space-y-6 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 md:p-7">
+                    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-start lg:gap-8">
+                      <div className="space-y-4">
+                        <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'The Fearless Lab Culture'}</h2>
+                        <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
+                      </div>
+
+                      <figure className="overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
+                        {!cultureImage.broken ? (
+                          <img
+                            alt="The Fearless Organization matrix"
+                            className="h-auto w-full object-contain p-3 md:p-4"
+                            onError={cultureImage.onError}
+                            src={cultureImage.src}
+                          />
+                        ) : (
+                          <div className="flex min-h-52 items-center justify-center px-4 text-center text-sm text-slate-500">Culture image placeholder</div>
+                        )}
+                        <figcaption className="border-t border-slate-200 px-4 py-3 text-xs italic text-slate-500">
+                          From "The fearless organization" by Amy Edmondson
+                        </figcaption>
+                      </figure>
                     </div>
 
-                    <figure className="overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
-                      {!cultureImageBroken ? (
-                        <img
-                          alt="The Fearless Organization matrix"
-                          className="h-auto w-full object-contain p-3 md:p-4"
-                          onError={() => setCultureImageBroken(true)}
-                          src={`${import.meta.env.BASE_URL}${FEARLESS_IMAGE_PATH}`}
-                        />
-                      ) : (
-                        <div className="flex min-h-52 items-center justify-center px-4 text-center text-sm text-slate-500">Culture image placeholder</div>
-                      )}
-                      <figcaption className="border-t border-slate-200 px-4 py-3 text-xs italic text-slate-500">
-                        From "The fearless organization" by Amy Edmondson
-                      </figcaption>
-                    </figure>
+                    <Principles principles={culturePrinciples} />
                   </div>
                 </section>
               </section>

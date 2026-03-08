@@ -1,9 +1,12 @@
 # Team Group Photo
 
-Team page group photo file:
+Team page accepts these files (same base name):
 
 - `group-photo.webp`
+- `group-photo.png`
+- `group-photo.jpg`
+- `group-photo.jpeg`
 
-Path used by Team page:
+Path base used by Team page:
 
-- `public/assets/img/team/group/group-photo.webp`
+- `public/assets/img/team/group/group-photo`
