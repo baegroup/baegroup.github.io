@@ -173,17 +173,15 @@ function MemberDetailRow({ label, value, type = 'text' }) {
   const isEmail = type === 'email' && trimmed.includes('@');
 
   return (
-    <div className="grid gap-0.5 sm:grid-cols-[128px_minmax(0,1fr)] sm:gap-2">
-      <dt className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{label}</dt>
-      <dd className="min-w-0 break-words text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
-        {isEmail ? (
-          <a className="break-all text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${trimmed}`}>
-            {trimmed}
-          </a>
-        ) : (
-          trimmed
-        )}
-      </dd>
+    <div className="min-w-0 break-words text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
+      {label ? <span className="font-semibold text-slate-600">{label}: </span> : null}
+      {isEmail ? (
+        <a className="break-all text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${trimmed}`}>
+          {trimmed}
+        </a>
+      ) : (
+        trimmed
+      )}
     </div>
   );
 }
@@ -197,12 +195,8 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
   const courseValue = member.programLabel || member.roleLabel;
   const researchValue = member.localizedInterests?.filter(Boolean).join(', ') || '';
   const emailValue = member.email || '';
-  const summaryRows = [
-    { key: 'email', label: labels.email, value: emailValue, type: 'email' },
-    { key: 'joining', label: labels.joining, value: joinValue, type: 'text' },
-    { key: 'research', label: labels.research, value: researchValue, type: 'text' },
-    { key: 'korean', label: labels.korean, value: member.koreanProficiency, type: 'text' }
-  ];
+  const joinedLine = joinValue ? (/^joined\b/i.test(joinValue) ? joinValue : `Joined ${joinValue}`) : '';
+  const koreanLine = member.koreanProficiency ? `Korean proficiency: ${member.koreanProficiency}` : '';
   const detailRows = [
     { key: 'undergraduateSchool', label: labels.undergraduateSchool, value: member.undergraduateSchool, type: 'text' },
     { key: 'undergraduateMajor', label: labels.undergraduateMajor, value: member.undergraduateMajor, type: 'text' },
@@ -238,7 +232,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
               {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{member.roleLabel}</p> : null}
             </div>
 
-            <dl className="space-y-2">
+            <div className="space-y-2">
               <MemberDetailRow label={labels.joining} value={joinValue} />
               <MemberDetailRow label={labels.undergraduateSchool} value={member.undergraduateSchool} />
               <MemberDetailRow label={labels.undergraduateMajor} value={member.undergraduateMajor} />
@@ -249,7 +243,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
               <MemberDetailRow label={labels.current} value={member.currentAffiliation} />
               <MemberDetailRow label={labels.note} value={member.note} />
               <MemberDetailRow label={labels.email} type="email" value={emailValue} />
-            </dl>
+            </div>
           </div>
         </div>
       </article>
@@ -281,22 +275,27 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
             {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{member.roleLabel}</p> : null}
           </div>
 
-          <dl className="space-y-2">
-            {summaryRows.map((row) => (
-              <MemberDetailRow key={`${member.id}-${row.key}`} label={row.label} type={row.type} value={row.value} />
-            ))}
-          </dl>
+          {researchValue ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{researchValue}</p> : null}
+          {koreanLine ? <p className="text-sm leading-relaxed text-slate-600 md:text-[0.95rem]">{koreanLine}</p> : null}
+          <div className="space-y-1 text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
+            {joinedLine ? <p>{joinedLine}</p> : null}
+            {emailValue ? (
+              <a className="break-all text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${emailValue}`}>
+                {emailValue}
+              </a>
+            ) : null}
+          </div>
 
           {detailRows.length ? (
             <details className="group rounded-lg border border-slate-200 bg-slate-50/60 px-3 py-2">
               <summary className="cursor-pointer list-none text-xs font-semibold uppercase tracking-[0.08em] text-slate-600 transition-colors group-open:text-[#0d326f]">
                 Details
               </summary>
-              <dl className="mt-2 space-y-2 border-t border-slate-200 pt-2">
+              <div className="mt-2 space-y-1.5 border-t border-slate-200 pt-2">
                 {detailRows.map((row) => (
                   <MemberDetailRow key={`${member.id}-detail-${row.key}`} label={row.label} type={row.type} value={row.value} />
                 ))}
-              </dl>
+              </div>
             </details>
           ) : null}
         </div>
@@ -403,7 +402,7 @@ function ProfessorShowcase({ professor }) {
 
   return (
     <article className="space-y-8 md:space-y-10">
-      <div className="grid gap-6 lg:grid-cols-[minmax(220px,300px)_minmax(0,1fr)] lg:items-start lg:gap-10">
+      <div className="grid gap-6 lg:grid-cols-[minmax(220px,300px)_minmax(0,1fr)] lg:items-center lg:gap-10">
         <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
           <div className="min-h-[240px] lg:min-h-[320px]">
             {hasPhoto ? (
@@ -419,7 +418,7 @@ function ProfessorShowcase({ professor }) {
           </div>
         </div>
 
-        <div className="space-y-4 lg:pt-1">
+        <div className="flex h-full flex-col justify-center space-y-4">
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#7a0f1f]">{copy.sectionLead}</p>
             <h3 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">Prof. {professor.localizedName}</h3>
@@ -609,8 +608,8 @@ export function TeamPage({ locale }) {
             {activeSection === 'identity' ? (
               <section>
                 <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-                  <div className="grid gap-6 p-5 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-start lg:gap-8">
-                    <div className="space-y-5">
+                  <div className="grid gap-6 p-5 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-center lg:gap-8">
+                    <div className="flex h-full flex-col justify-center space-y-5">
                       <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
                       <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
                       <div className="pt-2 md:pt-3">
@@ -637,8 +636,8 @@ export function TeamPage({ locale }) {
                   <div className="h-px bg-slate-200" />
 
                   <div className="space-y-6 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 md:p-7">
-                    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-start lg:gap-8">
-                      <div className="space-y-4">
+                    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-center lg:gap-8">
+                      <div className="flex h-full flex-col justify-center space-y-4">
                         <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'The Fearless Lab Culture'}</h2>
                         <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
                       </div>

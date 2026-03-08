@@ -14,7 +14,7 @@ const DEFAULT_SECTION_TABS = [
   { id: 'gallery', label: 'Gallery' },
   { id: 'videos', label: 'Videos' }
 ];
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 5;
 const LINK_META = [
   { key: 'linkedin', label: 'LinkedIn', icon: 'assets/img/news/profiles/linkedin.ico' },
   { key: 'webOfScience', label: 'Web of Science', icon: 'assets/img/news/profiles/webofscience.ico' },
@@ -476,7 +476,7 @@ export function NewsPage({ locale }) {
           </Card>
 
           <section className="space-y-2 px-1">
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap justify-center gap-2">
               {profileLinks.map((item) => (
                 <a
                   aria-label={item.label}

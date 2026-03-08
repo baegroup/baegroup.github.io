@@ -10,10 +10,10 @@ const ROLE_LABELS = {
 };
 
 const PROGRAM_LABELS = {
-  PhD: 'PhD',
-  MSPhD: 'MS-PhD',
-  MS: 'MS',
-  BS: 'BS',
+  PhD: 'Ph.D. Student',
+  MSPhD: 'Integrated M.S. & Ph.D.',
+  MS: 'M.S. Student',
+  BS: 'B.S. Student',
   Staff: 'Staff'
 };
 

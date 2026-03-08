@@ -3,10 +3,10 @@
 # Home
 
 ## title
-Advancing Printing Technologies for Energy, Environment, and Biology
+Engineering printing technologies for energy, environment, and biology
 
 ## description
-Bae Lab develops functional materials and additive manufacturing strategies that make hard-to-print systems manufacturable for real-world impact across energy, environmental, and biomedical applications.
+Bae Lab integrates materials design and process engineering to transform complex functional materials into precise and scalable manufacturing technologies.
 
 ## tags
 - Printing Technology
