@@ -48,62 +48,60 @@ function isLabAuthor(author, labNames) {
   });
 }
 
-function LegendPanel({ shownCount, totalCount, updatedAt }) {
+function PublicationInfoPanel({ updatedAt }) {
   return (
     <Card className="border-slate-200 bg-white">
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg text-slate-900">Publication Notes</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3 text-sm text-slate-700">
+      <CardContent className="space-y-3 p-4 text-sm text-slate-700 md:p-5">
         <p>
-          <span className="underline decoration-[#0d326f] decoration-2 underline-offset-2">Underline</span>: Bae Lab author
-        </p>
-        <p>
-          <span className="font-semibold">*</span>: Corresponding author
-        </p>
-        <p>
-          <span className="font-semibold">†</span>: Co-first author
-        </p>
-        <div className="h-px bg-slate-200" />
-        <p>Total publications: {totalCount}</p>
-        <p>Shown in current filter: {shownCount}</p>
-        <p>Last updated: {updatedAt}</p>
-        <div className="flex flex-col gap-1.5 text-sm font-semibold text-[#0d326f]">
-          <a href={SCHOLAR_URL} rel="noreferrer" target="_blank">
+          Complete publication list available on{' '}
+          <a className="font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={SCHOLAR_URL} rel="noreferrer" target="_blank">
             Google Scholar
           </a>
-          <a href={`mailto:${REPRINT_EMAIL}`}>
-            Reprint request
+          .
+        </p>
+        <p>
+          For reprints of publications contact{' '}
+          <a className="font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${REPRINT_EMAIL}`}>
+            {REPRINT_EMAIL}
           </a>
-        </div>
+          .
+        </p>
+        <div className="h-px bg-slate-200" />
+        <p className="text-xs uppercase tracking-[0.08em] text-slate-500">
+          <span className="underline decoration-[#0d326f] decoration-2 underline-offset-2">Underline</span> indicates Bae Lab authors.
+        </p>
+        <p className="text-xs uppercase tracking-[0.08em] text-slate-500">
+          <span className="font-semibold">*</span> corresponding author · <span className="font-semibold">†</span> co-first author
+        </p>
+        {updatedAt ? <p className="text-xs uppercase tracking-[0.08em] text-slate-500">Last updated {updatedAt}</p> : null}
       </CardContent>
     </Card>
   );
 }
 
-function PreprintPanel({ description, items, title }) {
+function PreprintSection({ description, items, title }) {
   if (!description && !items.length) {
     return null;
   }
 
   return (
-    <Card className="border-slate-200 bg-[#fafcff]">
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg text-slate-900">{title || 'Preprints'}</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {description ? <p className="text-sm leading-relaxed text-slate-700">{description}</p> : null}
-        {items.length ? (
-          <ul className="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate-700">
-            {items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-sm text-slate-500">No preprint notes added yet.</p>
-        )}
-      </CardContent>
-    </Card>
+    <section className="space-y-3">
+      <h3 className="border-l-4 border-[#7a0f1f] pl-3 text-2xl font-semibold tracking-tight text-[#7a0f1f]">
+        {title || 'Preprints in Preparation'}
+      </h3>
+      {description ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{description}</p> : null}
+      {items.length ? (
+        <ul className="space-y-2">
+          {items.map((item) => (
+            <li className="rounded-lg border border-slate-200 bg-white p-4 text-sm leading-relaxed text-slate-700 md:text-base" key={item}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-sm text-slate-500">No preprints added yet.</p>
+      )}
+    </section>
   );
 }
 
@@ -366,7 +364,7 @@ export function PublicationsPage({ locale }) {
     };
   }, []);
 
-  const filters = useMemo(() => ['journal', 'all', 'patent'], []);
+  const filters = useMemo(() => ['journal', 'patent'], []);
 
   const numbers = useMemo(() => {
     const chronological = [...allItems].sort((a, b) => {
@@ -399,7 +397,7 @@ export function PublicationsPage({ locale }) {
   );
   const journalItems = useMemo(() => allItems.filter((pub) => pub.type === 'journal').slice(0, 6), [allItems]);
   const preprintItems = Array.isArray(content.preprintItems) ? content.preprintItems.filter(Boolean) : [];
-  const showPreprintPanel = filter === 'journal' || filter === 'all';
+  const showPreprintSection = filter === 'journal';
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -426,13 +424,13 @@ export function PublicationsPage({ locale }) {
           ) : null}
 
           {!loading && !error && items.length > 0 ? (
-            <div className="grid gap-5 xl:grid-cols-[minmax(0,1.72fr)_minmax(260px,0.78fr)]">
+            <div className="grid gap-5 xl:grid-cols-[minmax(0,1.84fr)_minmax(220px,0.62fr)]">
               <div className="space-y-4">
-                {showPreprintPanel ? (
-                  <PreprintPanel
+                {showPreprintSection ? (
+                  <PreprintSection
                     description={content.preprintDescription}
                     items={preprintItems}
-                    title={content.preprintTitle || 'Preprints'}
+                    title={content.preprintTitle || 'Preprints in Preparation'}
                   />
                 ) : null}
                 <PublicationList items={items} labAuthorNamesById={labAuthorNamesById} numbers={numbers} paperLabel={content.paperLink} />
@@ -440,7 +438,7 @@ export function PublicationsPage({ locale }) {
 
               <aside className="xl:border-l xl:border-slate-200 xl:pl-5">
                 <div className="space-y-4 xl:sticky xl:top-24">
-                  <LegendPanel shownCount={items.length} totalCount={allItems.length} updatedAt={updatedAt} />
+                  <PublicationInfoPanel updatedAt={updatedAt} />
 
                   <Card className="border-slate-200 bg-white">
                     <CardHeader className="pb-3">

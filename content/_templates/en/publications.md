@@ -12,13 +12,14 @@ Publication records from the previous Bae Lab website were migrated into this li
 Publication List
 
 ## preprintTitle
-Preprints
+Preprints in Preparation
 
 ## preprintDescription
-Works in progress and manuscripts under preparation. Update this area with upcoming submissions or in-review studies.
+Manuscripts currently in preparation and papers expected to be submitted or published soon.
 
 ## preprintItems
-- Add your first preprint item here.
+- Add upcoming preprint/manuscript item 1.
+- Add upcoming preprint/manuscript item 2.
 
 ## loading
 Loading publications...
