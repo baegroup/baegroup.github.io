@@ -57,7 +57,7 @@ function ResearchAreaRow({ area, index, areaLabel }) {
 
   return (
     <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-soft md:p-7">
-      <div className={`grid gap-6 lg:grid-cols-2 lg:gap-8 ${reverse ? 'lg:[&>*:first-child]:order-2' : ''}`}>
+      <div className={`grid gap-6 lg:grid-cols-2 lg:items-center lg:gap-8 ${reverse ? 'lg:[&>*:first-child]:order-2' : ''}`}>
         <figure className="mx-auto w-full max-w-3xl overflow-hidden rounded-lg border border-slate-200 bg-slate-100 lg:max-w-none">
           {!image.broken ? (
             <img alt={area.title} className="aspect-[16/10] max-h-[380px] w-full object-cover lg:max-h-none" onError={image.onError} src={image.src} />
