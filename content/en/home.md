@@ -29,7 +29,6 @@ Recent Lab News
 Core Research
 
 ## focusDescription
-We connect materials innovation, additive manufacturing process design, and rigorous validation in a unified research pipeline that delivers deployable technologies.
 
 ## focusCta
 See Research Details

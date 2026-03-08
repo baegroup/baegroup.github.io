@@ -31,7 +31,6 @@ Recent Lab News
 Research Area
 
 ## focusDescription
-Our lab combines material formulation, additive manufacturing process engineering, and application-focused validation to deliver deployable functional systems.
 
 ## focusCta
 Learn more about our research
