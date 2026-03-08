@@ -379,9 +379,9 @@ function ProfessorShowcase({ professor, locale }) {
   return (
     <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-soft">
       <div className="border-b border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
-        <div className="grid gap-5 p-5 md:p-7 lg:grid-cols-[minmax(280px,360px)_minmax(0,1fr)] lg:gap-7 lg:items-start">
+        <div className="grid gap-4 p-4 md:p-5 lg:grid-cols-[minmax(220px,300px)_minmax(0,1fr)] lg:gap-6 lg:items-start">
           <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
-            <div className="min-h-[340px] lg:min-h-[440px]">
+            <div className="min-h-[280px] lg:min-h-[360px]">
               {hasPhoto ? (
                 <img
                   alt={professor.localizedName}
@@ -395,11 +395,11 @@ function ProfessorShowcase({ professor, locale }) {
             </div>
           </div>
 
-          <div className="space-y-5">
+          <div className="space-y-4">
             <div className="space-y-2">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#7a0f1f]">{copy.sectionLead}</p>
-              <h3 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">Prof. {professor.localizedName}</h3>
-              <p className="text-2xl font-semibold leading-tight text-slate-900">{copy.department}</p>
+              <h3 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">Prof. {professor.localizedName}</h3>
+              <p className="text-xl font-semibold leading-tight text-slate-900">{copy.department}</p>
               <p className="text-sm leading-relaxed text-slate-600 md:text-base">{copy.affiliation}</p>
             </div>
 
