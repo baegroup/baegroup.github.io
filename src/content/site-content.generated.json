@@ -92,6 +92,7 @@
       ],
       "professorTitle": "Professor",
       "currentStudentsTitle": "Current Students",
+      "staffTitle": "Staff",
       "alumniTitle": "Alumni",
       "jumpNav": [
         {
@@ -105,6 +106,10 @@
         {
           "id": "current",
           "label": "Current Students"
+        },
+        {
+          "id": "staff",
+          "label": "Staff"
         },
         {
           "id": "alumni",

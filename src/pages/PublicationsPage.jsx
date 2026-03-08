@@ -228,10 +228,8 @@ function PublicationList({ items, numbers, labAuthorNames, paperLabel }) {
 
               return (
                 <li className="rounded-lg border border-slate-200 bg-white p-4 md:p-5" key={pub.id}>
-                  <div className="grid gap-3 md:grid-cols-[56px_1fr] md:gap-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white md:h-12 md:w-12 md:text-base">
-                      {number}
-                    </div>
+                  <div className="grid gap-3 md:grid-cols-[40px_1fr] md:gap-4">
+                    <div className="pt-0.5 text-sm font-semibold text-slate-500 md:text-base">{number}.</div>
 
                     <div className="space-y-1.5">
                       <p className="text-[0.97rem] leading-relaxed text-slate-700 md:text-base">
@@ -422,7 +420,7 @@ export function PublicationsPage({ locale }) {
         <TabsList className="h-auto flex-wrap justify-start gap-1 bg-transparent p-0">
           {filters.map((type) => (
             <TabsTrigger
-              className="rounded-md border border-input bg-background data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+              className="rounded-full border border-slate-300 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 data-[state=active]:border-[#7a0f1f] data-[state=active]:bg-[#7a0f1f] data-[state=active]:text-white"
               key={type}
               value={type}
             >

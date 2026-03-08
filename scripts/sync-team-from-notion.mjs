@@ -290,6 +290,9 @@ function normalizeRole(value) {
   if (raw.includes('pi') || raw.includes('professor')) {
     return 'PI';
   }
+  if (raw.includes('staff')) {
+    return 'Staff';
+  }
   if (raw.includes('researcher') || raw.includes('postdoc')) {
     return 'Researcher';
   }

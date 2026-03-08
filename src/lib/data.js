@@ -1,8 +1,9 @@
-const ROLE_ORDER = ['PI', 'Researcher', 'Graduate', 'Undergraduate', 'Alumni'];
+const ROLE_ORDER = ['PI', 'Researcher', 'Staff', 'Graduate', 'Undergraduate', 'Alumni'];
 
 const ROLE_LABELS = {
   PI: 'Principal Investigator',
   Researcher: 'Researchers',
+  Staff: 'Staff',
   Graduate: 'Graduate Students',
   Undergraduate: 'Undergraduate Students',
   Alumni: 'Alumni'

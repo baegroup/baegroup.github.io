@@ -11,11 +11,13 @@ const DEFAULT_JUMP_NAV = [
   { id: 'identity', label: 'Lab Identity' },
   { id: 'professor', label: 'Professor' },
   { id: 'current', label: 'Current Students' },
+  { id: 'staff', label: 'Staff' },
   { id: 'alumni', label: 'Alumni' }
 ];
 
-const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'alumni']);
+const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'staff', 'alumni']);
 const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
+const STAFF_SECTION_ROLES = new Set(['Staff', 'Researcher']);
 const TERM_SORT_ORDER = { spring: 0, summer: 1, fall: 2, winter: 3 };
 const GRAD_PROGRAM_ORDER = { MSPhD: 0, PhD: 1, MS: 2 };
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
@@ -26,12 +28,12 @@ const IDENTITY_COPY = {
 };
 const MEMBER_FIELD_LABELS = {
   course: 'Course',
-  joining: 'Join Term',
+  joining: 'Lab Tenure',
   undergraduateSchool: 'Undergraduate school',
   undergraduateMajor: 'Undergraduate major',
   masterSchool: 'Master degree school',
   masterMajor: 'Master degree major',
-  research: 'Research interests',
+  research: 'Research area',
   korean: 'Korean proficiency',
   current: 'Current',
   note: 'Note',
@@ -39,7 +41,8 @@ const MEMBER_FIELD_LABELS = {
 };
 const PROFESSOR_COPY = {
   sectionLead: 'Principal Investigator',
-  affiliation: 'Kyung Hee University',
+  department: 'Department of Chemical Engineering',
+  institution: 'Kyung Hee University',
   educationTitle: 'Education',
   appointmentsTitle: 'Academic Appointments',
   honorsTitle: 'Honors & Award',
@@ -194,18 +197,20 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
   const courseValue = member.programLabel || member.roleLabel;
   const researchValue = member.localizedInterests?.filter(Boolean).join(', ') || '';
   const emailValue = member.email || '';
-  const infoRows = [
+  const summaryRows = [
+    { key: 'email', label: labels.email, value: emailValue, type: 'email' },
     { key: 'joining', label: labels.joining, value: joinValue, type: 'text' },
     { key: 'research', label: labels.research, value: researchValue, type: 'text' },
-    { key: 'email', label: labels.email, value: emailValue, type: 'email' },
+    { key: 'korean', label: labels.korean, value: member.koreanProficiency, type: 'text' }
+  ];
+  const detailRows = [
     { key: 'undergraduateSchool', label: labels.undergraduateSchool, value: member.undergraduateSchool, type: 'text' },
     { key: 'undergraduateMajor', label: labels.undergraduateMajor, value: member.undergraduateMajor, type: 'text' },
     { key: 'masterSchool', label: labels.masterSchool, value: member.masterSchool, type: 'text' },
     { key: 'masterMajor', label: labels.masterMajor, value: member.masterMajor, type: 'text' },
-    { key: 'korean', label: labels.korean, value: member.koreanProficiency, type: 'text' },
     { key: 'current', label: labels.current, value: member.currentAffiliation, type: 'text' },
     { key: 'note', label: labels.note, value: member.note, type: 'text' }
-  ];
+  ].filter((row) => String(row.value || '').trim());
 
   if (prominent) {
     return (
@@ -277,10 +282,23 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
           </div>
 
           <dl className="space-y-2">
-            {infoRows.map((row) => (
+            {summaryRows.map((row) => (
               <MemberDetailRow key={`${member.id}-${row.key}`} label={row.label} type={row.type} value={row.value} />
             ))}
           </dl>
+
+          {detailRows.length ? (
+            <details className="group rounded-lg border border-slate-200 bg-slate-50/60 px-3 py-2">
+              <summary className="cursor-pointer list-none text-xs font-semibold uppercase tracking-[0.08em] text-slate-600 transition-colors group-open:text-[#0d326f]">
+                Details
+              </summary>
+              <dl className="mt-2 space-y-2 border-t border-slate-200 pt-2">
+                {detailRows.map((row) => (
+                  <MemberDetailRow key={`${member.id}-detail-${row.key}`} label={row.label} type={row.type} value={row.value} />
+                ))}
+              </dl>
+            </details>
+          ) : null}
         </div>
       </div>
     </article>
@@ -384,56 +402,55 @@ function ProfessorShowcase({ professor }) {
   const profile = PROFESSOR_PROFILE_DETAILS[professor.id] || PROFESSOR_PROFILE_DETAILS['bae-jaehyeong'];
 
   return (
-    <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-soft">
-      <div className="border-b border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
-        <div className="grid gap-4 p-4 md:p-5 lg:grid-cols-[minmax(176px,240px)_minmax(0,1fr)] lg:gap-6 lg:items-start">
-          <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
-            <div className="min-h-[224px] lg:min-h-[288px]">
-              {hasPhoto ? (
-                <img
-                  alt={professor.localizedName}
-                  className="h-full w-full object-cover object-top"
-                  onError={() => setBroken(true)}
-                  src={`${import.meta.env.BASE_URL}${professor.photo}`}
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center text-6xl font-semibold tracking-tight text-slate-600">{professor.initials}</div>
-              )}
-            </div>
+    <article className="space-y-8 md:space-y-10">
+      <div className="grid gap-6 lg:grid-cols-[minmax(220px,300px)_minmax(0,1fr)] lg:items-start lg:gap-10">
+        <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+          <div className="min-h-[240px] lg:min-h-[320px]">
+            {hasPhoto ? (
+              <img
+                alt={professor.localizedName}
+                className="h-full w-full object-cover object-top"
+                onError={() => setBroken(true)}
+                src={`${import.meta.env.BASE_URL}${professor.photo}`}
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center text-6xl font-semibold tracking-tight text-slate-600">{professor.initials}</div>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-4 lg:pt-1">
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#7a0f1f]">{copy.sectionLead}</p>
+            <h3 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">Prof. {professor.localizedName}</h3>
+            <p className="text-sm font-medium leading-relaxed text-slate-700 md:text-base">{copy.department}</p>
+            <p className="text-sm font-medium leading-relaxed text-slate-600 md:text-base">{copy.institution}</p>
           </div>
 
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#7a0f1f]">{copy.sectionLead}</p>
-              <h3 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">Prof. {professor.localizedName}</h3>
-              <p className="text-sm font-medium leading-relaxed text-slate-600 md:text-base">{copy.affiliation}</p>
-            </div>
-
-            <ul className="space-y-2 text-sm leading-relaxed text-slate-700 md:text-base">
-              {professor.email ? (
-                <li>
-                  <span className="font-semibold">E-mail:</span>{' '}
-                  <a className="text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${professor.email}`}>
-                    {professor.email}
-                  </a>
-                </li>
-              ) : null}
-              {profile?.phone ? (
-                <li>
-                  <span className="font-semibold">Phone:</span> {profile.phone}
-                </li>
-              ) : null}
-              {profile?.fax ? (
-                <li>
-                  <span className="font-semibold">Fax:</span> {profile.fax}
-                </li>
-              ) : null}
-            </ul>
-          </div>
+          <ul className="space-y-2 text-sm leading-relaxed text-slate-700 md:text-base">
+            {professor.email ? (
+              <li>
+                <span className="font-semibold">E-mail:</span>{' '}
+                <a className="text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${professor.email}`}>
+                  {professor.email}
+                </a>
+              </li>
+            ) : null}
+            {profile?.phone ? (
+              <li>
+                <span className="font-semibold">Phone:</span> {profile.phone}
+              </li>
+            ) : null}
+            {profile?.fax ? (
+              <li>
+                <span className="font-semibold">Fax:</span> {profile.fax}
+              </li>
+            ) : null}
+          </ul>
         </div>
       </div>
 
-      <div className="space-y-8 p-5 md:space-y-10 md:p-7">
+      <div className="space-y-8 md:space-y-10">
         <ProfessorTimeline items={profile?.education || []} title={copy.educationTitle} />
         <ProfessorTimeline items={profile?.appointments || []} title={copy.appointmentsTitle} />
         <ProfessorTimeline items={profile?.honors || []} title={copy.honorsTitle} />
@@ -521,7 +538,17 @@ export function TeamPage({ locale }) {
   const currentStudentGroups = useMemo(
     () =>
       currentGroups
-        .filter((group) => group.role !== 'PI' && group.role !== 'Alumni')
+        .filter((group) => PRIMARY_STUDENT_ROLES.has(group.role))
+        .map((group) => ({
+          ...group,
+          members: [...group.members].sort((a, b) => compareMembersByJoinThenProgram(a, b, group.role))
+        })),
+    [currentGroups]
+  );
+  const staffGroups = useMemo(
+    () =>
+      currentGroups
+        .filter((group) => group.role !== 'PI' && group.role !== 'Alumni' && !PRIMARY_STUDENT_ROLES.has(group.role))
         .map((group) => ({
           ...group,
           members: [...group.members].sort((a, b) => compareMembersByJoinThenProgram(a, b, group.role))
@@ -680,6 +707,32 @@ export function TeamPage({ locale }) {
                           ))}
                         </div>
                         {index < currentStudentGroups.length - 1 ? <div className="h-px bg-slate-200" /> : null}
+                      </section>
+                    ))}
+                  </div>
+                ) : (
+                  <SectionState content={content} error={error} loading={loading} />
+                )}
+              </section>
+            ) : null}
+
+            {activeSection === 'staff' ? (
+              <section>
+                <h2 className="sr-only">{content.staffTitle || 'Staff'}</h2>
+                {staffGroups.length > 0 ? (
+                  <div className="space-y-6">
+                    {staffGroups.map((group, index) => (
+                      <section className="space-y-3" key={group.role}>
+                        <h3 className="text-lg font-semibold text-slate-900">
+                          {group.label}
+                          <span className="ml-2 text-base font-medium text-slate-500">({group.members.length})</span>
+                        </h3>
+                        <div className="grid gap-4 md:grid-cols-2">
+                          {group.members.map((member) => (
+                            <MemberCard key={member.id} member={member} showRoleBadge={staffGroups.length > 1 || !STAFF_SECTION_ROLES.has(group.role)} />
+                          ))}
+                        </div>
+                        {index < staffGroups.length - 1 ? <div className="h-px bg-slate-200" /> : null}
                       </section>
                     ))}
                   </div>

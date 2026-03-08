@@ -294,6 +294,7 @@ async function build() {
       culturePrinciples: readPairItems(team, 'culturePrinciples', 'title', 'body'),
       professorTitle: readString(team, 'professorTitle'),
       currentStudentsTitle: readString(team, 'currentStudentsTitle'),
+      staffTitle: readString(team, 'staffTitle'),
       alumniTitle: readString(team, 'alumniTitle'),
       jumpNav: readPairItems(team, 'jumpNav', 'id', 'label'),
       joinCta: readString(team, 'joinCta'),

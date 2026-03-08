@@ -32,6 +32,9 @@ Professor
 ## currentStudentsTitle
 Current Students
 
+## staffTitle
+Staff
+
 ## alumniTitle
 Alumni
 
@@ -39,6 +42,7 @@ Alumni
 - identity | Lab Identity
 - professor | Professor
 - current | Current Students
+- staff | Staff
 - alumni | Alumni
 
 ## joinCta

@@ -391,7 +391,7 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
       { name: 'Published', type: 'checkbox' },
       { name: 'Name', type: 'title' },
       { name: 'ID', type: 'rich_text' },
-      { name: 'Role', type: 'select', options: ['PI', 'Researcher', 'Graduate', 'Undergraduate', 'Alumni'] },
+      { name: 'Role', type: 'select', options: ['PI', 'Researcher', 'Staff', 'Graduate', 'Undergraduate', 'Alumni'] },
       { name: 'Program', type: 'select', options: ['PhD', 'MSPhD', 'MS', 'BS', 'Staff'] },
       { name: 'E-mail', type: 'rich_text' },
       { name: 'Photo', type: 'files' },
