@@ -236,12 +236,70 @@ function MemberCard({ member, locale, prominent = false, showRoleBadge = false }
   const courseValue = member.courseLabel || member.programLabel || member.roleLabel;
   const researchValue = member.localizedInterests?.filter(Boolean).join(', ') || '';
   const emailValue = member.emailDisplay || member.email || '';
+  const topRows = [
+    { key: 'joining', label: labels.joining, value: joinValue, type: 'text' },
+    { key: 'email', label: labels.email, value: emailValue, type: 'email' }
+  ];
+  const detailRows = [
+    { key: 'undergraduateSchool', label: labels.undergraduateSchool, value: member.undergraduateSchool, type: 'text' },
+    { key: 'undergraduateMajor', label: labels.undergraduateMajor, value: member.undergraduateMajor, type: 'text' },
+    { key: 'masterSchool', label: labels.masterSchool, value: member.masterSchool, type: 'text' },
+    { key: 'masterMajor', label: labels.masterMajor, value: member.masterMajor, type: 'text' },
+    { key: 'research', label: labels.research, value: researchValue, type: 'text' },
+    { key: 'korean', label: labels.korean, value: member.koreanProficiency, type: 'text' },
+    { key: 'current', label: labels.current, value: member.currentAffiliation, type: 'text' },
+    { key: 'note', label: labels.note, value: member.note, type: 'text' }
+  ];
+
+  if (prominent) {
+    return (
+      <article className="rounded-xl border border-slate-200 bg-white p-5 md:p-6">
+        <div className="grid gap-5 md:grid-cols-[140px_1fr]">
+          <div className="mx-auto w-full max-w-[140px]">
+            <div className="h-44 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+              {hasPhoto ? (
+                <img
+                  alt={member.localizedName}
+                  className="h-full w-full object-cover"
+                  onError={() => setBroken(true)}
+                  src={`${import.meta.env.BASE_URL}${member.photo}`}
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center bg-slate-100 text-sm font-bold text-slate-700">{member.initials}</div>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <div className="space-y-1.5">
+              <p className="text-2xl font-semibold text-slate-950">{member.localizedName}</p>
+              <p className="text-sm font-medium text-slate-700 md:text-base">{courseValue}</p>
+              {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{member.roleLabel}</p> : null}
+            </div>
+
+            <dl className="space-y-2">
+              <MemberDetailRow label={labels.joining} value={joinValue} />
+              <MemberDetailRow label={labels.undergraduateSchool} value={member.undergraduateSchool} />
+              <MemberDetailRow label={labels.undergraduateMajor} value={member.undergraduateMajor} />
+              <MemberDetailRow label={labels.masterSchool} value={member.masterSchool} />
+              <MemberDetailRow label={labels.masterMajor} value={member.masterMajor} />
+              <MemberDetailRow label={labels.research} value={researchValue} />
+              <MemberDetailRow label={labels.korean} value={member.koreanProficiency} />
+              <MemberDetailRow label={labels.current} value={member.currentAffiliation} />
+              <MemberDetailRow label={labels.note} value={member.note} />
+              <MemberDetailRow label={labels.email} type="email" value={emailValue} />
+            </dl>
+          </div>
+        </div>
+      </article>
+    );
+  }
 
   return (
-    <article className={`rounded-xl border border-slate-200 bg-white ${prominent ? 'p-5 md:p-6' : 'p-5 md:p-6'}`}>
-      <div className={`grid gap-5 ${prominent ? 'md:grid-cols-[140px_1fr]' : 'sm:grid-cols-[170px_1fr]'}`}>
-        <div className={`mx-auto w-full ${prominent ? 'max-w-[140px]' : 'max-w-[170px]'}`}>
-          <div className={`overflow-hidden rounded-lg border border-slate-200 bg-slate-100 ${prominent ? 'h-44' : 'h-52'}`}>
+    <article className="rounded-xl border border-slate-200 bg-white p-5 md:p-6">
+      <div className="grid gap-5 md:grid-cols-[180px_1fr] md:items-start">
+        <div className="mx-auto w-full max-w-[180px]">
+          <div className="h-56 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
           {hasPhoto ? (
             <img
               alt={member.localizedName}
@@ -257,25 +315,24 @@ function MemberCard({ member, locale, prominent = false, showRoleBadge = false }
 
         <div className="space-y-3">
           <div className="space-y-1.5">
-            <p className={prominent ? 'text-2xl font-semibold text-slate-950' : 'text-xl font-semibold text-slate-950'}>{member.localizedName}</p>
+            <p className="text-xl font-semibold text-slate-950 md:text-2xl">{member.localizedName}</p>
             <p className="text-sm font-medium text-slate-700 md:text-base">{courseValue}</p>
             {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{member.roleLabel}</p> : null}
           </div>
 
           <dl className="space-y-2">
-            <MemberDetailRow label={labels.joining} value={joinValue} />
-            <MemberDetailRow label={labels.undergraduateSchool} value={member.undergraduateSchool} />
-            <MemberDetailRow label={labels.undergraduateMajor} value={member.undergraduateMajor} />
-            <MemberDetailRow label={labels.masterSchool} value={member.masterSchool} />
-            <MemberDetailRow label={labels.masterMajor} value={member.masterMajor} />
-            <MemberDetailRow label={labels.research} value={researchValue} />
-            <MemberDetailRow label={labels.korean} value={member.koreanProficiency} />
-            <MemberDetailRow label={labels.current} value={member.currentAffiliation} />
-            <MemberDetailRow label={labels.note} value={member.note} />
-            <MemberDetailRow label={labels.email} type="email" value={emailValue} />
+            {topRows.map((row) => (
+              <MemberDetailRow key={`${member.id}-${row.key}`} label={row.label} type={row.type} value={row.value} />
+            ))}
           </dl>
         </div>
       </div>
+
+      <dl className="mt-4 space-y-2 border-t border-slate-200 pt-4">
+        {detailRows.map((row) => (
+          <MemberDetailRow key={`${member.id}-${row.key}`} label={row.label} type={row.type} value={row.value} />
+        ))}
+      </dl>
     </article>
   );
 }
