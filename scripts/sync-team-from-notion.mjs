@@ -354,13 +354,12 @@ async function convertPagesToTeam({ pages }) {
     const idRaw = propertyToText(findProperty(properties, ['ID', 'Slug', 'Handle', '식별자']));
     const id = toSlug(idRaw || name);
     const role = normalizeRole(propertyToText(findProperty(properties, ['Role', 'Track', '구분', '직책'])));
-    const status = normalizeStatus(propertyToText(findProperty(properties, ['Status', 'Membership Status', '상태'])));
+    const statusText = propertyToText(findProperty(properties, ['Status', 'Membership Status', '상태']));
+    const status = statusText ? normalizeStatus(statusText) : role === 'Alumni' ? 'alumni' : 'current';
     const program = normalizeProgram(propertyToText(findProperty(properties, ['Program', 'Degree', '학위과정'])));
     const email = propertyToText(findProperty(properties, ['Email', 'E-mail', '메일', '이메일'], 'email')) || propertyToText(findProperty(properties, ['Email', 'E-mail', '메일', '이메일']));
-    const website = propertyToText(findProperty(properties, ['Website', 'Homepage', 'URL', '홈페이지'], 'url')) || propertyToText(findProperty(properties, ['Website', 'Homepage', 'URL', '홈페이지']));
     const startYear = propertyToNumber(findProperty(properties, ['Start Year', 'StartYear', 'Start Year & Semester', '입실연도', 'Start']));
     const endYear = propertyToNumber(findProperty(properties, ['End Year', 'EndYear', '졸업연도', 'End']));
-    const courseLabel = propertyToText(findProperty(properties, ['Course Label', 'Course', '코스', '과정명']));
     const joiningGroup = propertyToText(findProperty(properties, ['Joining Group', 'Join Term', 'Start Year & Semester', '입실시기']));
     const undergraduateSchool = propertyToText(findProperty(properties, ['Undergraduate School', '학사 학교']));
     const undergraduateMajor = propertyToText(findProperty(properties, ['Undergraduate Major', '학사 전공']));
@@ -371,7 +370,6 @@ async function convertPagesToTeam({ pages }) {
     const koreanProficiency = propertyToText(findProperty(properties, ['Korean Proficiency', 'TOPIK']));
     const currentAffiliation = propertyToText(findProperty(properties, ['Current Affiliation', 'Current', '현소속']));
     const note = propertyToText(findProperty(properties, ['Note', 'Remarks', '비고']));
-    const emailDisplay = propertyToText(findProperty(properties, ['Email Display', 'Displayed Email']));
 
     const photoFiles = propertyToFiles(findProperty(properties, ['Photo', 'Profile', 'Image', '사진'], 'files'));
     let photo = '';
@@ -391,18 +389,15 @@ async function convertPagesToTeam({ pages }) {
       status,
       program,
       email,
-      website,
       interests,
       photo,
       startYear,
       endYear,
-      courseLabel,
       joiningGroup,
       undergraduateSchool,
       undergraduateMajor,
       masterSchool,
       masterMajor,
-      emailDisplay,
       koreanProficiency,
       note,
       currentAffiliation

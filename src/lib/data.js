@@ -101,7 +101,15 @@ function sortTeamProfiles(profiles, status) {
 
 export async function loadTeamProfiles(locale, status = 'current') {
   const data = await fetchData('team.json');
-  const filtered = data.filter((member) => member.status === status);
+  const resolveStatus = (member) => {
+    const rawStatus = String(member?.status || '').trim().toLowerCase();
+    if (rawStatus === 'alumni' || rawStatus === 'current') {
+      return rawStatus;
+    }
+    return member?.role === 'Alumni' ? 'alumni' : 'current';
+  };
+
+  const filtered = data.filter((member) => resolveStatus(member) === status);
 
   const grouped = new Map();
   filtered.forEach((member) => {
@@ -124,6 +132,7 @@ export async function loadTeamProfiles(locale, status = 'current') {
 
       return {
         ...member,
+        status: resolveStatus(member),
         localizedName,
         role,
         roleLabel,

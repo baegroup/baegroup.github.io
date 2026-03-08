@@ -77,18 +77,16 @@ npm run cms:sync:notion
 
 | Property | Type | Required | Notes |
 |---|---|---:|---|
+| Published | Checkbox | No | Recommended as first visible column after Name |
 | Name | Title | Yes | Member display name |
 | ID | Rich text | No | Slug-like ID; auto-generated from name if empty |
 | Role | Select | Yes | `PI` / `Researcher` / `Graduate` / `Undergraduate` / `Alumni` |
-| Status | Select | Yes | `Current` / `Alumni` |
 | Program | Select | No | `PhD` / `MSPhD` / `MS` / `BS` / `Staff` |
-| Email | Email | No | Member email |
-| Website | URL | No | Personal profile URL |
+| E-mail | Rich text | No | Member email |
 | Photo | Files & media | No | First file is used as profile photo |
 | Start Year | Number | No | For ordering |
 | End Year | Number | No | Alumni ordering support |
-| Joining Group | Rich text | No | e.g., `2024 Fall` |
-| Course Label | Rich text | No | e.g., `Integrated M.S. & Ph.D. course` |
+| Start Year & Semester | Rich text | No | e.g., `2024 Fall` |
 | Undergraduate School | Rich text | No |  |
 | Undergraduate Major | Rich text | No |  |
 | Master School | Rich text | No |  |
@@ -97,8 +95,6 @@ npm run cms:sync:notion
 | Korean Proficiency | Rich text | No | e.g., TOPIK |
 | Current Affiliation | Rich text | No | Mainly for alumni |
 | Note | Rich text | No | Extra remarks |
-| Email Display | Rich text | No | Optional override (`TBD`) |
-| Published | Checkbox | No | Unchecked items are hidden |
 
 ## 5) Database Schema: Publications
 

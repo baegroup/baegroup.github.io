@@ -240,6 +240,38 @@ async function ensureProperties({ token, dataSourceId, specs }) {
   return getDataSource({ token, dataSourceId });
 }
 
+async function removePropertiesByName({ token, dataSourceId, names }) {
+  const dataSource = await getDataSource({ token, dataSourceId });
+  const current = dataSource?.properties || {};
+  const removals = {};
+
+  names.forEach((name) => {
+    if (!current[name]) {
+      return;
+    }
+    const propertyId = String(current[name]?.id || '').trim();
+    if (!propertyId) {
+      return;
+    }
+    removals[propertyId] = null;
+  });
+
+  if (!Object.keys(removals).length) {
+    return dataSource;
+  }
+
+  await notionRequest({
+    token,
+    endpoint: `/data_sources/${dataSourceId}`,
+    method: 'PATCH',
+    body: {
+      properties: removals
+    }
+  });
+
+  return getDataSource({ token, dataSourceId });
+}
+
 function propertyByNameMap(dataSource) {
   return new Map(Object.entries(dataSource?.properties || {}).map(([name, config]) => [name, config]));
 }
@@ -352,22 +384,20 @@ async function upsertPages({ token, dataSourceId, uniqueFieldName, items, buildP
 
 async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
   const team = await readJson(TEAM_JSON_PATH);
-  const dataSource = await ensureProperties({
+  let dataSource = await ensureProperties({
     token,
     dataSourceId,
     specs: [
+      { name: 'Published', type: 'checkbox' },
       { name: 'Name', type: 'title' },
       { name: 'ID', type: 'rich_text' },
       { name: 'Role', type: 'select', options: ['PI', 'Researcher', 'Graduate', 'Undergraduate', 'Alumni'] },
-      { name: 'Status', type: 'select', options: ['Current', 'Alumni'] },
       { name: 'Program', type: 'select', options: ['PhD', 'MSPhD', 'MS', 'BS', 'Staff'] },
       { name: 'E-mail', type: 'rich_text' },
-      { name: 'Website', type: 'url' },
       { name: 'Photo', type: 'files' },
       { name: 'Start Year', type: 'number' },
       { name: 'End Year', type: 'number' },
       { name: 'Start Year & Semester', type: 'rich_text' },
-      { name: 'Course Label', type: 'rich_text' },
       { name: 'Undergraduate School', type: 'rich_text' },
       { name: 'Undergraduate Major', type: 'rich_text' },
       { name: 'Master School', type: 'rich_text' },
@@ -375,25 +405,27 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
       { name: 'Research Interests', type: 'rich_text' },
       { name: 'Korean Proficiency', type: 'rich_text' },
       { name: 'Current Affiliation', type: 'rich_text' },
-      { name: 'Note', type: 'rich_text' },
-      { name: 'Email Display', type: 'rich_text' },
-      { name: 'Published', type: 'checkbox' }
+      { name: 'Note', type: 'rich_text' }
     ]
   });
 
+  dataSource = await removePropertiesByName({
+    token,
+    dataSourceId,
+    names: ['Status', 'Course Label', 'Email Display', 'Website']
+  });
+
   const propertyMap = propertyByNameMap(dataSource);
+  const publishedProp = pickProperty(propertyMap, ['Published', 'Publish']);
   const nameProp = pickProperty(propertyMap, ['Name']);
   const idProp = pickProperty(propertyMap, ['ID']);
   const roleProp = pickProperty(propertyMap, ['Role']);
-  const statusProp = pickProperty(propertyMap, ['Status']);
   const programProp = pickProperty(propertyMap, ['Program']);
   const emailProp = pickProperty(propertyMap, ['E-mail', 'Email']);
-  const websiteProp = pickProperty(propertyMap, ['Website']);
   const photoProp = pickProperty(propertyMap, ['Photo']);
   const startYearProp = pickProperty(propertyMap, ['Start Year']);
   const endYearProp = pickProperty(propertyMap, ['End Year']);
   const joinTermProp = pickProperty(propertyMap, ['Start Year & Semester', 'Joining Group']);
-  const courseLabelProp = pickProperty(propertyMap, ['Course Label', 'Course']);
   const ugSchoolProp = pickProperty(propertyMap, ['Undergraduate School']);
   const ugMajorProp = pickProperty(propertyMap, ['Undergraduate Major']);
   const msSchoolProp = pickProperty(propertyMap, ['Master School']);
@@ -402,8 +434,6 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
   const koreanProp = pickProperty(propertyMap, ['Korean Proficiency']);
   const currentAffProp = pickProperty(propertyMap, ['Current Affiliation']);
   const noteProp = pickProperty(propertyMap, ['Note']);
-  const emailDisplayProp = pickProperty(propertyMap, ['Email Display']);
-  const publishedProp = pickProperty(propertyMap, ['Published', 'Publish']);
 
   const items = team.map((member) => ({
     key: member.id,
@@ -427,17 +457,11 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
       if (roleProp) {
         properties[roleProp] = selectValue(member.role);
       }
-      if (statusProp) {
-        properties[statusProp] = selectValue(member.status === 'alumni' ? 'Alumni' : 'Current');
-      }
       if (programProp) {
         properties[programProp] = selectValue(member.program);
       }
       if (emailProp) {
-        properties[emailProp] = richTextValue(member.email || member.emailDisplay || '');
-      }
-      if (websiteProp) {
-        properties[websiteProp] = urlValue(member.website || '');
+        properties[emailProp] = richTextValue(member.email || '');
       }
       if (photoProp) {
         const photoPath = String(member.photo || '').trim();
@@ -452,9 +476,6 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
       }
       if (joinTermProp) {
         properties[joinTermProp] = richTextValue(member.joiningGroup || '');
-      }
-      if (courseLabelProp) {
-        properties[courseLabelProp] = richTextValue(member.courseLabel || '');
       }
       if (ugSchoolProp) {
         properties[ugSchoolProp] = richTextValue(member.undergraduateSchool || '');
@@ -479,9 +500,6 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
       }
       if (noteProp) {
         properties[noteProp] = richTextValue(member.note || '');
-      }
-      if (emailDisplayProp) {
-        properties[emailDisplayProp] = richTextValue(member.emailDisplay || '');
       }
       if (publishedProp) {
         properties[publishedProp] = checkboxValue(true);

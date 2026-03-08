@@ -193,9 +193,9 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
   const period = `${member.startYear || '-'} - ${member.endYear || 'Present'}`;
   const labels = MEMBER_FIELD_LABELS;
   const joinValue = member.joiningGroup || period;
-  const courseValue = member.courseLabel || member.programLabel || member.roleLabel;
+  const courseValue = member.programLabel || member.roleLabel;
   const researchValue = member.localizedInterests?.filter(Boolean).join(', ') || '';
-  const emailValue = member.emailDisplay || member.email || '';
+  const emailValue = member.email || '';
   const topRows = [
     { key: 'joining', label: labels.joining, value: joinValue, type: 'text' },
     { key: 'email', label: labels.email, value: emailValue, type: 'email' }
