@@ -44,6 +44,7 @@ npm run content:build
 - News: `npm run news:sync:notion`
 - Team: `npm run team:sync:notion`
 - Publications: `npm run publications:sync:notion`
+- Bootstrap Team/Publications from local JSON into Notion: `npm run notion:push:site-data`
 - All at once: `npm run cms:sync:notion`
 
 Detailed setup and DB schema:

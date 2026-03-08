@@ -12,111 +12,19 @@
       "Functional Materials",
       "Energy Harvesting"
     ],
-    "photo": "assets/img/team/profiles/Jaehyeong Bae.jpg",
+    "photo": "assets/img/team/notion/bae-jaehyeong.jpg",
     "startYear": 2023,
-    "endYear": null
-  },
-  {
-    "id": "cho-suha",
-    "name": "Suha Cho",
-    "role": "Graduate",
-    "status": "current",
-    "program": "MSPhD",
-    "email": "suha0116@khu.ac.kr",
-    "website": "",
-    "interests": [
-      "3D printing for environmental applications"
-    ],
-    "photo": "assets/img/team/profiles/Suha Cho.jpg",
-    "startYear": 2024,
     "endYear": null,
-    "courseLabel": "Integrated M.S. & Ph.D. course",
-    "joiningGroup": "2024 Fall",
-    "undergraduateSchool": "Kongju National University",
-    "undergraduateMajor": "Environmental Engineering"
-  },
-  {
-    "id": "zhu-xiaoling",
-    "name": "Xiaoling Zhu",
-    "role": "Graduate",
-    "status": "current",
-    "program": "PhD",
-    "email": "zxl@khu.ac.kr",
-    "website": "",
-    "interests": [
-      "Photo-Chemo-Mechanical Energy harvesting"
-    ],
-    "photo": "assets/img/team/profiles/Xiaoling Zhu.jpg",
-    "startYear": 2024,
-    "endYear": null,
-    "courseLabel": "Ph.D. course",
-    "joiningGroup": "2024 Fall",
-    "undergraduateSchool": "Shenyang Pharmaceutical University",
-    "undergraduateMajor": "School of pharmacy"
-  },
-  {
-    "id": "liu-jiechen",
-    "name": "Jiechen Liu",
-    "role": "Graduate",
-    "status": "current",
-    "program": "MSPhD",
-    "email": "liujiechen@khu.ac.kr",
-    "website": "",
-    "interests": [
-      "Aerogel 3D printing & Printed sensors"
-    ],
-    "photo": "assets/img/team/profiles/Jiechen Liu.jpg",
-    "startYear": 2025,
-    "endYear": null,
-    "courseLabel": "Integrated M.S. & Ph.D. course",
-    "joiningGroup": "2025 Fall",
-    "undergraduateSchool": "Xian Shiyou University",
-    "undergraduateMajor": "Chemical Engineering",
-    "koreanProficiency": "TOPIK Level 4"
-  },
-  {
-    "id": "tian-ruonan",
-    "name": "Ruonan Tian",
-    "role": "Graduate",
-    "status": "current",
-    "program": "PhD",
-    "email": "",
-    "website": "",
-    "interests": [
-      "TBD"
-    ],
-    "photo": "assets/img/team/profiles/Ruonan Tian.png",
-    "startYear": 2026,
-    "endYear": null,
-    "courseLabel": "Ph.D. course",
-    "joiningGroup": "2026 Spring",
-    "undergraduateSchool": "Tiangong University",
-    "undergraduateMajor": "Pharmaceutical Engineering",
-    "masterSchool": "Tiangong University",
-    "masterMajor": "Materials and Chemical Engineering",
-    "emailDisplay": "TBD",
-    "koreanProficiency": "TOPIK Level 4"
-  },
-  {
-    "id": "lin-qunbo",
-    "name": "Qunbo Lin",
-    "role": "Graduate",
-    "status": "current",
-    "program": "MSPhD",
-    "email": "",
-    "website": "",
-    "interests": [
-      "TBD"
-    ],
-    "photo": "assets/img/team/profiles/Qunbo Lin.png",
-    "startYear": 2026,
-    "endYear": null,
-    "courseLabel": "Integrated M.S. & Ph.D. course",
-    "joiningGroup": "2026 Fall",
-    "undergraduateSchool": "Shaanxi University of Science & Technology",
-    "undergraduateMajor": "Paper & Leather Engineering",
-    "emailDisplay": "TBD",
-    "koreanProficiency": "TOPIK Level 6"
+    "courseLabel": "",
+    "joiningGroup": "",
+    "undergraduateSchool": "",
+    "undergraduateMajor": "",
+    "masterSchool": "",
+    "masterMajor": "",
+    "emailDisplay": "",
+    "koreanProficiency": "",
+    "note": "",
+    "currentAffiliation": ""
   },
   {
     "id": "lee-myeong",
@@ -130,13 +38,69 @@
       "Photo-Chemo-Mechanical Energy Harvesting",
       "Zn-ion Battery"
     ],
-    "photo": "assets/img/team/profiles/Myeong Lee.jpg",
+    "photo": "assets/img/team/notion/lee-myeong.jpg",
     "startYear": 2024,
     "endYear": null,
     "courseLabel": "Master's Course",
     "joiningGroup": "2024 Spring",
     "undergraduateSchool": "Kyung Hee University",
-    "undergraduateMajor": "Chemical Engineering"
+    "undergraduateMajor": "Chemical Engineering",
+    "masterSchool": "",
+    "masterMajor": "",
+    "emailDisplay": "",
+    "koreanProficiency": "",
+    "note": "",
+    "currentAffiliation": ""
+  },
+  {
+    "id": "cho-suha",
+    "name": "Suha Cho",
+    "role": "Graduate",
+    "status": "current",
+    "program": "MSPhD",
+    "email": "suha0116@khu.ac.kr",
+    "website": "",
+    "interests": [
+      "3D printing for environmental applications"
+    ],
+    "photo": "assets/img/team/notion/cho-suha.jpg",
+    "startYear": 2024,
+    "endYear": null,
+    "courseLabel": "Integrated M.S. & Ph.D. course",
+    "joiningGroup": "2024 Fall",
+    "undergraduateSchool": "Kongju National University",
+    "undergraduateMajor": "Environmental Engineering",
+    "masterSchool": "",
+    "masterMajor": "",
+    "emailDisplay": "",
+    "koreanProficiency": "",
+    "note": "",
+    "currentAffiliation": ""
+  },
+  {
+    "id": "zhu-xiaoling",
+    "name": "Xiaoling Zhu",
+    "role": "Graduate",
+    "status": "current",
+    "program": "PhD",
+    "email": "zxl@khu.ac.kr",
+    "website": "",
+    "interests": [
+      "Photo-Chemo-Mechanical Energy harvesting"
+    ],
+    "photo": "assets/img/team/notion/zhu-xiaoling.jpg",
+    "startYear": 2024,
+    "endYear": null,
+    "courseLabel": "Ph.D. course",
+    "joiningGroup": "2024 Fall",
+    "undergraduateSchool": "Shenyang Pharmaceutical University",
+    "undergraduateMajor": "School of pharmacy",
+    "masterSchool": "",
+    "masterMajor": "",
+    "emailDisplay": "",
+    "koreanProficiency": "",
+    "note": "",
+    "currentAffiliation": ""
   },
   {
     "id": "ko-yoonji",
@@ -149,14 +113,44 @@
     "interests": [
       "Embedded 3D printing technology for biomedical application"
     ],
-    "photo": "assets/img/team/profiles/Yoonji Ko.jpg",
+    "photo": "assets/img/team/notion/ko-yoonji.jpg",
     "startYear": 2024,
     "endYear": null,
     "courseLabel": "Undergraduate student",
     "joiningGroup": "2024 Winter",
     "undergraduateSchool": "Kyung Hee University",
     "undergraduateMajor": "Chemical Engineering",
-    "note": "Appointed as master's course (2028 Mar.)"
+    "masterSchool": "",
+    "masterMajor": "",
+    "emailDisplay": "",
+    "koreanProficiency": "",
+    "note": "Appointed as master's course (2028 Mar.)",
+    "currentAffiliation": ""
+  },
+  {
+    "id": "liu-jiechen",
+    "name": "Jiechen Liu",
+    "role": "Graduate",
+    "status": "current",
+    "program": "MSPhD",
+    "email": "liujiechen@khu.ac.kr",
+    "website": "",
+    "interests": [
+      "Aerogel 3D printing & Printed sensors"
+    ],
+    "photo": "assets/img/team/notion/liu-jiechen.jpg",
+    "startYear": 2025,
+    "endYear": null,
+    "courseLabel": "Integrated M.S. & Ph.D. course",
+    "joiningGroup": "2025 Fall",
+    "undergraduateSchool": "Xian Shiyou University",
+    "undergraduateMajor": "Chemical Engineering",
+    "masterSchool": "",
+    "masterMajor": "",
+    "emailDisplay": "",
+    "koreanProficiency": "TOPIK Level 4",
+    "note": "",
+    "currentAffiliation": ""
   },
   {
     "id": "kim-nayeon",
@@ -169,14 +163,69 @@
     "interests": [
       "Photo-Chemo-Mechanical Energy harvesting"
     ],
-    "photo": "assets/img/team/profiles/Nayeon Kim.webp",
+    "photo": "assets/img/team/notion/kim-nayeon.webp",
     "startYear": 2025,
     "endYear": null,
     "courseLabel": "Undergraduate student",
     "joiningGroup": "2025 Spring",
     "undergraduateSchool": "Kyung Hee University",
     "undergraduateMajor": "Chemical Engineering",
-    "note": "Appointed as master's course (2027 Mar.)"
+    "masterSchool": "",
+    "masterMajor": "",
+    "emailDisplay": "",
+    "koreanProficiency": "",
+    "note": "Appointed as master's course (2027 Mar.)",
+    "currentAffiliation": ""
+  },
+  {
+    "id": "lin-qunbo",
+    "name": "Qunbo Lin",
+    "role": "Graduate",
+    "status": "current",
+    "program": "MSPhD",
+    "email": "TBD",
+    "website": "",
+    "interests": [
+      "TBD"
+    ],
+    "photo": "assets/img/team/notion/lin-qunbo.png",
+    "startYear": 2026,
+    "endYear": null,
+    "courseLabel": "Integrated M.S. & Ph.D. course",
+    "joiningGroup": "2026 Fall",
+    "undergraduateSchool": "Shaanxi University of Science & Technology",
+    "undergraduateMajor": "Paper & Leather Engineering",
+    "masterSchool": "",
+    "masterMajor": "",
+    "emailDisplay": "TBD",
+    "koreanProficiency": "TOPIK Level 6",
+    "note": "",
+    "currentAffiliation": ""
+  },
+  {
+    "id": "tian-ruonan",
+    "name": "Ruonan Tian",
+    "role": "Graduate",
+    "status": "current",
+    "program": "PhD",
+    "email": "TBD",
+    "website": "",
+    "interests": [
+      "TBD"
+    ],
+    "photo": "assets/img/team/notion/tian-ruonan.png",
+    "startYear": 2026,
+    "endYear": null,
+    "courseLabel": "Ph.D. course",
+    "joiningGroup": "2026 Spring",
+    "undergraduateSchool": "Tiangong University",
+    "undergraduateMajor": "Pharmaceutical Engineering",
+    "masterSchool": "Tiangong University",
+    "masterMajor": "Materials and Chemical Engineering",
+    "emailDisplay": "TBD",
+    "koreanProficiency": "TOPIK Level 4",
+    "note": "",
+    "currentAffiliation": ""
   },
   {
     "id": "kim-myeongjae",
@@ -189,13 +238,18 @@
     "interests": [
       "3D printing for environmental applications"
     ],
-    "photo": "assets/img/team/profiles/Myeongjae Kim.jpg",
+    "photo": "assets/img/team/notion/kim-myeongjae.jpg",
     "startYear": 2024,
     "endYear": 2024,
-    "currentAffiliation": "SK hynix",
     "courseLabel": "Undergraduate student",
     "joiningGroup": "2024.03 ~ 2024.09",
     "undergraduateSchool": "Kyung Hee University",
-    "undergraduateMajor": "Chemical Engineering"
+    "undergraduateMajor": "Chemical Engineering",
+    "masterSchool": "",
+    "masterMajor": "",
+    "emailDisplay": "",
+    "koreanProficiency": "",
+    "note": "",
+    "currentAffiliation": "SK hynix"
   }
 ]

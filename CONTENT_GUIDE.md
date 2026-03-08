@@ -34,6 +34,7 @@ The following are intended to be managed in Notion and synced:
 Sync commands:
 
 ```bash
+npm run notion:push:site-data
 npm run news:sync:notion
 npm run team:sync:notion
 npm run publications:sync:notion

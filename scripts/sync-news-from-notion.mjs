@@ -511,13 +511,13 @@ async function convertNotionPagesToSections({ pages, token }) {
   for (const page of pages) {
     const properties = page.properties || {};
     const titleProp = findProperty(properties, ['Title', 'Name', '제목', '이름'], 'title');
-    const sectionProp = findProperty(properties, ['Section', 'Category', 'Type', '섹션', '구분', '카테고리']);
+    const sectionProp = findProperty(properties, ['Section', 'Select', 'Category', 'Type', '섹션', '구분', '카테고리']);
     const dateProp = findProperty(properties, ['Date', 'Updated', '날짜', '업데이트'], 'date');
     const summaryProp = findProperty(properties, ['Summary', 'Description', 'Content', '요약', '설명', '내용'], 'rich_text');
     const linkProp = findProperty(properties, ['Link', 'URL', 'Source', '링크', '출처'], 'url');
     const videoProp = findProperty(properties, ['Video', 'Video URL', 'YouTube', '영상', '동영상'], 'url');
     const imageProp = findProperty(properties, ['Images', 'Image', 'Photos', 'Media', '사진', '이미지', '파일과 미디어', '파일'], 'files');
-    const publishedProp = findProperty(properties, ['Published', 'Visible', 'Show', '게시', '표시', '공개'], 'checkbox');
+    const publishedProp = findProperty(properties, ['Published', 'Publish', 'Visible', 'Show', '게시', '표시', '공개'], 'checkbox');
 
     if (!propertyToBool(publishedProp, true)) {
       continue;

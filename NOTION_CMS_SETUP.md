@@ -46,10 +46,13 @@ export INSTAGRAM_PROFILE_URL="https://www.instagram.com/baelab.khu/"
 ## 2) Sync Commands
 
 ```bash
+npm run notion:push:site-data
 npm run news:sync:notion
 npm run team:sync:notion
 npm run publications:sync:notion
 ```
+
+`notion:push:site-data` uploads current local Team/Publications JSON into Notion (bootstrap/update step).
 
 Run all at once:
 
@@ -120,4 +123,3 @@ npm run cms:sync:notion
 - Team and Publications should always be edited in Notion first.
 - Run `npm run cms:sync:notion` after edits.
 - Review JSON diff, then commit/push.
-

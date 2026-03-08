@@ -8,6 +8,7 @@
     "news:sync:notion": "node scripts/sync-news-from-notion.mjs",
     "team:sync:notion": "node scripts/sync-team-from-notion.mjs",
     "publications:sync:notion": "node scripts/sync-publications-from-notion.mjs",
+    "notion:push:site-data": "node scripts/push-site-data-to-notion.mjs",
     "cms:sync:notion": "npm run news:sync:notion && npm run team:sync:notion && npm run publications:sync:notion",
     "publish": "node scripts/publish-content.mjs",
     "publish:cms": "npm run cms:sync:notion && npm run publish",

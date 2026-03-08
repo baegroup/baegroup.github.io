@@ -18,7 +18,34 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": false
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
+  },
+  {
+    "id": "2025-am-surface-engineering-li-metal",
+    "year": 2025,
+    "type": "journal",
+    "title": "Emerging Surface Engineering Methods for Lithium Metal Anodes: Critical Review Beyond Conventional SEI and Surface Coatings",
+    "authors": [
+      "Jaehyeong Bae*",
+      "Keonwoo Choi",
+      "Jun Young Cheong",
+      "Seongcheol Ahn",
+      "Suha Cho",
+      "Sung Gap Im*",
+      "Il-Doo Kim*"
+    ],
+    "venue": "Advanced Materials",
+    "doi": "",
+    "url": "",
+    "labAuthors": [
+      "bae-jaehyeong",
+      "cho-suha"
+    ],
+    "labAuthorNames": [],
+    "featured": true,
+    "coverImage": ""
   },
   {
     "id": "2025-pharmaceutics-carbamazepine",
@@ -44,30 +71,9 @@
       "zhu-xiaoling",
       "cho-suha"
     ],
-    "featured": false
-  },
-  {
-    "id": "2025-am-surface-engineering-li-metal",
-    "year": 2025,
-    "type": "journal",
-    "title": "Emerging Surface Engineering Methods for Lithium Metal Anodes: Critical Review Beyond Conventional SEI and Surface Coatings",
-    "authors": [
-      "Jaehyeong Bae*",
-      "Keonwoo Choi",
-      "Jun Young Cheong",
-      "Seongcheol Ahn",
-      "Suha Cho",
-      "Sung Gap Im*",
-      "Il-Doo Kim*"
-    ],
-    "venue": "Advanced Materials",
-    "doi": "",
-    "url": "",
-    "labAuthors": [
-      "bae-jaehyeong",
-      "cho-suha"
-    ],
-    "featured": true
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
   },
   {
     "id": "2024-acsnano-nanofilter-breathability",
@@ -94,7 +100,9 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": false
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
   },
   {
     "id": "2023-aem-sei-scaffold-li-metal",
@@ -125,7 +133,9 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": true
+    "labAuthorNames": [],
+    "featured": true,
+    "coverImage": ""
   },
   {
     "id": "2022-am-photoenergy-harvesting",
@@ -146,7 +156,9 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": true
+    "labAuthorNames": [],
+    "featured": true,
+    "coverImage": ""
   },
   {
     "id": "2022-afm-thermochromic-sensor",
@@ -168,7 +180,9 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": true
+    "labAuthorNames": [],
+    "featured": true,
+    "coverImage": ""
   },
   {
     "id": "2022-ees-watt-scale-hydroelectric",
@@ -193,32 +207,9 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": true
-  },
-  {
-    "id": "2020-acsnano-single-atom-pt",
-    "year": 2020,
-    "type": "journal",
-    "title": "Single Atom Pt Stabilized on One-Dimensional Nanostructure Support via Carbon Nitride/SnO₂ Heterojunction Trapping",
-    "authors": [
-      "Hamin Shin",
-      "Wan-Gil Jung",
-      "Dong-Ha Kim",
-      "Ji-Soo Jang",
-      "Yun-Hwa Kim",
-      "Won-Tae Kim",
-      "Jaehyeong Bae",
-      "Su-Ho Cho",
-      "Bong Joong Kim",
-      "Il-Doo Kim*"
-    ],
-    "venue": "ACS Nano",
-    "doi": "",
-    "url": "",
-    "labAuthors": [
-      "bae-jaehyeong"
-    ],
-    "featured": false
+    "labAuthorNames": [],
+    "featured": true,
+    "coverImage": ""
   },
   {
     "id": "2020-acsnano-colorimetric-nanofiber",
@@ -243,7 +234,9 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": false
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
   },
   {
     "id": "2020-gc-recycling-tree-gum",
@@ -271,37 +264,25 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": false
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
   },
   {
-    "id": "2019-ees-transpiration-electrokinetic",
-    "year": 2019,
+    "id": "2020-acsnano-single-atom-pt",
+    "year": 2020,
     "type": "journal",
-    "title": "Self-Operating Transpiration Driven Electrokinetic Power Generator with an Artificial Hydrological Cycle",
+    "title": "Single Atom Pt Stabilized on One-Dimensional Nanostructure Support via Carbon Nitride/SnO₂ Heterojunction Trapping",
     "authors": [
-      "Jaehyeong Bae†",
-      "Tae Gwang Yun†",
-      "Bong Lim Suh",
-      "Jihan Kim",
-      "Il-Doo Kim*"
-    ],
-    "venue": "Energy & Environmental Science",
-    "doi": "",
-    "url": "",
-    "labAuthors": [
-      "bae-jaehyeong"
-    ],
-    "featured": true
-  },
-  {
-    "id": "2019-acsnano-transpiration-power-generator",
-    "year": 2019,
-    "type": "journal",
-    "title": "Transpiration Driven Electrokinetic Power Generator",
-    "authors": [
-      "Tae Gwang Yun†",
-      "Jaehyeong Bae†",
-      "Avner Rothschild",
+      "Hamin Shin",
+      "Wan-Gil Jung",
+      "Dong-Ha Kim",
+      "Ji-Soo Jang",
+      "Yun-Hwa Kim",
+      "Won-Tae Kim",
+      "Jaehyeong Bae",
+      "Su-Ho Cho",
+      "Bong Joong Kim",
       "Il-Doo Kim*"
     ],
     "venue": "ACS Nano",
@@ -310,7 +291,9 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": false
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
   },
   {
     "id": "2019-acsnano-stretchable-electrochromic",
@@ -333,7 +316,52 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": false
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
+  },
+  {
+    "id": "2019-ees-transpiration-electrokinetic",
+    "year": 2019,
+    "type": "journal",
+    "title": "Self-Operating Transpiration Driven Electrokinetic Power Generator with an Artificial Hydrological Cycle",
+    "authors": [
+      "Jaehyeong Bae†",
+      "Tae Gwang Yun†",
+      "Bong Lim Suh",
+      "Jihan Kim",
+      "Il-Doo Kim*"
+    ],
+    "venue": "Energy & Environmental Science",
+    "doi": "",
+    "url": "",
+    "labAuthors": [
+      "bae-jaehyeong"
+    ],
+    "labAuthorNames": [],
+    "featured": true,
+    "coverImage": ""
+  },
+  {
+    "id": "2019-acsnano-transpiration-power-generator",
+    "year": 2019,
+    "type": "journal",
+    "title": "Transpiration Driven Electrokinetic Power Generator",
+    "authors": [
+      "Tae Gwang Yun†",
+      "Jaehyeong Bae†",
+      "Avner Rothschild",
+      "Il-Doo Kim*"
+    ],
+    "venue": "ACS Nano",
+    "doi": "",
+    "url": "",
+    "labAuthors": [
+      "bae-jaehyeong"
+    ],
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
   },
   {
     "id": "2018-ea-nb2o5-fibers-lithium",
@@ -355,7 +383,9 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": false
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
   },
   {
     "id": "2017-small-silver-nanowires",
@@ -377,7 +407,9 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": false
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
   },
   {
     "id": "2016-npgam-graphene-assembly",
@@ -398,7 +430,9 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": false
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
   },
   {
     "id": "2015-nice-microfluidic-crystallization",
@@ -419,6 +453,8 @@
     "labAuthors": [
       "bae-jaehyeong"
     ],
-    "featured": false
+    "labAuthorNames": [],
+    "featured": false,
+    "coverImage": ""
   }
 ]

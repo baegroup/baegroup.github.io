@@ -147,6 +147,20 @@ function propertyToBool(property, fallback = true) {
   return Boolean(property.checkbox);
 }
 
+function textToBool(value, fallback = false) {
+  const raw = String(value || '').trim().toLowerCase();
+  if (!raw) {
+    return fallback;
+  }
+  if (['true', 'yes', 'y', '1', 'featured', 'cover', 'o'].includes(raw)) {
+    return true;
+  }
+  if (['false', 'no', 'n', '0', 'x'].includes(raw)) {
+    return false;
+  }
+  return fallback;
+}
+
 function propertyToFiles(property) {
   if (!property || property.type !== 'files') {
     return [];
@@ -343,11 +357,13 @@ async function convertPagesToPublications({ pages }) {
       Number(String(propertyToText(findProperty(properties, ['Date', 'Published Date', '게재일'])).slice(0, 4))) ||
       new Date().getFullYear();
     const type = normalizeType(propertyToText(findProperty(properties, ['Type', 'Category', '구분'])));
-    const authors = parseNameList(propertyToText(findProperty(properties, ['Authors', 'Author List', '저자'])));
+    const authors = parseNameList(propertyToText(findProperty(properties, ['Authors', 'Author', 'Author List', '저자'])));
     const venue = propertyToText(findProperty(properties, ['Venue', 'Journal', '학술지']));
     const doi = normalizeDoi(propertyToText(findProperty(properties, ['DOI', 'doi'])));
     const url = propertyToText(findProperty(properties, ['URL', 'Link', 'Paper URL', '논문링크'], 'url')) || propertyToText(findProperty(properties, ['URL', 'Link', 'Paper URL', '논문링크']));
-    const featured = propertyToBool(findProperty(properties, ['Featured', 'Highlight', '대표'], 'checkbox'), false);
+    const featuredCheckbox = findProperty(properties, ['Featured', 'Highlight', '대표'], 'checkbox');
+    const featuredText = propertyToText(findProperty(properties, ['Featured as cover', 'Featured']));
+    const featured = featuredCheckbox ? propertyToBool(featuredCheckbox, false) : textToBool(featuredText, false);
     const labAuthorNames = parseNameList(propertyToText(findProperty(properties, ['Lab Authors', 'Bae Lab Authors', '연구실 저자'])));
     const labAuthors = parseNameList(propertyToText(findProperty(properties, ['Lab Author IDs', 'Lab IDs', '저자 ID'])));
 

@@ -358,10 +358,10 @@ async function convertPagesToTeam({ pages }) {
     const program = normalizeProgram(propertyToText(findProperty(properties, ['Program', 'Degree', '학위과정'])));
     const email = propertyToText(findProperty(properties, ['Email', 'E-mail', '메일', '이메일'], 'email')) || propertyToText(findProperty(properties, ['Email', 'E-mail', '메일', '이메일']));
     const website = propertyToText(findProperty(properties, ['Website', 'Homepage', 'URL', '홈페이지'], 'url')) || propertyToText(findProperty(properties, ['Website', 'Homepage', 'URL', '홈페이지']));
-    const startYear = propertyToNumber(findProperty(properties, ['Start Year', 'StartYear', '입실연도', 'Start']));
+    const startYear = propertyToNumber(findProperty(properties, ['Start Year', 'StartYear', 'Start Year & Semester', '입실연도', 'Start']));
     const endYear = propertyToNumber(findProperty(properties, ['End Year', 'EndYear', '졸업연도', 'End']));
     const courseLabel = propertyToText(findProperty(properties, ['Course Label', 'Course', '코스', '과정명']));
-    const joiningGroup = propertyToText(findProperty(properties, ['Joining Group', 'Join Term', '입실시기']));
+    const joiningGroup = propertyToText(findProperty(properties, ['Joining Group', 'Join Term', 'Start Year & Semester', '입실시기']));
     const undergraduateSchool = propertyToText(findProperty(properties, ['Undergraduate School', '학사 학교']));
     const undergraduateMajor = propertyToText(findProperty(properties, ['Undergraduate Major', '학사 전공']));
     const masterSchool = propertyToText(findProperty(properties, ['Master School', '석사 학교']));
