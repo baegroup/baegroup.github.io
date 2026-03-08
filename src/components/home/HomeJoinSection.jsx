@@ -23,6 +23,7 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
 
       <div className="relative z-10">
         <h2 className="home-section-title">{content.joinTitle}</h2>
+        <p className="home-body-copy mt-4 max-w-xl">{content.joinDescription}</p>
         <div className="mt-5 flex flex-wrap gap-2.5">
           <Link
             className="home-cta-primary"
@@ -31,13 +32,12 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
             {primaryLabel}
           </Link>
           <Link
-            className="home-cta-secondary"
+            className="home-cta-primary"
             to={pagePath(locale, 'team')}
           >
             {secondaryLabel}
           </Link>
         </div>
-        <p className="home-body-copy mt-4 max-w-xl">{content.joinDescription}</p>
       </div>
 
       {!exhausted ? (
