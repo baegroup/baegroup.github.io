@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 import { PageHero } from '@/components/site/PageHero';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -265,6 +266,7 @@ function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }
 }
 
 export function NewsPage({ locale }) {
+  const location = useLocation();
   const content = NEWS_CONTENT[locale] || NEWS_CONTENT.en;
   const [feed, setFeed] = useState({
     updatedAt: '',
@@ -373,6 +375,14 @@ export function NewsPage({ locale }) {
       setActiveSection(sections[0]?.id || 'labNews');
     }
   }, [sections, activeSection]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const requested = String(params.get('section') || '').trim();
+    if (SECTION_IDS.includes(requested) && requested !== activeSection) {
+      setActiveSection(requested);
+    }
+  }, [location.search, activeSection]);
 
   useEffect(() => {
     setExpandedId('');

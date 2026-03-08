@@ -348,6 +348,8 @@ export async function loadLatestNewsItems(limit = 6) {
   });
 
   return deduped.slice(0, Math.max(1, limit)).map((item) => ({
+    id: item.id,
+    section: item.section || 'labNews',
     date: item.date,
     title: item.title,
     body: item.summary || '',
