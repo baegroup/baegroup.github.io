@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { HOME_RESEARCH_CARD_COPY } from '@/content/home-research-copy';
 import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { pagePath } from '@/lib/i18n';
 
 function ResearchAreaCard({ card, imagePath }) {
   const [imageIndex, setImageIndex] = useState(0);
@@ -32,12 +34,14 @@ function ResearchAreaCard({ card, imagePath }) {
   );
 }
 
-export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
+export function HomeResearchAreasSection({ content, locale, revealDelay = 0, heroCtas = {} }) {
   const cards = (content.cards || []).slice(0, 3).map((card, index) => ({
     ...card,
     body: HOME_RESEARCH_CARD_COPY[locale]?.[index] || HOME_RESEARCH_CARD_COPY.en[index] || card.body
   }));
-  const title = content.title || 'Research Area';
+  const title = 'Research Area';
+  const primaryCtaLabel = heroCtas.primary || 'Explore Research Areas';
+  const secondaryCtaLabel = heroCtas.secondary || 'View Key Publications';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   if (!cards.length) {
@@ -58,6 +62,15 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
             key={card.title}
           />
         ))}
+      </div>
+
+      <div className="flex flex-wrap gap-2.5">
+        <Link className="home-cta-primary" to={pagePath(locale, 'research')}>
+          {primaryCtaLabel}
+        </Link>
+        <Link className="home-cta-primary" to={pagePath(locale, 'publications')}>
+          {secondaryCtaLabel}
+        </Link>
       </div>
     </section>
   );

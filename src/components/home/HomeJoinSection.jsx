@@ -5,6 +5,32 @@ import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { pagePath } from '@/lib/i18n';
 
+const ITALIC_DISCIPLINES =
+  'chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life sciences.';
+
+function renderJoinDescription(description) {
+  const text = String(description || '');
+  const lower = text.toLowerCase();
+  const target = ITALIC_DISCIPLINES.toLowerCase();
+  const start = lower.indexOf(target);
+  if (start === -1) {
+    return text;
+  }
+
+  const end = start + target.length;
+  const before = text.slice(0, start);
+  const emphasis = text.slice(start, end);
+  const after = text.slice(end);
+
+  return (
+    <>
+      {before}
+      <em className="italic">{emphasis}</em>
+      {after}
+    </>
+  );
+}
+
 export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const joinImages = mediaCandidates(HOME_MEDIA.joinTeam);
@@ -23,7 +49,7 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
 
       <div className="relative z-10">
         <h2 className="home-section-title">{content.joinTitle}</h2>
-        <p className="home-body-copy mt-4 max-w-xl">{content.joinDescription}</p>
+        <p className="home-body-copy mt-4 max-w-xl">{renderJoinDescription(content.joinDescription)}</p>
         <div className="mt-5 flex flex-wrap gap-2.5">
           <Link
             className="home-cta-primary"

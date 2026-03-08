@@ -45,9 +45,14 @@ export function HomePage({ locale }) {
 
   return (
     <div className="space-y-8 md:space-y-12 xl:space-y-14">
-      <HomeHeroSection content={homeContent} locale={locale} revealDelay={0} />
+      <HomeHeroSection content={homeContent} revealDelay={0} />
       <div className="pt-1 md:pt-2">
-        <HomeResearchAreasSection content={researchContent} locale={locale} revealDelay={70} />
+        <HomeResearchAreasSection
+          content={researchContent}
+          heroCtas={{ primary: homeContent.primaryCta, secondary: homeContent.secondaryCta }}
+          locale={locale}
+          revealDelay={70}
+        />
       </div>
       <HomeNewsSection content={mergedNewsContent} locale={locale} revealDelay={120} />
       <HomeJoinSection content={homeContent} locale={locale} revealDelay={170} />

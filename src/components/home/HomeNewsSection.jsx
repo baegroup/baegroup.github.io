@@ -5,12 +5,6 @@ import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { pagePath } from '@/lib/i18n';
 
-const SECTION_LINKS = [
-  { id: 'labNews', label: 'Lab News' },
-  { id: 'gallery', label: 'Gallery' },
-  { id: 'videos', label: 'Videos' }
-];
-
 function parseNewsDate(value) {
   const raw = String(value || '').trim();
   const parts = raw.split(/[./-]/).filter(Boolean);
@@ -20,8 +14,45 @@ function parseNewsDate(value) {
   return Date.UTC(year, month - 1, day);
 }
 
-export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
+function sectionPath(locale, sectionId) {
+  const section = ['labNews', 'gallery', 'videos'].includes(sectionId) ? sectionId : 'labNews';
+  return `${pagePath(locale, 'news')}?section=${section}`;
+}
+
+function FeaturedNewsCard({ item, locale }) {
   const [imageIndex, setImageIndex] = useState(0);
+  const imageBase = item.image || HOME_MEDIA.newsFeatured;
+  const imageCandidates = mediaCandidates(imageBase);
+  const exhausted = imageIndex >= imageCandidates.length;
+
+  useEffect(() => {
+    setImageIndex(0);
+  }, [imageBase]);
+
+  return (
+    <Link className="group block overflow-hidden rounded-lg border border-slate-200 bg-white" to={sectionPath(locale, item.section)}>
+      <div className="relative h-44 overflow-hidden bg-slate-100">
+        {!exhausted ? (
+          <img
+            alt={item.title}
+            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+            onError={() => setImageIndex((index) => index + 1)}
+            src={imageCandidates[imageIndex]}
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center text-sm font-medium text-slate-500">Featured News Image</div>
+        )}
+        <p className="absolute left-3 top-3 rounded-full bg-slate-900/75 px-2.5 py-1 text-xs font-semibold text-white">{item.date}</p>
+      </div>
+      <div className="p-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0b3a64]">Featured</p>
+        <h3 className="mt-2 text-lg font-semibold leading-snug tracking-tight text-slate-950">{item.title}</h3>
+      </div>
+    </Link>
+  );
+}
+
+export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
   const items = [...(content.items || [])].sort((a, b) => {
     const dateDelta = parseNewsDate(b.date) - parseNewsDate(a.date);
     if (dateDelta !== 0) {
@@ -29,28 +60,15 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
     }
     return String(b.title || '').localeCompare(String(a.title || ''));
   });
-  const featured = items[0];
-  const featuredPath = featured?.image || HOME_MEDIA.newsFeatured;
-  const featuredImages = mediaCandidates(featuredPath);
-  const exhausted = imageIndex >= featuredImages.length;
-  const listItems = items.slice(1, 6);
+
+  const featuredItems = items.slice(0, 2);
+  const listItems = items.slice(2, 6);
   const sectionTitle = content.newsTitle || 'Recent Lab News';
-  const featuredLabel = 'Featured';
   const listLabel = 'Recent Highlights';
   const viewAllLabel = 'View all news';
-  const sectionLinks = Array.isArray(content.sectionTabs) ? content.sectionTabs : SECTION_LINKS;
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
-  function newsSectionPath(sectionId) {
-    const section = ['labNews', 'gallery', 'videos'].includes(sectionId) ? sectionId : 'labNews';
-    return `${pagePath(locale, 'news')}?section=${section}`;
-  }
-
-  useEffect(() => {
-    setImageIndex(0);
-  }, [featuredPath]);
-
-  if (!featured && !listItems.length) {
+  if (!featuredItems.length && !listItems.length) {
     return null;
   }
 
@@ -62,43 +80,15 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
           {viewAllLabel}
         </Link>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {sectionLinks.map((tab) => (
-          <Link
-            className="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
-            key={tab.id}
-            to={newsSectionPath(tab.id)}
-          >
-            {tab.label}
-          </Link>
-        ))}
-      </div>
 
       <article className="home-section overflow-hidden">
-        <div className={featured && listItems.length ? 'grid md:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)]' : 'grid'}>
-          {featured ? (
-            <div className={listItems.length ? 'border-b border-slate-200 md:border-b-0 md:border-r' : ''}>
-              <div className="relative h-48 overflow-hidden bg-slate-100 md:h-56">
-                {!exhausted ? (
-                  <img
-                    alt={featured.title}
-                    className="h-full w-full bg-slate-50 object-contain p-1"
-                    onError={() => setImageIndex((index) => index + 1)}
-                    src={featuredImages[imageIndex]}
-                  />
-                ) : (
-                  <div className="flex h-full items-center justify-center text-sm font-medium text-slate-500">
-                    Featured News Image
-                  </div>
-                )}
-                <p className="absolute left-4 top-4 rounded-full bg-slate-900/75 px-2.5 py-1 text-xs font-semibold text-white">{featured.date}</p>
-              </div>
-              <div className="p-5 md:p-6">
-                <Link className="block" to={newsSectionPath(featured.section)}>
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0b3a64]">{featuredLabel}</p>
-                  <h3 className="home-display-subtitle mt-2 text-slate-950">{featured.title}</h3>
-                  <p className="mt-2.5 text-[0.98rem] leading-relaxed text-slate-600 md:text-base">{featured.body}</p>
-                </Link>
+        <div className={featuredItems.length && listItems.length ? 'grid lg:grid-cols-[minmax(0,1.16fr)_minmax(0,1fr)]' : 'grid'}>
+          {featuredItems.length ? (
+            <div className={listItems.length ? 'border-b border-slate-200 lg:border-b-0 lg:border-r' : ''}>
+              <div className="grid gap-3 p-4 sm:grid-cols-2 md:p-5">
+                {featuredItems.map((item) => (
+                  <FeaturedNewsCard item={item} key={`${item.id || item.title}-featured`} locale={locale} />
+                ))}
               </div>
             </div>
           ) : null}
@@ -110,8 +100,8 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
               </div>
               <ul className="divide-y divide-slate-200">
                 {listItems.map((item) => (
-                  <li className="px-5 py-3 transition-colors hover:bg-white md:px-6 md:py-3.5" key={`${item.date}-${item.title}`}>
-                    <Link className="block" to={newsSectionPath(item.section)}>
+                  <li className="px-5 py-3 transition-colors hover:bg-white md:px-6 md:py-3.5" key={`${item.id || item.title}-list`}>
+                    <Link className="block" to={sectionPath(locale, item.section)}>
                       <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{item.date}</p>
                       <p className="mt-1 text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</p>
                     </Link>

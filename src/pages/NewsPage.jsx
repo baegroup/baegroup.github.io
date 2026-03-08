@@ -3,7 +3,7 @@ import { ChevronDown } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
 import { PageHero } from '@/components/site/PageHero';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { NEWS_CONTENT } from '@/content/site-content';
 import { loadNewsFeed } from '@/lib/data';
 
@@ -403,6 +403,13 @@ export function NewsPage({ locale }) {
     node?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  function smoothScrollToPageTop() {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   useEffect(() => {
     if (currentPage > pageCount) {
       setCurrentPage(pageCount);
@@ -429,7 +436,7 @@ export function NewsPage({ locale }) {
     setCurrentPage(next);
     setExpandedId('');
     window.requestAnimationFrame(() => {
-      smoothScrollTo(listTopRef.current);
+      smoothScrollToPageTop();
     });
   }
 
@@ -450,10 +457,7 @@ export function NewsPage({ locale }) {
       <div className="grid gap-5 lg:grid-cols-[minmax(194px,232px)_minmax(0,1fr)]">
         <aside className="order-2 space-y-4 lg:order-1 lg:sticky lg:top-24 lg:self-start">
           <Card className="border-slate-200 bg-white">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg text-slate-900">{content.sectionTitle || 'Sections'}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
+            <CardContent className="space-y-2 pt-4">
               {sections.map((section) => (
                 <button
                   className={`w-full rounded-md border px-3 py-2 text-left text-sm font-semibold transition-colors ${

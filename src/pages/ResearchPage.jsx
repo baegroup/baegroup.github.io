@@ -54,13 +54,21 @@ function ResearchAreaRow({ area, index, areaLabel }) {
   const imageBase = area.image || `area-${index + 1}`;
   const image = useImageFallback(`${RESEARCH_AREA_IMAGE_DIR}/${imageBase}`);
   const reverse = index % 2 === 1;
+  const keepFullImage = index === 1 || /energy|environment/i.test(String(area.title || ''));
 
   return (
     <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-soft md:p-7">
       <div className={`grid gap-6 lg:grid-cols-2 lg:items-center lg:gap-8 ${reverse ? 'lg:[&>*:first-child]:order-2' : ''}`}>
         <figure className="mx-auto w-full max-w-3xl overflow-hidden rounded-lg border border-slate-200 bg-slate-100 lg:max-w-none">
           {!image.broken ? (
-            <img alt={area.title} className="aspect-[16/10] max-h-[380px] w-full object-cover lg:max-h-none" onError={image.onError} src={image.src} />
+            <img
+              alt={area.title}
+              className={`aspect-[16/10] max-h-[380px] w-full lg:max-h-none ${
+                keepFullImage ? 'object-contain bg-white p-2' : 'object-cover'
+              }`}
+              onError={image.onError}
+              src={image.src}
+            />
           ) : (
             <div className="flex aspect-[16/10] max-h-[380px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Research image placeholder</div>
           )}

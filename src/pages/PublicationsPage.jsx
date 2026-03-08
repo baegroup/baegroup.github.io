@@ -70,9 +70,14 @@ function PublicationInfoPanel({ updatedAt }) {
         <p className="text-xs uppercase tracking-[0.08em] text-slate-500">
           <span className="underline decoration-[#0d326f] decoration-2 underline-offset-2">Underline</span> indicates Bae Lab authors.
         </p>
-        <p className="text-xs uppercase tracking-[0.08em] text-slate-500">
-          <span className="font-semibold">*</span> corresponding author · <span className="font-semibold">†</span> co-first author
-        </p>
+        <div className="space-y-1 text-xs uppercase tracking-[0.08em] text-slate-500">
+          <p>
+            <span className="font-semibold">*</span> corresponding author
+          </p>
+          <p>
+            <span className="font-semibold">†</span> co-first author
+          </p>
+        </div>
         {updatedAt ? <p className="text-xs uppercase tracking-[0.08em] text-slate-500">Last updated {updatedAt}</p> : null}
       </CardContent>
     </Card>

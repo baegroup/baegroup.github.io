@@ -22,7 +22,7 @@ const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const LAB_GROUP_IMAGE_BASE = 'assets/img/team/group/group-photo';
 const FEARLESS_IMAGE_BASE = 'assets/img/team/culture/fearless-organization';
 const IDENTITY_COPY = {
-  aboutHeading: 'About our team'
+  aboutHeading: 'About Our Team'
 };
 const MEMBER_FIELD_LABELS = {
   course: 'Course',
@@ -583,10 +583,10 @@ export function TeamPage({ locale }) {
               <section>
                 <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
                   <div className="grid gap-6 p-5 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-start lg:gap-8">
-                    <div className="space-y-4">
+                    <div className="space-y-5">
                       <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
                       <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
-                      <div className="pt-1">
+                      <div className="pt-2 md:pt-3">
                         <Link className="home-cta-primary" to={pagePath('join')}>
                           {content.joinCta || 'Information for joining our team'}
                         </Link>
@@ -616,11 +616,11 @@ export function TeamPage({ locale }) {
                         <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
                       </div>
 
-                      <figure className="mx-auto w-full max-w-2xl overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)] lg:max-w-none">
+                      <figure className="mx-auto w-full max-w-lg overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)] lg:max-w-none">
                         {!cultureImage.broken ? (
                           <img
                             alt="The Fearless Organization matrix"
-                            className="h-auto max-h-[360px] w-full object-contain p-3 md:p-4 lg:max-h-none"
+                            className="mx-auto h-auto max-h-[260px] w-auto max-w-full object-contain p-3 md:max-h-[290px] md:p-4"
                             onError={cultureImage.onError}
                             src={cultureImage.src}
                           />
@@ -628,7 +628,7 @@ export function TeamPage({ locale }) {
                           <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Culture image placeholder</div>
                         )}
                         <figcaption className="border-t border-slate-200 px-4 py-3 text-xs italic text-slate-500">
-                          From "The fearless organization" by Amy Edmondson
+                          From "The Fearless Organization" by Amy Edmondson
                         </figcaption>
                       </figure>
                     </div>
