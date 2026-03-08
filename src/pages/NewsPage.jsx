@@ -389,7 +389,7 @@ export function NewsPage({ locale }) {
     <div className="space-y-6 md:space-y-8">
       <PageHero description={content.description} title={content.title} />
 
-      <div className="grid gap-5 xl:grid-cols-[minmax(340px,380px)_minmax(0,1fr)]">
+      <div className="grid gap-5 xl:grid-cols-[minmax(260px,308px)_minmax(0,1fr)]">
         <aside className="space-y-4 xl:sticky xl:top-24 xl:self-start">
           <Card className="border-slate-200 bg-white">
             <CardHeader className="pb-3">
@@ -415,14 +415,14 @@ export function NewsPage({ locale }) {
 
           <section className="space-y-3 px-1">
             {latestInstagramEmbedUrl ? (
-              <div className="overflow-hidden rounded-lg border border-slate-200 bg-white p-2">
+              <div className="mx-auto w-full max-w-[300px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5">
                 <iframe
                   allowTransparency
-                  className="w-full"
+                  className="block w-full"
                   loading="lazy"
                   scrolling="no"
                   src={latestInstagramEmbedUrl}
-                  style={{ border: 0, height: '640px' }}
+                  style={{ border: 0, height: '688px' }}
                   title={latestInstagramPost?.title || 'Instagram embed'}
                 />
               </div>
