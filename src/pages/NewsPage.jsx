@@ -21,6 +21,37 @@ const LINK_META = [
   { key: 'researchGate', label: 'ResearchGate', short: 'RG', color: '#00CCBB' }
 ];
 
+function normalizeInstagramPermalink(value) {
+  const raw = String(value || '').trim();
+  if (!raw) {
+    return '';
+  }
+
+  try {
+    const parsed = new URL(raw);
+    const host = parsed.hostname.toLowerCase();
+    if (!host.includes('instagram.com')) {
+      return '';
+    }
+
+    const parts = parsed.pathname.split('/').filter(Boolean);
+    const type = String(parts[0] || '').toLowerCase();
+    const shortcode = String(parts[1] || '').trim();
+    if (!shortcode || !['p', 'reel'].includes(type)) {
+      return '';
+    }
+
+    return `https://www.instagram.com/${type}/${shortcode}/`;
+  } catch {
+    return '';
+  }
+}
+
+function toInstagramEmbedUrl(value) {
+  const permalink = normalizeInstagramPermalink(value);
+  return permalink ? `${permalink}embed/captioned/` : '';
+}
+
 function toTimestamp(value) {
   const raw = String(value || '').trim();
   if (!raw) {
@@ -308,6 +339,8 @@ export function NewsPage({ locale }) {
   const profileLinks = LINK_META.map((meta) => ({ ...meta, href: feed.piLinks?.[meta.key] })).filter((item) => item.href);
   const latestInstagramPost = (feed.instagram.recent || []).find((post) => (post.images || []).length) || (feed.instagram.recent || [])[0] || null;
   const latestInstagramImage = latestInstagramPost?.images?.[0] || '';
+  const latestInstagramPermalink = normalizeInstagramPermalink(latestInstagramPost?.url);
+  const latestInstagramEmbedUrl = toInstagramEmbedUrl(latestInstagramPost?.url);
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -342,7 +375,7 @@ export function NewsPage({ locale }) {
               <a
                 aria-label={instagramTitle}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[radial-gradient(circle_at_30%_107%,#fdf497_0%,#fdf497_5%,#fd5949_45%,#d6249f_60%,#285AEB_90%)]"
-                href={feed.instagram.profileUrl || latestInstagramPost?.url || '#'}
+                href={latestInstagramPermalink || feed.instagram.profileUrl || '#'}
                 rel="noreferrer"
                 target="_blank"
               >
@@ -351,8 +384,19 @@ export function NewsPage({ locale }) {
               {latestInstagramPost?.date ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{latestInstagramPost.date}</p> : null}
             </div>
 
-            {latestInstagramImage ? (
-              <a className="block overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPost?.url || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
+            {latestInstagramEmbedUrl ? (
+              <div className="overflow-hidden rounded-lg border border-slate-200 bg-white p-2">
+                <iframe
+                  allowTransparency
+                  className="w-full"
+                  loading="lazy"
+                  src={latestInstagramEmbedUrl}
+                  style={{ border: 0, minHeight: '520px' }}
+                  title={latestInstagramPost?.title || 'Instagram embed'}
+                />
+              </div>
+            ) : latestInstagramImage ? (
+              <a className="block overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
                 <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
               </a>
             ) : (
