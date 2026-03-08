@@ -141,6 +141,28 @@ function readCardItems(source, key) {
   return parseDelimitedItems(source.sections[key], 2).map(([title, body]) => ({ title, body }));
 }
 
+function readResearchCards(source) {
+  const fromFrontmatter = source.data.cards;
+  if (Array.isArray(fromFrontmatter)) {
+    return fromFrontmatter
+      .map((item) => ({
+        title: String(item.title || '').trim(),
+        body: normalizeText(item.body),
+        image: String(item.image || '').trim()
+      }))
+      .filter((item) => item.title && item.body);
+  }
+
+  return parseDelimitedItems(source.sections.cards, 2).map((parts) => {
+    const [title, body, image] = parts;
+    return {
+      title,
+      body,
+      image: String(image || '').trim()
+    };
+  });
+}
+
 function readPairItems(source, key, leftKey, rightKey) {
   const fromFrontmatter = source.data[key];
   if (Array.isArray(fromFrontmatter)) {
@@ -158,6 +180,14 @@ function readPairItems(source, key, leftKey, rightKey) {
       [rightKey]: right
     }))
     .filter((item) => item[leftKey] && item[rightKey]);
+}
+
+function readFundingItems(source) {
+  return parseDelimitedItems(source.sections.fundingItems, 2).map(([name, logo, link]) => ({
+    name,
+    logo,
+    link: String(link || '').trim()
+  }));
 }
 
 function readNewsPageItems(source) {
@@ -259,9 +289,13 @@ async function build() {
     output.RESEARCH_CONTENT[locale] = {
       title: readString(research, 'title'),
       description: readString(research, 'description'),
-      cards: readCardItems(research, 'cards'),
+      missionTitle: readString(research, 'missionTitle'),
+      areaLabel: readString(research, 'areaLabel'),
+      cards: readResearchCards(research),
       methodsTitle: readString(research, 'methodsTitle'),
-      methods: readCardItems(research, 'methods')
+      methods: readCardItems(research, 'methods'),
+      fundingTitle: readString(research, 'fundingTitle'),
+      fundingItems: readFundingItems(research)
     };
 
     output.PUBLICATIONS_CONTENT[locale] = {

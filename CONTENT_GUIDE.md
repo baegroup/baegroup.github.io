@@ -104,14 +104,27 @@ Homepage news renders as:
 
 Add at least 6 items in `news.md` to fully populate the section.
 
-## 8) Home Motion (Accessibility)
+## 8) Research Images and Funding Logos
+
+Research page reads image files by base name with auto extension fallback:
+
+- order: `.webp` -> `.png` -> `.jpg` -> `.jpeg`
+- area images path: `public/assets/img/research/areas/<base-name>.<ext>`
+- funding logos path: `public/assets/img/research/funding/<base-name>.<ext>`
+
+Base names are defined in `content/en/research.md`:
+
+- research cards third field in `cards` list = area image base
+- second field in `fundingItems` list = funding logo base
+
+## 9) Home Motion (Accessibility)
 
 Homepage sections use subtle reveal motion on scroll.
 
 - Motion runs each time a section re-enters the viewport.
 - If OS setting `Reduce Motion` is enabled, animations are disabled automatically.
 
-## 9) Verify
+## 10) Verify
 
 ```bash
 npm run build

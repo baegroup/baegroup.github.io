@@ -43,6 +43,19 @@ Replace these fixed files to update the homepage visuals:
 
 No code or path changes are needed if base filenames stay the same.
 
+## Research Media and Funding Logos
+
+Research page also supports fixed base names with auto extension fallback:
+
+- extension order: `.webp` -> `.png` -> `.jpg` -> `.jpeg`
+- area image path: `public/assets/img/research/areas/<base-name>.<ext>`
+- funding logo path: `public/assets/img/research/funding/<base-name>.<ext>`
+
+Base names come from `content/en/research.md`:
+
+- each `cards` row (3rd field) for area image base name
+- each `fundingItems` row (2nd field) for funding logo base name
+
 ## Home Motion and News Layout
 
 - Homepage sections use subtle reveal motion whenever each section re-enters the viewport.
@@ -80,6 +93,8 @@ npm run preview
 - `/public/data/team.json`: team profile data
 - `/public/data/publications.json`: publication data
 - `/public/assets/img/home/*`: homepage media (replace by fixed filename)
+- `/public/assets/img/research/areas/*`: research area media
+- `/public/assets/img/research/funding/*`: funding logos
 - `/.github/workflows/pages.yml`: GitHub Pages build/deploy workflow
 
 ## GitHub Pages
