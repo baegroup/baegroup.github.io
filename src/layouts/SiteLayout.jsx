@@ -1,3 +1,4 @@
+import { CookieConsent } from '@/components/site/CookieConsent';
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { SiteHeader } from '@/components/site/SiteHeader';
 
@@ -13,6 +14,7 @@ export function SiteLayout({ locale, children }) {
       <SiteHeader locale={locale} />
       <main className="mx-auto w-full max-w-6xl space-y-4 px-5 py-6 md:py-8" id="main-content">{children}</main>
       <SiteFooter locale={locale} />
+      <CookieConsent />
     </div>
   );
 }

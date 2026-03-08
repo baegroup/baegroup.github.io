@@ -20,6 +20,13 @@ export function SiteFooter({ locale }) {
   });
   const year = new Date().getFullYear();
 
+  function openCookiePreferences() {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    window.dispatchEvent(new Event('open-cookie-preferences'));
+  }
+
   return (
     <footer className="mt-8 border-t border-[#d8d8d8] bg-[linear-gradient(180deg,#ffffff_0%,#f7f7f7_100%)] text-[#222222]">
       <div className="mx-auto w-full max-w-6xl px-5 py-8 md:py-10">
@@ -58,7 +65,16 @@ export function SiteFooter({ locale }) {
 
         <div className="mt-6 border-t border-[#e1e1e1] pt-4 text-xs text-[#717171] md:flex md:items-center md:justify-between">
           <p>© {year} {brand.name}. {rightsLabel}</p>
-          <p className="mt-1 md:mt-0">{affiliationLabel}</p>
+          <div className="mt-1 flex items-center gap-4 md:mt-0">
+            <p>{affiliationLabel}</p>
+            <button
+              className="text-xs font-semibold text-[#4a4a4a] underline-offset-2 transition-colors hover:text-[#0d326f] hover:underline"
+              onClick={openCookiePreferences}
+              type="button"
+            >
+              Manage Cookies
+            </button>
+          </div>
         </div>
       </div>
     </footer>
