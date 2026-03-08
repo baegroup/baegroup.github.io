@@ -24,15 +24,14 @@ const DEFAULT_JUMP_NAV = {
 
 const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'alumni']);
 const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
+const LAB_GROUP_IMAGE_PATH = 'assets/img/home/join/team.jpg';
 const FEARLESS_IMAGE_PATH = 'assets/img/team/culture/fearless-organization.png';
 const IDENTITY_COPY = {
   en: {
-    aboutHeading: 'About our team',
-    principlesHeading: 'Fearless Core Principles'
+    aboutHeading: 'About our team'
   },
   ko: {
-    aboutHeading: 'Team Overview',
-    principlesHeading: 'Fearless Core Principles'
+    aboutHeading: 'Team Overview'
   }
 };
 const PROFESSOR_COPY = {
@@ -88,28 +87,33 @@ const PROFESSOR_PROFILE_DETAILS = {
       {
         authors: 'Jaehyeong Bae, Haeseong Lim, Jaewan Ahn, Youn Hwa Kim, Min Soo Kim, and Il-Doo Kim',
         title: 'Photoenergy harvesting by photoacid solution',
-        journal: 'Advanced Materials, 2201734, 2022. Featured as Journal Inside Front Cover.'
+        journalName: 'Advanced Materials',
+        details: '2201734, 2022. Featured as Journal Inside Front Cover.'
       },
       {
         authors:
           'Jaehyeong Bae, Keonwoo Choi, Hyunsun Song, Do Heung Kim, Doo Young Youn, Su-Ho Cho, Dogyeong Jeon, Jiyoung Lee, Junyoung Lee, wontae Jang, Changhyeon Lee, Youson Kim, Chanhoon Kim, Ji-Won Jung, Sung Gap Im, and Il-Doo Kim',
         title: 'Reinforcing Native Solid-Electrolyte Interphase Layer via Electrolyte-Swellable Soft-Scaffold for Lithium Metal Anode',
-        journal: 'Advanced Energy Materials, 2203818, 2023.'
+        journalName: 'Advanced Energy Materials',
+        details: '2203818, 2023.'
       },
       {
         authors: 'Dong-Ha Kim, Jaehyeong Bae, Jiyoung Lee, Jaewan Ahn, Won-Tae Hwang, Jaehyun Ko, and Il-Doo Kim',
         title: 'Porous Nanofiber Membrane: Rational Design for Highly Sensitive Thermochromic Sensor',
-        journal: 'Advanced Functional Materials, 2200463, 2022. Featured as Journal Front Cover.'
+        journalName: 'Advanced Functional Materials',
+        details: '2200463, 2022. Featured as Journal Front Cover.'
       },
       {
         authors: 'Jaehyeong Bae, Min Soo Kim, Taegon Oh, Bong Lim Suh, Tae Gwang Yun, Seungjun Lee, Kahyun Hur, Yury Gogotsi, Chong Min Koo, and Il-Doo Kim',
         title: 'Towards Watt-scale hydroelectric energy harvesting by Ti3C2Tx-based transpiration-driven electrokinetic power generators',
-        journal: 'Energy & Environmental Science, 15, 123-135, 2022. Featured as Journal Inside Front Cover.'
+        journalName: 'Energy & Environmental Science',
+        details: '15, 123-135, 2022. Featured as Journal Inside Front Cover.'
       },
       {
         authors: 'Jaehyeong Bae, Tae Gwang Yun, Bong Lim Suh, Jihan Kim, and Il-Doo Kim',
         title: 'Self-operating transpiration driven electrokinetic power generator with an artificial hydrological cycle',
-        journal: 'Energy & Environmental Science, 13, 527-534, 2019. Featured as Journal Back Cover.'
+        journalName: 'Energy & Environmental Science',
+        details: '13, 527-534, 2019. Featured as Journal Back Cover.'
       }
     ]
   }
@@ -211,6 +215,26 @@ function ProfessorTimeline({ title, items }) {
   );
 }
 
+function HighlightPIName({ authors, piName }) {
+  if (!authors || !piName || !String(authors).includes(piName)) {
+    return <>{authors}</>;
+  }
+
+  const chunks = String(authors).split(piName);
+  return (
+    <>
+      {chunks.map((chunk, index) => (
+        <span key={`${chunk}-${index}`}>
+          {chunk}
+          {index < chunks.length - 1 ? (
+            <span className="underline decoration-slate-500 decoration-2 underline-offset-4">{piName}</span>
+          ) : null}
+        </span>
+      ))}
+    </>
+  );
+}
+
 function ProfessorPublications({ title, items }) {
   if (!items.length) {
     return null;
@@ -221,10 +245,12 @@ function ProfessorPublications({ title, items }) {
       <h3 className="text-3xl font-semibold tracking-tight text-slate-950">{title}</h3>
       <ul className="list-disc space-y-4 pl-6 text-sm leading-relaxed text-slate-700 md:text-base">
         {items.map((item) => (
-          <li key={`${item.title}-${item.journal}`}>
-            <span>{item.authors}, </span>
+          <li key={`${item.title}-${item.journalName}`}>
+            <HighlightPIName authors={item.authors} piName="Jaehyeong Bae" />
+            <span>, </span>
             <span>"{item.title}", </span>
-            <strong className="font-semibold text-slate-900">{item.journal}</strong>
+            <strong className="font-semibold text-slate-900">{item.journalName}</strong>
+            {item.details ? <span>, {item.details}</span> : null}
           </li>
         ))}
       </ul>
@@ -260,9 +286,7 @@ function ProfessorShowcase({ professor, locale }) {
           <div className="space-y-5">
             <div className="space-y-2">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#7a0f1f]">{copy.sectionLead}</p>
-              <h3 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
-                Prof. <span className="underline decoration-slate-400 decoration-2 underline-offset-8">{professor.localizedName}</span>
-              </h3>
+              <h3 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">Prof. {professor.localizedName}</h3>
               <p className="text-2xl font-semibold leading-tight text-slate-900">{copy.department}</p>
               <p className="text-sm leading-relaxed text-slate-600 md:text-base">{copy.affiliation}</p>
             </div>
@@ -309,6 +333,7 @@ export function TeamPage({ locale }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeSection, setActiveSection] = useState('identity');
+  const [aboutImageBroken, setAboutImageBroken] = useState(false);
   const [cultureImageBroken, setCultureImageBroken] = useState(false);
 
   useEffect(() => {
@@ -466,33 +491,44 @@ export function TeamPage({ locale }) {
                       </div>
                     </div>
 
+                    <figure className="overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
+                      {!aboutImageBroken ? (
+                        <img
+                          alt="Bae Lab group photo"
+                          className="h-full w-full object-cover"
+                          onError={() => setAboutImageBroken(true)}
+                          src={`${import.meta.env.BASE_URL}${LAB_GROUP_IMAGE_PATH}`}
+                        />
+                      ) : (
+                        <div className="flex min-h-56 items-center justify-center px-4 text-center text-sm text-slate-500">Lab group photo placeholder</div>
+                      )}
+                    </figure>
+                  </div>
+
+                  <div className="h-px bg-slate-200" />
+
+                  <div className="grid gap-6 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:gap-8">
                     <div className="space-y-4">
                       <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'The Fearless Lab Culture'}</h2>
                       <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
-
-                      <figure className="overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
-                        {!cultureImageBroken ? (
-                          <img
-                            alt="The Fearless Organization matrix"
-                            className="h-auto w-full object-contain p-3 md:p-4"
-                            onError={() => setCultureImageBroken(true)}
-                            src={`${import.meta.env.BASE_URL}${FEARLESS_IMAGE_PATH}`}
-                          />
-                        ) : (
-                          <div className="flex min-h-52 items-center justify-center px-4 text-center text-sm text-slate-500">
-                            Culture image placeholder
-                          </div>
-                        )}
-                        <figcaption className="border-t border-slate-200 px-4 py-3 text-xs italic text-slate-500">
-                          From "The fearless organization" by Amy Edmondson
-                        </figcaption>
-                      </figure>
+                      <Principles principles={culturePrinciples} />
                     </div>
-                  </div>
 
-                  <div className="border-t border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 md:p-7">
-                    <h3 className="mb-4 text-lg font-semibold tracking-tight text-slate-900 md:text-xl">{identityCopy.principlesHeading}</h3>
-                    <Principles principles={culturePrinciples} />
+                    <figure className="overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
+                      {!cultureImageBroken ? (
+                        <img
+                          alt="The Fearless Organization matrix"
+                          className="h-auto w-full object-contain p-3 md:p-4"
+                          onError={() => setCultureImageBroken(true)}
+                          src={`${import.meta.env.BASE_URL}${FEARLESS_IMAGE_PATH}`}
+                        />
+                      ) : (
+                        <div className="flex min-h-52 items-center justify-center px-4 text-center text-sm text-slate-500">Culture image placeholder</div>
+                      )}
+                      <figcaption className="border-t border-slate-200 px-4 py-3 text-xs italic text-slate-500">
+                        From "The fearless organization" by Amy Edmondson
+                      </figcaption>
+                    </figure>
                   </div>
                 </section>
               </section>
