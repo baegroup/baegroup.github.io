@@ -517,12 +517,6 @@ async function convertNotionPagesToSections({ pages, token }) {
     const linkProp = findProperty(properties, ['Link', 'URL', 'Source', '링크', '출처'], 'url');
     const videoProp = findProperty(properties, ['Video', 'Video URL', 'YouTube', '영상', '동영상'], 'url');
     const imageProp = findProperty(properties, ['Images', 'Image', 'Photos', 'Media', '사진', '이미지', '파일과 미디어', '파일'], 'files');
-    const publishedProp = findProperty(properties, ['Published', 'Publish', 'Visible', 'Show', '게시', '표시', '공개'], 'checkbox');
-
-    if (!propertyToBool(publishedProp, true)) {
-      continue;
-    }
-
     const title = propertyToText(titleProp);
     if (!title) {
       continue;

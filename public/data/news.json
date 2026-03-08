@@ -37,11 +37,126 @@
   "sections": {
     "labNews": [
       {
+        "id": "labNews-31d6760c5a-myeong-lee-won-the-khu-chemical-enginnering-undergraduate-research-award",
+        "date": "2025-12-05",
+        "title": "Myeong Lee won the KHU Chemical Enginnering Undergraduate Research Award",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a-1.webp"
+        ]
+      },
+      {
+        "id": "labNews-31d6760c5a-myeong-lee-won-the-best-undergraduate-research-award-oral",
+        "date": "2025-11-14",
+        "title": "Myeong Lee won the Best Undergraduate Research Award (Oral)",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a-1.jpg",
+          "assets/img/news/notion/31d6760c5a-2.webp",
+          "assets/img/news/notion/31d6760c5a-3.jpg"
+        ]
+      },
+      {
+        "id": "labNews-31d6760c5a-lee-myeong-won-the-best-poster-award-at-8th-icae-2026",
+        "date": "2025-09-27",
+        "title": "Lee Myeong won the Best Poster Award at 8th ICAE (2026)",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a-1.webp"
+        ]
+      },
+      {
+        "id": "labNews-31d6760c5a-xiaoling-zhu-won-the-best-poster-award",
+        "date": "2025-06-14",
+        "title": "Xiaoling Zhu won the Best Poster Award",
+        "summary": "한국화학공학회 포스터 부문 우수논문발표상 수상",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a-1.webp",
+          "assets/img/news/notion/31d6760c5a-2.webp"
+        ]
+      },
+      {
+        "id": "labNews-31d6760c5a-xiaoling-zhu-obtained-the-national-government-sponsored-program-scholarship",
+        "date": "2024-05-21",
+        "title": "Xiaoling Zhu obtained the national government-sponsored program scholarship",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a-1.webp"
+        ]
+      },
+      {
         "id": "labNews-31d6760c5a-our-li-metal-battery-paper-was-featured-as-a-journal-front-cover-article-in-advanced-energy-materials",
         "date": "2023-04-26",
         "title": "Our Li-metal battery paper was featured as a Journal Front Cover Article in Advanced Energy Materials",
         "summary": "Reinforcing Native Solid-Electrolyte Interphase Layers via Electrolyte-Swellable Soft-Scaffold for Lithium Metal Anode \nAdvanced Energy Materials April 2023",
         "url": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/aenm.202203818",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a-1.jpg"
+        ]
+      },
+      {
+        "id": "labNews-31d6760c5a-development-of-highly-sensitive-thermochromic-sensor",
+        "date": "2022-06-30",
+        "title": "Development of highly sensitive thermochromic sensor",
+        "summary": "Porous Nanofiber Membrane: Rational Platform for Highly Sensitive Thermochromic Sensor\nAdvanced Functional Materials",
+        "url": "https://n.news.naver.com/article/421/0006189130, https://news.kbs.co.kr/news/pc/view/view.do?ncd=5505195,https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/adfm.202200463",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a-1.jpg"
+        ]
+      },
+      {
+        "id": "labNews-31d6760c5a-ur-photoenergy-harvesting-paper-was-featured-as-a-journal-inside-front-cover-article-in-advanced-materials",
+        "date": "2022-06-16",
+        "title": "ur photoenergy harvesting paper was featured as a Journal Inside Front Cover Article in Advanced Materials",
+        "summary": "Photoenergy Harvesting by Photoacid Solution",
+        "url": "https://advanced.onlinelibrary.wiley.com/doi/10.1002/adma.202270178",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a-1.jpg"
+        ]
+      },
+      {
+        "id": "labNews-31d6760c5a-dr-jaehyeong-bae-won-the-2021-kaist-dmse-best-dissertation-award",
+        "date": "2021-02-19",
+        "title": "Dr. Jaehyeong Bae won the 2021 KAIST DMSE Best Dissertation Award",
+        "summary": "전도성 나노소재와 물의 상호작용을 이용한 에너지 하베스팅 시스템에 관한 연구",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a-1.jpg",
+          "assets/img/news/notion/31d6760c5a-2.jpg",
+          "assets/img/news/notion/31d6760c5a-3.jpg"
+        ]
+      },
+      {
+        "id": "labNews-31d6760c5a-dr-jaehyeong-bae-won-the-best-poster-award-at-5th-international-conference-on-advanced-electromaterials-icae-2019",
+        "date": "2019-11-07",
+        "title": "Dr. Jaehyeong Bae won the Best Poster Award at 5th International Conference on Advanced Electromaterials (ICAE 2019)",
+        "summary": "Plant-transpiration inspired electrokinetic power generation",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a-1.png"
+        ]
+      },
+      {
+        "id": "labNews-31d6760c5a-dr-jaehyeong-bae-won-the-best-poster-award-at-4th-international-conference-on-advanced-electromaterials-icae-2017",
+        "date": "2017-11-14",
+        "title": "Dr. Jaehyeong Bae won the Best Poster Award at 4th International Conference on Advanced Electromaterials (ICAE 2017)",
+        "summary": "Lead acetate anchored nanofiber as a colorimetric H2S gas sensor for diagnosis of halitosis",
+        "url": "",
         "videoUrl": "",
         "images": [
           "assets/img/news/notion/31d6760c5a-1.jpg"
