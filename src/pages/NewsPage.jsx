@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 import { PageHero } from '@/components/site/PageHero';
@@ -13,6 +13,7 @@ const DEFAULT_SECTION_TABS = [
   { id: 'gallery', label: 'Gallery' },
   { id: 'videos', label: 'Videos' }
 ];
+const PAGE_SIZE = 10;
 const LINK_META = [
   { key: 'linkedin', label: 'LinkedIn', icon: 'assets/img/news/profiles/linkedin.ico' },
   { key: 'webOfScience', label: 'Web of Science', icon: 'assets/img/news/profiles/webofscience.ico' },
@@ -183,14 +184,14 @@ function toYouTubeEmbedUrl(value) {
   return '';
 }
 
-function NewsItemRow({ compactPreview = false, item, onToggle, opened }) {
+function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }) {
   const youtubeEmbed = toYouTubeEmbedUrl(item.videoUrl);
   const hasDetailContent = Boolean(item.summary || item.url || item.videoUrl || (item.images || []).length);
   const firstImage = item.images?.[0] || '';
   const toggleLabel = opened ? 'Collapse details' : 'View details';
 
   return (
-    <li className="rounded-lg border border-slate-200 bg-white">
+    <li className="scroll-mt-28 rounded-lg border border-slate-200 bg-white" ref={itemRef}>
       <button
         aria-expanded={opened}
         className="w-full px-4 py-4 text-left transition-colors hover:bg-slate-50 md:px-5"
@@ -290,6 +291,9 @@ export function NewsPage({ locale }) {
   const [error, setError] = useState('');
   const [activeSection, setActiveSection] = useState('labNews');
   const [expandedId, setExpandedId] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const listTopRef = useRef(null);
+  const itemRefs = useRef(new Map());
 
   useEffect(() => {
     let mounted = true;
@@ -372,9 +376,53 @@ export function NewsPage({ locale }) {
 
   useEffect(() => {
     setExpandedId('');
+    setCurrentPage(1);
   }, [activeSection]);
 
   const activeItems = mergedSections[activeSection] || [];
+  const pageCount = Math.max(1, Math.ceil(activeItems.length / PAGE_SIZE));
+  const paginatedItems = useMemo(() => {
+    const start = (currentPage - 1) * PAGE_SIZE;
+    return activeItems.slice(start, start + PAGE_SIZE);
+  }, [activeItems, currentPage]);
+
+  function smoothScrollTo(node) {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    node?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  useEffect(() => {
+    if (currentPage > pageCount) {
+      setCurrentPage(pageCount);
+    }
+  }, [currentPage, pageCount]);
+
+  function handleToggleItem(itemId) {
+    const willOpen = expandedId !== itemId;
+    setExpandedId(willOpen ? itemId : '');
+    if (willOpen) {
+      window.requestAnimationFrame(() => {
+        const target = itemRefs.current.get(itemId);
+        smoothScrollTo(target);
+      });
+      window.setTimeout(() => {
+        const target = itemRefs.current.get(itemId);
+        smoothScrollTo(target);
+      }, 180);
+    }
+  }
+
+  function handlePageChange(page) {
+    const next = Math.min(Math.max(1, page), pageCount);
+    setCurrentPage(next);
+    setExpandedId('');
+    window.requestAnimationFrame(() => {
+      smoothScrollTo(listTopRef.current);
+    });
+  }
+
   const activeLabel = sections.find((section) => section.id === activeSection)?.label || '';
   const emptySectionLabel = content.emptySection || 'No items available in this section yet.';
   const piLinksDescription = content.piLinksDescription || 'External research profiles and citation services.';
@@ -389,7 +437,7 @@ export function NewsPage({ locale }) {
     <div className="space-y-6 md:space-y-8">
       <PageHero description={content.description} title={content.title} />
 
-      <div className="grid gap-5 xl:grid-cols-[minmax(260px,308px)_minmax(0,1fr)]">
+      <div className="grid gap-5 xl:grid-cols-[minmax(208px,246px)_minmax(0,1fr)]">
         <aside className="space-y-4 xl:sticky xl:top-24 xl:self-start">
           <Card className="border-slate-200 bg-white">
             <CardHeader className="pb-3">
@@ -413,28 +461,6 @@ export function NewsPage({ locale }) {
             </CardContent>
           </Card>
 
-          <section className="space-y-3 px-1">
-            {latestInstagramEmbedUrl ? (
-              <div className="mx-auto w-full max-w-[300px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5">
-                <iframe
-                  allowTransparency
-                  className="block w-full"
-                  loading="lazy"
-                  scrolling="no"
-                  src={latestInstagramEmbedUrl}
-                  style={{ border: 0, height: '688px' }}
-                  title={latestInstagramPost?.title || 'Instagram embed'}
-                />
-              </div>
-            ) : latestInstagramImage ? (
-              <a className="block overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
-                <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
-              </a>
-            ) : (
-              <div className="rounded-lg border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-500">Instagram latest photo not available.</div>
-            )}
-          </section>
-
           <section className="space-y-2 px-1">
             <div className="flex flex-wrap gap-2">
               {profileLinks.map((item) => (
@@ -457,9 +483,31 @@ export function NewsPage({ locale }) {
             </div>
             {profileLinks.length === 0 ? <p className="text-xs text-slate-500">{piLinksDescription}</p> : null}
           </section>
+
+          <section className="space-y-3 px-1">
+            {latestInstagramEmbedUrl ? (
+              <div className="mx-auto w-full max-w-[260px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5">
+                <iframe
+                  allowTransparency
+                  className="block w-full"
+                  loading="lazy"
+                  scrolling="no"
+                  src={latestInstagramEmbedUrl}
+                  style={{ border: 0, height: '820px' }}
+                  title={latestInstagramPost?.title || 'Instagram embed'}
+                />
+              </div>
+            ) : latestInstagramImage ? (
+              <a className="mx-auto block w-full max-w-[260px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
+                <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
+              </a>
+            ) : (
+              <div className="rounded-lg border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-500">Instagram latest photo not available.</div>
+            )}
+          </section>
         </aside>
 
-        <section className="space-y-3">
+        <section className="space-y-3" ref={listTopRef}>
           <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-3">
             <h2 className="text-2xl font-semibold tracking-tight text-slate-950">{activeLabel}</h2>
             <div className="text-right text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
@@ -475,17 +523,61 @@ export function NewsPage({ locale }) {
           ) : null}
 
           {!loading && !error && activeItems.length > 0 ? (
-            <ul className="space-y-2">
-              {activeItems.map((item) => (
-                <NewsItemRow
-                  compactPreview={activeSection === 'labNews'}
-                  item={item}
-                  key={item.id}
-                  onToggle={() => setExpandedId((current) => (current === item.id ? '' : item.id))}
-                  opened={expandedId === item.id}
-                />
-              ))}
-            </ul>
+            <div className="space-y-3">
+              <ul className="space-y-2">
+                {paginatedItems.map((item) => (
+                  <NewsItemRow
+                    compactPreview={activeSection === 'labNews'}
+                    item={item}
+                    itemRef={(node) => {
+                      if (node) {
+                        itemRefs.current.set(item.id, node);
+                      } else {
+                        itemRefs.current.delete(item.id);
+                      }
+                    }}
+                    key={item.id}
+                    onToggle={() => handleToggleItem(item.id)}
+                    opened={expandedId === item.id}
+                  />
+                ))}
+              </ul>
+
+              {pageCount > 1 ? (
+                <nav aria-label="News pagination" className="flex flex-wrap items-center gap-2">
+                  <button
+                    className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+                    disabled={currentPage === 1}
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    type="button"
+                  >
+                    Prev
+                  </button>
+                  {Array.from({ length: pageCount }, (_, index) => index + 1).map((page) => (
+                    <button
+                      className={`rounded-md border px-3 py-1.5 text-sm font-semibold ${
+                        page === currentPage
+                          ? 'border-[#7a0f1f] bg-[#7a0f1f] text-white'
+                          : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                      }`}
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                      type="button"
+                    >
+                      {page}
+                    </button>
+                  ))}
+                  <button
+                    className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+                    disabled={currentPage === pageCount}
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    type="button"
+                  >
+                    Next
+                  </button>
+                </nav>
+              ) : null}
+            </div>
           ) : null}
         </section>
       </div>
