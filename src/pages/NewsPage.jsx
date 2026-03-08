@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 import { PageHero } from '@/components/site/PageHero';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -107,14 +108,45 @@ function useImageFallback(assetPath) {
   return { broken, src, onError };
 }
 
-function MediaImage({ path, title }) {
+function MediaImage({ path, title, variant = 'card' }) {
   const image = useImageFallback(path);
 
   if (image.broken) {
+    if (variant === 'thumb') {
+      return (
+        <div className="flex h-16 w-16 items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-500">
+          Image
+        </div>
+      );
+    }
+
+    if (variant === 'full') {
+      return (
+        <div className="flex min-h-52 w-full max-w-3xl items-center justify-center rounded-md border border-slate-200 bg-slate-100 px-3 text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+          Image
+        </div>
+      );
+    }
+
     return (
       <div className="flex aspect-[4/3] w-full items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
         Image
       </div>
+    );
+  }
+
+  if (variant === 'thumb') {
+    return <img alt={title} className="h-16 w-16 rounded-md object-cover" onError={image.onError} src={image.src} />;
+  }
+
+  if (variant === 'full') {
+    return (
+      <img
+        alt={title}
+        className="h-auto max-h-[640px] w-full max-w-3xl rounded-md border border-slate-200 bg-white object-contain"
+        onError={image.onError}
+        src={image.src}
+      />
     );
   }
 
@@ -151,30 +183,53 @@ function toYouTubeEmbedUrl(value) {
   return '';
 }
 
-function NewsItemRow({ closeLabel, item, onToggle, openLabel, opened }) {
+function NewsItemRow({ compactPreview = false, item, onToggle, opened }) {
   const youtubeEmbed = toYouTubeEmbedUrl(item.videoUrl);
   const hasDetailContent = Boolean(item.summary || item.url || item.videoUrl || (item.images || []).length);
+  const firstImage = item.images?.[0] || '';
+  const toggleLabel = opened ? 'Collapse details' : 'View details';
 
   return (
     <li className="rounded-lg border border-slate-200 bg-white">
       <button
+        aria-expanded={opened}
         className="w-full px-4 py-4 text-left transition-colors hover:bg-slate-50 md:px-5"
         onClick={onToggle}
         type="button"
       >
-        <div className="grid gap-3 md:grid-cols-[118px_minmax(0,1fr)_auto] md:items-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p>
+        <div className={`grid gap-3 md:items-center ${compactPreview ? 'md:grid-cols-[72px_minmax(0,1fr)_auto]' : 'md:grid-cols-[118px_minmax(0,1fr)_auto]'}`}>
+          {compactPreview ? (
+            <div className="flex items-center justify-center">
+              <MediaImage path={firstImage} title={item.title} variant="thumb" />
+            </div>
+          ) : (
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p>
+          )}
+
           <div>
             <p className="text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">{item.title}</p>
-            {item.summary ? <p className="mt-0.5 text-sm leading-relaxed text-slate-600">{item.summary}</p> : null}
           </div>
-          <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[#7a0f1f]">{opened ? closeLabel : openLabel}</span>
+
+          <span className="inline-flex items-center justify-center rounded-full border border-slate-200 p-1 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-700">
+            <ChevronDown className={`h-4 w-4 transition-transform ${opened ? 'rotate-180' : ''}`} />
+            <span className="sr-only">{toggleLabel}</span>
+          </span>
         </div>
       </button>
 
       {opened ? (
         <div className="border-t border-slate-200 px-4 pb-4 pt-3 md:px-5">
-          <div className="space-y-3">
+          <div className="space-y-4">
+            {item.summary ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{item.summary}</p> : null}
+
+            {item.images?.length ? (
+              <div className="flex flex-col items-center gap-3">
+                {item.images.map((path, index) => (
+                  <MediaImage key={`${item.id}-image-${index}`} path={path} title={item.title} variant="full" />
+                ))}
+              </div>
+            ) : null}
+
             {item.videoUrl ? (
               youtubeEmbed ? (
                 <div className="overflow-hidden rounded-md border border-slate-200">
@@ -191,14 +246,6 @@ function NewsItemRow({ closeLabel, item, onToggle, openLabel, opened }) {
                   Open video
                 </a>
               )
-            ) : null}
-
-            {item.images?.length ? (
-              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {item.images.map((path, index) => (
-                  <MediaImage key={`${item.id}-image-${index}`} path={path} title={item.title} />
-                ))}
-              </div>
             ) : null}
 
             {item.url ? (
@@ -329,8 +376,6 @@ export function NewsPage({ locale }) {
   const activeItems = mergedSections[activeSection] || [];
   const activeLabel = sections.find((section) => section.id === activeSection)?.label || '';
   const emptySectionLabel = content.emptySection || 'No items available in this section yet.';
-  const openLabel = content.openLabel || 'Open';
-  const closeLabel = content.closeLabel || 'Close';
   const instagramTitle = content.instagramTitle || 'Lab Instagram';
   const instagramButton = content.instagramButton || 'Open profile';
   const piLinksTitle = content.piLinksTitle || 'Professor Profiles';
@@ -451,11 +496,10 @@ export function NewsPage({ locale }) {
             <ul className="space-y-2">
               {activeItems.map((item) => (
                 <NewsItemRow
-                  closeLabel={closeLabel}
+                  compactPreview={activeSection === 'labNews'}
                   item={item}
                   key={item.id}
                   onToggle={() => setExpandedId((current) => (current === item.id ? '' : item.id))}
-                  openLabel={openLabel}
                   opened={expandedId === item.id}
                 />
               ))}
