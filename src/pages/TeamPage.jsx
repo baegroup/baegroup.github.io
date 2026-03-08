@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { PageHero } from '@/components/site/PageHero';
 import { Card, CardContent } from '@/components/ui/card';
 import { TEAM_CONTENT } from '@/content/site-content';
 import { loadTeamProfiles } from '@/lib/data';
@@ -546,9 +547,7 @@ export function TeamPage({ locale }) {
 
   return (
     <>
-      <section className="px-1 pt-1">
-        <h1 className="text-4xl font-semibold leading-tight tracking-tight text-slate-950 md:text-5xl">{content.title || 'Team'}</h1>
-      </section>
+      <PageHero description={content.description} title={content.title || 'Team'} />
 
       <Card className="overflow-hidden">
         <CardContent className="p-0">

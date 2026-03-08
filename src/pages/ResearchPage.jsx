@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { PageHero } from '@/components/site/PageHero';
 import { RESEARCH_CONTENT } from '@/content/site-content';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
@@ -93,9 +94,7 @@ export function ResearchPage({ locale }) {
 
   return (
     <div className="space-y-6 md:space-y-8">
-      <section className="overflow-hidden rounded-xl border border-slate-200 bg-[#243445] px-6 py-7 text-white md:px-8 md:py-9">
-        <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">{content.title}</h1>
-      </section>
+      <PageHero title={content.title} />
 
       <section className="rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7">
         <h2 className="text-center text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">{missionTitle}</h2>

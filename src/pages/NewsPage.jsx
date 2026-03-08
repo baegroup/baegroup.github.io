@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { PageHero } from '@/components/site/PageHero';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { NEWS_CONTENT } from '@/content/site-content';
 import { loadNewsFeed } from '@/lib/data';
@@ -310,10 +311,7 @@ export function NewsPage({ locale }) {
 
   return (
     <div className="space-y-6 md:space-y-8">
-      <section className="overflow-hidden rounded-xl border border-slate-200 bg-[#243445] px-6 py-7 text-white md:px-8 md:py-9">
-        <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">{content.title}</h1>
-        {content.description ? <p className="mt-3 max-w-4xl text-base leading-relaxed text-slate-200 md:text-lg">{content.description}</p> : null}
-      </section>
+      <PageHero description={content.description} title={content.title} />
 
       <div className="grid gap-5 xl:grid-cols-[minmax(230px,270px)_minmax(0,1fr)]">
         <aside className="space-y-4 xl:sticky xl:top-24 xl:self-start">

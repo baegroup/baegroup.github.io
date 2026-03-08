@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { PageHero } from '@/components/site/PageHero';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PUBLICATIONS_CONTENT } from '@/content/site-content';
@@ -299,9 +300,7 @@ export function PublicationsPage({ locale }) {
 
   return (
     <div className="space-y-6 md:space-y-8">
-      <section className="overflow-hidden rounded-xl border border-slate-200 bg-[#243445] px-6 py-7 text-white md:px-8 md:py-9">
-        <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">{content.title}</h1>
-      </section>
+      <PageHero description={content.description} title={content.title} />
 
       <Tabs onValueChange={setFilter} value={filter}>
         <TabsList className="h-auto flex-wrap justify-start gap-1 bg-transparent p-0">
