@@ -11,8 +11,16 @@
     "email": "jbae@khu.ac.kr",
     "website": "https://www.baelab.khu.ac.kr",
     "interests": {
-      "en": ["Electrolyte Design", "All-Solid-State Batteries", "Battery Diagnostics"],
-      "ko": ["전해질 설계", "전고체전지", "배터리 진단"]
+      "en": [
+        "Electrolyte Design",
+        "All-Solid-State Batteries",
+        "Battery Diagnostics"
+      ],
+      "ko": [
+        "전해질 설계",
+        "전고체전지",
+        "배터리 진단"
+      ]
     },
     "photo": "assets/img/team/profiles/Jaehyeong Bae.jpg",
     "startYear": 2023,
@@ -30,12 +38,20 @@
     "email": "ass950715@gmail.com",
     "website": "",
     "interests": {
-      "en": ["Battery Computational Simulation"],
-      "ko": ["배터리 계산 시뮬레이션"]
+      "en": [
+        "3D printing for environmental applications"
+      ],
+      "ko": [
+        "환경 응용 3D 프린팅"
+      ]
     },
     "photo": "assets/img/team/profiles/Suha Cho.jpg",
     "startYear": 2024,
-    "endYear": null
+    "endYear": null,
+    "courseLabel": "Integrated M.S. & Ph.D. course",
+    "joiningGroup": "2024 Fall",
+    "undergraduateSchool": "Kongju National University",
+    "undergraduateMajor": "Environmental Engineering"
   },
   {
     "id": "zhu-xiaoling",
@@ -49,12 +65,20 @@
     "email": "xiaolingzhu@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Electrolyte Additives"],
-      "ko": ["전해질 첨가제 개발"]
+      "en": [
+        "Photo-Chemo-Mechanical Energy harvesting"
+      ],
+      "ko": [
+        "광-화학-기계 에너지 하베스팅"
+      ]
     },
     "photo": "assets/img/team/profiles/Xiaoling Zhu.jpg",
     "startYear": 2024,
-    "endYear": null
+    "endYear": null,
+    "courseLabel": "Ph.D. course",
+    "joiningGroup": "2024 Fall",
+    "undergraduateSchool": "Shenyang Pharmaceutical University",
+    "undergraduateMajor": "School of pharmacy"
   },
   {
     "id": "liu-jiechen",
@@ -68,12 +92,21 @@
     "email": "liujiechen@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Electrolyte Design for Rechargeable Batteries"],
-      "ko": ["다양한 이차전지용 전해질 설계"]
+      "en": [
+        "Aerogel 3D printing & Printed sensors"
+      ],
+      "ko": [
+        "에어로겔 3D 프린팅 및 프린팅 센서"
+      ]
     },
     "photo": "assets/img/team/profiles/Jiechen Liu.jpg",
     "startYear": 2025,
-    "endYear": null
+    "endYear": null,
+    "courseLabel": "Integrated M.S. & Ph.D. course",
+    "joiningGroup": "2025 Fall",
+    "undergraduateSchool": "Xian Shiyou University",
+    "undergraduateMajor": "Chemical Engineering",
+    "koreanProficiency": "TOPIK Level 4"
   },
   {
     "id": "tian-ruonan",
@@ -84,15 +117,27 @@
     "role": "Graduate",
     "status": "current",
     "program": "PhD",
-    "email": "tianruonan99@khu.ac.kr",
+    "email": "",
     "website": "",
     "interests": {
-      "en": ["Incoming 2026 Spring"],
-      "ko": ["2026년 봄학기 입학 예정"]
+      "en": [
+        "TBD"
+      ],
+      "ko": [
+        "추후 업데이트"
+      ]
     },
     "photo": "assets/img/team/profiles/Ruonan Tian.png",
     "startYear": 2026,
-    "endYear": null
+    "endYear": null,
+    "courseLabel": "Ph.D. course",
+    "joiningGroup": "2026 Spring",
+    "undergraduateSchool": "Tiangong University",
+    "undergraduateMajor": "Pharmaceutical Engineering",
+    "masterSchool": "Tiangong University",
+    "masterMajor": "Materials and Chemical Engineering",
+    "emailDisplay": "TBD",
+    "koreanProficiency": "TOPIK Level 4"
   },
   {
     "id": "lin-qunbo",
@@ -103,15 +148,25 @@
     "role": "Graduate",
     "status": "current",
     "program": "MSPhD",
-    "email": "qunbo_lin@khu.ac.kr",
+    "email": "",
     "website": "",
     "interests": {
-      "en": ["Incoming 2026 Fall"],
-      "ko": ["2026년 가을학기 입학 예정"]
+      "en": [
+        "TBD"
+      ],
+      "ko": [
+        "추후 업데이트"
+      ]
     },
     "photo": "assets/img/team/profiles/Qunbo Lin.png",
     "startYear": 2026,
-    "endYear": null
+    "endYear": null,
+    "courseLabel": "Integrated M.S. & Ph.D. course",
+    "joiningGroup": "2026 Fall",
+    "undergraduateSchool": "Shaanxi University of Science & Technology",
+    "undergraduateMajor": "Paper & Leather Engineering",
+    "emailDisplay": "TBD",
+    "koreanProficiency": "TOPIK Level 6"
   },
   {
     "id": "lee-myeong",
@@ -125,12 +180,22 @@
     "email": "r_a2@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Battery Condition Diagnosis"],
-      "ko": ["배터리 상태 진단"]
+      "en": [
+        "Photo-Chemo-Mechanical Energy Harvesting",
+        "Zn-ion Battery"
+      ],
+      "ko": [
+        "광-화학-기계 에너지 하베스팅",
+        "아연이온전지"
+      ]
     },
     "photo": "assets/img/team/profiles/Myeong Lee.jpg",
     "startYear": 2024,
-    "endYear": null
+    "endYear": null,
+    "courseLabel": "Master's Course",
+    "joiningGroup": "2024 Spring",
+    "undergraduateSchool": "Kyung Hee University",
+    "undergraduateMajor": "Chemical Engineering"
   },
   {
     "id": "ko-yoonji",
@@ -144,12 +209,21 @@
     "email": "dbswldla123@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Battery Data Analysis"],
-      "ko": ["배터리 데이터 분석"]
+      "en": [
+        "Embedded 3D printing technology for biomedical application"
+      ],
+      "ko": [
+        "바이오메디컬 응용 임베디드 3D 프린팅"
+      ]
     },
     "photo": "assets/img/team/profiles/Yoonji Ko.jpg",
     "startYear": 2024,
-    "endYear": null
+    "endYear": null,
+    "courseLabel": "Undergraduate student",
+    "joiningGroup": "2024 Winter",
+    "undergraduateSchool": "Kyung Hee University",
+    "undergraduateMajor": "Chemical Engineering",
+    "note": "Appointed as master's course (2028 Mar.)"
   },
   {
     "id": "kim-nayeon",
@@ -163,12 +237,21 @@
     "email": "wre256256@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Electrochemical Testing"],
-      "ko": ["전기화학 실험"]
+      "en": [
+        "Photo-Chemo-Mechanical Energy harvesting"
+      ],
+      "ko": [
+        "광-화학-기계 에너지 하베스팅"
+      ]
     },
     "photo": "assets/img/team/profiles/Nayeon Kim.webp",
     "startYear": 2025,
-    "endYear": null
+    "endYear": null,
+    "courseLabel": "Undergraduate student",
+    "joiningGroup": "2025 Spring",
+    "undergraduateSchool": "Kyung Hee University",
+    "undergraduateMajor": "Chemical Engineering",
+    "note": "Appointed as master's course (2027 Mar.)"
   },
   {
     "id": "kim-myeongjae",
@@ -182,11 +265,20 @@
     "email": "zhagus3137@khu.ac.kr",
     "website": "",
     "interests": {
-      "en": ["Current Affiliation: SK hynix"],
-      "ko": ["현 소속: SK hynix"]
+      "en": [
+        "3D printing for environmental applications"
+      ],
+      "ko": [
+        "환경 응용 3D 프린팅"
+      ]
     },
     "photo": "assets/img/team/profiles/Myeongjae Kim.jpg",
     "startYear": 2024,
-    "endYear": 2024
+    "endYear": 2024,
+    "currentAffiliation": "SK hynix",
+    "courseLabel": "Undergraduate student",
+    "joiningGroup": "2024.03 ~ 2024.09",
+    "undergraduateSchool": "Kyung Hee University",
+    "undergraduateMajor": "Chemical Engineering"
   }
 ]

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { TEAM_CONTENT } from '@/content/site-content';
 import { loadTeamProfiles } from '@/lib/data';
@@ -24,6 +23,8 @@ const DEFAULT_JUMP_NAV = {
 
 const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'alumni']);
 const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
+const TERM_SORT_ORDER = { spring: 0, summer: 1, fall: 2, winter: 3 };
+const GRAD_PROGRAM_ORDER = { MSPhD: 0, PhD: 1, MS: 2 };
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const LAB_GROUP_IMAGE_BASE = 'assets/img/team/group/group-photo';
 const FEARLESS_IMAGE_BASE = 'assets/img/team/culture/fearless-organization';
@@ -33,6 +34,34 @@ const IDENTITY_COPY = {
   },
   ko: {
     aboutHeading: 'Team Overview'
+  }
+};
+const MEMBER_FIELD_LABELS = {
+  en: {
+    course: 'Course',
+    joining: 'Year in joining group',
+    undergraduateSchool: 'Undergraduate school',
+    undergraduateMajor: 'Undergraduate major',
+    masterSchool: 'Master degree school',
+    masterMajor: 'Master degree major',
+    research: 'Research interests',
+    korean: 'Korean proficiency',
+    current: 'Current',
+    note: 'Note',
+    email: 'E-mail'
+  },
+  ko: {
+    course: 'Course',
+    joining: 'Year in joining group',
+    undergraduateSchool: 'Undergraduate school',
+    undergraduateMajor: 'Undergraduate major',
+    masterSchool: 'Master degree school',
+    masterMajor: 'Master degree major',
+    research: 'Research interests',
+    korean: 'Korean proficiency',
+    current: 'Current',
+    note: 'Note',
+    email: 'E-mail'
   }
 };
 const PROFESSOR_COPY = {
@@ -138,15 +167,80 @@ function useImageFallback(basePath) {
   return { broken, src, onError };
 }
 
+function parseJoiningRank(member) {
+  const fallbackYear = Number.isFinite(member.startYear) ? member.startYear : Number.MAX_SAFE_INTEGER;
+  const raw = String(member.joiningGroup || '').trim();
+  const match = raw.match(/(20\d{2})(?:\D+)?(Spring|Summer|Fall|Winter)?/i);
+  if (!match) {
+    return { year: fallbackYear, term: 99 };
+  }
+
+  const year = Number(match[1]);
+  const term = match[2] ? TERM_SORT_ORDER[String(match[2]).toLowerCase()] ?? 99 : 99;
+  return { year, term };
+}
+
+function compareMembersByJoinThenProgram(a, b, role) {
+  const joinA = parseJoiningRank(a);
+  const joinB = parseJoiningRank(b);
+
+  if (joinA.year !== joinB.year) {
+    return joinA.year - joinB.year;
+  }
+  if (joinA.term !== joinB.term) {
+    return joinA.term - joinB.term;
+  }
+
+  if (role === 'Graduate') {
+    const rankA = GRAD_PROGRAM_ORDER[a.program] ?? 99;
+    const rankB = GRAD_PROGRAM_ORDER[b.program] ?? 99;
+    if (rankA !== rankB) {
+      return rankA - rankB;
+    }
+  }
+
+  return String(a.localizedName || '').localeCompare(String(b.localizedName || ''));
+}
+
+function MemberDetailRow({ label, value, type = 'text' }) {
+  if (!value) {
+    return null;
+  }
+
+  const trimmed = String(value).trim();
+  const isEmail = type === 'email' && trimmed.includes('@');
+
+  return (
+    <div className="grid gap-0.5 sm:grid-cols-[160px_1fr] sm:gap-2">
+      <dt className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{label}</dt>
+      <dd className="text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
+        {isEmail ? (
+          <a className="text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${trimmed}`}>
+            {trimmed}
+          </a>
+        ) : (
+          trimmed
+        )}
+      </dd>
+    </div>
+  );
+}
+
 function MemberCard({ member, locale, prominent = false, showRoleBadge = false }) {
   const [broken, setBroken] = useState(false);
   const hasPhoto = Boolean(member.photo) && !broken;
   const period = locale === 'ko' ? `${member.startYear || '-'} ~ ${member.endYear || '현재'}` : `${member.startYear || '-'} - ${member.endYear || 'Present'}`;
+  const labels = MEMBER_FIELD_LABELS[locale] || MEMBER_FIELD_LABELS.en;
+  const joinValue = member.joiningGroup || period;
+  const courseValue = member.courseLabel || member.programLabel || member.roleLabel;
+  const researchValue = member.localizedInterests?.filter(Boolean).join(', ') || '';
+  const emailValue = member.emailDisplay || member.email || '';
 
   return (
-    <article className={`rounded-lg border border-slate-200 ${prominent ? 'bg-white p-5 md:p-6' : 'bg-slate-50/60 p-4'}`}>
-      <div className={`grid gap-4 ${prominent ? 'md:grid-cols-[96px_1fr]' : 'grid-cols-[64px_1fr]'}`}>
-        <div className={`overflow-hidden rounded-md border border-slate-200 bg-slate-50 ${prominent ? 'h-24 w-24' : 'h-16 w-16'}`}>
+    <article className={`rounded-xl border border-slate-200 bg-white ${prominent ? 'p-5 md:p-6' : 'p-5 md:p-6'}`}>
+      <div className={`grid gap-5 ${prominent ? 'md:grid-cols-[140px_1fr]' : 'sm:grid-cols-[170px_1fr]'}`}>
+        <div className={`mx-auto w-full ${prominent ? 'max-w-[140px]' : 'max-w-[170px]'}`}>
+          <div className={`overflow-hidden rounded-lg border border-slate-200 bg-slate-100 ${prominent ? 'h-44' : 'h-52'}`}>
           {hasPhoto ? (
             <img
               alt={member.localizedName}
@@ -157,30 +251,28 @@ function MemberCard({ member, locale, prominent = false, showRoleBadge = false }
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-slate-100 text-sm font-bold text-slate-700">{member.initials}</div>
           )}
+          </div>
         </div>
 
-        <div>
-          <p className={prominent ? 'text-xl font-semibold text-slate-950' : 'font-semibold text-slate-950'}>{member.localizedName}</p>
-          <p className="mt-0.5 text-sm text-slate-600 md:text-base">{member.programLabel || member.roleLabel}</p>
-
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            <Badge variant="outline">{period}</Badge>
-            {showRoleBadge ? <Badge variant="outline">{member.roleLabel}</Badge> : null}
-            {member.localizedInterests.map((item) => (
-              <Badge className="border-slate-200 bg-slate-50 text-slate-700" key={item} variant="outline">
-                {item}
-              </Badge>
-            ))}
+        <div className="space-y-3">
+          <div className="space-y-1.5">
+            <p className={prominent ? 'text-2xl font-semibold text-slate-950' : 'text-xl font-semibold text-slate-950'}>{member.localizedName}</p>
+            <p className="text-sm font-medium text-slate-700 md:text-base">{courseValue}</p>
+            {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{member.roleLabel}</p> : null}
           </div>
 
-          <div className="mt-2 flex flex-wrap gap-3 text-xs font-medium text-[#0b3a64]">
-            {member.email ? <a href={`mailto:${member.email}`}>{locale === 'ko' ? '이메일' : 'Email'}</a> : null}
-            {member.website ? (
-              <a href={member.website} rel="noreferrer" target="_blank">
-                {locale === 'ko' ? '홈페이지' : 'Website'}
-              </a>
-            ) : null}
-          </div>
+          <dl className="space-y-2">
+            <MemberDetailRow label={labels.joining} value={joinValue} />
+            <MemberDetailRow label={labels.undergraduateSchool} value={member.undergraduateSchool} />
+            <MemberDetailRow label={labels.undergraduateMajor} value={member.undergraduateMajor} />
+            <MemberDetailRow label={labels.masterSchool} value={member.masterSchool} />
+            <MemberDetailRow label={labels.masterMajor} value={member.masterMajor} />
+            <MemberDetailRow label={labels.research} value={researchValue} />
+            <MemberDetailRow label={labels.korean} value={member.koreanProficiency} />
+            <MemberDetailRow label={labels.current} value={member.currentAffiliation} />
+            <MemberDetailRow label={labels.note} value={member.note} />
+            <MemberDetailRow label={labels.email} type="email" value={emailValue} />
+          </dl>
         </div>
       </div>
     </article>
@@ -425,21 +517,7 @@ export function TeamPage({ locale }) {
         .filter((group) => group.role !== 'PI' && group.role !== 'Alumni')
         .map((group) => ({
           ...group,
-          members: [...group.members].sort((a, b) => {
-            const startA = Number.isFinite(a.startYear) ? a.startYear : Number.MAX_SAFE_INTEGER;
-            const startB = Number.isFinite(b.startYear) ? b.startYear : Number.MAX_SAFE_INTEGER;
-            if (startA !== startB) {
-              return startA - startB;
-            }
-
-            const endA = Number.isFinite(a.endYear) ? a.endYear : Number.MAX_SAFE_INTEGER;
-            const endB = Number.isFinite(b.endYear) ? b.endYear : Number.MAX_SAFE_INTEGER;
-            if (endA !== endB) {
-              return endA - endB;
-            }
-
-            return String(a.localizedName || '').localeCompare(String(b.localizedName || ''));
-          })
+          members: [...group.members].sort((a, b) => compareMembersByJoinThenProgram(a, b, group.role))
         })),
     [currentGroups]
   );
@@ -583,8 +661,11 @@ export function TeamPage({ locale }) {
                   <div className="space-y-6">
                     {currentStudentGroups.map((group, index) => (
                       <section className="space-y-3" key={group.role}>
-                        <h3 className="text-lg font-semibold text-slate-900">{group.label}</h3>
-                        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                        <h3 className="text-lg font-semibold text-slate-900">
+                          {group.label}
+                          <span className="ml-2 text-base font-medium text-slate-500">({group.members.length})</span>
+                        </h3>
+                        <div className="grid gap-4 md:grid-cols-2">
                           {group.members.map((member) => (
                             <MemberCard
                               key={member.id}
@@ -608,7 +689,7 @@ export function TeamPage({ locale }) {
               <section>
                 <h2 className="sr-only">{content.alumniTitle || 'Alumni'}</h2>
                 {alumniMembers.length > 0 ? (
-                  <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  <div className="grid gap-4 md:grid-cols-2">
                     {alumniMembers.map((member) => (
                       <MemberCard key={member.id} locale={locale} member={member} />
                     ))}
