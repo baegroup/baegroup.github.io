@@ -43,12 +43,12 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
       {!exhausted ? (
         <img
           alt={content.joinTitle}
-          className="relative z-10 aspect-[16/10] w-full rounded-lg border border-slate-200/90 object-cover shadow-[0_24px_44px_-34px_rgba(8,39,70,0.5)]"
+          className="relative z-10 mx-auto aspect-[16/10] max-h-[320px] w-full max-w-[36rem] rounded-lg border border-slate-200/90 object-cover shadow-[0_24px_44px_-34px_rgba(8,39,70,0.5)] md:max-h-none md:max-w-none"
           onError={() => setImageIndex((index) => index + 1)}
           src={joinImages[imageIndex]}
         />
       ) : (
-        <div className="relative z-10 flex aspect-[16/10] w-full items-center justify-center rounded-lg border border-slate-200/90 bg-slate-100 text-sm font-medium text-slate-500">
+        <div className="relative z-10 mx-auto flex aspect-[16/10] max-h-[320px] w-full max-w-[36rem] items-center justify-center rounded-lg border border-slate-200/90 bg-slate-100 text-sm font-medium text-slate-500 md:max-h-none md:max-w-none">
           {locale === 'ko' ? '팀 이미지 준비 중' : 'Team Image Placeholder'}
         </div>
       )}

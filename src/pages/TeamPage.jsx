@@ -644,16 +644,16 @@ export function TeamPage({ locale }) {
                       </div>
                     </div>
 
-                    <figure className="overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
+                    <figure className="mx-auto w-full max-w-3xl overflow-hidden rounded-xl border border-slate-200 bg-slate-100 lg:max-w-none">
                       {!aboutImage.broken ? (
                         <img
                           alt="Bae Lab group photo"
-                          className="h-full w-full object-cover"
+                          className="h-full max-h-[360px] w-full object-cover lg:max-h-none"
                           onError={aboutImage.onError}
                           src={aboutImage.src}
                         />
                       ) : (
-                        <div className="flex min-h-56 items-center justify-center px-4 text-center text-sm text-slate-500">Lab group photo placeholder</div>
+                        <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Lab group photo placeholder</div>
                       )}
                     </figure>
                   </div>
@@ -667,16 +667,16 @@ export function TeamPage({ locale }) {
                         <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
                       </div>
 
-                      <figure className="overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)]">
+                      <figure className="mx-auto w-full max-w-2xl overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)] lg:max-w-none">
                         {!cultureImage.broken ? (
                           <img
                             alt="The Fearless Organization matrix"
-                            className="h-auto w-full object-contain p-3 md:p-4"
+                            className="h-auto max-h-[360px] w-full object-contain p-3 md:p-4 lg:max-h-none"
                             onError={cultureImage.onError}
                             src={cultureImage.src}
                           />
                         ) : (
-                          <div className="flex min-h-52 items-center justify-center px-4 text-center text-sm text-slate-500">Culture image placeholder</div>
+                          <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Culture image placeholder</div>
                         )}
                         <figcaption className="border-t border-slate-200 px-4 py-3 text-xs italic text-slate-500">
                           From "The fearless organization" by Amy Edmondson

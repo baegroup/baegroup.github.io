@@ -7,13 +7,29 @@ const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const RESEARCH_AREA_IMAGE_DIR = 'assets/img/research/areas';
 const RESEARCH_FUNDING_IMAGE_DIR = 'assets/img/research/funding';
 
-function useImageFallback(basePath) {
-  const candidates = useMemo(() => IMAGE_EXTENSIONS.map((ext) => `${basePath}.${ext}`), [basePath]);
+function normalizeFundingBaseName(value) {
+  return String(value || '')
+    .replace(/\s*&\s*/g, ' and ')
+    .replace(/[(),]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function useImageFallback(basePathOrPaths) {
+  const basePaths = useMemo(() => {
+    const raw = Array.isArray(basePathOrPaths) ? basePathOrPaths : [basePathOrPaths];
+    return [...new Set(raw.map((value) => String(value || '').trim()).filter(Boolean))];
+  }, [basePathOrPaths]);
+  const baseKey = basePaths.join('|');
+  const candidates = useMemo(
+    () => basePaths.flatMap((basePath) => IMAGE_EXTENSIONS.map((ext) => `${basePath}.${ext}`)),
+    [baseKey]
+  );
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     setIndex(0);
-  }, [basePath]);
+  }, [baseKey]);
 
   const broken = index >= candidates.length;
   const src = broken ? '' : `${import.meta.env.BASE_URL}${candidates[index]}`;
@@ -42,11 +58,11 @@ function ResearchAreaRow({ area, index, areaLabel }) {
   return (
     <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-soft md:p-7">
       <div className={`grid gap-6 lg:grid-cols-2 lg:gap-8 ${reverse ? 'lg:[&>*:first-child]:order-2' : ''}`}>
-        <figure className="overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+        <figure className="mx-auto w-full max-w-3xl overflow-hidden rounded-lg border border-slate-200 bg-slate-100 lg:max-w-none">
           {!image.broken ? (
-            <img alt={area.title} className="aspect-[16/10] w-full object-cover" onError={image.onError} src={image.src} />
+            <img alt={area.title} className="aspect-[16/10] max-h-[380px] w-full object-cover lg:max-h-none" onError={image.onError} src={image.src} />
           ) : (
-            <div className="flex aspect-[16/10] items-center justify-center px-4 text-center text-sm text-slate-500">Research image placeholder</div>
+            <div className="flex aspect-[16/10] max-h-[380px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Research image placeholder</div>
           )}
         </figure>
 
@@ -61,8 +77,15 @@ function ResearchAreaRow({ area, index, areaLabel }) {
 }
 
 function FundingItem({ item, index }) {
-  const base = item.logo || slugify(item.name, `source-${index + 1}`);
-  const image = useImageFallback(`${RESEARCH_FUNDING_IMAGE_DIR}/${base}`);
+  const name = String(item.name || '').trim();
+  const normalizedName = normalizeFundingBaseName(name);
+  const fallbackSlug = slugify(name, `source-${index + 1}`);
+  const image = useImageFallback([
+    item.logo ? `${RESEARCH_FUNDING_IMAGE_DIR}/${item.logo}` : '',
+    name ? `${RESEARCH_FUNDING_IMAGE_DIR}/${name}` : '',
+    normalizedName && normalizedName !== name ? `${RESEARCH_FUNDING_IMAGE_DIR}/${normalizedName}` : '',
+    `${RESEARCH_FUNDING_IMAGE_DIR}/${fallbackSlug}`
+  ]);
 
   return (
     <article className="rounded-lg border border-slate-200 bg-white p-4 text-center shadow-soft md:p-5">
