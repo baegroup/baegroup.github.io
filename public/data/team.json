@@ -177,26 +177,6 @@
     "currentAffiliation": ""
   },
   {
-    "id": "jiyoung-hyeon",
-    "name": "Jiyoung Hyeon",
-    "role": "Staff",
-    "status": "current",
-    "program": "Staff",
-    "email": "hyeon0401@khu.ac.kr",
-    "interests": [],
-    "photo": "",
-    "startYear": 2026,
-    "endYear": null,
-    "joiningGroup": "2026 Spring",
-    "undergraduateSchool": "",
-    "undergraduateMajor": "",
-    "masterSchool": "",
-    "masterMajor": "",
-    "koreanProficiency": "",
-    "note": "",
-    "currentAffiliation": ""
-  },
-  {
     "id": "lin-qunbo",
     "name": "Qunbo Lin",
     "role": "Graduate",
