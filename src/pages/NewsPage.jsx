@@ -508,7 +508,7 @@ export function NewsPage({ locale }) {
                     loading="lazy"
                     scrolling="no"
                     src={latestInstagramEmbedUrl}
-                    style={{ border: 0, height: '840px' }}
+                    style={{ border: 0, height: '460px' }}
                     title={latestInstagramPost?.title || 'Instagram embed'}
                   />
                 </div>

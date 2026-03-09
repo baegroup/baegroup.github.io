@@ -13,11 +13,11 @@
       "Il-Doo Kim*"
     ],
     "journal": "Advanced Powder Materials",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "volume": "4",
+    "issue": "6",
+    "pages": "100336",
+    "doi": "10.1016/j.apmate.2025.100336",
+    "link": "https://doi.org/10.1016/j.apmate.2025.100336",
     "coverImage": ""
   },
   {
@@ -35,11 +35,29 @@
       "Il-Doo Kim*"
     ],
     "journal": "Advanced Materials",
+    "volume": "37",
+    "issue": "38",
+    "pages": "",
+    "doi": "10.1002/adma.202501959",
+    "link": "https://doi.org/10.1002/adma.202501959",
+    "coverImage": ""
+  },
+  {
+    "id": "2025-ep3907876b1-mxene-complex-generator",
+    "year": 2025,
+    "type": "patent",
+    "title": "MXene-coated hydrophilic fiber membrane-based complex generator and manufacturing method thereof",
+    "authors": [
+      "Il-Doo Kim",
+      "Jaehyeong Bae",
+      "Min Soo Kim"
+    ],
+    "journal": "European Patent EP3907876B1",
     "volume": "",
     "issue": "",
     "pages": "",
     "doi": "",
-    "link": "",
+    "link": "https://patents.google.com/patent/EP3907876B1/en",
     "coverImage": ""
   },
   {
@@ -59,11 +77,11 @@
       "Tae Seok Seo*"
     ],
     "journal": "Pharmaceutics",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "volume": "17",
+    "issue": "8",
+    "pages": "1035",
+    "doi": "10.3390/pharmaceutics17081035",
+    "link": "https://doi.org/10.3390/pharmaceutics17081035",
     "coverImage": ""
   },
   {
@@ -86,11 +104,11 @@
       "Il-Doo Kim*"
     ],
     "journal": "ACS Nano",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "volume": "18",
+    "issue": "2",
+    "pages": "1371-1380",
+    "doi": "10.1021/acsnano.3c06060",
+    "link": "https://doi.org/10.1021/acsnano.3c06060",
     "coverImage": ""
   },
   {
@@ -117,11 +135,11 @@
       "Il-Doo Kim*"
     ],
     "journal": "Advanced Energy Materials",
-    "volume": "",
-    "issue": "",
+    "volume": "13",
+    "issue": "16",
     "pages": "",
-    "doi": "",
-    "link": "",
+    "doi": "10.1002/aenm.202203818",
+    "link": "https://doi.org/10.1002/aenm.202203818",
     "coverImage": ""
   },
   {
@@ -138,11 +156,11 @@
       "Il-Doo Kim*"
     ],
     "journal": "Advanced Materials",
-    "volume": "",
-    "issue": "",
+    "volume": "34",
+    "issue": "24",
     "pages": "",
-    "doi": "",
-    "link": "",
+    "doi": "10.1002/adma.202201734",
+    "link": "https://doi.org/10.1002/adma.202201734",
     "coverImage": ""
   },
   {
@@ -160,11 +178,11 @@
       "Il-Doo Kim*"
     ],
     "journal": "Advanced Functional Materials",
-    "volume": "",
-    "issue": "",
+    "volume": "32",
+    "issue": "24",
     "pages": "",
-    "doi": "",
-    "link": "",
+    "doi": "10.1002/adfm.202200463",
+    "link": "https://doi.org/10.1002/adfm.202200463",
     "coverImage": ""
   },
   {
@@ -185,11 +203,11 @@
       "Il-Doo Kim*"
     ],
     "journal": "Energy & Environmental Science",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "volume": "15",
+    "issue": "1",
+    "pages": "123-135",
+    "doi": "10.1039/d1ee00859e",
+    "link": "https://doi.org/10.1039/d1ee00859e",
     "coverImage": ""
   },
   {
@@ -210,11 +228,11 @@
       "Il-Doo Kim*"
     ],
     "journal": "ACS Nano",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "volume": "14",
+    "issue": "12",
+    "pages": "16907-16918",
+    "doi": "10.1021/acsnano.0c05916",
+    "link": "https://doi.org/10.1021/acsnano.0c05916",
     "coverImage": ""
   },
   {
@@ -226,23 +244,23 @@
       "Abhilash Venkateshaiah",
       "Jun Young Cheong",
       "Sung-Ho Shin",
-      "Akshayakumar K.P",
+      "K. P. Akshaykumar",
       "Tae Gwang Yun",
       "Jaehyeong Bae",
-      "Srantisree Vichniakov",
-      "Miroslava Cermik",
+      "Stanisław Wacławek",
+      "Miroslav Černík",
       "Seema Agarwal",
       "Andreas Greiner",
       "Vinod V. T. Padil",
       "Il-Doo Kim*",
-      "Rajendar S. Varma*"
+      "Rajender S. Varma*"
     ],
     "journal": "Green Chemistry",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "volume": "22",
+    "issue": "4",
+    "pages": "1198-1208",
+    "doi": "10.1039/c9gc04310a",
+    "link": "https://doi.org/10.1039/c9gc04310a",
     "coverImage": ""
   },
   {
@@ -263,11 +281,11 @@
       "Il-Doo Kim*"
     ],
     "journal": "ACS Nano",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "volume": "14",
+    "issue": "9",
+    "pages": "11394-11405",
+    "doi": "10.1021/acsnano.0c03687",
+    "link": "https://doi.org/10.1021/acsnano.0c03687",
     "coverImage": ""
   },
   {
@@ -286,11 +304,11 @@
       "Il-Doo Kim*"
     ],
     "journal": "ACS Nano",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "volume": "13",
+    "issue": "3",
+    "pages": "3141-3150",
+    "doi": "10.1021/acsnano.8b08560",
+    "link": "https://doi.org/10.1021/acsnano.8b08560",
     "coverImage": ""
   },
   {
@@ -306,11 +324,11 @@
       "Il-Doo Kim*"
     ],
     "journal": "Energy & Environmental Science",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "volume": "13",
+    "issue": "2",
+    "pages": "527-534",
+    "doi": "10.1039/c9ee02616a",
+    "link": "https://doi.org/10.1039/c9ee02616a",
     "coverImage": ""
   },
   {
@@ -325,11 +343,11 @@
       "Il-Doo Kim*"
     ],
     "journal": "ACS Nano",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "volume": "13",
+    "issue": "11",
+    "pages": "12703-12709",
+    "doi": "10.1021/acsnano.9b04375",
+    "link": "https://doi.org/10.1021/acsnano.9b04375",
     "coverImage": ""
   },
   {
@@ -341,17 +359,17 @@
       "Jun Young Cheong",
       "Doo Young Youn",
       "Chanhoon Kim",
-      "Ji Won Jung",
+      "Ji-Won Jung",
       "Alana F. Ogata",
       "Jin Gook Bae",
       "Il-Doo Kim*"
     ],
     "journal": "Electrochimica Acta",
-    "volume": "",
+    "volume": "269",
     "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "pages": "388-396",
+    "doi": "10.1016/j.electacta.2018.03.028",
+    "link": "https://doi.org/10.1016/j.electacta.2018.03.028",
     "coverImage": ""
   },
   {
@@ -369,11 +387,11 @@
       "Tae Seok Seo*"
     ],
     "journal": "Small",
-    "volume": "",
-    "issue": "",
+    "volume": "13",
+    "issue": "21",
     "pages": "",
-    "doi": "",
-    "link": "",
+    "doi": "10.1002/smll.201603392",
+    "link": "https://doi.org/10.1002/smll.201603392",
     "coverImage": ""
   },
   {
@@ -390,11 +408,11 @@
       "Tae Seok Seo*"
     ],
     "journal": "NPG Asia Materials",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "volume": "8",
+    "issue": "11",
+    "pages": "e329-e329",
+    "doi": "10.1038/am.2016.176",
+    "link": "https://doi.org/10.1038/am.2016.176",
     "coverImage": ""
   },
   {

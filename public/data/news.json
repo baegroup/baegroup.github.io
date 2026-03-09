@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-08",
+  "updatedAt": "2026-03-09",
   "instagram": {
     "handle": "@baelab.khu",
     "profileUrl": "https://www.instagram.com/baelab.khu/",
@@ -163,7 +163,186 @@
         ]
       }
     ],
-    "gallery": [],
-    "videos": []
+    "gallery": [
+      {
+        "id": "gallery-31d6760c5a6580b89531e988c86039eb-prof-bae-s-birthday-october-22nd",
+        "date": "2025-10-22",
+        "title": "Prof. Bae’s Birthday October 22nd",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a6580b89531e988c86039eb-1.webp",
+          "assets/img/news/notion/31d6760c5a6580b89531e988c86039eb-2.webp",
+          "assets/img/news/notion/31d6760c5a6580b89531e988c86039eb-3.webp"
+        ]
+      },
+      {
+        "id": "gallery-31e6760c5a6580b89c83e1b232d174a4-new-member-greeting-2025-may",
+        "date": "2025-05-23",
+        "title": "New member greeting 2025 May",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a6580b89c83e1b232d174a4-1.jpg"
+        ]
+      },
+      {
+        "id": "gallery-31e6760c5a65801f86d0f9098481f87d-teacher-s-day-2025-may-8th",
+        "date": "2025-05-08",
+        "title": "Teacher’s Day 2025 May 8th",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a65801f86d0f9098481f87d-1.webp",
+          "assets/img/news/notion/31e6760c5a65801f86d0f9098481f87d-2.jpg"
+        ]
+      },
+      {
+        "id": "gallery-31d6760c5a658099971fc26034ba3908-lab-picnic-2025-april",
+        "date": "2025-04-01",
+        "title": "Lab Picnic 2025 April",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31d6760c5a658099971fc26034ba3908-1.webp",
+          "assets/img/news/notion/31d6760c5a658099971fc26034ba3908-2.webp"
+        ]
+      },
+      {
+        "id": "gallery-31e6760c5a65803cb05bf93681a1da0b-lab-meeting-2025-feb",
+        "date": "2025-03-04",
+        "title": "Lab Meeting 2025 Feb",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a65803cb05bf93681a1da0b-1.jpg",
+          "assets/img/news/notion/31e6760c5a65803cb05bf93681a1da0b-2.jpg"
+        ]
+      },
+      {
+        "id": "gallery-31e6760c5a658096b15bc8ba05eafede-chemical-engineering-materials-laboratory-for-applications-2023-fall",
+        "date": "2024-01-03",
+        "title": "Chemical Engineering Materials Laboratory for Applications (2023 Fall)",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a658096b15bc8ba05eafede-1.jpg",
+          "assets/img/news/notion/31e6760c5a658096b15bc8ba05eafede-2.jpg"
+        ]
+      },
+      {
+        "id": "gallery-31e6760c5a65802c8c2bcbb994348b15-physical-chemistry-2023-fall",
+        "date": "2024-01-03",
+        "title": "Physical Chemistry (2023 Fall)",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a65802c8c2bcbb994348b15-1.jpg",
+          "assets/img/news/notion/31e6760c5a65802c8c2bcbb994348b15-2.jpg"
+        ]
+      },
+      {
+        "id": "gallery-31e6760c5a6580e5a59ee7d534474adc-separation-process-2023-fall",
+        "date": "2024-01-03",
+        "title": "Separation Process (2023 Fall)",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a6580e5a59ee7d534474adc-1.jpg",
+          "assets/img/news/notion/31e6760c5a6580e5a59ee7d534474adc-2.jpg"
+        ]
+      },
+      {
+        "id": "gallery-31e6760c5a658099968fc65b3b418723-post-doc-memory-at-harvard-prof-jennifer-lewis",
+        "date": "2023-01-03",
+        "title": "Post-doc Memory at Harvard (Prof. Jennifer Lewis)",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-1.jpg",
+          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-2.jpg",
+          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-3.jpg",
+          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-4.jpg",
+          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-5.jpg"
+        ]
+      }
+    ],
+    "videos": [
+      {
+        "id": "videos-31e6760c5a6580ae8c23dcf8be5ae202-2022-3-nrf-nrf",
+        "date": "2022-11-23",
+        "title": "2022년 제3회 한국연구재단(NRF)와 함께하는 즐거운 이동과학교실 (과학강연 및 멘토링, 안좌중학교 편) NRF",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a6580ae8c23dcf8be5ae202-1.jpg"
+        ]
+      },
+      {
+        "id": "videos-31e6760c5a6580389d7fdb35538980c6-kbs-news",
+        "date": "2022-07-09",
+        "title": "체온 따라 색 변하는 섬유... \"환자 파악 한눈에\" KBS NEWS",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a6580389d7fdb35538980c6-1.jpg"
+        ]
+      },
+      {
+        "id": "videos-31e6760c5a65803787b7e9cfb3991986-sod",
+        "date": "2020-01-07",
+        "title": "단 한방울의 물로 전기를 만들어버리다. 에스오디 SOD",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a65803787b7e9cfb3991986-1.jpg"
+        ]
+      },
+      {
+        "id": "videos-31e6760c5a658054a658d8412be77372-ytn",
+        "date": "2019-12-17",
+        "title": "물 몇 방울로 전기 생산하는 기술 나왔다. YTN",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a658054a658d8412be77372-1.jpg"
+        ]
+      },
+      {
+        "id": "videos-31e6760c5a658044ae3cefb9fc1c2ad6-tv",
+        "date": "2019-12-16",
+        "title": "'물 몇 방울로 전기를'... 물을 이용한 자가발전기 개발 연합뉴스 TV",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a658044ae3cefb9fc1c2ad6-1.jpg"
+        ]
+      },
+      {
+        "id": "videos-31e6760c5a65807a9915cd3182eff62b-tjb-news",
+        "date": "2019-12-16",
+        "title": "\"물 몇 방울로 전기 만들어요\".. 대기 수분, 땀으로 자가발전 TJB NEWS",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a65807a9915cd3182eff62b-1.jpg"
+        ]
+      }
+    ]
   }
 }
