@@ -240,7 +240,7 @@ function PreprintSection({ description, items, labAuthorNames, title }) {
   );
 }
 
-function PublicationJournalCoverCard({ publication, number }) {
+function PublicationJournalCoverCard({ publication }) {
   const imageBase = publication.coverImage || publication.id;
   const image = useImageFallback(`${COVER_IMAGE_BASE}/${imageBase}`);
   const journalName = publication.journal || publication.venue || '';
@@ -256,14 +256,13 @@ function PublicationJournalCoverCard({ publication, number }) {
           Cover
         </div>
       )}
-      {number ? <p className="mt-2 text-left text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">#{number}</p> : null}
       <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{journalName}</p>
       <p className="mt-0.5 text-xs text-slate-600">{publication.year}</p>
     </article>
   );
 }
 
-function ManualJournalCoverCard({ cover, number }) {
+function ManualJournalCoverCard({ cover }) {
   const [broken, setBroken] = useState(false);
   const imageSrc = `${import.meta.env.BASE_URL}${cover.path}`;
   const dateLabel = formatCoverDateLabel(cover);
@@ -284,7 +283,6 @@ function ManualJournalCoverCard({ cover, number }) {
           Cover
         </div>
       )}
-      {number ? <p className="mt-2 text-left text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">#{number}</p> : null}
       <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{cover.journal || 'Journal Cover'}</p>
       {dateLabel ? <p className="mt-0.5 text-xs text-slate-600">{dateLabel}</p> : null}
     </article>
@@ -330,9 +328,9 @@ function JournalCoverCarousel({ items }) {
           {items.map((cover) => (
             <div className="w-full shrink-0" key={cover.id}>
               {cover.kind === 'manual' ? (
-                <ManualJournalCoverCard cover={cover} number={cover.number} />
+                <ManualJournalCoverCard cover={cover} />
               ) : (
-                <PublicationJournalCoverCard number={cover.number} publication={cover.publication} />
+                <PublicationJournalCoverCard publication={cover.publication} />
               )}
             </div>
           ))}
