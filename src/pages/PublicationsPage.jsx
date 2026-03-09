@@ -54,6 +54,18 @@ function normalizeJournalKey(value) {
     .replace(/[^a-z0-9]+/g, '');
 }
 
+function compareChronologicalAsc(a, b) {
+  const yearDelta = (a?.year || 0) - (b?.year || 0);
+  if (yearDelta !== 0) {
+    return yearDelta;
+  }
+  const titleDelta = String(a?.localizedTitle || a?.title || '').localeCompare(String(b?.localizedTitle || b?.title || ''));
+  if (titleDelta !== 0) {
+    return titleDelta;
+  }
+  return String(a?.id || '').localeCompare(String(b?.id || ''));
+}
+
 function formatCoverDateLabel(item) {
   const year = Number(item?.year) || null;
   const month = Number(item?.month) || null;
@@ -102,7 +114,7 @@ function PublicationInfoPanel({ updatedAt }) {
   );
 }
 
-function PreprintSection({ description, items, title }) {
+function PreprintSection({ description, items, labAuthorNames, paperLabel, title }) {
   if (!description && !items.length) {
     return null;
   }
@@ -114,12 +126,53 @@ function PreprintSection({ description, items, title }) {
       </h3>
       {description ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{description}</p> : null}
       {items.length ? (
-        <ul className="space-y-2">
-          {items.map((item) => (
-            <li className="rounded-lg border border-slate-200 bg-white p-4 text-sm leading-relaxed text-slate-700 md:text-base" key={item}>
-              {item}
-            </li>
-          ))}
+        <ul className="space-y-2.5">
+          {items.map((item) => {
+            const doiHref = item.doi ? `https://doi.org/${item.doi}` : '';
+            const paperHref = String(item.link || item.url || '').trim();
+            const journalName = item.journal || item.venue || '';
+            return (
+              <li className="rounded-lg border border-slate-200 bg-white p-4 md:p-5" key={item.id}>
+                <div className="space-y-1.5">
+                  <p className="text-[0.97rem] leading-relaxed text-slate-700 md:text-base">
+                    {(item.authors || []).map((author, index) => {
+                      const highlight = isLabAuthor(author, labAuthorNames);
+                      return (
+                        <span key={`${item.id}-preprint-author-${author}-${index}`}>
+                          <span className={highlight ? 'underline decoration-[#0d326f] decoration-2 underline-offset-2' : ''}>{author}</span>
+                          {index < item.authors.length - 1 ? ', ' : ''}
+                        </span>
+                      );
+                    })}
+                    .
+                  </p>
+
+                  <p className="text-[1.02rem] leading-relaxed md:text-[1.05rem]">
+                    <span className="font-semibold text-[#0d326f]">{item.localizedTitle}</span>
+                    {(journalName || item.year) ? <span className="text-slate-500">. </span> : null}
+                    {journalName ? <span className="font-semibold text-[#7a0f1f]">{journalName}</span> : null}
+                    {item.year ? <span className="text-slate-600">, {item.year}</span> : null}
+                    {item.volume ? <span className="text-slate-600">, {item.volume}{item.issue ? `(${item.issue})` : ''}</span> : null}
+                    {item.pages ? <span className="text-slate-600">, {item.pages}</span> : null}
+                    {item.doi ? <span className="text-slate-600">, doi: {item.doi}</span> : null}
+                  </p>
+
+                  <div className="flex flex-wrap gap-3 text-xs font-semibold text-[#0d326f]">
+                    {doiHref ? (
+                      <a href={doiHref} rel="noreferrer" target="_blank">
+                        DOI
+                      </a>
+                    ) : null}
+                    {paperHref && paperHref !== doiHref ? (
+                      <a href={paperHref} rel="noreferrer" target="_blank">
+                        {paperLabel}
+                      </a>
+                    ) : null}
+                  </div>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       ) : (
         <p className="text-sm text-slate-500">No preprints added yet.</p>
@@ -252,7 +305,7 @@ function JournalCoverCarousel({ items }) {
   );
 }
 
-function PublicationList({ items, numbers, labAuthorNames, paperLabel }) {
+function PublicationList({ items, numbers, labAuthorNames, paperLabel, sectionLabel }) {
   const grouped = items.reduce((acc, item) => {
     const bucket = acc.get(item.year) || [];
     bucket.push(item);
@@ -266,7 +319,7 @@ function PublicationList({ items, numbers, labAuthorNames, paperLabel }) {
     <div className="space-y-6">
       {years.map((year) => (
         <section className="space-y-3" key={year}>
-          <h3 className="border-l-4 border-[#7a0f1f] pl-3 text-2xl font-semibold tracking-tight text-[#7a0f1f]">{year} Publications</h3>
+          <h3 className="border-l-4 border-[#7a0f1f] pl-3 text-2xl font-semibold tracking-tight text-[#7a0f1f]">{year} {sectionLabel}</h3>
           <ol className="space-y-3">
             {grouped.get(year).map((pub) => {
               const number = numbers.get(pub.id) || '-';
@@ -452,25 +505,23 @@ export function PublicationsPage({ locale }) {
 
   const filters = useMemo(() => ['journal', 'patent'], []);
 
-  const numbers = useMemo(() => {
-    const chronological = [...allItems].sort((a, b) => {
-      const yearDelta = (a.year || 0) - (b.year || 0);
-      if (yearDelta !== 0) {
-        return yearDelta;
-      }
-      const titleDelta = String(a.localizedTitle || '').localeCompare(String(b.localizedTitle || ''));
-      if (titleDelta !== 0) {
-        return titleDelta;
-      }
-      return String(a.id || '').localeCompare(String(b.id || ''));
+  const numbersByType = useMemo(() => {
+    const types = ['journal', 'patent', 'preprint'];
+    const buckets = new Map();
+
+    types.forEach((type) => {
+      const chronological = allItems.filter((pub) => pub.type === type).sort(compareChronologicalAsc);
+      const map = new Map();
+      chronological.forEach((pub, index) => {
+        map.set(pub.id, index + 1);
+      });
+      buckets.set(type, map);
     });
 
-    const map = new Map();
-    chronological.forEach((pub, index) => {
-      map.set(pub.id, index + 1);
-    });
-    return map;
+    return buckets;
   }, [allItems]);
+  const activeNumbers = numbersByType.get(filter) || new Map();
+  const journalNumbers = numbersByType.get('journal') || new Map();
 
   const updatedAt = useMemo(
     () =>
@@ -488,13 +539,13 @@ export function PublicationsPage({ locale }) {
       .filter((pub) => pub.type === 'journal')
       .forEach((pub) => {
         const key = `${normalizeJournalKey(pub.journal || pub.venue)}::${pub.year || ''}`;
-        const value = numbers.get(pub.id);
+        const value = journalNumbers.get(pub.id);
         if (key && value && !map.has(key)) {
           map.set(key, value);
         }
       });
     return map;
-  }, [allItems, numbers]);
+  }, [allItems, journalNumbers]);
   const coverSlides = useMemo(() => {
     if (coverManifest.length) {
       return coverManifest.map((cover, index) => {
@@ -512,11 +563,15 @@ export function PublicationsPage({ locale }) {
       kind: 'publication',
       id: publication.id,
       publication,
-      number: numbers.get(publication.id) || null
+      number: journalNumbers.get(publication.id) || null
     }));
-  }, [coverManifest, journalItems, journalNumberByKey, numbers]);
-  const preprintItems = Array.isArray(content.preprintItems) ? content.preprintItems.filter(Boolean) : [];
+  }, [coverManifest, journalItems, journalNumberByKey, journalNumbers]);
+  const preprintItems = useMemo(
+    () => allItems.filter((pub) => pub.type === 'preprint'),
+    [allItems]
+  );
   const showPreprintSection = filter === 'journal';
+  const sectionLabel = filter === 'patent' ? 'Patents' : 'Publications';
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -548,11 +603,19 @@ export function PublicationsPage({ locale }) {
                 {showPreprintSection ? (
                   <PreprintSection
                     description={content.preprintDescription}
+                    labAuthorNames={labAuthorNames}
                     items={preprintItems}
+                    paperLabel={content.paperLink}
                     title={content.preprintTitle || 'Preprints in Preparation'}
                   />
                 ) : null}
-                <PublicationList items={items} labAuthorNames={labAuthorNames} numbers={numbers} paperLabel={content.paperLink} />
+                <PublicationList
+                  items={items}
+                  labAuthorNames={labAuthorNames}
+                  numbers={activeNumbers}
+                  paperLabel={content.paperLink}
+                  sectionLabel={sectionLabel}
+                />
               </div>
 
               <aside className="xl:border-l xl:border-slate-200 xl:pl-5">
