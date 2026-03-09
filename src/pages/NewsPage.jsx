@@ -495,85 +495,87 @@ export function NewsPage({ locale }) {
     <div className="space-y-6 md:space-y-8">
       <PageHero description={content.description} title={content.title} />
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(194px,232px)_minmax(0,1fr)]">
-        <aside className="order-2 space-y-4 lg:order-1 lg:sticky lg:top-24 lg:self-start">
-          <Card className="border-slate-200 bg-white">
-            <CardContent className="space-y-2 pt-4">
-              {sections.map((section) => (
-                <button
-                  className={`w-full rounded-md border px-3 py-2 text-left text-sm font-semibold transition-colors ${
-                    activeSection === section.id
-                      ? 'border-[#7a0f1f] bg-[#7a0f1f] text-white'
-                      : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                  }`}
-                  key={section.id}
-                  onClick={() => setActiveSection(section.id)}
-                  type="button"
-                >
-                  {section.label}
-                </button>
-              ))}
-            </CardContent>
-          </Card>
+      <div className="grid gap-5 lg:grid-cols-[minmax(194px,232px)_minmax(0,1fr)] lg:items-start">
+        <aside className="order-2 lg:order-1 lg:self-start">
+          <div className="space-y-4 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-1">
+            <Card className="border-slate-200 bg-white">
+              <CardContent className="space-y-2 pt-4">
+                {sections.map((section) => (
+                  <button
+                    className={`w-full rounded-md border px-3 py-2 text-left text-sm font-semibold transition-colors ${
+                      activeSection === section.id
+                        ? 'border-[#7a0f1f] bg-[#7a0f1f] text-white'
+                        : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                    }`}
+                    key={section.id}
+                    onClick={() => setActiveSection(section.id)}
+                    type="button"
+                  >
+                    {section.label}
+                  </button>
+                ))}
+              </CardContent>
+            </Card>
 
-          <section className="space-y-3 px-1">
-            {latestInstagramEmbedUrl ? (
-              <>
-                <div className="mx-auto hidden w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5 xl:block">
-                  <iframe
-                    allowTransparency
-                    className="block w-full"
-                    loading="lazy"
-                    scrolling="no"
-                    src={latestInstagramEmbedUrl}
-                    style={{ border: 0, height: '460px' }}
-                    title={latestInstagramPost?.title || 'Instagram embed'}
-                  />
-                </div>
-                <a
-                  className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white xl:hidden"
-                  href={latestInstagramPermalink || feed.instagram.profileUrl || '#'}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  {latestInstagramImage ? (
-                    <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
-                  ) : (
-                    <div className="p-3 text-xs text-slate-500">Open latest Instagram post</div>
-                  )}
+            <section className="space-y-3 px-1">
+              {latestInstagramEmbedUrl ? (
+                <>
+                  <div className="mx-auto hidden w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5 xl:block">
+                    <iframe
+                      allowTransparency
+                      className="block w-full"
+                      loading="lazy"
+                      scrolling="no"
+                      src={latestInstagramEmbedUrl}
+                      style={{ border: 0, height: '460px' }}
+                      title={latestInstagramPost?.title || 'Instagram embed'}
+                    />
+                  </div>
+                  <a
+                    className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white xl:hidden"
+                    href={latestInstagramPermalink || feed.instagram.profileUrl || '#'}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    {latestInstagramImage ? (
+                      <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
+                    ) : (
+                      <div className="p-3 text-xs text-slate-500">Open latest Instagram post</div>
+                    )}
+                  </a>
+                </>
+              ) : latestInstagramImage ? (
+                <a className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
+                  <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
                 </a>
-              </>
-            ) : latestInstagramImage ? (
-              <a className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
-                <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
-              </a>
-            ) : (
-              <div className="rounded-lg border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-500">Instagram latest photo not available.</div>
-            )}
-          </section>
+              ) : (
+                <div className="rounded-lg border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-500">Instagram latest photo not available.</div>
+              )}
+            </section>
 
-          <section className="space-y-2 px-1">
-            <div className="flex flex-wrap justify-center gap-2">
-              {profileLinks.map((item) => (
-                <a
-                  aria-label={item.label}
-                  className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white transition-transform hover:-translate-y-0.5 hover:border-slate-300"
-                  href={item.href}
-                  key={item.key}
-                  rel="noreferrer"
-                  target="_blank"
-                  title={item.label}
-                >
-                  <img
-                    alt={item.label}
-                    className="h-full w-full object-contain p-1.5"
-                    src={`${import.meta.env.BASE_URL}${item.icon}`}
-                  />
-                </a>
-              ))}
-            </div>
-            {profileLinks.length === 0 ? <p className="text-xs text-slate-500">{piLinksDescription}</p> : null}
-          </section>
+            <section className="space-y-2 px-1">
+              <div className="flex flex-wrap justify-center gap-2">
+                {profileLinks.map((item) => (
+                  <a
+                    aria-label={item.label}
+                    className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white transition-transform hover:-translate-y-0.5 hover:border-slate-300"
+                    href={item.href}
+                    key={item.key}
+                    rel="noreferrer"
+                    target="_blank"
+                    title={item.label}
+                  >
+                    <img
+                      alt={item.label}
+                      className="h-full w-full object-contain p-1.5"
+                      src={`${import.meta.env.BASE_URL}${item.icon}`}
+                    />
+                  </a>
+                ))}
+              </div>
+              {profileLinks.length === 0 ? <p className="text-xs text-slate-500">{piLinksDescription}</p> : null}
+            </section>
+          </div>
         </aside>
 
         <section className="order-1 space-y-3 lg:order-2" ref={listTopRef}>
