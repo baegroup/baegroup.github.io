@@ -289,22 +289,24 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
           </div>
 
           {detailRows.length ? (
-            <div className="pt-2">
+            <div className="pt-1">
               <button
                 aria-controls={detailId}
                 aria-expanded={expanded}
-                className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-700 transition-colors hover:border-[#0d326f] hover:text-[#0d326f]"
+                className="group inline-flex items-center gap-1.5 text-left text-xs font-semibold tracking-[0.02em] text-slate-500 transition-colors hover:text-[#0d326f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d326f]/30 focus-visible:ring-offset-2"
                 onClick={() => setExpanded((prev) => !prev)}
                 type="button"
               >
-                {expanded ? 'Hide profile details' : 'More profile details'}
-                <span aria-hidden="true" className={`text-[11px] transition-transform ${expanded ? 'rotate-180' : ''}`}>
+                <span className="decoration-transparent underline-offset-2 group-hover:decoration-current">
+                  {expanded ? 'Hide details' : 'Profile details'}
+                </span>
+                <span aria-hidden="true" className={`text-[10px] transition-transform ${expanded ? 'rotate-180' : ''}`}>
                   ▾
                 </span>
               </button>
               <div
                 className={`grid overflow-hidden transition-all duration-300 ease-out ${
-                  expanded ? 'mt-3 max-h-[480px] gap-x-6 gap-y-1.5 border-t border-slate-200 pt-3 opacity-100 sm:grid-cols-2' : 'max-h-0 opacity-0'
+                  expanded ? 'mt-2 max-h-[480px] gap-x-6 gap-y-1.5 border-t border-slate-200 pt-2 opacity-100 sm:grid-cols-2' : 'max-h-0 opacity-0'
                 }`}
                 id={detailId}
               >
