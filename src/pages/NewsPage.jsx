@@ -14,7 +14,8 @@ const DEFAULT_SECTION_TABS = [
   { id: 'gallery', label: 'Gallery' },
   { id: 'videos', label: 'Videos' }
 ];
-const PAGE_SIZE = 5;
+const DEFAULT_PAGE_SIZE = 5;
+const VIDEOS_PAGE_SIZE = 4;
 const LINK_META = [
   { key: 'linkedin', label: 'LinkedIn', icon: 'assets/img/news/profiles/linkedin.ico' },
   { key: 'webOfScience', label: 'Web of Science', icon: 'assets/img/news/profiles/webofscience.ico' },
@@ -429,11 +430,12 @@ export function NewsPage({ locale }) {
   }, [activeSection]);
 
   const activeItems = mergedSections[activeSection] || [];
-  const pageCount = Math.max(1, Math.ceil(activeItems.length / PAGE_SIZE));
+  const pageSize = activeSection === 'videos' ? VIDEOS_PAGE_SIZE : DEFAULT_PAGE_SIZE;
+  const pageCount = Math.max(1, Math.ceil(activeItems.length / pageSize));
   const paginatedItems = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return activeItems.slice(start, start + PAGE_SIZE);
-  }, [activeItems, currentPage]);
+    const start = (currentPage - 1) * pageSize;
+    return activeItems.slice(start, start + pageSize);
+  }, [activeItems, currentPage, pageSize]);
 
   function smoothScrollTo(node) {
     if (typeof window === 'undefined') {
