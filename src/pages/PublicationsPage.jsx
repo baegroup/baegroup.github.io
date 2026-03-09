@@ -388,7 +388,7 @@ function PublicationList({ items, numbers, labAuthorNames, sectionLabel }) {
                 <li className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_8px_20px_-16px_rgba(15,23,42,0.35)] md:p-5" key={pub.id}>
                   <div className="space-y-2">
                     <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">
-                      <span className="mr-2 text-xs font-semibold tracking-[0.02em] text-slate-500">{number}.</span>
+                      <span className="mr-2 font-semibold tracking-[0.02em] text-slate-500">{number}.</span>
                       <span>{pub.localizedTitle}</span>
                     </p>
 
