@@ -16,7 +16,7 @@ export function SiteHeader({ locale }) {
   const universityUrl = 'https://www.khu.ac.kr';
   const departmentUrl = 'https://chemeng.khu.ac.kr';
   const topLinkBaseClass =
-    'inline-flex items-center rounded-sm px-1.5 py-0.5 no-underline transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40';
+    'inline-flex items-center rounded-sm px-1.5 py-0.5 no-underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40';
   const navItems = useMemo(() => NAV_ITEMS[locale] || NAV_ITEMS.en || [], [locale]);
 
   return (
@@ -24,7 +24,7 @@ export function SiteHeader({ locale }) {
       <div className="border-b border-[#68101b] bg-[#7a0f1f]">
         <div className="mx-auto flex h-8 w-full max-w-6xl items-center justify-between px-5 md:h-9">
           <a
-            className={`${topLinkBaseClass} text-sm font-semibold tracking-[0.01em] text-white/95 hover:-translate-y-[0.5px] hover:bg-white/10 hover:text-white`}
+            className={`${topLinkBaseClass} text-sm font-semibold tracking-[0.01em] text-white/95 hover:text-white`}
             href={universityUrl}
             rel="noreferrer"
             target="_blank"
@@ -32,7 +32,7 @@ export function SiteHeader({ locale }) {
             {universityLabel}
           </a>
           <a
-            className={`${topLinkBaseClass} text-xs font-medium tracking-[0.08em] text-white/80 hover:-translate-y-[0.5px] hover:bg-white/10 hover:text-white max-md:hidden`}
+            className={`${topLinkBaseClass} text-xs font-medium tracking-[0.08em] text-white/80 hover:text-white max-md:hidden`}
             href={departmentUrl}
             rel="noreferrer"
             target="_blank"
