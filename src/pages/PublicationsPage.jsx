@@ -655,7 +655,7 @@ export function PublicationsPage({ locale }) {
           ) : null}
 
           {!loading && !error && items.length > 0 ? (
-            <div className="grid gap-5 xl:grid-cols-[minmax(0,1.84fr)_minmax(220px,0.62fr)]">
+            <div className="grid gap-5 xl:grid-cols-[minmax(0,1.84fr)_minmax(220px,0.62fr)] xl:items-start">
               <div className="space-y-4">
                 {showPreprintSection ? (
                   <PreprintSection
@@ -673,8 +673,8 @@ export function PublicationsPage({ locale }) {
                 />
               </div>
 
-              <aside className="xl:border-l xl:border-slate-200 xl:pl-5">
-                <div className="space-y-4 xl:sticky xl:top-24">
+              <aside className="xl:self-start xl:border-l xl:border-slate-200 xl:pl-5">
+                <div className="space-y-4 xl:sticky xl:top-24 xl:max-h-[calc(100vh-7rem)] xl:overflow-y-auto xl:pr-1">
                   <PublicationInfoPanel updatedAt={updatedAt} />
 
                   <Card className="border-slate-200 bg-white">
