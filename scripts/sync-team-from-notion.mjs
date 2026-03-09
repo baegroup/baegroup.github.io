@@ -356,10 +356,13 @@ async function convertPagesToTeam({ pages }) {
 
     const idRaw = propertyToText(findProperty(properties, ['ID', 'Slug', 'Handle', '식별자']));
     const id = toSlug(idRaw || name);
-    const role = normalizeRole(propertyToText(findProperty(properties, ['Role', 'Track', '구분', '직책'])));
+    let role = normalizeRole(propertyToText(findProperty(properties, ['Role', 'Track', '구분', '직책'])));
     const statusText = propertyToText(findProperty(properties, ['Status', 'Membership Status', '상태']));
-    const status = statusText ? normalizeStatus(statusText) : role === 'Alumni' ? 'alumni' : 'current';
     const program = normalizeProgram(propertyToText(findProperty(properties, ['Program', 'Degree', '학위과정'])));
+    if (program === 'Staff' && role !== 'PI' && role !== 'Alumni') {
+      role = 'Staff';
+    }
+    const status = statusText ? normalizeStatus(statusText) : role === 'Alumni' ? 'alumni' : 'current';
     const email = propertyToText(findProperty(properties, ['Email', 'E-mail', '메일', '이메일'], 'email')) || propertyToText(findProperty(properties, ['Email', 'E-mail', '메일', '이메일']));
     const startYear = propertyToNumber(findProperty(properties, ['Start Year', 'StartYear', 'Start Year & Semester', '입실연도', 'Start']));
     const endYear = propertyToNumber(findProperty(properties, ['End Year', 'EndYear', '졸업연도', 'End']));

@@ -13,14 +13,25 @@ export function SiteHeader({ locale }) {
   const tagline = (brand.tagline || '').trim() || 'Functional Materials Additive Manufacturing';
   const universityLabel = 'Kyung Hee University';
   const affiliationLabel = 'Department of Chemical Engineering';
+  const universityUrl = 'https://www.khu.ac.kr';
+  const departmentUrl = 'https://chemeng.khu.ac.kr';
   const navItems = useMemo(() => NAV_ITEMS[locale] || NAV_ITEMS.en || [], [locale]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/90 bg-white/90 backdrop-blur-md">
       <div className="border-b border-[#68101b] bg-[#7a0f1f]">
         <div className="mx-auto flex h-8 w-full max-w-6xl items-center justify-between px-5 md:h-9">
-          <p className="text-sm font-semibold tracking-[0.01em] text-white">{universityLabel}</p>
-          <p className="text-xs font-medium tracking-[0.08em] text-white/85 max-md:hidden">{affiliationLabel}</p>
+          <a className="text-sm font-semibold tracking-[0.01em] text-white no-underline hover:underline" href={universityUrl} rel="noreferrer" target="_blank">
+            {universityLabel}
+          </a>
+          <a
+            className="text-xs font-medium tracking-[0.08em] text-white/85 no-underline hover:text-white hover:underline max-md:hidden"
+            href={departmentUrl}
+            rel="noreferrer"
+            target="_blank"
+          >
+            {affiliationLabel}
+          </a>
         </div>
       </div>
 
