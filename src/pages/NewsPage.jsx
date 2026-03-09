@@ -209,8 +209,8 @@ function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }
           )}
 
           <div>
-            <p className="text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">{item.title}</p>
-            {compactPreview ? <p className="mt-1 text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p> : null}
+            {compactPreview ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p> : null}
+            <p className={`${compactPreview ? 'mt-1 ' : ''}text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]`}>{item.title}</p>
           </div>
 
           <span className="inline-flex items-center justify-center rounded-full border border-slate-200 p-1 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-700">

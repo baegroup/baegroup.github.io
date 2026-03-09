@@ -5,7 +5,7 @@ import { PageHero } from '@/components/site/PageHero';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PUBLICATIONS_CONTENT } from '@/content/site-content';
-import { loadPublications, publicationTypeLabels } from '@/lib/data';
+import { loadPublicationCovers, loadPublications, publicationTypeLabels } from '@/lib/data';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const COVER_IMAGE_BASE = 'assets/img/publications/covers';
@@ -46,6 +46,24 @@ function isLabAuthor(author, labNames) {
     const target = String(name || '').toLowerCase();
     return target && (normalized.includes(target) || target.includes(normalized));
   });
+}
+
+function normalizeJournalKey(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '');
+}
+
+function formatCoverDateLabel(item) {
+  const year = Number(item?.year) || null;
+  const month = Number(item?.month) || null;
+  if (year && month) {
+    return `${year}.${String(month).padStart(2, '0')}`;
+  }
+  if (year) {
+    return String(year);
+  }
+  return '';
 }
 
 function PublicationInfoPanel({ updatedAt }) {
@@ -110,7 +128,7 @@ function PreprintSection({ description, items, title }) {
   );
 }
 
-function JournalCoverCard({ publication, number }) {
+function PublicationJournalCoverCard({ publication, number }) {
   const imageBase = publication.coverImage || publication.id;
   const image = useImageFallback(`${COVER_IMAGE_BASE}/${imageBase}`);
   const journalName = publication.journal || publication.venue || '';
@@ -126,14 +144,42 @@ function JournalCoverCard({ publication, number }) {
           Cover
         </div>
       )}
-      <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">#{number}</p>
+      {number ? <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">#{number}</p> : null}
       <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{journalName}</p>
       <p className="mt-0.5 text-xs text-slate-600">{publication.year}</p>
     </article>
   );
 }
 
-function JournalCoverCarousel({ items, numbers }) {
+function ManualJournalCoverCard({ cover, number }) {
+  const [broken, setBroken] = useState(false);
+  const imageSrc = `${import.meta.env.BASE_URL}${cover.path}`;
+  const dateLabel = formatCoverDateLabel(cover);
+
+  return (
+    <article className="rounded-lg border border-slate-200 bg-white p-3 shadow-soft">
+      {!broken ? (
+        <div className="flex aspect-[3/4] items-center justify-center rounded-md border border-slate-100 bg-slate-50 p-2">
+          <img
+            alt={`${cover.journal || 'Journal'} cover`}
+            className="h-full w-full object-contain"
+            onError={() => setBroken(true)}
+            src={imageSrc}
+          />
+        </div>
+      ) : (
+        <div className="flex aspect-[3/4] w-full items-center justify-center rounded-md border border-slate-100 bg-slate-100 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+          Cover
+        </div>
+      )}
+      {number ? <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">#{number}</p> : null}
+      <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{cover.journal || 'Journal Cover'}</p>
+      {dateLabel ? <p className="mt-0.5 text-xs text-slate-600">{dateLabel}</p> : null}
+    </article>
+  );
+}
+
+function JournalCoverCarousel({ items }) {
   const [index, setIndex] = useState(0);
   const total = items.length;
 
@@ -169,9 +215,13 @@ function JournalCoverCarousel({ items, numbers }) {
     <div className="space-y-3">
       <div className="overflow-hidden rounded-lg">
         <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${index * 100}%)` }}>
-          {items.map((pub) => (
-            <div className="w-full shrink-0" key={`${pub.id}-slide`}>
-              <JournalCoverCard number={numbers.get(pub.id) || '-'} publication={pub} />
+          {items.map((cover) => (
+            <div className="w-full shrink-0" key={cover.id}>
+              {cover.kind === 'manual' ? (
+                <ManualJournalCoverCard cover={cover} number={cover.number} />
+              ) : (
+                <PublicationJournalCoverCard number={cover.number} publication={cover.publication} />
+              )}
             </div>
           ))}
         </div>
@@ -285,6 +335,7 @@ export function PublicationsPage({ locale }) {
   const [filter, setFilter] = useState('journal');
   const [items, setItems] = useState([]);
   const [allItems, setAllItems] = useState([]);
+  const [coverManifest, setCoverManifest] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [labAuthorNames, setLabAuthorNames] = useState([]);
@@ -340,6 +391,28 @@ export function PublicationsPage({ locale }) {
       mounted = false;
     };
   }, [locale]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadCovers() {
+      try {
+        const covers = await loadPublicationCovers();
+        if (mounted) {
+          setCoverManifest(covers);
+        }
+      } catch {
+        if (mounted) {
+          setCoverManifest([]);
+        }
+      }
+    }
+
+    loadCovers();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -409,6 +482,39 @@ export function PublicationsPage({ locale }) {
     []
   );
   const journalItems = useMemo(() => allItems.filter((pub) => pub.type === 'journal').slice(0, 6), [allItems]);
+  const journalNumberByKey = useMemo(() => {
+    const map = new Map();
+    allItems
+      .filter((pub) => pub.type === 'journal')
+      .forEach((pub) => {
+        const key = `${normalizeJournalKey(pub.journal || pub.venue)}::${pub.year || ''}`;
+        const value = numbers.get(pub.id);
+        if (key && value && !map.has(key)) {
+          map.set(key, value);
+        }
+      });
+    return map;
+  }, [allItems, numbers]);
+  const coverSlides = useMemo(() => {
+    if (coverManifest.length) {
+      return coverManifest.map((cover, index) => {
+        const key = `${normalizeJournalKey(cover.journal)}::${cover.year || ''}`;
+        return {
+          ...cover,
+          kind: 'manual',
+          number: journalNumberByKey.get(key) || null,
+          id: `${cover.id || cover.fileName || 'cover'}-${index}`
+        };
+      });
+    }
+
+    return journalItems.map((publication) => ({
+      kind: 'publication',
+      id: publication.id,
+      publication,
+      number: numbers.get(publication.id) || null
+    }));
+  }, [coverManifest, journalItems, journalNumberByKey, numbers]);
   const preprintItems = Array.isArray(content.preprintItems) ? content.preprintItems.filter(Boolean) : [];
   const showPreprintSection = filter === 'journal';
 
@@ -458,7 +564,7 @@ export function PublicationsPage({ locale }) {
                       <CardTitle className="text-lg text-slate-900">Journal Covers</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <JournalCoverCarousel items={journalItems} numbers={numbers} />
+                      <JournalCoverCarousel items={coverSlides} />
                     </CardContent>
                   </Card>
                 </div>

@@ -209,6 +209,33 @@ export async function loadPublications(locale, filterType = 'all') {
     }));
 }
 
+export async function loadPublicationCovers() {
+  const data = await fetchData('publication-covers.json');
+  if (!Array.isArray(data)) {
+    return [];
+  }
+
+  return data
+    .map((item) => ({
+      id: String(item?.id || '').trim(),
+      baseName: String(item?.baseName || '').trim(),
+      fileName: String(item?.fileName || '').trim(),
+      path: String(item?.path || '').trim(),
+      journal: String(item?.journal || '').trim(),
+      year: Number(item?.year) || null,
+      month: Number(item?.month) || null,
+      sortDate: Number(item?.sortDate) || 0
+    }))
+    .filter((item) => item.path)
+    .sort((a, b) => {
+      const sortDelta = (b.sortDate || 0) - (a.sortDate || 0);
+      if (sortDelta !== 0) {
+        return sortDelta;
+      }
+      return String(a.journal || '').localeCompare(String(b.journal || ''));
+    });
+}
+
 export function publicationTypeLabels(locale) {
   return PUB_TYPE_LABELS;
 }

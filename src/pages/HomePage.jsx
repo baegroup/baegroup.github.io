@@ -37,7 +37,7 @@ export function HomePage({ locale }) {
   const mergedNewsContent = useMemo(
     () => ({
       ...newsContent,
-      newsTitle: homeContent.newsTitle || 'Recent Lab News',
+      newsTitle: homeContent.newsTitle || 'Lab News',
       items: latestNewsItems
     }),
     [homeContent.newsTitle, newsContent, latestNewsItems]

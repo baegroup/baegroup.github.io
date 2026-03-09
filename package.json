@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "type": "module",
   "scripts": {
-    "content:build": "node scripts/build-content.mjs",
+    "content:build": "node scripts/build-content.mjs && node scripts/build-publication-covers.mjs",
     "news:sync:notion": "node scripts/sync-news-from-notion.mjs",
     "team:sync:notion": "node scripts/sync-team-from-notion.mjs",
     "publications:sync:notion": "node scripts/sync-publications-from-notion.mjs",

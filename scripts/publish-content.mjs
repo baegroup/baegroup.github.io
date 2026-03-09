@@ -49,7 +49,15 @@ if (dryRun) {
   process.exit(0);
 }
 
-run('git', ['add', 'content', 'src/content/site-content.generated.json', 'public/data/team.json', 'public/data/publications.json', 'public/data/news.json']);
+run('git', [
+  'add',
+  'content',
+  'src/content/site-content.generated.json',
+  'public/data/team.json',
+  'public/data/publications.json',
+  'public/data/news.json',
+  'public/data/publication-covers.json'
+]);
 
 const diffResult = spawnSync('git', ['diff', '--cached', '--quiet'], { stdio: 'ignore' });
 if (diffResult.status === 0) {

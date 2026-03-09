@@ -188,6 +188,7 @@ function MemberDetailRow({ label, value, type = 'text' }) {
 
 function MemberCard({ member, prominent = false, showRoleBadge = false }) {
   const [broken, setBroken] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const hasPhoto = Boolean(member.photo) && !broken;
   const period = `${member.startYear || '-'} - ${member.endYear || 'Present'}`;
   const labels = MEMBER_FIELD_LABELS;
@@ -205,6 +206,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
     { key: 'current', label: labels.current, value: member.currentAffiliation, type: 'text' },
     { key: 'note', label: labels.note, value: member.note, type: 'text' }
   ].filter((row) => String(row.value || '').trim());
+  const detailId = `member-extra-${member.id}`;
 
   if (prominent) {
     return (
@@ -287,16 +289,27 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
           </div>
 
           {detailRows.length ? (
-            <details className="group rounded-lg border border-slate-200 bg-slate-50/60 px-3 py-2">
-              <summary className="cursor-pointer list-none text-xs font-semibold uppercase tracking-[0.08em] text-slate-600 transition-colors group-open:text-[#0d326f]">
-                Details
-              </summary>
-              <div className="mt-2 space-y-1.5 border-t border-slate-200 pt-2">
-                {detailRows.map((row) => (
-                  <MemberDetailRow key={`${member.id}-detail-${row.key}`} label={row.label} type={row.type} value={row.value} />
-                ))}
-              </div>
-            </details>
+            <div className="border-t border-slate-200 pt-3">
+              <button
+                aria-controls={detailId}
+                aria-expanded={expanded}
+                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f] transition-opacity hover:opacity-80"
+                onClick={() => setExpanded((prev) => !prev)}
+                type="button"
+              >
+                {expanded ? 'Hide additional information' : 'View additional information'}
+                <span aria-hidden="true" className={`text-[11px] transition-transform ${expanded ? 'rotate-180' : ''}`}>
+                  ▾
+                </span>
+              </button>
+              {expanded ? (
+                <div className="mt-2 grid gap-x-6 gap-y-1.5 sm:grid-cols-2" id={detailId}>
+                  {detailRows.map((row) => (
+                    <MemberDetailRow key={`${member.id}-detail-${row.key}`} label={row.label} type={row.type} value={row.value} />
+                  ))}
+                </div>
+              ) : null}
+            </div>
           ) : null}
         </div>
       </div>
