@@ -256,7 +256,7 @@ function PublicationJournalCoverCard({ publication, number }) {
           Cover
         </div>
       )}
-      {number ? <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">#{number}</p> : null}
+      {number ? <p className="mt-2 text-left text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">#{number}</p> : null}
       <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{journalName}</p>
       <p className="mt-0.5 text-xs text-slate-600">{publication.year}</p>
     </article>
@@ -284,7 +284,7 @@ function ManualJournalCoverCard({ cover, number }) {
           Cover
         </div>
       )}
-      {number ? <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">#{number}</p> : null}
+      {number ? <p className="mt-2 text-left text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">#{number}</p> : null}
       <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{cover.journal || 'Journal Cover'}</p>
       {dateLabel ? <p className="mt-0.5 text-xs text-slate-600">{dateLabel}</p> : null}
     </article>
@@ -389,7 +389,7 @@ function PublicationList({ items, numbers, labAuthorNames, sectionLabel }) {
               return (
                 <li className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_8px_20px_-16px_rgba(15,23,42,0.35)] md:p-5" key={pub.id}>
                   <div className="space-y-2">
-                    <p className="text-xs font-semibold tracking-[0.02em] text-slate-500">{number}</p>
+                    <p className="text-left text-xs font-semibold tracking-[0.02em] text-slate-500">{number}</p>
 
                     <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">{pub.localizedTitle}</p>
 
