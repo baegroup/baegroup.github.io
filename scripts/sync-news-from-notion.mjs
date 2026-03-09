@@ -7,6 +7,7 @@ const NOTION_ASSET_DIR = path.join(ROOT, 'public', 'assets', 'img', 'news', 'not
 const INSTAGRAM_ASSET_DIR = path.join(ROOT, 'public', 'assets', 'img', 'news', 'instagram');
 const NOTION_API_VERSION = '2025-09-03';
 const SECTION_KEYS = ['labNews', 'gallery', 'videos'];
+const URL_PATTERN = /https?:\/\/[^\s<>"')\]}]+/gi;
 
 async function loadDotenv(fileName) {
   const filePath = path.join(ROOT, fileName);
@@ -156,6 +157,68 @@ function sortItems(items) {
   });
 }
 
+function normalizeUrl(value) {
+  const raw = String(value || '').trim();
+  if (!raw) {
+    return '';
+  }
+  if (/^https?:\/\//i.test(raw)) {
+    return raw;
+  }
+  if (/^(www\.|youtu\.be\/|youtube\.com\/|m\.youtube\.com\/|vimeo\.com\/)/i.test(raw)) {
+    return `https://${raw.replace(/^\/+/, '')}`;
+  }
+  return '';
+}
+
+function extractUrlsFromText(value) {
+  const text = String(value || '');
+  if (!text) {
+    return [];
+  }
+  const matches = text.match(URL_PATTERN) || [];
+  return [...new Set(matches.map((url) => normalizeUrl(url)).filter(Boolean))];
+}
+
+function looksLikeVideoUrl(value) {
+  const normalized = normalizeUrl(value);
+  if (!normalized) {
+    return false;
+  }
+
+  try {
+    const parsed = new URL(normalized);
+    const host = parsed.hostname.toLowerCase();
+    const path = parsed.pathname.toLowerCase();
+    if (
+      host.includes('youtube.com') ||
+      host.includes('youtu.be') ||
+      host.includes('vimeo.com') ||
+      host.includes('instagram.com') ||
+      host.includes('tiktok.com')
+    ) {
+      return true;
+    }
+    return /\.(mp4|mov|webm|m3u8)$/i.test(path);
+  } catch {
+    return false;
+  }
+}
+
+function firstMatchingUrl(values, matcher = () => true) {
+  const list = Array.isArray(values) ? values : [values];
+  for (const value of list) {
+    const normalized = normalizeUrl(value);
+    if (!normalized) {
+      continue;
+    }
+    if (matcher(normalized)) {
+      return normalized;
+    }
+  }
+  return '';
+}
+
 function findProperty(properties, names, type = '') {
   const targets = new Set(names.map((name) => String(name || '').toLowerCase()));
 
@@ -230,6 +293,36 @@ function propertyToBool(property, fallback = true) {
   return Boolean(property.checkbox);
 }
 
+function propertyToUrls(property) {
+  if (!property || !property.type) {
+    return [];
+  }
+
+  if (property.type === 'url') {
+    const raw = String(property.url || '').trim();
+    const splitUrls = extractUrlsFromText(raw);
+    const normalized = normalizeUrl(raw);
+    return [...new Set([normalized, ...splitUrls].filter(Boolean))];
+  }
+
+  if (property.type === 'rich_text' || property.type === 'title') {
+    const tokens = property.type === 'title' ? property.title : property.rich_text;
+    const fromHref = (Array.isArray(tokens) ? tokens : [])
+      .map((token) => normalizeUrl(token?.href || ''))
+      .filter(Boolean);
+    const plain = richTextToPlain(tokens);
+    const fromText = extractUrlsFromText(plain);
+    return [...new Set([...fromHref, ...fromText])];
+  }
+
+  if (property.type === 'files') {
+    return propertyToFiles(property).map((url) => normalizeUrl(url)).filter(Boolean);
+  }
+
+  const fallback = propertyToText(property);
+  return extractUrlsFromText(fallback);
+}
+
 function propertyToFiles(property) {
   if (!property || property.type !== 'files') {
     return [];
@@ -271,6 +364,27 @@ function extractBlockRichText(block) {
   const node = block[block.type];
   const richText = node.rich_text || node.text || [];
   return richTextToPlain(richText);
+}
+
+function extractBlockUrl(block) {
+  if (!block || !block.type) {
+    return '';
+  }
+
+  if (block.type === 'video') {
+    return extractBlockFileUrl(block.video);
+  }
+  if (block.type === 'embed') {
+    return String(block.embed?.url || '').trim();
+  }
+  if (block.type === 'bookmark') {
+    return String(block.bookmark?.url || '').trim();
+  }
+  if (block.type === 'link_preview') {
+    return String(block.link_preview?.url || '').trim();
+  }
+
+  return '';
 }
 
 async function fetchBlockChildren({ token, blockId }) {
@@ -323,14 +437,23 @@ async function fetchPageSupplementalContent({ token, pageId }) {
       }
     }
 
-    if (!videoUrl && block.type === 'video') {
-      videoUrl = extractBlockFileUrl(block.video);
+    if (!videoUrl) {
+      const blockUrl = extractBlockUrl(block);
+      if (looksLikeVideoUrl(blockUrl)) {
+        videoUrl = normalizeUrl(blockUrl);
+      }
     }
 
     if (!summary) {
       const text = extractBlockRichText(block);
       if (text) {
         summary = text;
+      }
+      if (!videoUrl) {
+        const textVideoUrl = firstMatchingUrl(extractUrlsFromText(text), looksLikeVideoUrl);
+        if (textVideoUrl) {
+          videoUrl = textVideoUrl;
+        }
       }
     }
 
@@ -513,9 +636,9 @@ async function convertNotionPagesToSections({ pages, token }) {
     const titleProp = findProperty(properties, ['Title', 'Name', '제목', '이름'], 'title');
     const sectionProp = findProperty(properties, ['Section', 'Select', 'Category', 'Type', '섹션', '구분', '카테고리']);
     const dateProp = findProperty(properties, ['Date', 'Updated', '날짜', '업데이트'], 'date');
-    const summaryProp = findProperty(properties, ['Summary', 'Description', 'Content', '요약', '설명', '내용'], 'rich_text');
-    const linkProp = findProperty(properties, ['Link', 'URL', 'Source', '링크', '출처'], 'url');
-    const videoProp = findProperty(properties, ['Video', 'Video URL', 'YouTube', '영상', '동영상'], 'url');
+    const summaryProp = findProperty(properties, ['Summary', 'Description', 'Content', '요약', '설명', '내용']);
+    const linkProp = findProperty(properties, ['Link', 'URL', 'Source', '링크', '출처']);
+    const videoProp = findProperty(properties, ['Video', 'Video URL', 'Video Link', 'YouTube', 'Youtube', '유튜브', '영상', '동영상']);
     const imageProp = findProperty(properties, ['Images', 'Image', 'Photos', 'Media', '사진', '이미지', '파일과 미디어', '파일'], 'files');
     const title = propertyToText(titleProp);
     if (!title) {
@@ -525,19 +648,32 @@ async function convertNotionPagesToSections({ pages, token }) {
     const sectionText = propertyToText(sectionProp);
     const date = propertyToText(dateProp);
     const summary = propertyToText(summaryProp);
-    const url = propertyToText(linkProp);
-    let videoUrl = propertyToText(videoProp);
+    const linkUrls = propertyToUrls(linkProp);
+    const videoUrls = propertyToUrls(videoProp);
+    const url = firstMatchingUrl([...videoUrls, ...linkUrls]) || propertyToText(linkProp);
+    let videoUrl = firstMatchingUrl(videoUrls, looksLikeVideoUrl) || firstMatchingUrl(linkUrls, looksLikeVideoUrl);
 
     // Use full page id token to prevent media filename collisions across entries.
     const pageToken = String(page.id || '').replace(/-/g, '') || toSlug(title, 'item');
-    const mediaUrls = propertyToFiles(imageProp);
+    const fileFieldUrls = propertyToFiles(imageProp);
+    const mediaUrls = fileFieldUrls.filter((value) => !looksLikeVideoUrl(value));
+    const mediaVideoUrl = firstMatchingUrl(fileFieldUrls, looksLikeVideoUrl);
     const supplemental = await fetchPageSupplementalContent({ token, pageId: page.id });
     const mergedMediaUrls = mediaUrls.length ? mediaUrls : supplemental.images;
     const resolvedSummary = summary || supplemental.summary;
+    if (!videoUrl && mediaVideoUrl) {
+      videoUrl = mediaVideoUrl;
+    }
     if (!videoUrl && supplemental.videoUrl) {
       videoUrl = supplemental.videoUrl;
     }
-    const section = inferSection({ sectionValue: sectionText, title, videoUrl });
+    if (!videoUrl) {
+      videoUrl = firstMatchingUrl(extractUrlsFromText(resolvedSummary), looksLikeVideoUrl);
+    }
+    if (!videoUrl && looksLikeVideoUrl(url)) {
+      videoUrl = normalizeUrl(url);
+    }
+    const section = inferSection({ sectionValue: sectionText, title, videoUrl: videoUrl || url });
     const images = [];
 
     for (let index = 0; index < mergedMediaUrls.length; index += 1) {

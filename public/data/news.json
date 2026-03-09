@@ -283,10 +283,8 @@
         "title": "2022년 제3회 한국연구재단(NRF)와 함께하는 즐거운 이동과학교실 (과학강연 및 멘토링, 안좌중학교 편) NRF",
         "summary": "",
         "url": "",
-        "videoUrl": "",
-        "images": [
-          "assets/img/news/notion/31e6760c5a6580ae8c23dcf8be5ae202-1.jpg"
-        ]
+        "videoUrl": "https://youtu.be/-EgAgF4DIeI",
+        "images": []
       },
       {
         "id": "videos-31e6760c5a6580389d7fdb35538980c6-kbs-news",
@@ -294,10 +292,8 @@
         "title": "체온 따라 색 변하는 섬유... \"환자 파악 한눈에\" KBS NEWS",
         "summary": "",
         "url": "",
-        "videoUrl": "",
-        "images": [
-          "assets/img/news/notion/31e6760c5a6580389d7fdb35538980c6-1.jpg"
-        ]
+        "videoUrl": "https://youtu.be/T-EHA0kg7dc",
+        "images": []
       },
       {
         "id": "videos-31e6760c5a65803787b7e9cfb3991986-sod",
@@ -305,10 +301,8 @@
         "title": "단 한방울의 물로 전기를 만들어버리다. 에스오디 SOD",
         "summary": "",
         "url": "",
-        "videoUrl": "",
-        "images": [
-          "assets/img/news/notion/31e6760c5a65803787b7e9cfb3991986-1.jpg"
-        ]
+        "videoUrl": "https://youtu.be/jWs7k3kGqgI",
+        "images": []
       },
       {
         "id": "videos-31e6760c5a658054a658d8412be77372-ytn",
@@ -316,10 +310,8 @@
         "title": "물 몇 방울로 전기 생산하는 기술 나왔다. YTN",
         "summary": "",
         "url": "",
-        "videoUrl": "",
-        "images": [
-          "assets/img/news/notion/31e6760c5a658054a658d8412be77372-1.jpg"
-        ]
+        "videoUrl": "https://youtu.be/3F3xPtYzoj8",
+        "images": []
       },
       {
         "id": "videos-31e6760c5a658044ae3cefb9fc1c2ad6-tv",
@@ -327,10 +319,8 @@
         "title": "'물 몇 방울로 전기를'... 물을 이용한 자가발전기 개발 연합뉴스 TV",
         "summary": "",
         "url": "",
-        "videoUrl": "",
-        "images": [
-          "assets/img/news/notion/31e6760c5a658044ae3cefb9fc1c2ad6-1.jpg"
-        ]
+        "videoUrl": "https://youtu.be/YL2XiSLteLA",
+        "images": []
       },
       {
         "id": "videos-31e6760c5a65807a9915cd3182eff62b-tjb-news",
@@ -338,10 +328,8 @@
         "title": "\"물 몇 방울로 전기 만들어요\".. 대기 수분, 땀으로 자가발전 TJB NEWS",
         "summary": "",
         "url": "",
-        "videoUrl": "",
-        "images": [
-          "assets/img/news/notion/31e6760c5a65807a9915cd3182eff62b-1.jpg"
-        ]
+        "videoUrl": "https://youtu.be/38EEz7e5qDM",
+        "images": []
       }
     ]
   }
