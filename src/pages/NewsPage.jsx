@@ -516,29 +516,6 @@ export function NewsPage({ locale }) {
             </CardContent>
           </Card>
 
-          <section className="space-y-2 px-1">
-            <div className="flex flex-wrap justify-center gap-2">
-              {profileLinks.map((item) => (
-                <a
-                  aria-label={item.label}
-                  className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white transition-transform hover:-translate-y-0.5 hover:border-slate-300"
-                  href={item.href}
-                  key={item.key}
-                  rel="noreferrer"
-                  target="_blank"
-                  title={item.label}
-                >
-                  <img
-                    alt={item.label}
-                    className="h-full w-full object-contain p-1.5"
-                    src={`${import.meta.env.BASE_URL}${item.icon}`}
-                  />
-                </a>
-              ))}
-            </div>
-            {profileLinks.length === 0 ? <p className="text-xs text-slate-500">{piLinksDescription}</p> : null}
-          </section>
-
           <section className="space-y-3 px-1">
             {latestInstagramEmbedUrl ? (
               <>
@@ -573,6 +550,29 @@ export function NewsPage({ locale }) {
             ) : (
               <div className="rounded-lg border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-500">Instagram latest photo not available.</div>
             )}
+          </section>
+
+          <section className="space-y-2 px-1">
+            <div className="flex flex-wrap justify-center gap-2">
+              {profileLinks.map((item) => (
+                <a
+                  aria-label={item.label}
+                  className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white transition-transform hover:-translate-y-0.5 hover:border-slate-300"
+                  href={item.href}
+                  key={item.key}
+                  rel="noreferrer"
+                  target="_blank"
+                  title={item.label}
+                >
+                  <img
+                    alt={item.label}
+                    className="h-full w-full object-contain p-1.5"
+                    src={`${import.meta.env.BASE_URL}${item.icon}`}
+                  />
+                </a>
+              ))}
+            </div>
+            {profileLinks.length === 0 ? <p className="text-xs text-slate-500">{piLinksDescription}</p> : null}
           </section>
         </aside>
 
