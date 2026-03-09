@@ -35,7 +35,7 @@ Bae Lab seeks creative and motivated postdoctoral researchers with expertise in 
 Graduate Admissions Information
 
 ## admissionsUrl
-https://admission.khu.ac.kr/
+https://gskh.khu.ac.kr/
 
 ## contactEmail
 jbae@khu.ac.kr
