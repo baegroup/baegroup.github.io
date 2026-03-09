@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "id": "acs nano_january_2024",
+    "baseName": "ACS Nano_January_2024",
+    "fileName": "ACS Nano_January_2024.jpg",
+    "path": "assets/img/publications/covers/ACS Nano_January_2024.jpg",
+    "journal": "ACS Nano",
+    "year": 2024,
+    "month": 1,
+    "sortDate": 202401
+  },
+  {
+    "id": "advanced energy materials_april_2023",
+    "baseName": "Advanced Energy Materials_April_2023",
+    "fileName": "Advanced Energy Materials_April_2023.jpg",
+    "path": "assets/img/publications/covers/Advanced Energy Materials_April_2023.jpg",
+    "journal": "Advanced Energy Materials",
+    "year": 2023,
+    "month": 4,
+    "sortDate": 202304
+  },
+  {
+    "id": "advanced functional materials_june_2022",
+    "baseName": "Advanced Functional Materials_June_2022",
+    "fileName": "Advanced Functional Materials_June_2022.jpg",
+    "path": "assets/img/publications/covers/Advanced Functional Materials_June_2022.jpg",
+    "journal": "Advanced Functional Materials",
+    "year": 2022,
+    "month": 6,
+    "sortDate": 202206
+  },
+  {
+    "id": "advanced materials_june_2022",
+    "baseName": "Advanced Materials_June_2022",
+    "fileName": "Advanced Materials_June_2022.jpg",
+    "path": "assets/img/publications/covers/Advanced Materials_June_2022.jpg",
+    "journal": "Advanced Materials",
+    "year": 2022,
+    "month": 6,
+    "sortDate": 202206
+  },
+  {
+    "id": "energy & environmental science_january_2022",
+    "baseName": "Energy & Environmental Science_January_2022",
+    "fileName": "Energy & Environmental Science_January_2022.jpg",
+    "path": "assets/img/publications/covers/Energy & Environmental Science_January_2022.jpg",
+    "journal": "Energy & Environmental Science",
+    "year": 2022,
+    "month": 1,
+    "sortDate": 202201
+  },
+  {
+    "id": "energy & environmental science_february_2020",
+    "baseName": "Energy & Environmental Science_February_2020",
+    "fileName": "Energy & Environmental Science_February_2020.jpg",
+    "path": "assets/img/publications/covers/Energy & Environmental Science_February_2020.jpg",
+    "journal": "Energy & Environmental Science",
+    "year": 2020,
+    "month": 2,
+    "sortDate": 202002
+  }
+]

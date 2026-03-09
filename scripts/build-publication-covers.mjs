@@ -35,27 +35,80 @@ function normalizeJournalSlug(raw) {
     .replace(/\s+/g, ' ');
 }
 
-function parseCoverBaseName(baseName) {
-  const match = String(baseName || '').match(/^(.*)_(\d{4})_(\d{1,2})$/);
-  if (!match) {
-    const fallbackJournal = toTitleCase(normalizeJournalSlug(baseName));
-    return {
-      journal: fallbackJournal,
-      year: null,
-      month: null,
-      sortDate: 0
-    };
+const MONTH_NAME_TO_NUMBER = {
+  january: 1,
+  february: 2,
+  march: 3,
+  april: 4,
+  may: 5,
+  june: 6,
+  july: 7,
+  august: 8,
+  september: 9,
+  october: 10,
+  november: 11,
+  december: 12
+};
+
+function parseMonthValue(value) {
+  const raw = String(value || '').trim();
+  if (!raw) {
+    return null;
   }
 
-  const journalRaw = normalizeJournalSlug(match[1]);
-  const year = Number(match[2]);
-  const month = Math.min(12, Math.max(1, Number(match[3])));
+  const numeric = Number(raw);
+  if (Number.isFinite(numeric)) {
+    return Math.min(12, Math.max(1, Math.floor(numeric)));
+  }
+
+  const monthName = raw.toLowerCase();
+  return MONTH_NAME_TO_NUMBER[monthName] || null;
+}
+
+function parsedCover(journalRaw, yearRaw, monthRaw) {
+  const journal = toTitleCase(normalizeJournalSlug(journalRaw));
+  const year = Number(yearRaw);
+  const month = parseMonthValue(monthRaw);
+
+  if (!Number.isFinite(year) || !month) {
+    return null;
+  }
 
   return {
-    journal: toTitleCase(journalRaw),
+    journal,
     year,
     month,
     sortDate: year * 100 + month
+  };
+}
+
+function parseCoverBaseName(baseName) {
+  const raw = String(baseName || '').trim();
+  const patterns = [
+    /^(.*)_(\d{4})_(\d{1,2})$/i,
+    /^(.*)_(\d{4})_([a-z]+)$/i,
+    /^(.*)_([a-z]+)_(\d{4})$/i
+  ];
+
+  for (const pattern of patterns) {
+    const match = raw.match(pattern);
+    if (!match) {
+      continue;
+    }
+
+    const [journalRaw, y1, m1] = [match[1], match[2], match[3]];
+    const parsed = pattern === patterns[2] ? parsedCover(journalRaw, m1, y1) : parsedCover(journalRaw, y1, m1);
+    if (parsed) {
+      return parsed;
+    }
+  }
+
+  const fallbackJournal = toTitleCase(normalizeJournalSlug(baseName));
+  return {
+    journal: fallbackJournal,
+    year: null,
+    month: null,
+    sortDate: 0
   };
 }
 
