@@ -139,7 +139,7 @@ export function ResearchPage({ locale }) {
       </section>
 
       <section className="rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7">
-        <h2 className="home-section-title text-center">{fundingTitle}</h2>
+        <h2 className="text-center text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{fundingTitle}</h2>
         <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {fundingItems.map((item, index) => (
             <FundingItem index={index} item={item} key={`${item.name}-${item.logo || index}`} />
