@@ -1,5 +1,63 @@
 [
   {
+    "id": "3d-printing-for-environmental-application",
+    "year": 2026,
+    "type": "preprint",
+    "title": "3D printing for environmental application",
+    "authors": [
+      "Suha Cho",
+      "Hyunjun Min",
+      "Nam Kyu Kang",
+      "Jaehyeong Bae*"
+    ],
+    "journal": "TBD",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "",
+    "link": "",
+    "coverImage": ""
+  },
+  {
+    "id": "liquid-solar-cell",
+    "year": 2026,
+    "type": "preprint",
+    "title": "Liquid-solar Cell…",
+    "authors": [
+      "Myeong Lee†",
+      "Kangyun Lee†",
+      "Jungmok You*",
+      "Jaehyeong Bae*"
+    ],
+    "journal": "TBD",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "",
+    "link": "",
+    "coverImage": ""
+  },
+  {
+    "id": "sensor-with-3d-printed",
+    "year": 2026,
+    "type": "preprint",
+    "title": "Sensor with 3D printed …",
+    "authors": [
+      "Jaehyeong Bae",
+      "Benito Roman-Manso",
+      "Bok Yeop Ahn",
+      "Arda Kotikian",
+      "Jennifer A. Lewis*"
+    ],
+    "journal": "TBD",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "",
+    "link": "",
+    "coverImage": ""
+  },
+  {
     "id": "2025-apm-liquid-crystal-sodium",
     "year": 2025,
     "type": "journal",
@@ -37,7 +95,7 @@
     "journal": "Advanced Materials",
     "volume": "37",
     "issue": "38",
-    "pages": "",
+    "pages": "2501959",
     "doi": "10.1002/adma.202501959",
     "link": "https://doi.org/10.1002/adma.202501959",
     "coverImage": ""
@@ -112,6 +170,30 @@
     "coverImage": ""
   },
   {
+    "id": "hydrovoltaic-electricity-generator-with-hygroscopic-materials-a-review-and-new-perspective",
+    "year": 2023,
+    "type": "journal",
+    "title": "Hydrovoltaic Electricity Generator with Hygroscopic Materials: A Review and New Perspective",
+    "authors": [
+      "Haeseong Lim†",
+      "Min Soo Kim†",
+      "Yujang Cho†",
+      "Jaewan Ahn",
+      "Seongcheol Ahn",
+      "Jong Seok Nam",
+      "Jaehyeong Bae",
+      "Tae Gwang Yun",
+      "Il-Doo Kim*"
+    ],
+    "journal": "Advanced Materials",
+    "volume": "36",
+    "issue": "12",
+    "pages": "2301080",
+    "doi": "10.1002/adma.202301080",
+    "link": "https://doi.org/10.1002/adma.202301080",
+    "coverImage": ""
+  },
+  {
     "id": "2023-aem-sei-scaffold-li-metal",
     "year": 2023,
     "type": "journal",
@@ -137,9 +219,31 @@
     "journal": "Advanced Energy Materials",
     "volume": "13",
     "issue": "16",
-    "pages": "",
+    "pages": "2203818",
     "doi": "10.1002/aenm.202203818",
     "link": "https://doi.org/10.1002/aenm.202203818",
+    "coverImage": ""
+  },
+  {
+    "id": "ion-permselective-conducting-polymer-based-electrokinetic-generators-with-maximized-utility-of-green-water",
+    "year": 2022,
+    "type": "journal",
+    "title": "Ion-permselective conducting polymer-based electrokinetic generators with maximized utility of green water",
+    "authors": [
+      "Tae Gwang Yun†",
+      "Jaehyeong Bae†",
+      "Hyeon Gyun Nam",
+      "Dongyeon Kim",
+      "Ki Ro Yoon",
+      "Seung Min Han",
+      "Il-Doo Kim*"
+    ],
+    "journal": "Nano Energy",
+    "volume": "94",
+    "issue": "",
+    "pages": "106946",
+    "doi": "10.1016/j.nanoen.2022.106946",
+    "link": "https://doi.org/10.1016/j.nanoen.2022.106946",
     "coverImage": ""
   },
   {
@@ -158,7 +262,7 @@
     "journal": "Advanced Materials",
     "volume": "34",
     "issue": "24",
-    "pages": "",
+    "pages": "2201734",
     "doi": "10.1002/adma.202201734",
     "link": "https://doi.org/10.1002/adma.202201734",
     "coverImage": ""
@@ -180,7 +284,7 @@
     "journal": "Advanced Functional Materials",
     "volume": "32",
     "issue": "24",
-    "pages": "",
+    "pages": "2200463",
     "doi": "10.1002/adfm.202200463",
     "link": "https://doi.org/10.1002/adfm.202200463",
     "coverImage": ""
@@ -208,6 +312,28 @@
     "pages": "123-135",
     "doi": "10.1039/d1ee00859e",
     "link": "https://doi.org/10.1039/d1ee00859e",
+    "coverImage": ""
+  },
+  {
+    "id": "violacein-embedded-nanofiber-filters-with-antiviral-and-antibacterial-activities",
+    "year": 2022,
+    "type": "journal",
+    "title": "Violacein-embedded Nanofiber Filters with Antiviral and Antibacterial Activities",
+    "authors": [
+      "Jiyoung Lee†",
+      "Jaehyeong Bae†",
+      "Doo-Young Youn",
+      "Jaewan Ahn",
+      "Won-Tae Hwang",
+      "Pan Kee Bae*",
+      "Il-Doo Kim*"
+    ],
+    "journal": "Chemical Engineering Journal",
+    "volume": "444",
+    "issue": "15",
+    "pages": "136460",
+    "doi": "10.1016/j.cej.2022.136460",
+    "link": "https://doi.org/10.1016/j.cej.2022.136460",
     "coverImage": ""
   },
   {
@@ -389,7 +515,7 @@
     "journal": "Small",
     "volume": "13",
     "issue": "21",
-    "pages": "",
+    "pages": "1603392",
     "doi": "10.1002/smll.201603392",
     "link": "https://doi.org/10.1002/smll.201603392",
     "coverImage": ""
@@ -410,7 +536,7 @@
     "journal": "NPG Asia Materials",
     "volume": "8",
     "issue": "11",
-    "pages": "e329-e329",
+    "pages": "e329",
     "doi": "10.1038/am.2016.176",
     "link": "https://doi.org/10.1038/am.2016.176",
     "coverImage": ""
@@ -429,9 +555,9 @@
       "Youn Seok Heo"
     ],
     "journal": "News & Information for Chemical Engineers",
-    "volume": "",
+    "volume": "33",
     "issue": "",
-    "pages": "",
+    "pages": "299-306",
     "doi": "",
     "link": "",
     "coverImage": ""
