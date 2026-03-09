@@ -186,6 +186,28 @@ function MemberDetailRow({ label, value, type = 'text' }) {
   );
 }
 
+function MemberDetailStackRow({ label, value, type = 'text' }) {
+  if (!value) {
+    return null;
+  }
+
+  const trimmed = String(value).trim();
+  const isEmail = type === 'email' && trimmed.includes('@');
+
+  return (
+    <div className="space-y-0.5 text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
+      {label ? <p className="text-xs font-semibold uppercase tracking-[0.06em] text-slate-500">{label}</p> : null}
+      {isEmail ? (
+        <a className="break-all text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${trimmed}`}>
+          {trimmed}
+        </a>
+      ) : (
+        <p className="break-words text-slate-700">{trimmed}</p>
+      )}
+    </div>
+  );
+}
+
 function MemberCard({ member, prominent = false, showRoleBadge = false }) {
   const [broken, setBroken] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -306,14 +328,14 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
               </button>
               <div
                 className={`grid overflow-hidden transition-all duration-300 ease-out ${
-                  expanded ? 'mt-2 max-h-[480px] gap-x-6 gap-y-1.5 border-t border-slate-200 pt-2 opacity-100 sm:grid-cols-2' : 'max-h-0 opacity-0'
+                  expanded ? 'mt-2 max-h-[520px] gap-y-2.5 border-t border-slate-200 pt-2 opacity-100' : 'max-h-0 opacity-0'
                 }`}
                 id={detailId}
               >
                 {expanded ? (
                   <>
                     {detailRows.map((row) => (
-                      <MemberDetailRow key={`${member.id}-detail-${row.key}`} label={row.label} type={row.type} value={row.value} />
+                      <MemberDetailStackRow key={`${member.id}-detail-${row.key}`} label={row.label} type={row.type} value={row.value} />
                     ))}
                   </>
                 ) : null}
