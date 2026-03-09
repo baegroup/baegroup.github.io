@@ -517,37 +517,23 @@ export function NewsPage({ locale }) {
               </CardContent>
             </Card>
 
-            <section className="space-y-3 px-1">
-              {latestInstagramEmbedUrl ? (
-                <>
-                  <div className="mx-auto hidden w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5 xl:block">
-                    <iframe
-                      allowTransparency
-                      className="block w-full"
-                      loading="lazy"
-                      scrolling="no"
-                      src={latestInstagramEmbedUrl}
-                      style={{ border: 0, height: '460px' }}
-                      title={latestInstagramPost?.title || 'Instagram embed'}
-                    />
-                  </div>
-                  <a
-                    className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white xl:hidden"
-                    href={latestInstagramPermalink || feed.instagram.profileUrl || '#'}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {latestInstagramImage ? (
-                      <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
-                    ) : (
-                      <div className="p-3 text-xs text-slate-500">Open latest Instagram post</div>
-                    )}
-                  </a>
-                </>
-              ) : latestInstagramImage ? (
-                <a className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
-                  <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
-                </a>
+          <section className="space-y-3 px-1">
+            {latestInstagramEmbedUrl ? (
+              <div className="mx-auto w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5">
+                <iframe
+                  allowTransparency
+                  className="block h-[420px] w-full sm:h-[460px]"
+                  loading="lazy"
+                  scrolling="no"
+                  src={latestInstagramEmbedUrl}
+                  style={{ border: 0 }}
+                  title={latestInstagramPost?.title || 'Instagram embed'}
+                />
+              </div>
+            ) : latestInstagramImage ? (
+              <a className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
+                <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
+              </a>
               ) : (
                 <div className="rounded-lg border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-500">Instagram latest photo not available.</div>
               )}
