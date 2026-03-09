@@ -76,8 +76,8 @@ function ResearchAreaRow({ area, index, areaLabel }) {
 
         <div className="space-y-3">
           <p className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-600">{areaLabel}</p>
-          <h3 className="text-4xl font-semibold leading-tight tracking-tight text-slate-950 md:text-5xl">{area.title}</h3>
-          <p className="text-base leading-relaxed text-slate-700 md:text-lg">{area.body}</p>
+          <h3 className="home-section-title">{area.title}</h3>
+          <p className="home-body-copy text-slate-700">{area.body}</p>
         </div>
       </div>
     </article>
@@ -128,8 +128,8 @@ export function ResearchPage({ locale }) {
       <PageHero title={content.title} />
 
       <section className="rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7">
-        <h2 className="text-center text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">{missionTitle}</h2>
-        <p className="mx-auto mt-5 max-w-5xl text-base leading-relaxed text-slate-700 md:text-lg">{content.description}</p>
+        <h2 className="home-section-title text-center">{missionTitle}</h2>
+        <p className="home-body-copy mx-auto mt-5 max-w-5xl text-slate-700">{content.description}</p>
       </section>
 
       <section className="space-y-4 md:space-y-5">
@@ -139,7 +139,7 @@ export function ResearchPage({ locale }) {
       </section>
 
       <section className="rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7">
-        <h2 className="text-center text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">{fundingTitle}</h2>
+        <h2 className="home-section-title text-center">{fundingTitle}</h2>
         <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {fundingItems.map((item, index) => (
             <FundingItem index={index} item={item} key={`${item.name}-${item.logo || index}`} />
