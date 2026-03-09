@@ -175,6 +175,10 @@ function toYouTubeEmbedUrl(value) {
     }
 
     if (host.includes('youtube.com')) {
+      if (parsed.pathname.startsWith('/shorts/')) {
+        const id = parsed.pathname.replace('/shorts/', '').replace(/\/+$/, '').trim();
+        return id ? `https://www.youtube.com/embed/${id}` : '';
+      }
       const id = parsed.searchParams.get('v');
       return id ? `https://www.youtube.com/embed/${id}` : '';
     }
@@ -185,8 +189,45 @@ function toYouTubeEmbedUrl(value) {
   return '';
 }
 
+function VideoCard({ item }) {
+  const primaryVideoUrl = item.videoUrl || item.url;
+  const youtubeEmbed = toYouTubeEmbedUrl(primaryVideoUrl);
+  const fallbackImage = item.images?.[0] || '';
+
+  return (
+    <article className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+      <div className="border-b border-slate-200 bg-slate-100">
+        {youtubeEmbed ? (
+          <iframe
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            className="aspect-video w-full"
+            src={youtubeEmbed}
+            title={`${item.title} video`}
+          />
+        ) : fallbackImage ? (
+          <MediaImage path={fallbackImage} title={item.title} />
+        ) : (
+          <div className="flex aspect-video w-full items-center justify-center px-4 text-center text-sm text-slate-500">Video preview not available.</div>
+        )}
+      </div>
+
+      <div className="space-y-2 p-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p>
+        <h3 className="text-xl font-semibold leading-snug text-slate-950">{item.title}</h3>
+        {item.summary ? <p className="text-sm leading-relaxed text-slate-600">{item.summary}</p> : null}
+        {primaryVideoUrl ? (
+          <a className="inline-flex text-sm font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={primaryVideoUrl} rel="noreferrer" target="_blank">
+            Open video source
+          </a>
+        ) : null}
+      </div>
+    </article>
+  );
+}
+
 function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }) {
-  const youtubeEmbed = toYouTubeEmbedUrl(item.videoUrl);
+  const youtubeEmbed = toYouTubeEmbedUrl(item.videoUrl || item.url);
   const hasDetailContent = Boolean(item.summary || item.url || item.videoUrl || (item.images || []).length);
   const firstImage = item.images?.[0] || '';
   const toggleLabel = opened ? 'Collapse details' : 'View details';
@@ -199,18 +240,16 @@ function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }
         onClick={onToggle}
         type="button"
       >
-        <div className={`grid gap-3 md:items-center ${compactPreview ? 'md:grid-cols-[72px_minmax(0,1fr)_auto]' : 'md:grid-cols-[118px_minmax(0,1fr)_auto]'}`}>
+        <div className={`grid gap-3 md:items-center ${compactPreview ? 'md:grid-cols-[72px_minmax(0,1fr)_auto]' : 'md:grid-cols-[minmax(0,1fr)_auto]'}`}>
           {compactPreview ? (
             <div className="flex items-center justify-center">
               <MediaImage path={firstImage} title={item.title} variant="thumb" />
             </div>
-          ) : (
-            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p>
-          )}
+          ) : null}
 
           <div>
-            {compactPreview ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p> : null}
-            <p className={`${compactPreview ? 'mt-1 ' : ''}text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]`}>{item.title}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p>
+            <p className="mt-1 text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">{item.title}</p>
           </div>
 
           <span className="inline-flex items-center justify-center rounded-full border border-slate-200 p-1 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-700">
@@ -552,24 +591,32 @@ export function NewsPage({ locale }) {
 
           {!loading && !error && activeItems.length > 0 ? (
             <div className="space-y-3">
-              <ul className="space-y-2">
-                {paginatedItems.map((item) => (
-                  <NewsItemRow
-                    compactPreview={activeSection === 'labNews'}
-                    item={item}
-                    itemRef={(node) => {
-                      if (node) {
-                        itemRefs.current.set(item.id, node);
-                      } else {
-                        itemRefs.current.delete(item.id);
-                      }
-                    }}
-                    key={item.id}
-                    onToggle={() => handleToggleItem(item.id)}
-                    opened={expandedId === item.id}
-                  />
-                ))}
-              </ul>
+              {activeSection === 'videos' ? (
+                <div className="grid gap-4 md:grid-cols-2">
+                  {paginatedItems.map((item) => (
+                    <VideoCard item={item} key={item.id} />
+                  ))}
+                </div>
+              ) : (
+                <ul className="space-y-2">
+                  {paginatedItems.map((item) => (
+                    <NewsItemRow
+                      compactPreview={activeSection === 'labNews' || activeSection === 'gallery'}
+                      item={item}
+                      itemRef={(node) => {
+                        if (node) {
+                          itemRefs.current.set(item.id, node);
+                        } else {
+                          itemRefs.current.delete(item.id);
+                        }
+                      }}
+                      key={item.id}
+                      onToggle={() => handleToggleItem(item.id)}
+                      opened={expandedId === item.id}
+                    />
+                  ))}
+                </ul>
+              )}
 
               {pageCount > 1 ? (
                 <nav aria-label="News pagination" className="flex flex-wrap items-center gap-2">

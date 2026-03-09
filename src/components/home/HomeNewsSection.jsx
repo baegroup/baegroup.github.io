@@ -63,7 +63,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
 
   const featuredItems = items.slice(0, 2);
   const listItems = items.slice(2, 6);
-  const sectionTitle = content.newsTitle || 'Lab News';
+  const sectionTitle = 'Lab News';
   const listLabel = 'Recent Highlights';
   const viewAllLabel = 'View all news';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);

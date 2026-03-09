@@ -289,26 +289,33 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
           </div>
 
           {detailRows.length ? (
-            <div className="border-t border-slate-200 pt-3">
+            <div className="pt-2">
               <button
                 aria-controls={detailId}
                 aria-expanded={expanded}
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f] transition-opacity hover:opacity-80"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-700 transition-colors hover:border-[#0d326f] hover:text-[#0d326f]"
                 onClick={() => setExpanded((prev) => !prev)}
                 type="button"
               >
-                {expanded ? 'Hide additional information' : 'View additional information'}
+                {expanded ? 'Hide profile details' : 'More profile details'}
                 <span aria-hidden="true" className={`text-[11px] transition-transform ${expanded ? 'rotate-180' : ''}`}>
                   ▾
                 </span>
               </button>
-              {expanded ? (
-                <div className="mt-2 grid gap-x-6 gap-y-1.5 sm:grid-cols-2" id={detailId}>
-                  {detailRows.map((row) => (
-                    <MemberDetailRow key={`${member.id}-detail-${row.key}`} label={row.label} type={row.type} value={row.value} />
-                  ))}
-                </div>
-              ) : null}
+              <div
+                className={`grid overflow-hidden transition-all duration-300 ease-out ${
+                  expanded ? 'mt-3 max-h-[480px] gap-x-6 gap-y-1.5 border-t border-slate-200 pt-3 opacity-100 sm:grid-cols-2' : 'max-h-0 opacity-0'
+                }`}
+                id={detailId}
+              >
+                {expanded ? (
+                  <>
+                    {detailRows.map((row) => (
+                      <MemberDetailRow key={`${member.id}-detail-${row.key}`} label={row.label} type={row.type} value={row.value} />
+                    ))}
+                  </>
+                ) : null}
+              </div>
             </div>
           ) : null}
         </div>
@@ -354,8 +361,8 @@ function ProfessorTimeline({ title, items }) {
       <h3 className="text-3xl font-semibold tracking-tight text-slate-950">{title}</h3>
       <ul className="space-y-2">
         {items.map((item) => (
-          <li className="flex flex-col gap-0.5 text-sm leading-relaxed text-slate-700 md:flex-row md:gap-2 md:text-base" key={`${item.year}-${item.text}`}>
-            <span className="font-semibold text-[#2563eb] md:min-w-[130px]">{item.year}</span>
+          <li className="flex flex-col gap-1 text-sm leading-relaxed text-slate-700 md:flex-row md:gap-5 md:text-base" key={`${item.year}-${item.text}`}>
+            <span className="font-semibold text-[#2563eb] md:min-w-[168px]">{item.year}</span>
             <span>{item.text}</span>
           </li>
         ))}
@@ -415,7 +422,7 @@ function ProfessorShowcase({ professor }) {
 
   return (
     <article className="space-y-8 md:space-y-10">
-      <div className="grid gap-6 lg:grid-cols-[minmax(220px,300px)_minmax(0,1fr)] lg:items-center lg:gap-10">
+      <div className="grid gap-7 lg:grid-cols-[minmax(220px,300px)_minmax(0,1fr)] lg:items-center lg:gap-14">
         <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
           <div className="min-h-[240px] lg:min-h-[320px]">
             {hasPhoto ? (
@@ -683,7 +690,9 @@ export function TeamPage({ locale }) {
                 <h2 className="sr-only">{content.professorTitle || 'Professor'}</h2>
                 {leadProfessor ? (
                   <div className="space-y-4">
-                    <ProfessorShowcase professor={leadProfessor} />
+                    <div className="mx-auto w-full max-w-6xl px-1 md:px-2 lg:px-6 xl:px-8">
+                      <ProfessorShowcase professor={leadProfessor} />
+                    </div>
                     {additionalProfessors.length ? (
                       <div className="grid gap-4 lg:grid-cols-2">
                         {additionalProfessors.map((member) => (
