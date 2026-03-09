@@ -54,6 +54,61 @@ function normalizeJournalKey(value) {
     .replace(/[^a-z0-9]+/g, '');
 }
 
+function formatVolumeIssue(publication) {
+  const volume = String(publication?.volume || '').trim();
+  const issue = String(publication?.issue || '').trim();
+  if (volume && issue) {
+    return `${volume}(${issue})`;
+  }
+  if (volume) {
+    return volume;
+  }
+  if (issue) {
+    return `(${issue})`;
+  }
+  return '';
+}
+
+function buildMetadataParts(publication) {
+  const journalName = String(publication?.journal || publication?.venue || '').trim();
+  const year = publication?.year ? String(publication.year) : '';
+  const volumeIssue = formatVolumeIssue(publication);
+  const articleNumber = String(publication?.pages || '').trim();
+
+  const parts = [];
+  if (journalName) {
+    parts.push({ key: 'journal', value: journalName, italic: true });
+  }
+  if (year) {
+    parts.push({ key: 'year', value: year });
+  }
+  if (volumeIssue) {
+    parts.push({ key: 'volumeIssue', value: volumeIssue });
+  }
+  if (articleNumber) {
+    parts.push({ key: 'articleNumber', value: articleNumber });
+  }
+  return parts;
+}
+
+function buildActionLinks(publication) {
+  const doiHref = publication?.doi ? `https://doi.org/${publication.doi}` : '';
+  const externalHref = String(publication?.link || publication?.url || '').trim();
+  const links = [];
+
+  if (doiHref) {
+    links.push({ label: 'DOI', href: doiHref });
+  }
+  if (externalHref && externalHref !== doiHref) {
+    links.push({
+      label: /\.pdf(?:$|[?#])/i.test(externalHref) ? 'PDF' : 'Publisher',
+      href: externalHref
+    });
+  }
+
+  return links;
+}
+
 function compareChronologicalAsc(a, b) {
   const yearDelta = (a?.year || 0) - (b?.year || 0);
   if (yearDelta !== 0) {
@@ -98,7 +153,7 @@ function PublicationInfoPanel({ updatedAt }) {
         </p>
         <div className="h-px bg-slate-200" />
         <p className="text-xs uppercase tracking-[0.08em] text-slate-500">
-          <span className="underline decoration-[#0d326f] decoration-2 underline-offset-2">Underline</span> indicates Bae Lab authors.
+          <span className="font-semibold text-slate-800">Bold</span> indicates Bae Lab authors.
         </p>
         <div className="space-y-1 text-xs uppercase tracking-[0.08em] text-slate-500">
           <p>
@@ -114,7 +169,7 @@ function PublicationInfoPanel({ updatedAt }) {
   );
 }
 
-function PreprintSection({ description, items, labAuthorNames, paperLabel, title }) {
+function PreprintSection({ description, items, labAuthorNames, title }) {
   if (!description && !items.length) {
     return null;
   }
@@ -126,20 +181,23 @@ function PreprintSection({ description, items, labAuthorNames, paperLabel, title
       </h3>
       {description ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{description}</p> : null}
       {items.length ? (
-        <ul className="space-y-2.5">
+        <ul className="space-y-3">
           {items.map((item) => {
-            const doiHref = item.doi ? `https://doi.org/${item.doi}` : '';
-            const paperHref = String(item.link || item.url || '').trim();
-            const journalName = item.journal || item.venue || '';
+            const metadataParts = buildMetadataParts(item);
+            const actionLinks = buildActionLinks(item);
             return (
-              <li className="rounded-lg border border-slate-200 bg-white p-4 md:p-5" key={item.id}>
-                <div className="space-y-1.5">
-                  <p className="text-[0.97rem] leading-relaxed text-slate-700 md:text-base">
+              <li className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_8px_20px_-16px_rgba(15,23,42,0.35)] md:p-5" key={item.id}>
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">
+                    {item.localizedTitle}
+                  </p>
+
+                  <p className="text-[0.95rem] leading-relaxed text-slate-700 md:text-base">
                     {(item.authors || []).map((author, index) => {
                       const highlight = isLabAuthor(author, labAuthorNames);
                       return (
                         <span key={`${item.id}-preprint-author-${author}-${index}`}>
-                          <span className={highlight ? 'underline decoration-[#0d326f] decoration-2 underline-offset-2' : ''}>{author}</span>
+                          <span className={highlight ? 'font-semibold text-slate-900' : ''}>{author}</span>
                           {index < item.authors.length - 1 ? ', ' : ''}
                         </span>
                       );
@@ -147,28 +205,29 @@ function PreprintSection({ description, items, labAuthorNames, paperLabel, title
                     .
                   </p>
 
-                  <p className="text-[1.02rem] leading-relaxed md:text-[1.05rem]">
-                    <span className="font-semibold text-[#0d326f]">{item.localizedTitle}</span>
-                    {(journalName || item.year) ? <span className="text-slate-500">. </span> : null}
-                    {journalName ? <span className="font-semibold text-[#7a0f1f]">{journalName}</span> : null}
-                    {item.year ? <span className="text-slate-600">, {item.year}</span> : null}
-                    {item.volume ? <span className="text-slate-600">, {item.volume}{item.issue ? `(${item.issue})` : ''}</span> : null}
-                    {item.pages ? <span className="text-slate-600">, {item.pages}</span> : null}
-                    {item.doi ? <span className="text-slate-600">, doi: {item.doi}</span> : null}
-                  </p>
+                  {metadataParts.length ? (
+                    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+                      {metadataParts.map((part, index) => (
+                        <span className="inline-flex items-center gap-x-2" key={`${item.id}-meta-${part.key}`}>
+                          {index > 0 ? <span className="text-slate-400">·</span> : null}
+                          <span className={part.italic ? 'italic text-slate-700' : ''}>{part.value}</span>
+                        </span>
+                      ))}
+                    </p>
+                  ) : null}
 
-                  <div className="flex flex-wrap gap-3 text-xs font-semibold text-[#0d326f]">
-                    {doiHref ? (
-                      <a href={doiHref} rel="noreferrer" target="_blank">
-                        DOI
-                      </a>
-                    ) : null}
-                    {paperHref && paperHref !== doiHref ? (
-                      <a href={paperHref} rel="noreferrer" target="_blank">
-                        {paperLabel}
-                      </a>
-                    ) : null}
-                  </div>
+                  {actionLinks.length ? (
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[#0d326f]">
+                      {actionLinks.map((link, index) => (
+                        <span className="inline-flex items-center gap-x-2" key={`${item.id}-preprint-link-${link.label}-${index}`}>
+                          {index > 0 ? <span className="text-slate-400">|</span> : null}
+                          <a href={link.href} rel="noreferrer" target="_blank">
+                            {link.label}
+                          </a>
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
               </li>
             );
@@ -305,7 +364,7 @@ function JournalCoverCarousel({ items }) {
   );
 }
 
-function PublicationList({ items, numbers, labAuthorNames, paperLabel, sectionLabel }) {
+function PublicationList({ items, numbers, labAuthorNames, sectionLabel }) {
   const grouped = items.reduce((acc, item) => {
     const bucket = acc.get(item.year) || [];
     bucket.push(item);
@@ -321,56 +380,55 @@ function PublicationList({ items, numbers, labAuthorNames, paperLabel, sectionLa
         <section className="space-y-3" key={year}>
           <h3 className="border-l-4 border-[#7a0f1f] pl-3 text-2xl font-semibold tracking-tight text-[#7a0f1f]">{year} {sectionLabel}</h3>
           <ol className="space-y-3">
-            {grouped.get(year).map((pub) => {
+            {[...(grouped.get(year) || [])].sort((a, b) => (numbers.get(b.id) || 0) - (numbers.get(a.id) || 0)).map((pub) => {
               const number = numbers.get(pub.id) || '-';
               const labNames = labAuthorNames;
-              const journalName = pub.journal || pub.venue || '';
-              const volumeIssue = pub.volume ? `${pub.volume}${pub.issue ? `(${pub.issue})` : ''}` : pub.issue ? `(${pub.issue})` : '';
-              const doiHref = pub.doi ? `https://doi.org/${pub.doi}` : '';
-              const paperHref = String(pub.link || pub.url || '').trim();
+              const metadataParts = buildMetadataParts(pub);
+              const actionLinks = buildActionLinks(pub);
 
               return (
-                <li className="rounded-lg border border-slate-200 bg-white p-4 md:p-5" key={pub.id}>
-                  <div className="grid gap-3 md:grid-cols-[40px_1fr] md:gap-4">
-                    <div className="pt-0.5 text-sm font-semibold text-slate-500 md:text-base">{number}.</div>
+                <li className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_8px_20px_-16px_rgba(15,23,42,0.35)] md:p-5" key={pub.id}>
+                  <div className="space-y-2">
+                    <p className="text-xs font-semibold tracking-[0.02em] text-slate-500">{number}</p>
 
-                    <div className="space-y-1.5">
-                      <p className="text-[0.97rem] leading-relaxed text-slate-700 md:text-base">
-                        {(pub.authors || []).map((author, index) => {
-                          const highlight = isLabAuthor(author, labNames);
-                          return (
-                            <span key={`${pub.id}-author-${author}-${index}`}>
-                              <span className={highlight ? 'underline decoration-[#0d326f] decoration-2 underline-offset-2' : ''}>{author}</span>
-                              {index < pub.authors.length - 1 ? ', ' : ''}
-                            </span>
-                          );
-                        })}
-                        .
+                    <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">{pub.localizedTitle}</p>
+
+                    <p className="text-[0.95rem] leading-relaxed text-slate-700 md:text-base">
+                      {(pub.authors || []).map((author, index) => {
+                        const highlight = isLabAuthor(author, labNames);
+                        return (
+                          <span key={`${pub.id}-author-${author}-${index}`}>
+                            <span className={highlight ? 'font-semibold text-slate-900' : ''}>{author}</span>
+                            {index < pub.authors.length - 1 ? ', ' : ''}
+                          </span>
+                        );
+                      })}
+                      .
+                    </p>
+
+                    {metadataParts.length ? (
+                      <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+                        {metadataParts.map((part, index) => (
+                          <span className="inline-flex items-center gap-x-2" key={`${pub.id}-meta-${part.key}`}>
+                            {index > 0 ? <span className="text-slate-400">·</span> : null}
+                            <span className={part.italic ? 'italic text-slate-700' : ''}>{part.value}</span>
+                          </span>
+                        ))}
                       </p>
+                    ) : null}
 
-                      <p className="text-[1.02rem] leading-relaxed md:text-[1.05rem]">
-                        <span className="font-semibold text-[#0d326f]">{pub.localizedTitle}</span>
-                        <span className="text-slate-500">. </span>
-                        <span className="font-semibold text-[#7a0f1f]">{journalName}</span>
-                        {pub.year ? <span className="text-slate-600">, {pub.year}</span> : null}
-                        {volumeIssue ? <span className="text-slate-600">, {volumeIssue}</span> : null}
-                        {pub.pages ? <span className="text-slate-600">, {pub.pages}</span> : null}
-                        {pub.doi ? <span className="text-slate-600">, doi: {pub.doi}</span> : null}
-                      </p>
-
-                      <div className="flex flex-wrap gap-3 text-xs font-semibold text-[#0d326f]">
-                        {doiHref ? (
-                          <a href={doiHref} rel="noreferrer" target="_blank">
-                            DOI
-                          </a>
-                        ) : null}
-                        {paperHref && paperHref !== doiHref ? (
-                          <a href={paperHref} rel="noreferrer" target="_blank">
-                            {paperLabel}
-                          </a>
-                        ) : null}
+                    {actionLinks.length ? (
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[#0d326f]">
+                        {actionLinks.map((link, index) => (
+                          <span className="inline-flex items-center gap-x-2" key={`${pub.id}-link-${link.label}-${index}`}>
+                            {index > 0 ? <span className="text-slate-400">|</span> : null}
+                            <a href={link.href} rel="noreferrer" target="_blank">
+                              {link.label}
+                            </a>
+                          </span>
+                        ))}
                       </div>
-                    </div>
+                    ) : null}
                   </div>
                 </li>
               );
@@ -605,7 +663,6 @@ export function PublicationsPage({ locale }) {
                     description={content.preprintDescription}
                     labAuthorNames={labAuthorNames}
                     items={preprintItems}
-                    paperLabel={content.paperLink}
                     title={content.preprintTitle || 'Preprints in Preparation'}
                   />
                 ) : null}
@@ -613,7 +670,6 @@ export function PublicationsPage({ locale }) {
                   items={items}
                   labAuthorNames={labAuthorNames}
                   numbers={activeNumbers}
-                  paperLabel={content.paperLink}
                   sectionLabel={sectionLabel}
                 />
               </div>
