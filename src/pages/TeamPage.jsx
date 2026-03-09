@@ -212,11 +212,14 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
   const [broken, setBroken] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const hasPhoto = Boolean(member.photo) && !broken;
+  const isAlumni = member.status === 'alumni' || member.role === 'Alumni';
   const period = `${member.startYear || '-'} - ${member.endYear || 'Present'}`;
   const labels = MEMBER_FIELD_LABELS;
   const joinValue = member.joiningGroup || period;
   const courseValue = member.programLabel || member.roleLabel;
   const researchValue = member.localizedInterests?.filter(Boolean).join(', ') || '';
+  const currentLine = member.currentAffiliation ? `Current: ${member.currentAffiliation}` : '';
+  const summaryLeadLine = isAlumni ? currentLine : researchValue;
   const emailValue = member.email || '';
   const joinedLine = joinValue ? (/^joined\b/i.test(joinValue) ? joinValue : `Joined ${joinValue}`) : '';
   const koreanLine = member.koreanProficiency ? `Korean proficiency: ${member.koreanProficiency}` : '';
@@ -225,7 +228,8 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
     { key: 'undergraduateMajor', label: labels.undergraduateMajor, value: member.undergraduateMajor, type: 'text' },
     { key: 'masterSchool', label: labels.masterSchool, value: member.masterSchool, type: 'text' },
     { key: 'masterMajor', label: labels.masterMajor, value: member.masterMajor, type: 'text' },
-    { key: 'current', label: labels.current, value: member.currentAffiliation, type: 'text' },
+    { key: 'research', label: labels.research, value: isAlumni ? researchValue : '', type: 'text' },
+    { key: 'current', label: labels.current, value: isAlumni ? '' : member.currentAffiliation, type: 'text' },
     { key: 'note', label: labels.note, value: member.note, type: 'text' }
   ].filter((row) => String(row.value || '').trim());
   const detailId = `member-extra-${member.id}`;
@@ -299,7 +303,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
             {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{member.roleLabel}</p> : null}
           </div>
 
-          {researchValue ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{researchValue}</p> : null}
+          {summaryLeadLine ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{summaryLeadLine}</p> : null}
           {koreanLine ? <p className="text-sm leading-relaxed text-slate-600 md:text-[0.95rem]">{koreanLine}</p> : null}
           <div className="space-y-1 text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
             {joinedLine ? <p>{joinedLine}</p> : null}
