@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 import { PageHero } from '@/components/site/PageHero';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CONTACT_CONTENT } from '@/content/site-content';
 import { pagePath } from '@/lib/i18n';
 
@@ -21,60 +20,51 @@ export function ContactPage({ locale }) {
     <div className="space-y-5 md:space-y-6">
       <PageHero description={content.description} title={content.title} />
 
-      <section className="grid gap-4 lg:grid-cols-2">
-        <Card className="border-slate-200 bg-white">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-2xl font-semibold tracking-tight text-slate-900">{content.leftTitle}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2.5">
+      <section className="rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
+          <div>
+            <h2 className="home-section-title">{content.leftTitle}</h2>
+            <dl className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
               {contactItems.map((item) => (
-                <li className="rounded-lg border border-slate-200 bg-slate-50/80 px-4 py-3" key={item.key}>
-                  <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{item.label}</p>
-                  <div className="mt-1 text-sm leading-relaxed text-slate-800 md:text-base">{item.value}</div>
-                </li>
+                <div className="grid gap-1 py-3 sm:grid-cols-[120px_1fr] sm:items-start sm:gap-4 md:py-4" key={item.key}>
+                  <dt className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-500">{item.label}</dt>
+                  <dd className="text-sm leading-relaxed text-slate-900 md:text-base">{item.value}</dd>
+                </div>
               ))}
-            </ul>
-          </CardContent>
-        </Card>
+            </dl>
+          </div>
 
-        <Card className="border-slate-200 bg-white">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-2xl font-semibold tracking-tight text-slate-900">{content.rightTitle}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2.5">
-            <div className="rounded-lg border border-slate-200 bg-slate-50/80 px-4 py-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{labels.address}</p>
-              <p className="mt-1 text-sm leading-relaxed text-slate-800 md:text-base">{content.address}</p>
+          <div>
+            <h2 className="home-section-title">{content.rightTitle}</h2>
+            <div className="mt-4 border-y border-slate-200 py-3 md:py-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-500">{labels.address}</p>
+              <p className="mt-1 text-sm leading-relaxed text-slate-900 md:text-base">{content.address}</p>
             </div>
+          </div>
+        </div>
 
-            <div className="rounded-lg border border-slate-200 bg-slate-50/80 p-3">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{labels.map}</p>
-              <div className="overflow-hidden rounded-md border border-slate-200">
-                <iframe
-                  className="h-52 w-full"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  src={mapEmbedUrl}
-                  title="Bae Lab location map"
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="mt-7 border-t border-slate-200 pt-5">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-500">{labels.map}</p>
+          <div className="mt-2 overflow-hidden rounded-lg border border-slate-200">
+            <iframe
+              className="h-64 w-full md:h-72"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              src={mapEmbedUrl}
+              title="Bae Lab location map"
+            />
+          </div>
+        </div>
+
+        <div className="mt-7 border-t border-slate-200 pt-5 md:pt-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="home-body-copy text-slate-700">
+              Detailed graduate, undergraduate, and postdoctoral opportunities are listed on the Join Our Team page.
+            </p>
+            <Link className="home-cta-primary" to={pagePath(locale, 'join')}>Go to Join Our Team</Link>
+          </div>
+        </div>
       </section>
-
-      <Card className="border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f6f9fd_100%)]">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-2xl font-semibold tracking-tight text-slate-900">Interested in Joining Bae Lab?</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm leading-relaxed text-slate-700 md:text-base">
-            Detailed graduate, undergraduate, and postdoctoral opportunities are listed on the Join Our Team page.
-          </p>
-          <Link className="home-cta-primary" to={pagePath(locale, 'join')}>Go to Join Our Team</Link>
-        </CardContent>
-      </Card>
     </div>
   );
 }
