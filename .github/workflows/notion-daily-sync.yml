@@ -15,6 +15,14 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    env:
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN || secrets.NOTION_INTEGRATION_TOKEN || secrets.NOTION_API_TOKEN }}
+      NOTION_NEWS_DB_ID: 31d6760c-5a65-807c-a312-ce5f7978f25d
+      NOTION_NEWS_DATA_SOURCE_ID: 31d6760c-5a65-80fe-818c-000b11144ed4
+      NOTION_TEAM_DB_ID: 31d6760c-5a65-8089-9ff1-cc9f157dd346
+      NOTION_TEAM_DATA_SOURCE_ID: 31d6760c-5a65-80c3-ace0-000b507b3c1e
+      NOTION_PUBLICATIONS_DB_ID: 31d6760c-5a65-80e9-bd96-e303108723ea
+      NOTION_PUBLICATIONS_DATA_SOURCE_ID: 31d6760c-5a65-808f-afe3-000b3cdaee84
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,15 +36,34 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate Notion configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            NOTION_TOKEN
+            NOTION_NEWS_DB_ID
+            NOTION_TEAM_DB_ID
+            NOTION_PUBLICATIONS_DB_ID
+          )
+          missing=()
+          for key in "${required[@]}"; do
+            if [[ -z "${!key:-}" ]]; then
+              missing+=("$key")
+            fi
+          done
+
+          if (( ${#missing[@]} > 0 )); then
+            echo "::error::Missing required configuration: ${missing[*]}"
+            echo "::error::Set repository secret NOTION_TOKEN (or NOTION_INTEGRATION_TOKEN / NOTION_API_TOKEN)."
+            exit 1
+          fi
+
+          if [[ "${NOTION_TOKEN}" != ntn_* ]]; then
+            echo "::warning::NOTION_TOKEN does not start with 'ntn_'. Check whether an old token was configured."
+          fi
+
       - name: Sync CMS from Notion
-        env:
-          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-          NOTION_NEWS_DB_ID: ${{ secrets.NOTION_NEWS_DB_ID }}
-          NOTION_NEWS_DATA_SOURCE_ID: ${{ secrets.NOTION_NEWS_DATA_SOURCE_ID }}
-          NOTION_TEAM_DB_ID: ${{ secrets.NOTION_TEAM_DB_ID }}
-          NOTION_TEAM_DATA_SOURCE_ID: ${{ secrets.NOTION_TEAM_DATA_SOURCE_ID }}
-          NOTION_PUBLICATIONS_DB_ID: ${{ secrets.NOTION_PUBLICATIONS_DB_ID }}
-          NOTION_PUBLICATIONS_DATA_SOURCE_ID: ${{ secrets.NOTION_PUBLICATIONS_DATA_SOURCE_ID }}
         run: npm run cms:sync:notion
 
       - name: Commit and push changes
