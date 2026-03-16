@@ -38,6 +38,26 @@
     "coverImage": ""
   },
   {
+    "id": "metal-extraction-sheet-mask-pack-including-same-and-method-for-manufacturing-the-metal-extraction-sheet",
+    "year": 2026,
+    "type": "patent",
+    "title": "Metal extraction sheet, mask pack including same and method for manufacturing the metal extraction sheet",
+    "authors": [
+      "Jeong Eun Seo",
+      "Hyoung June Kim",
+      "Il Doo Kim",
+      "Jaehyeong Bae",
+      "Doo Young Youn"
+    ],
+    "journal": "US Patent",
+    "volume": "Application number 17136251",
+    "issue": "",
+    "pages": "",
+    "doi": "",
+    "link": "https://patents.google.com/patent/US20210196582A1/en",
+    "coverImage": ""
+  },
+  {
     "id": "sensor-with-3d-printed",
     "year": 2026,
     "type": "preprint",
@@ -110,8 +130,8 @@
       "Jaehyeong Bae",
       "Min Soo Kim"
     ],
-    "journal": "European Patent EP3907876B1",
-    "volume": "",
+    "journal": "European Patent",
+    "volume": "Application number EP3907876B1",
     "issue": "",
     "pages": "",
     "doi": "",
