@@ -105,7 +105,7 @@ function FundingItem({ item, index }) {
   ]);
 
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-4 text-center shadow-soft md:p-5">
+    <article className="flex h-full flex-col rounded-lg border border-slate-200 bg-white p-4 text-center shadow-soft md:p-5">
       <div className="flex min-h-[92px] items-center justify-center">
         {!image.broken ? (
           <img alt={item.name} className="max-h-14 w-auto object-contain" onError={image.onError} src={image.src} />
@@ -113,13 +113,15 @@ function FundingItem({ item, index }) {
           <div className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">Funding Logo</div>
         )}
       </div>
-      {item.link ? (
-        <a className="mt-3 block text-sm font-semibold leading-snug text-slate-900 no-underline hover:text-[#0d326f]" href={item.link} rel="noreferrer" target="_blank">
-          {item.name}
-        </a>
-      ) : (
-        <p className="mt-3 text-sm font-semibold leading-snug text-slate-900">{item.name}</p>
-      )}
+      <div className="mt-3 flex min-h-[4rem] flex-1 items-center justify-center">
+        {item.link ? (
+          <a className="block text-sm font-semibold leading-snug text-slate-900 no-underline hover:text-[#0d326f]" href={item.link} rel="noreferrer" target="_blank">
+            {item.name}
+          </a>
+        ) : (
+          <p className="text-sm font-semibold leading-snug text-slate-900">{item.name}</p>
+        )}
+      </div>
     </article>
   );
 }
