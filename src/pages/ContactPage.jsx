@@ -59,7 +59,7 @@ export function ContactPage({ locale }) {
         <div className="mt-7 border-t border-slate-200 pt-5 md:pt-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="home-body-copy text-slate-700">
-              Detailed graduate, undergraduate, and postdoctoral opportunities are listed on the Join Our Team page.
+              Current undergraduate and graduate openings, along with fellowship-based postdoctoral opportunities, are listed on the Join Our Team page.
             </p>
             <Link className="home-cta-primary" to={pagePath(locale, 'join')}>Go to Join Our Team</Link>
           </div>

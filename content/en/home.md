@@ -37,7 +37,7 @@ See Research Details
 Join Our Team
 
 ## joinDescription
-Bae Lab welcomes motivated undergraduate researchers, graduate students, and postdoctoral scholars from diverse backgrounds, including chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life sciences.
+Bae Lab welcomes motivated undergraduate researchers and graduate students from diverse backgrounds, including chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life sciences. Postdoctoral opportunities are available for fellowship applicants.
 
 ## joinCta
 Read More About Joining

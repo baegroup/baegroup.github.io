@@ -6,6 +6,14 @@ Join Our Team
 ## description
 Opportunities for motivated students and researchers who want to build next-generation functional materials and additive manufacturing technologies.
 
+## recruitmentStatusTitle
+Current Recruitment Status
+
+## recruitmentStatuses
+- Undergraduate Opportunities | Open
+- Graduate Opportunities (M.S./Ph.D.) | Open
+- Postdoctoral Opportunities | Fellowship applicants only
+
 ## graduateTitle
 Graduate Opportunities
 
@@ -27,7 +35,33 @@ Motivated KHU undergraduate students are encouraged to contact Prof. Jaehyeong B
 Postdoctoral Opportunities
 
 ## postdocBody
-Bae Lab seeks creative and motivated postdoctoral researchers with expertise in additive manufacturing, functional and soft materials, energy devices, and related fields. Qualified candidates should send a complete CV and representative publications to Prof. Jaehyeong Bae.
+Postdoctoral opportunities are currently available only to candidates applying for an external or institutional fellowship. Prospective fellowship applicants with expertise in additive manufacturing, functional and soft materials, energy devices, and related fields are welcome to contact Prof. Jaehyeong Bae to discuss research fit and fellowship plans.
+
+## applicationTitle
+How to Apply
+
+## applicationDescription
+Please email the following materials to Prof. Jaehyeong Bae. In your message, indicate the position or degree program you are interested in.
+
+## applicationMaterialsTitle
+Application Materials
+
+## applicationMaterials
+- Curriculum vitae (CV)
+- Academic transcript
+- Brief description of research interests
+
+## desiredProgramsTitle
+Desired Position or Program
+
+## desiredPrograms
+- Undergraduate researcher (URP or research internship)
+- M.S. program
+- Ph.D. program
+- Postdoctoral fellowship applicant
+
+## applicationCta
+Apply by Email
 
 ## admissionsLabel
 Graduate Admissions Information

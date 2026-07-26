@@ -343,6 +343,8 @@ async function build() {
     output.JOIN_CONTENT[locale] = {
       title: readString(join, 'title'),
       description: readString(join, 'description'),
+      recruitmentStatusTitle: readString(join, 'recruitmentStatusTitle'),
+      recruitmentStatuses: readStringArray(join, 'recruitmentStatuses'),
       graduateTitle: readString(join, 'graduateTitle'),
       graduateBody: readString(join, 'graduateBody'),
       graduateBenefits: readStringArray(join, 'graduateBenefits'),
@@ -350,6 +352,13 @@ async function build() {
       undergraduateBody: readString(join, 'undergraduateBody'),
       postdocTitle: readString(join, 'postdocTitle'),
       postdocBody: readString(join, 'postdocBody'),
+      applicationTitle: readString(join, 'applicationTitle'),
+      applicationDescription: readString(join, 'applicationDescription'),
+      applicationMaterialsTitle: readString(join, 'applicationMaterialsTitle'),
+      applicationMaterials: readStringArray(join, 'applicationMaterials'),
+      desiredProgramsTitle: readString(join, 'desiredProgramsTitle'),
+      desiredPrograms: readStringArray(join, 'desiredPrograms'),
+      applicationCta: readString(join, 'applicationCta'),
       admissionsLabel: readString(join, 'admissionsLabel'),
       admissionsUrl: readString(join, 'admissionsUrl'),
       contactEmail: readString(join, 'contactEmail')
