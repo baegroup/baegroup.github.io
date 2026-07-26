@@ -41,3 +41,15 @@ Bae Lab welcomes motivated undergraduate researchers and graduate students from 
 
 ## joinCta
 Read More About Joining
+
+## recruitmentNoticeEyebrow
+Now Recruiting
+
+## recruitmentNoticeTitle
+Graduate Students Wanted
+
+## recruitmentNoticeDescription
+Bae Lab is recruiting motivated students for M.S., Ph.D., and integrated M.S.–Ph.D. programs in Chemical Engineering at Kyung Hee University.
+
+## recruitmentNoticeCta
+View Recruitment Details

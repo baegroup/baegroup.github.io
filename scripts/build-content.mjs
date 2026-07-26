@@ -281,7 +281,11 @@ async function build() {
       focusCta: readString(home, 'focusCta'),
       joinTitle: readString(home, 'joinTitle'),
       joinDescription: readString(home, 'joinDescription'),
-      joinCta: readString(home, 'joinCta')
+      joinCta: readString(home, 'joinCta'),
+      recruitmentNoticeEyebrow: readString(home, 'recruitmentNoticeEyebrow'),
+      recruitmentNoticeTitle: readString(home, 'recruitmentNoticeTitle'),
+      recruitmentNoticeDescription: readString(home, 'recruitmentNoticeDescription'),
+      recruitmentNoticeCta: readString(home, 'recruitmentNoticeCta')
     };
 
     output.TEAM_CONTENT[locale] = {

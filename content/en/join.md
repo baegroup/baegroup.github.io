@@ -10,15 +10,15 @@ Opportunities for motivated students and researchers who want to build next-gene
 Current Recruitment Status
 
 ## recruitmentStatuses
+- Graduate Opportunities | Open
 - Undergraduate Opportunities | Open
-- Graduate Opportunities (M.S./Ph.D.) | Open
 - Postdoctoral Opportunities | Fellowship applicants only
 
 ## graduateTitle
 Graduate Opportunities
 
 ## graduateBody
-Motivated prospective graduate students interested in joining Bae Lab are encouraged to apply to the M.S. or Ph.D. program in Chemical Engineering at Kyung Hee University. Complete information about graduate admissions can be found through the official admissions page. Prospective students are also welcome to contact Prof. Jaehyeong Bae directly to discuss research fit, projects, and current openings.
+Motivated prospective graduate students interested in joining Bae Lab are encouraged to apply to the M.S., Ph.D., or integrated M.S.–Ph.D. program in Chemical Engineering at Kyung Hee University. Complete information about graduate admissions can be found through the official admissions page. Prospective students are also welcome to contact Prof. Jaehyeong Bae directly to discuss research fit, projects, and current openings.
 
 ## graduateBenefits
 - Full tuition support and monthly salary for qualified students.
@@ -55,8 +55,9 @@ Application Materials
 Desired Position or Program
 
 ## desiredPrograms
-- Undergraduate researcher (URP or research internship)
+- Undergraduate researcher (URP)
 - M.S. program
+- Integrated M.S.–Ph.D. program
 - Ph.D. program
 - Postdoctoral fellowship applicant
 
