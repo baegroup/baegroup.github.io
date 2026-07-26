@@ -8,6 +8,15 @@ const INSTAGRAM_ASSET_DIR = path.join(ROOT, 'public', 'assets', 'img', 'news', '
 const NOTION_API_VERSION = '2025-09-03';
 const SECTION_KEYS = ['labNews', 'gallery', 'videos'];
 const URL_PATTERN = /https?:\/\/[^\s<>"')\]}]+/gi;
+const KNOWN_NEWS_CORRECTIONS = {
+  '31d6760c5a6580c9945cf5aaef8dbddd': {
+    title: 'Myeong Lee won the KHU Chemical Engineering Undergraduate Research Award'
+  },
+  '31d6760c5a65800aabbada0c1e8e57df': {
+    date: '2025-11-27',
+    title: 'Myeong Lee won the Best Poster Award at 8th ICAE 2025'
+  }
+};
 
 async function loadDotenv(fileName) {
   const filePath = path.join(ROOT, fileName);
@@ -498,6 +507,19 @@ function fileExtensionFromUrl(url, contentType = '') {
   return 'jpg';
 }
 
+function isMediaContentType(contentType = '') {
+  const normalized = String(contentType || '').toLowerCase().trim();
+  if (!normalized) {
+    return true;
+  }
+  return normalized.startsWith('image/') || normalized.startsWith('video/');
+}
+
+function looksLikeHtmlPayload(bytes) {
+  const head = bytes.subarray(0, 256).toString('utf8').trimStart().toLowerCase();
+  return head.startsWith('<!doctype html') || head.startsWith('<html') || head.startsWith('<script');
+}
+
 async function downloadAsset(url, destinationDir, fileBaseName, defaultExt = 'jpg') {
   const response = await fetch(url);
   if (!response.ok) {
@@ -505,8 +527,16 @@ async function downloadAsset(url, destinationDir, fileBaseName, defaultExt = 'jp
   }
 
   const contentType = response.headers.get('content-type') || '';
-  const ext = fileExtensionFromUrl(url, contentType) || defaultExt;
+  if (!isMediaContentType(contentType)) {
+    throw new Error(`Rejected non-media response for asset URL: ${url} (content-type: ${contentType || 'unknown'})`);
+  }
+
   const bytes = Buffer.from(await response.arrayBuffer());
+  if (looksLikeHtmlPayload(bytes)) {
+    throw new Error(`Rejected HTML payload for asset URL: ${url}`);
+  }
+
+  const ext = fileExtensionFromUrl(url, contentType) || defaultExt;
   const fileName = `${fileBaseName}.${ext}`;
   const outputPath = path.join(destinationDir, fileName);
   await fs.writeFile(outputPath, bytes);
@@ -640,13 +670,19 @@ async function convertNotionPagesToSections({ pages, token }) {
     const linkProp = findProperty(properties, ['Link', 'URL', 'Source', '링크', '출처']);
     const videoProp = findProperty(properties, ['Video', 'Video URL', 'Video Link', 'YouTube', 'Youtube', '유튜브', '영상', '동영상']);
     const imageProp = findProperty(properties, ['Images', 'Image', 'Photos', 'Media', '사진', '이미지', '파일과 미디어', '파일'], 'files');
-    const title = propertyToText(titleProp);
-    if (!title) {
+    const sourceTitle = propertyToText(titleProp);
+    if (!sourceTitle) {
       continue;
     }
 
+    // Keep verified corrections stable until the corresponding Notion records
+    // are updated. Page IDs make the correction independent of title typos.
+    const pageToken = String(page.id || '').replace(/-/g, '') || toSlug(sourceTitle, 'item');
+    const correction = KNOWN_NEWS_CORRECTIONS[pageToken] || {};
+    const title = correction.title || sourceTitle;
+
     const sectionText = propertyToText(sectionProp);
-    const date = propertyToText(dateProp);
+    const date = correction.date || propertyToText(dateProp);
     const summary = propertyToText(summaryProp);
     const linkUrls = propertyToUrls(linkProp);
     const videoUrls = propertyToUrls(videoProp);
@@ -654,7 +690,6 @@ async function convertNotionPagesToSections({ pages, token }) {
     let videoUrl = firstMatchingUrl(videoUrls, looksLikeVideoUrl) || firstMatchingUrl(linkUrls, looksLikeVideoUrl);
 
     // Use full page id token to prevent media filename collisions across entries.
-    const pageToken = String(page.id || '').replace(/-/g, '') || toSlug(title, 'item');
     const fileFieldUrls = propertyToFiles(imageProp);
     const mediaUrls = fileFieldUrls.filter((value) => !looksLikeVideoUrl(value));
     const mediaVideoUrl = firstMatchingUrl(fileFieldUrls, looksLikeVideoUrl);

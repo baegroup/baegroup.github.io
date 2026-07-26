@@ -15,9 +15,9 @@ Bae Lab's research is structured around three complementary domains that connect
 Research Area
 
 ## cards
-- Printing Technology | We develop advanced additive manufacturing strategies and AI-assisted printable inks to fabricate high-performance functional systems that are difficult to realize with conventional methods. | printing-tech
-- Energy & Environmental Technology | We design functional polymers and chemical materials for next-generation energy harvesters, lithium metal batteries, environmental sensors, and carbon-capture related platforms. | energy-environment-tech
-- Bio Technology | We engineer soft and functional materials for biosensors, bioelectronics, and soft robotic applications requiring compliant, high-performance interfaces. | biomedical-tech
+- Printing Technology | We develop advanced additive manufacturing strategies and AI-assisted printable inks to fabricate high-performance functional systems that are difficult to realize with conventional methods. | printing-tech.jpg
+- Energy & Environmental Technology | We design functional polymers and chemical materials for next-generation energy harvesters, lithium metal batteries, environmental sensors, and carbon-capture related platforms. | energy-environment-tech.png
+- Bio Technology | We engineer soft and functional materials for biosensors, bioelectronics, and soft robotic applications requiring compliant, high-performance interfaces. | biomedical-tech.png
 
 ## methodsTitle
 Research Methodology
@@ -31,7 +31,7 @@ Research Methodology
 Funding Sources
 
 ## fundingItems
-- Department of Chemical Engineering, Kyung Hee University | khu-chemical-engineering
-- National Research Foundation of Korea | nrf-korea
-- BrainKorea21 Four | bk21-four
-- Ministry of SMEs and Startups | mss-korea
+- Department of Chemical Engineering, Kyung Hee University | Department of Chemical Engineering Kyung Hee University.png
+- National Research Foundation of Korea | National Research Foundation of Korea.png
+- BrainKorea21 Four | BrainKorea21 Four.png
+- Ministry of SMEs and Startups | Ministry of SMEs and Startups.webp

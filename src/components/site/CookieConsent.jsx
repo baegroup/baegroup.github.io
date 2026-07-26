@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
 const STORAGE_KEY = 'baelab_cookie_consent_v1';
 const OPEN_EVENT = 'open-cookie-preferences';
@@ -10,22 +10,27 @@ const DEFAULT_PREFERENCES = {
 };
 
 function ToggleRow({ checked, description, disabled = false, label, onChange }) {
+  const inputId = useId();
+  const descriptionId = `${inputId}-description`;
+
   return (
     <div className="flex items-start justify-between gap-3 rounded-lg border border-slate-200 bg-white p-3">
       <div>
-        <p className="text-sm font-semibold text-slate-900">{label}</p>
-        <p className="mt-1 text-xs leading-relaxed text-slate-600">{description}</p>
+        <label className="text-sm font-semibold text-slate-900" htmlFor={inputId}>{label}</label>
+        <p className="mt-1 text-xs leading-relaxed text-slate-600" id={descriptionId}>{description}</p>
       </div>
 
       <label className="relative mt-0.5 inline-flex cursor-pointer items-center">
         <input
+          aria-describedby={descriptionId}
           checked={checked}
           className="peer sr-only"
           disabled={disabled}
+          id={inputId}
           onChange={onChange}
           type="checkbox"
         />
-        <span className="h-6 w-11 rounded-full bg-slate-300 transition-colors peer-checked:bg-[#0d326f] peer-disabled:bg-slate-400/70" />
+        <span className="h-6 w-11 rounded-full bg-slate-300 transition-colors peer-checked:bg-[#0d326f] peer-focus-visible:ring-2 peer-focus-visible:ring-[#0d326f] peer-focus-visible:ring-offset-2 peer-disabled:bg-slate-400/70" />
         <span className="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform peer-checked:translate-x-5" />
       </label>
     </div>
@@ -109,7 +114,7 @@ export function CookieConsent() {
   return (
     <>
       {showBanner ? (
-        <section className="fixed inset-x-0 bottom-0 z-[90] mx-auto w-full max-w-6xl px-4 pb-4">
+        <section aria-label="Cookie notice" className="fixed inset-x-0 bottom-0 z-[90] mx-auto w-full max-w-6xl px-4 pb-4">
           <div className="rounded-xl border border-slate-200 bg-white/95 p-4 shadow-[0_20px_40px_-24px_rgba(15,23,42,0.45)] backdrop-blur-sm md:p-5">
             <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
               <div>
@@ -149,11 +154,15 @@ export function CookieConsent() {
       ) : null}
 
       {showPanel ? (
-        <section className="fixed bottom-4 right-4 z-[95] w-[calc(100vw-2rem)] max-w-md">
+        <section
+          aria-labelledby="cookie-preferences-title"
+          className="fixed bottom-4 right-4 z-[95] w-[calc(100vw-2rem)] max-w-md"
+          role="dialog"
+        >
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_24px_45px_-24px_rgba(15,23,42,0.45)] md:p-5">
             <div className="mb-3 flex items-start justify-between gap-2">
               <div>
-                <p className="text-base font-semibold text-slate-900">Manage Cookies</p>
+                <p className="text-base font-semibold text-slate-900" id="cookie-preferences-title">Manage Cookies</p>
                 <p className="mt-1 text-xs leading-relaxed text-slate-600">
                   Choose which cookies you allow for this website.
                 </p>

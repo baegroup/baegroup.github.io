@@ -13,9 +13,9 @@ The mission of Bae Lab is advancing the frontiers of printing, energy, environme
 Research Area
 
 ## cards
-- Printing Tech | We are developing novel 3D printing inks and printing methods to address point-of-need fabrication required in various applications. To achieve a desired function, composition, structure, and physical & chemical properties, we design customized printheads and AI-assisted printing system to overcome current physical design constraints in 3D printing technology. We investigate printing various materials including polymers, hydrogels, elastomers, metal oxides, metals, and composites with stimuli-responsive functions and heat & electrical conductive properties. | printing-tech
-- Energy & Environmental Tech | For a sustainable future, we are developing unconventional energy harvesting and carbon capture systems by employing novel combination of functional materials. For real-world applications, we completely design a device from a molecular level of active materials to a integrated macrostructure for their optimal performance. Besides, we also study hydrogel & solvogel with tunable functionalities and properties for next-generation environmental sensor and Li-metal battery applications. | energy-environment-tech
-- Biomedical Tech | We are developing a practical translational device for in-vivo and epidermal point-of-care applications for all ages, personalized by 3D printing method. High performance soft & functional materials are being developed and assembled by advanced 3D printing method for next-generation real-time biosensors, minimally-invasive bioelectronics, and soft robotics with remote control. | biomedical-tech
+- Printing Tech | We are developing novel 3D printing inks and printing methods to address point-of-need fabrication required in various applications. To achieve a desired function, composition, structure, and physical & chemical properties, we design customized printheads and AI-assisted printing system to overcome current physical design constraints in 3D printing technology. We investigate printing various materials including polymers, hydrogels, elastomers, metal oxides, metals, and composites with stimuli-responsive functions and heat & electrical conductive properties. | printing-tech.jpg
+- Energy & Environmental Tech | For a sustainable future, we are developing unconventional energy harvesting and carbon capture systems by employing novel combination of functional materials. For real-world applications, we completely design a device from a molecular level of active materials to a integrated macrostructure for their optimal performance. Besides, we also study hydrogel & solvogel with tunable functionalities and properties for next-generation environmental sensor and Li-metal battery applications. | energy-environment-tech.png
+- Biomedical Tech | We are developing a practical translational device for in-vivo and epidermal point-of-care applications for all ages, personalized by 3D printing method. High performance soft & functional materials are being developed and assembled by advanced 3D printing method for next-generation real-time biosensors, minimally-invasive bioelectronics, and soft robotics with remote control. | biomedical-tech.png
 
 ## methodsTitle
 Research Methodology
@@ -29,7 +29,7 @@ Research Methodology
 Funding Sources
 
 ## fundingItems
-- Department of Chemical Engineering, Kyung Hee University | khu-chemical-engineering
-- National Research Foundation of Korea | nrf-korea
-- BrainKorea21 Four | bk21-four
-- Ministry of SMEs and Startups | mss-korea
+- Department of Chemical Engineering, Kyung Hee University | Department of Chemical Engineering Kyung Hee University.png
+- National Research Foundation of Korea | National Research Foundation of Korea.png
+- BrainKorea21 Four | BrainKorea21 Four.png
+- Ministry of SMEs and Startups | Ministry of SMEs and Startups.webp

@@ -2,6 +2,7 @@ import { useLayoutEffect } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { SiteLayout } from '@/layouts/SiteLayout';
+import { SiteMetadata } from '@/components/site/SiteMetadata';
 import { HomePage } from '@/pages/HomePage';
 import { TeamPage } from '@/pages/TeamPage';
 import { NewsPage } from '@/pages/NewsPage';
@@ -52,6 +53,7 @@ function SiteRoutes() {
 export default function App() {
   return (
     <>
+      <SiteMetadata />
       <ScrollToTop />
       <Routes>
         <Route element={<LegacyLocaleRedirect />} path="en/*" />

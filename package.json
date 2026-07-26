@@ -13,10 +13,11 @@
     "publish": "node scripts/publish-content.mjs",
     "publish:cms": "npm run cms:sync:notion && npm run publish",
     "publish:dry": "node scripts/publish-content.mjs --dry-run",
+    "check": "node scripts/validate-site.mjs",
     "predev": "npm run content:build",
     "prebuild": "npm run content:build",
     "dev": "vite",
-    "build": "vite build && cp dist/index.html dist/404.html",
+    "build": "vite build && node scripts/build-route-html.mjs && cp dist/index.html dist/404.html",
     "preview": "vite preview"
   },
   "dependencies": {

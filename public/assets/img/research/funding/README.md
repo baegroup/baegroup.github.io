@@ -1,6 +1,10 @@
 # Research Funding Logos
 
-Funding logos are read by base name and auto-detect extension in this order:
+Funding logos should be referenced by their complete file name, including the
+extension, in `content/en/research.md`. Exact file names load directly without
+extra fallback requests.
+
+Legacy base names still auto-detect extensions in this order:
 
 - `.webp`
 - `.png`

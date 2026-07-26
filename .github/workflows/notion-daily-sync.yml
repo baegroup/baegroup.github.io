@@ -25,10 +25,10 @@ jobs:
       NOTION_PUBLICATIONS_DATA_SOURCE_ID: 31d6760c-5a65-808f-afe3-000b3cdaee84
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -65,6 +65,9 @@ jobs:
 
       - name: Sync CMS from Notion
         run: npm run cms:sync:notion
+
+      - name: Validate synced content and assets
+        run: npm run check
 
       - name: Commit and push changes
         run: |

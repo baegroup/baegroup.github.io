@@ -134,17 +134,17 @@
         {
           "title": "Printing Tech",
           "body": "We are developing novel 3D printing inks and printing methods to address point-of-need fabrication required in various applications. To achieve a desired function, composition, structure, and physical & chemical properties, we design customized printheads and AI-assisted printing system to overcome current physical design constraints in 3D printing technology. We investigate printing various materials including polymers, hydrogels, elastomers, metal oxides, metals, and composites with stimuli-responsive functions and heat & electrical conductive properties.",
-          "image": "printing-tech"
+          "image": "printing-tech.jpg"
         },
         {
           "title": "Energy & Environmental Tech",
           "body": "For a sustainable future, we are developing unconventional energy harvesting and carbon capture systems by employing novel combination of functional materials. For real-world applications, we completely design a device from a molecular level of active materials to a integrated macrostructure for their optimal performance. Besides, we also study hydrogel & solvogel with tunable functionalities and properties for next-generation environmental sensor and Li-metal battery applications.",
-          "image": "energy-environment-tech"
+          "image": "energy-environment-tech.png"
         },
         {
           "title": "Biomedical Tech",
           "body": "We are developing a practical translational device for in-vivo and epidermal point-of-care applications for all ages, personalized by 3D printing method. High performance soft & functional materials are being developed and assembled by advanced 3D printing method for next-generation real-time biosensors, minimally-invasive bioelectronics, and soft robotics with remote control.",
-          "image": "biomedical-tech"
+          "image": "biomedical-tech.png"
         }
       ],
       "methodsTitle": "Research Methodology",
@@ -166,22 +166,22 @@
       "fundingItems": [
         {
           "name": "Department of Chemical Engineering, Kyung Hee University",
-          "logo": "khu-chemical-engineering",
+          "logo": "Department of Chemical Engineering Kyung Hee University.png",
           "link": ""
         },
         {
           "name": "National Research Foundation of Korea",
-          "logo": "nrf-korea",
+          "logo": "National Research Foundation of Korea.png",
           "link": ""
         },
         {
           "name": "BrainKorea21 Four",
-          "logo": "bk21-four",
+          "logo": "BrainKorea21 Four.png",
           "link": ""
         },
         {
           "name": "Ministry of SMEs and Startups",
-          "logo": "mss-korea",
+          "logo": "Ministry of SMEs and Startups.webp",
           "link": ""
         }
       ]
@@ -225,13 +225,13 @@
       "items": [
         {
           "date": "2025.12.05",
-          "title": "Myeong Lee won the KHU Chemical Engineering 1st Research Festival Award",
+          "title": "Myeong Lee won the KHU Chemical Engineering Undergraduate Research Award",
           "body": "Myeong Lee received the top undergraduate research honor from the Department of Chemical Engineering at Kyung Hee University."
         },
         {
           "date": "2025.11.27",
-          "title": "Myeong Lee won the Best Poster Award at 8th ICAE",
-          "body": "Myeong Lee was recognized with the Best Poster Award at the 8th International Conference on Advanced Electromaterials (ICAE)."
+          "title": "Myeong Lee won the Best Poster Award at 8th ICAE 2025",
+          "body": "Myeong Lee was recognized with the Best Poster Award at the 8th International Conference on Advanced Electromaterials (ICAE 2025)."
         },
         {
           "date": "2025.11.14",

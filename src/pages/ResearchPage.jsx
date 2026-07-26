@@ -7,6 +7,10 @@ const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const RESEARCH_AREA_IMAGE_DIR = 'assets/img/research/areas';
 const RESEARCH_FUNDING_IMAGE_DIR = 'assets/img/research/funding';
 
+function hasImageExtension(path) {
+  return /\.(webp|png|jpe?g)$/i.test(String(path || '').trim());
+}
+
 function normalizeFundingBaseName(value) {
   return String(value || '')
     .replace(/\s*&\s*/g, ' and ')
@@ -22,7 +26,12 @@ function useImageFallback(basePathOrPaths) {
   }, [basePathOrPaths]);
   const baseKey = basePaths.join('|');
   const candidates = useMemo(
-    () => basePaths.flatMap((basePath) => IMAGE_EXTENSIONS.map((ext) => `${basePath}.${ext}`)),
+    () =>
+      basePaths.flatMap((basePath) =>
+        hasImageExtension(basePath)
+          ? [basePath]
+          : IMAGE_EXTENSIONS.map((ext) => `${basePath}.${ext}`)
+      ),
     [baseKey]
   );
   const [index, setIndex] = useState(0);
