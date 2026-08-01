@@ -6,7 +6,7 @@ import { pagePath } from '@/lib/i18n';
 
 const SESSION_KEY = 'baelab_recruitment_notice_v3';
 const HIDE_UNTIL_KEY = 'baelab_recruitment_notice_hide_until_v2';
-const NOTICE_DELAY_MS = 800;
+const SCROLL_TRIGGER_VIEWPORT_RATIO = 0.35;
 
 export function RecruitmentNotice({ content, locale }) {
   const [open, setOpen] = useState(false);
@@ -15,8 +15,6 @@ export function RecruitmentNotice({ content, locale }) {
   const closeButtonRef = useRef(null);
 
   useEffect(() => {
-    let timer;
-
     try {
       const shownThisSession = window.sessionStorage.getItem(SESSION_KEY) === 'shown';
       const hideUntil = Number(window.localStorage.getItem(HIDE_UNTIL_KEY) || 0);
@@ -29,16 +27,26 @@ export function RecruitmentNotice({ content, locale }) {
       // Show the notice when browser storage is unavailable.
     }
 
-    timer = window.setTimeout(() => {
+    function showNotice() {
       try {
         window.sessionStorage.setItem(SESSION_KEY, 'shown');
       } catch {
         // The notice can still be displayed without storage.
       }
-      setOpen(true);
-    }, NOTICE_DELAY_MS);
 
-    return () => window.clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+      setOpen(true);
+    }
+
+    function handleScroll() {
+      const triggerDistance = Math.max(180, window.innerHeight * SCROLL_TRIGGER_VIEWPORT_RATIO);
+      if (window.scrollY >= triggerDistance) showNotice();
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const closeNotice = useCallback(() => {
