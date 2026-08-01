@@ -83,33 +83,156 @@
 
   .home-cta-primary {
     background-color: var(--brand-burgundy);
-    @apply inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-white no-underline transition-colors;
+    @apply inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-white no-underline;
+    box-shadow: 0 12px 26px -20px rgba(143, 23, 20, 0.75);
+    transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
   }
 
   .home-cta-primary:hover {
     background-color: var(--brand-burgundy-deep);
+    box-shadow: 0 16px 30px -20px rgba(143, 23, 20, 0.85);
+    transform: translate3d(0, -1px, 0);
+  }
+
+  .home-cta-primary::after {
+    content: '\2192';
+    margin-left: 0.5rem;
+    transition: transform 180ms ease;
+  }
+
+  .home-cta-primary:hover::after {
+    transform: translate3d(3px, 0, 0);
   }
 
   .home-cta-secondary {
     border-color: rgba(122, 15, 31, 0.28);
     color: var(--brand-burgundy);
-    @apply inline-flex h-11 items-center rounded-full border bg-white px-6 text-sm font-semibold no-underline transition-colors;
+    @apply inline-flex h-11 items-center rounded-full border bg-white px-6 text-sm font-semibold no-underline;
+    transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
   }
 
   .home-cta-secondary:hover {
     background-color: rgba(122, 15, 31, 0.06);
+    border-color: rgba(122, 15, 31, 0.42);
+    transform: translate3d(0, -1px, 0);
   }
 
   .reveal-section {
     opacity: 0;
-    transform: translate3d(0, 18px, 0);
-    transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1), transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translate3d(0, 12px, 0);
+    transition: opacity 460ms cubic-bezier(0.22, 1, 0.36, 1), transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity, transform;
   }
 
   .reveal-section.is-visible {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+    transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1), transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal-section.is-visible .reveal-stagger > * {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .reveal-section.is-visible .reveal-stagger > :nth-child(2) {
+    transition-delay: 70ms;
+  }
+
+  .reveal-section.is-visible .reveal-stagger > :nth-child(3) {
+    transition-delay: 140ms;
+  }
+
+  .reveal-section.is-visible .reveal-stagger > :nth-child(4) {
+    transition-delay: 210ms;
+  }
+
+  .site-header {
+    box-shadow: 0 0 0 rgba(15, 23, 42, 0);
+    transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .site-header-main,
+  .site-header-logo {
+    transition: min-height 220ms cubic-bezier(0.22, 1, 0.36, 1), height 220ms cubic-bezier(0.22, 1, 0.36, 1), width 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .site-header.is-scrolled {
+    background-color: rgba(255, 255, 255, 0.97);
+    border-color: rgba(203, 213, 225, 0.95);
+    box-shadow: 0 12px 36px -28px rgba(15, 23, 42, 0.58);
+  }
+
+  .site-header.is-scrolled .site-header-main {
+    min-height: 5.25rem;
+  }
+
+  .site-header.is-scrolled .site-header-logo {
+    height: 4.5rem;
+    width: 4.5rem;
+  }
+
+  .home-hero-media {
+    transform: scale(1.025);
+    transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .home-hero.is-visible .home-hero-media {
+    transform: scale(1);
+  }
+
+  .home-hero-copy > * {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+    transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1), transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .home-hero.is-visible .home-hero-copy > * {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .home-hero.is-visible .home-hero-copy > :nth-child(1) {
+    transition-delay: 80ms;
+  }
+
+  .home-hero.is-visible .home-hero-copy > :nth-child(2) {
+    transition-delay: 150ms;
+  }
+
+  .news-item-row {
+    position: relative;
+    transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+  }
+
+  .news-item-row::before {
+    background-color: var(--brand-burgundy);
+    bottom: 0.75rem;
+    content: '';
+    left: 0;
+    position: absolute;
+    top: 0.75rem;
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+    width: 3px;
+    z-index: 1;
+  }
+
+  .news-item-row:hover {
+    border-color: rgba(13, 50, 111, 0.24);
+    box-shadow: 0 18px 34px -30px rgba(8, 39, 70, 0.55);
+    transform: translate3d(2px, 0, 0);
+  }
+
+  .news-item-row:hover::before,
+  .news-item-row:focus-within::before {
+    transform: scaleY(1);
   }
 
   .recruitment-notice-backdrop {
@@ -122,6 +245,39 @@
 
   .recruitment-notice-badge {
     animation: recruitment-badge-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@media (min-width: 768px) {
+  .site-header.is-scrolled .site-header-main {
+    min-height: 6rem;
+  }
+
+  .site-header.is-scrolled .site-header-logo {
+    height: 5rem;
+    width: 5rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .recruitment-notice-badge {
+    transition: border-color 220ms ease, box-shadow 220ms ease, gap 320ms cubic-bezier(0.22, 1, 0.36, 1), padding 320ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms ease;
+  }
+
+  .recruitment-notice-badge-copy {
+    max-width: 7rem;
+    opacity: 1;
+    transition: max-width 320ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease;
+  }
+
+  .recruitment-notice-badge.is-compact {
+    gap: 0;
+    padding-right: 0.5rem;
+  }
+
+  .recruitment-notice-badge.is-compact .recruitment-notice-badge-copy {
+    max-width: 0;
+    opacity: 0;
   }
 }
 
@@ -163,9 +319,30 @@
     transition: none;
   }
 
+  .reveal-stagger > *,
+  .home-hero-media,
+  .home-hero-copy > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
   .recruitment-notice-backdrop,
   .recruitment-notice-dialog,
   .recruitment-notice-badge {
     animation: none;
+  }
+
+  .recruitment-notice-badge,
+  .recruitment-notice-badge-copy,
+  .home-cta-primary,
+  .home-cta-primary::after,
+  .home-cta-secondary,
+  .news-item-row,
+  .news-item-row::before,
+  .site-header,
+  .site-header-main,
+  .site-header-logo {
+    transition: none;
   }
 }

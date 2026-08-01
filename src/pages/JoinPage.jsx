@@ -1,12 +1,13 @@
 import { PageHero } from '@/components/site/PageHero';
 import { Card, CardContent } from '@/components/ui/card';
 import { JOIN_CONTENT } from '@/content/site-content';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 function OpportunitySection({ body, children, title }) {
   return (
     <section className="space-y-4 border-t border-slate-200 pt-7 first:border-t-0 first:pt-0 md:space-y-5 md:pt-8">
       <h2 className="home-section-title">{title}</h2>
-      <p className="home-body-copy max-w-5xl text-slate-700">{body}</p>
+      <p className="home-body-copy max-w-[72ch] text-slate-700">{body}</p>
       {children}
     </section>
   );
@@ -36,12 +37,13 @@ export function JoinPage({ locale }) {
   const recruitmentStatuses = (content.recruitmentStatuses || []).map(parseRecruitmentStatus);
   const applicationMaterials = content.applicationMaterials || [];
   const desiredPrograms = content.desiredPrograms || [];
+  const contentReveal = useScrollReveal(50);
 
   return (
     <>
       <PageHero description={content.description} title={content.title} />
 
-      <Card className="border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)]">
+      <Card className={`border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
         <CardContent className="space-y-8 p-6 md:space-y-9 md:p-8 lg:space-y-10 lg:p-10">
           {recruitmentStatuses.length ? (
             <section>
@@ -73,7 +75,7 @@ export function JoinPage({ locale }) {
             ) : null}
 
             {graduateBenefits.length ? (
-              <ul className="home-body-copy list-disc space-y-2 pl-6 text-slate-700 marker:text-[#7a0f1f]">
+              <ul className="home-body-copy max-w-[72ch] list-disc space-y-2 pl-6 text-slate-700 marker:text-[#7a0f1f]">
                 {graduateBenefits.map((benefit) => (
                   <li key={benefit}>{benefit}</li>
                 ))}
@@ -88,7 +90,7 @@ export function JoinPage({ locale }) {
           <section className="space-y-5 border-t border-slate-200 pt-7 md:pt-8">
             <div>
               <h2 className="home-section-title">{content.applicationTitle || 'How to Apply'}</h2>
-              <p className="home-body-copy mt-4 max-w-5xl text-slate-700">{content.applicationDescription}</p>
+              <p className="home-body-copy mt-4 max-w-[72ch] text-slate-700">{content.applicationDescription}</p>
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">

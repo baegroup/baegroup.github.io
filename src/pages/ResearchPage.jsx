@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { PageHero } from '@/components/site/PageHero';
 import { RESEARCH_CONTENT } from '@/content/site-content';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const RESEARCH_AREA_IMAGE_DIR = 'assets/img/research/areas';
@@ -64,15 +65,16 @@ function ResearchAreaRow({ area, index, areaLabel }) {
   const image = useImageFallback(`${RESEARCH_AREA_IMAGE_DIR}/${imageBase}`);
   const reverse = index % 2 === 1;
   const keepFullImage = index === 1 || /energy|environment/i.test(String(area.title || ''));
+  const { ref, revealClassName, revealStyle } = useScrollReveal(Math.min(index * 60, 120));
 
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-soft md:p-7">
+    <article className={`group rounded-xl border border-slate-200 bg-white p-5 shadow-soft transition-[border-color,box-shadow] duration-300 hover:border-slate-300 hover:shadow-[0_24px_50px_-34px_rgba(8,39,70,0.42)] md:p-7 ${revealClassName}`} ref={ref} style={revealStyle}>
       <div className={`grid gap-6 lg:grid-cols-2 lg:items-center lg:gap-8 ${reverse ? 'lg:[&>*:first-child]:order-2' : ''}`}>
         <figure className="mx-auto w-full max-w-3xl overflow-hidden rounded-lg border border-slate-200 bg-slate-100 lg:max-w-none">
           {!image.broken ? (
             <img
               alt={area.title}
-              className={`aspect-[16/10] max-h-[380px] w-full lg:max-h-none ${
+              className={`aspect-[16/10] max-h-[380px] w-full transition-transform duration-700 group-hover:scale-[1.012] lg:max-h-none ${
                 keepFullImage ? 'object-contain bg-white p-2' : 'object-cover'
               }`}
               onError={image.onError}
@@ -86,7 +88,7 @@ function ResearchAreaRow({ area, index, areaLabel }) {
         <div className="space-y-3">
           <p className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-600">{areaLabel}</p>
           <h3 className="home-section-title">{area.title}</h3>
-          <p className="home-body-copy text-slate-700">{area.body}</p>
+          <p className="home-body-copy max-w-[68ch] text-slate-700">{area.body}</p>
         </div>
       </div>
     </article>
@@ -105,7 +107,7 @@ function FundingItem({ item, index }) {
   ]);
 
   return (
-    <article className="flex h-full flex-col rounded-lg border border-slate-200 bg-white p-4 text-center shadow-soft md:p-5">
+    <article className="flex h-full flex-col rounded-lg border border-slate-200 bg-white p-4 text-center shadow-soft transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_18px_34px_-28px_rgba(8,39,70,0.45)] md:p-5">
       <div className="flex min-h-[92px] items-center justify-center">
         {!image.broken ? (
           <img alt={item.name} className="max-h-14 w-auto object-contain" onError={image.onError} src={image.src} />
@@ -133,14 +135,16 @@ export function ResearchPage({ locale }) {
   const areaLabel = content.areaLabel || 'Research Area';
   const fundingTitle = content.fundingTitle || 'Funding Sources';
   const fundingItems = content.fundingItems || [];
+  const missionReveal = useScrollReveal(40);
+  const fundingReveal = useScrollReveal(40);
 
   return (
     <div className="space-y-6 md:space-y-8">
       <PageHero title={content.title} />
 
-      <section className="rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7">
+      <section className={`rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7 ${missionReveal.revealClassName}`} ref={missionReveal.ref} style={missionReveal.revealStyle}>
         <h2 className="home-section-title text-center">{missionTitle}</h2>
-        <p className="home-body-copy mx-auto mt-5 max-w-5xl text-slate-700">{content.description}</p>
+        <p className="home-body-copy mx-auto mt-5 max-w-[72ch] text-slate-700">{content.description}</p>
       </section>
 
       <section className="space-y-4 md:space-y-5">
@@ -149,9 +153,9 @@ export function ResearchPage({ locale }) {
         ))}
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7">
+      <section className={`rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7 ${fundingReveal.revealClassName}`} ref={fundingReveal.ref} style={fundingReveal.revealStyle}>
         <h2 className="text-center text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{fundingTitle}</h2>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="reveal-stagger mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {fundingItems.map((item, index) => (
             <FundingItem index={index} item={item} key={`${item.name}-${item.logo || index}`} />
           ))}

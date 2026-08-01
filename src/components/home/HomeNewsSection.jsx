@@ -85,7 +85,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
         <div className={featuredItems.length && listItems.length ? 'grid lg:grid-cols-[minmax(0,1.16fr)_minmax(0,1fr)]' : 'grid'}>
           {featuredItems.length ? (
             <div className={listItems.length ? 'border-b border-slate-200 lg:border-b-0 lg:border-r' : ''}>
-              <div className="grid gap-3 p-4 sm:grid-cols-2 md:p-5">
+              <div className="reveal-stagger grid gap-3 p-4 sm:grid-cols-2 md:p-5">
                 {featuredItems.map((item) => (
                   <FeaturedNewsCard item={item} key={`${item.id || item.title}-featured`} locale={locale} />
                 ))}
@@ -98,7 +98,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
               <div className="px-5 pb-2 pt-5 md:px-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0b3a64]">{listLabel}</p>
               </div>
-              <ul className="divide-y divide-slate-200">
+              <ul className="reveal-stagger divide-y divide-slate-200">
                 {listItems.map((item) => (
                   <li className="px-5 py-3 transition-colors hover:bg-white md:px-6 md:py-3.5" key={`${item.id || item.title}-list`}>
                     <Link className="block" to={sectionPath(locale, item.section)}>

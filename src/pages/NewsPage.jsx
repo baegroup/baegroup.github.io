@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { PageHero } from '@/components/site/PageHero';
 import { Card, CardContent } from '@/components/ui/card';
 import { NEWS_CONTENT } from '@/content/site-content';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { loadNewsFeed } from '@/lib/data';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
@@ -234,10 +235,10 @@ function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }
   const toggleLabel = opened ? 'Collapse details' : 'View details';
 
   return (
-    <li className="scroll-mt-28 rounded-lg border border-slate-200 bg-white" ref={itemRef}>
+    <li className="news-item-row scroll-mt-28 overflow-hidden rounded-lg border border-slate-200 bg-white" ref={itemRef}>
       <button
         aria-expanded={opened}
-        className="w-full px-4 py-4 text-left transition-colors hover:bg-slate-50 md:px-5"
+        className="news-item-trigger w-full px-4 py-4 text-left transition-colors hover:bg-slate-50 md:px-5"
         onClick={onToggle}
         type="button"
       >
@@ -490,14 +491,15 @@ export function NewsPage({ locale }) {
   const latestInstagramImage = latestInstagramPost?.images?.[0] || '';
   const latestInstagramPermalink = normalizeInstagramPermalink(latestInstagramPost?.url);
   const latestInstagramEmbedUrl = toInstagramEmbedUrl(latestInstagramPost?.url);
+  const contentReveal = useScrollReveal(40);
 
   return (
     <div className="space-y-6 md:space-y-8">
       <PageHero description={content.description} title={content.title} />
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(194px,232px)_minmax(0,1fr)] lg:items-start">
+      <div className={`grid gap-5 lg:grid-cols-[minmax(194px,232px)_minmax(0,1fr)] lg:items-start ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
         <aside className="order-2 lg:order-1 lg:self-start">
-          <div className="space-y-4 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-1">
+          <div className="space-y-4 lg:sticky lg:top-36 lg:max-h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-1">
             <Card className="border-slate-200 bg-white">
               <CardContent className="space-y-2 pt-4">
                 {sections.map((section) => (
@@ -517,27 +519,27 @@ export function NewsPage({ locale }) {
               </CardContent>
             </Card>
 
-          <section className="space-y-3 px-1">
-            {latestInstagramEmbedUrl ? (
-              <div className="mx-auto w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5">
-                <iframe
-                  allowTransparency
-                  className="block h-[420px] w-full sm:h-[460px]"
-                  loading="lazy"
-                  scrolling="no"
-                  src={latestInstagramEmbedUrl}
-                  style={{ border: 0 }}
-                  title={latestInstagramPost?.title || 'Instagram embed'}
-                />
-              </div>
-            ) : latestInstagramImage ? (
-              <a className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
-                <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
-              </a>
-              ) : (
-                <div className="rounded-lg border border-dashed border-slate-300 bg-white p-3 text-xs text-slate-500">Instagram latest photo not available.</div>
-              )}
-            </section>
+            {latestInstagramEmbedUrl || latestInstagramImage ? (
+              <section className="space-y-3 px-1">
+                {latestInstagramEmbedUrl ? (
+                  <div className="mx-auto w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5">
+                    <iframe
+                      allowTransparency
+                      className="block h-[420px] w-full sm:h-[460px]"
+                      loading="lazy"
+                      scrolling="no"
+                      src={latestInstagramEmbedUrl}
+                      style={{ border: 0 }}
+                      title={latestInstagramPost?.title || 'Instagram embed'}
+                    />
+                  </div>
+                ) : (
+                  <a className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
+                    <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
+                  </a>
+                )}
+              </section>
+            ) : null}
 
             <section className="space-y-2 px-1">
               <div className="flex flex-wrap justify-center gap-2">

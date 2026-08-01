@@ -27,9 +27,11 @@ export function useScrollReveal(delay = 0) {
     }
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        setRevealed(entry.isIntersecting);
-      });
+      const entry = entries[0];
+      if (!entry?.isIntersecting) return;
+
+      setRevealed(true);
+      observer.unobserve(node);
     }, OBSERVER_OPTIONS);
 
     observer.observe(node);

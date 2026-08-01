@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
@@ -9,6 +9,7 @@ import { pagePath } from '@/lib/i18n';
 
 export function SiteHeader({ locale }) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const brand = BRAND[locale] || BRAND.en || {};
   const tagline = (brand.tagline || '').trim() || 'Functional Materials Additive Manufacturing';
   const universityLabel = 'Kyung Hee University';
@@ -19,8 +20,27 @@ export function SiteHeader({ locale }) {
     'inline-flex items-center rounded-sm px-1.5 py-0.5 no-underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40';
   const navItems = useMemo(() => NAV_ITEMS[locale] || NAV_ITEMS.en || [], [locale]);
 
+  useEffect(() => {
+    let frameId = 0;
+
+    function updateHeader() {
+      if (frameId) return;
+      frameId = window.requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 12);
+        frameId = 0;
+      });
+    }
+
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', updateHeader);
+      if (frameId) window.cancelAnimationFrame(frameId);
+    };
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/90 bg-white/90 backdrop-blur-md">
+    <header className={cn('site-header sticky top-0 z-50 border-b border-slate-200/90 bg-white/90 backdrop-blur-md', scrolled && 'is-scrolled')}>
       <div className="border-b border-[#68101b] bg-[#7a0f1f]">
         <div className="mx-auto flex h-8 w-full max-w-6xl items-center justify-between px-5 md:h-9">
           <a
@@ -42,13 +62,13 @@ export function SiteHeader({ locale }) {
         </div>
       </div>
 
-      <div className="mx-auto flex min-h-24 w-full max-w-6xl items-center justify-between px-5 md:min-h-28">
+      <div className="site-header-main mx-auto flex min-h-24 w-full max-w-6xl items-center justify-between px-5 md:min-h-28">
         <Link
           aria-label="Bae Lab home"
           className="flex items-center gap-3.5 no-underline md:gap-4"
           to={pagePath('')}
         >
-          <img alt="Bae Lab logo" className="h-20 w-20 object-contain md:h-24 md:w-24" src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`} />
+          <img alt="Bae Lab logo" className="site-header-logo h-20 w-20 object-contain md:h-24 md:w-24" src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`} />
           <p className="max-w-[360px] text-xs font-medium uppercase tracking-[0.10em] text-slate-600 max-md:hidden">{tagline}</p>
           <span className="sr-only">Go to Bae Lab home</span>
         </Link>

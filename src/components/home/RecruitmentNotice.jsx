@@ -11,6 +11,7 @@ const SCROLL_TRIGGER_VIEWPORT_RATIO = 0.35;
 export function RecruitmentNotice({ content, locale }) {
   const [open, setOpen] = useState(false);
   const [showBadge, setShowBadge] = useState(false);
+  const [badgeCompact, setBadgeCompact] = useState(false);
   const dialogRef = useRef(null);
   const closeButtonRef = useRef(null);
 
@@ -61,9 +62,20 @@ export function RecruitmentNotice({ content, locale }) {
   }, []);
 
   const openNotice = () => {
+    setBadgeCompact(false);
     setShowBadge(false);
     setOpen(true);
   };
+
+  useEffect(() => {
+    if (!showBadge || open) {
+      setBadgeCompact(false);
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => setBadgeCompact(true), 4500);
+    return () => window.clearTimeout(timer);
+  }, [open, showBadge]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -156,16 +168,19 @@ export function RecruitmentNotice({ content, locale }) {
       {showBadge && !open ? (
         <button
           aria-label="Open graduate recruitment notice"
-          className="recruitment-notice-badge group fixed bottom-5 right-4 z-[80] flex items-center gap-3 rounded-full border border-slate-200 bg-white py-2 pl-2 pr-4 text-left shadow-[0_16px_45px_-18px_rgba(2,6,23,0.48)] transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d326f] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6"
+          className={`recruitment-notice-badge group fixed bottom-5 right-4 z-[80] flex items-center gap-3 rounded-full border border-slate-200 bg-white py-2 pl-2 pr-4 text-left shadow-[0_16px_45px_-18px_rgba(2,6,23,0.48)] transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d326f] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 ${badgeCompact ? 'is-compact' : ''}`}
           onClick={openNotice}
           type="button"
         >
           <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#0d326f] text-white transition-colors group-hover:bg-[#0a2858]">
             <GraduationCap aria-hidden="true" className="h-5 w-5" />
           </span>
-          <span>
-            <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-[#ad1d19]">Join Bae Lab</span>
-            <span className="mt-0.5 block text-xs font-semibold text-slate-900 sm:text-sm">Graduate Opportunities</span>
+          <span className="recruitment-notice-badge-copy overflow-hidden whitespace-nowrap">
+            <span className="hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-[#ad1d19] sm:block">Join Bae Lab</span>
+            <span className="block text-xs font-semibold text-slate-900 sm:mt-0.5 sm:text-sm">
+              <span className="sm:hidden">Join Bae Lab</span>
+              <span className="hidden sm:inline">Graduate Opportunities</span>
+            </span>
           </span>
         </button>
       ) : null}

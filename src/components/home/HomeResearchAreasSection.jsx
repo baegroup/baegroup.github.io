@@ -54,7 +54,7 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0, her
         <h2 className="home-section-title">{title}</h2>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="reveal-stagger grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {cards.map((card, index) => (
           <ResearchAreaCard
             card={card}
