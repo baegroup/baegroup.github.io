@@ -111,6 +111,49 @@
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
+
+  .recruitment-notice-backdrop {
+    animation: recruitment-backdrop-in 220ms ease-out both;
+  }
+
+  .recruitment-notice-dialog {
+    animation: recruitment-dialog-in 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .recruitment-notice-badge {
+    animation: recruitment-badge-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes recruitment-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes recruitment-dialog-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes recruitment-badge-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -118,5 +161,11 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .recruitment-notice-backdrop,
+  .recruitment-notice-dialog,
+  .recruitment-notice-badge {
+    animation: none;
   }
 }
