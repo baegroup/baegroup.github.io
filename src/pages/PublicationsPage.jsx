@@ -2,10 +2,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { PageHero } from '@/components/site/PageHero';
+import { PageSectionNav } from '@/components/site/PageSectionNav';
+import { ResearchProfileLinks } from '@/components/site/ResearchProfileLinks';
 import { Card, CardContent } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { PUBLICATIONS_CONTENT } from '@/content/site-content';
-import { loadPublicationCovers, loadPublications, publicationTypeLabels } from '@/lib/data';
+import { loadPublicationCovers, loadPublications, loadResearchProfileLinks, publicationTypeLabels } from '@/lib/data';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const COVER_IMAGE_BASE = 'assets/img/publications/covers';
@@ -509,6 +511,7 @@ export function PublicationsPage({ locale }) {
   const [items, setItems] = useState([]);
   const [allItems, setAllItems] = useState([]);
   const [coverManifest, setCoverManifest] = useState([]);
+  const [researchProfileLinks, setResearchProfileLinks] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [labAuthorNames, setLabAuthorNames] = useState([]);
@@ -584,6 +587,28 @@ export function PublicationsPage({ locale }) {
     }
 
     loadCovers();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadProfileLinks() {
+      try {
+        const links = await loadResearchProfileLinks();
+        if (mounted) {
+          setResearchProfileLinks(links);
+        }
+      } catch {
+        if (mounted) {
+          setResearchProfileLinks({});
+        }
+      }
+    }
+
+    loadProfileLinks();
     return () => {
       mounted = false;
     };
@@ -735,17 +760,12 @@ export function PublicationsPage({ locale }) {
     <div className="space-y-6 md:space-y-8">
       <Tabs onValueChange={handleFilterChange} value={filter}>
         <PageHero description={content.description} title={content.title}>
-          <TabsList className="page-section-nav h-auto rounded-none bg-transparent p-0">
-            {filters.map((type) => (
-              <TabsTrigger
-                className="page-section-tab rounded-none px-0 py-0 shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-                key={type}
-                value={type}
-              >
-                {labels[type]}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <PageSectionNav
+            activeId={filter}
+            ariaLabel="Publication categories"
+            items={filters.map((type) => ({ id: type, label: labels[type] }))}
+            onChange={handleFilterChange}
+          />
         </PageHero>
 
         <TabsContent className="mt-6 md:mt-8" value={filter}>
@@ -766,12 +786,6 @@ export function PublicationsPage({ locale }) {
                   />
                 ) : null}
                 <div className="scroll-mt-28 space-y-4" ref={publicationListRef}>
-                  <PublicationPagination
-                    currentPage={currentPublicationPage}
-                    onPageChange={handlePublicationPageChange}
-                    pageGroups={publicationPageGroups}
-                    placement="top"
-                  />
                   <PublicationList
                     items={paginatedPublicationItems}
                     labAuthorNames={labAuthorNames}
@@ -789,7 +803,7 @@ export function PublicationsPage({ locale }) {
               </div>
 
               <aside className="xl:self-start">
-                <div className="space-y-4 xl:sticky xl:top-24 xl:max-h-[calc(100vh-7rem)] xl:overflow-y-auto xl:pr-1">
+                <div className="space-y-4 xl:sticky xl:top-24">
                   <PublicationInfoPanel updatedAt={updatedAt} />
 
                   <Card className="border-slate-200 bg-white">
@@ -797,6 +811,8 @@ export function PublicationsPage({ locale }) {
                       <JournalCoverCarousel items={coverSlides} />
                     </CardContent>
                   </Card>
+
+                  <ResearchProfileLinks links={researchProfileLinks} />
                 </div>
               </aside>
             </div>

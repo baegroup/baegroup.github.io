@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { PageHero } from '@/components/site/PageHero';
+import { PageSectionNav } from '@/components/site/PageSectionNav';
 import { TEAM_CONTENT } from '@/content/site-content';
 import { loadTeamProfiles } from '@/lib/data';
 import { pagePath } from '@/lib/i18n';
@@ -636,22 +637,12 @@ export function TeamPage({ locale }) {
   return (
     <>
       <PageHero description={content.description} title={content.title || 'Team'}>
-        <nav aria-label="Team section navigation" className="page-section-nav">
-          {jumpNav.map((item) => {
-            const active = activeSection === item.id;
-            return (
-              <button
-                aria-pressed={active}
-                className="page-section-tab"
-                key={item.id}
-                onClick={() => setActiveSection(item.id)}
-                type="button"
-              >
-                {item.label}
-              </button>
-            );
-          })}
-        </nav>
+        <PageSectionNav
+          activeId={activeSection}
+          ariaLabel="Team section navigation"
+          items={jumpNav}
+          onChange={setActiveSection}
+        />
       </PageHero>
 
       <section>
@@ -669,7 +660,7 @@ export function TeamPage({ locale }) {
                       </div>
                     </div>
 
-                    <figure className="mx-auto w-full max-w-3xl overflow-hidden rounded-xl border border-slate-200 bg-slate-100 lg:max-w-none">
+                    <figure className="mx-auto w-full max-w-2xl overflow-hidden rounded-xl border border-slate-200 bg-slate-100 lg:max-w-[94%]">
                       {!aboutImage.broken ? (
                         <img
                           alt="Bae Lab group photo"
@@ -685,7 +676,7 @@ export function TeamPage({ locale }) {
                     </figure>
                   </div>
 
-                  <div className="space-y-6 border-t border-slate-200 pt-7 md:pt-8">
+                  <div className="space-y-8 border-t border-slate-200 pt-7 md:space-y-10 md:pt-8">
                     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-center lg:gap-8">
                       <div className="flex h-full flex-col justify-center space-y-4">
                         <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'The Fearless Lab Culture'}</h2>
@@ -705,9 +696,8 @@ export function TeamPage({ locale }) {
                         ) : (
                           <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Culture image placeholder</div>
                         )}
-                        <figcaption className="mt-3 text-center">
-                          <p className="text-sm font-semibold text-slate-900">The Fearless Organization</p>
-                          <p className="mt-1 text-xs text-slate-500">Amy C. Edmondson</p>
+                        <figcaption className="mt-2 text-center text-xs text-slate-500">
+                          The Fearless Organization · Amy C. Edmondson
                         </figcaption>
                       </figure>
                     </div>
@@ -776,10 +766,12 @@ export function TeamPage({ locale }) {
                   <div className="space-y-6">
                     {staffGroups.map((group, index) => (
                       <section className="space-y-3" key={group.role}>
-                        <h3 className="text-lg font-semibold text-slate-900">
-                          {group.label}
-                          <span className="ml-2 text-base font-medium text-slate-500">({group.members.length})</span>
-                        </h3>
+                        {staffGroups.length > 1 ? (
+                          <h3 className="text-lg font-semibold text-slate-900">
+                            {group.label}
+                            <span className="ml-2 text-base font-medium text-slate-500">({group.members.length})</span>
+                          </h3>
+                        ) : null}
                         <div className="grid gap-4 md:grid-cols-2">
                           {group.members.map((member) => (
                             <MemberCard key={member.id} member={member} showRoleBadge={staffGroups.length > 1 || !STAFF_SECTION_ROLES.has(group.role)} />

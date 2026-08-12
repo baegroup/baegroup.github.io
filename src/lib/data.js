@@ -341,6 +341,11 @@ function normalizeInstagram(value) {
   };
 }
 
+export async function loadResearchProfileLinks() {
+  const data = await fetchData('news.json');
+  return normalizePiLinks(data?.piLinks);
+}
+
 export async function loadNewsFeed() {
   const data = await fetchData('news.json');
   const sectionsSource = data?.sections && typeof data.sections === 'object' ? data.sections : {};

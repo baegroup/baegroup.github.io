@@ -3,7 +3,7 @@
 # Home
 
 ## title
-Engineering printing technologies for energy, environment, and biology
+Engineering printing technologies for energy, environment & biology
 
 ## description
 Bae Lab integrates materials design and process engineering to transform complex functional materials into precise and scalable manufacturing technologies.

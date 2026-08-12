@@ -88,7 +88,7 @@ function ResearchAreaRow({ area, index }) {
         </figure>
 
         <div className="space-y-3">
-          <p className="font-sans text-sm font-semibold leading-none tracking-[0.1em] text-[var(--brand-navy)] tabular-nums">{String(index + 1).padStart(2, '0')}</p>
+          <p className="text-xs font-semibold tracking-[0.12em] text-[var(--brand-burgundy)] tabular-nums">{String(index + 1).padStart(2, '0')}</p>
           <h3 className="page-section-title">{area.title}</h3>
           <p className="home-body-copy max-w-[68ch] text-slate-700">{area.body}</p>
         </div>

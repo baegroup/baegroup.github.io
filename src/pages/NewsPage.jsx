@@ -3,6 +3,7 @@ import { ChevronDown } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
 import { PageHero } from '@/components/site/PageHero';
+import { PageSectionNav } from '@/components/site/PageSectionNav';
 import { NEWS_CONTENT } from '@/content/site-content';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { loadNewsFeed } from '@/lib/data';
@@ -16,14 +17,6 @@ const DEFAULT_SECTION_TABS = [
 ];
 const DEFAULT_PAGE_SIZE = 5;
 const VIDEOS_PAGE_SIZE = 4;
-const LINK_META = [
-  { key: 'linkedin', label: 'LinkedIn', icon: 'assets/img/news/profiles/linkedin.ico' },
-  { key: 'webOfScience', label: 'Web of Science', icon: 'assets/img/news/profiles/webofscience.ico' },
-  { key: 'orcid', label: 'ORCID', icon: 'assets/img/news/profiles/orcid.svg' },
-  { key: 'scopus', label: 'Scopus', icon: 'assets/img/news/profiles/scopus.svg' },
-  { key: 'googleScholar', label: 'Google Scholar', icon: 'assets/img/news/profiles/googlescholar.svg' },
-  { key: 'researchGate', label: 'ResearchGate', icon: 'assets/img/news/profiles/researchgate.svg' }
-];
 
 function normalizeInstagramPermalink(value) {
   const raw = String(value || '').trim();
@@ -321,14 +314,6 @@ export function NewsPage({ locale }) {
       handle: '',
       profileUrl: '',
       recent: []
-    },
-    piLinks: {
-      linkedin: '',
-      webOfScience: '',
-      orcid: '',
-      scopus: '',
-      googleScholar: '',
-      researchGate: ''
     }
   });
   const [loading, setLoading] = useState(true);
@@ -484,9 +469,7 @@ export function NewsPage({ locale }) {
   }
 
   const emptySectionLabel = content.emptySection || 'No items available in this section yet.';
-  const piLinksDescription = content.piLinksDescription || 'External research profiles and citation services.';
   const updatedAt = feed.updatedAt || content.updatedAt || '';
-  const profileLinks = LINK_META.map((meta) => ({ ...meta, href: feed.piLinks?.[meta.key] })).filter((item) => item.href);
   const latestInstagramPost = (feed.instagram.recent || []).find((post) => (post.images || []).length) || (feed.instagram.recent || [])[0] || null;
   const latestInstagramImage = latestInstagramPost?.images?.[0] || '';
   const latestInstagramPermalink = normalizeInstagramPermalink(latestInstagramPost?.url);
@@ -496,21 +479,14 @@ export function NewsPage({ locale }) {
   return (
     <div className="space-y-6 md:space-y-8">
       <PageHero description={content.description} title={content.title}>
-        <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
-          <nav aria-label="News categories" className="page-section-nav">
-            {sections.map((section) => (
-              <button
-                aria-pressed={activeSection === section.id}
-                className="page-section-tab"
-                key={section.id}
-                onClick={() => setActiveSection(section.id)}
-                type="button"
-              >
-                {section.label}
-              </button>
-            ))}
-          </nav>
-          <p aria-live="polite" className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+        <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-5 gap-y-2">
+          <PageSectionNav
+            activeId={activeSection}
+            ariaLabel="News categories"
+            items={sections}
+            onChange={setActiveSection}
+          />
+          <p aria-live="polite" className="ml-auto text-right text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
             <span className="text-slate-700">{activeItems.length} items</span>
             {updatedAt ? (
               <>
@@ -546,31 +522,6 @@ export function NewsPage({ locale }) {
                 )}
               </section>
             ) : null}
-
-            <section className="space-y-2 px-1">
-              <div className="flex flex-wrap justify-center gap-2">
-                {profileLinks.map((item) => (
-                  <a
-                    aria-label={item.label}
-                    className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white transition-transform hover:-translate-y-0.5 hover:border-slate-300"
-                    href={item.href}
-                    key={item.key}
-                    rel="noreferrer"
-                    target="_blank"
-                    title={item.label}
-                  >
-                    <img
-                      alt={item.label}
-                      className="h-full w-full object-contain p-1.5"
-                      decoding="async"
-                      loading="lazy"
-                      src={`${import.meta.env.BASE_URL}${item.icon}`}
-                    />
-                  </a>
-                ))}
-              </div>
-              {profileLinks.length === 0 ? <p className="text-xs text-slate-500">{piLinksDescription}</p> : null}
-            </section>
           </div>
         </aside>
 
