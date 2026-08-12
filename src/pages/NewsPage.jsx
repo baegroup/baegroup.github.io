@@ -140,7 +140,7 @@ function MediaImage({ path, title, variant = 'card' }) {
   }
 
   if (variant === 'thumb') {
-    return <img alt={title} className="h-16 w-16 rounded-md object-cover" onError={image.onError} src={image.src} />;
+    return <img alt={title} className="h-16 w-16 rounded-md object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
   }
 
   if (variant === 'full') {
@@ -148,13 +148,15 @@ function MediaImage({ path, title, variant = 'card' }) {
       <img
         alt={title}
         className="h-auto max-h-[640px] w-full max-w-3xl rounded-md border border-slate-200 bg-white object-contain"
+        decoding="async"
+        loading="lazy"
         onError={image.onError}
         src={image.src}
       />
     );
   }
 
-  return <img alt={title} className="aspect-[4/3] w-full rounded-md object-cover" onError={image.onError} src={image.src} />;
+  return <img alt={title} className="aspect-[4/3] w-full rounded-md object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
 }
 
 function toYouTubeEmbedUrl(value) {
@@ -556,6 +558,8 @@ export function NewsPage({ locale }) {
                     <img
                       alt={item.label}
                       className="h-full w-full object-contain p-1.5"
+                      decoding="async"
+                      loading="lazy"
                       src={`${import.meta.env.BASE_URL}${item.icon}`}
                     />
                   </a>

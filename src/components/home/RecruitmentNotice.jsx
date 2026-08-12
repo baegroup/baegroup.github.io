@@ -3,6 +3,10 @@ import { ArrowRight, GraduationCap, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { pagePath } from '@/lib/i18n';
+import {
+  COOKIE_CONSENT_UPDATED_EVENT,
+  hasCookieConsentChoice
+} from '@/lib/privacy';
 
 const SESSION_KEY = 'baelab_recruitment_notice_v3';
 const HIDE_UNTIL_KEY = 'baelab_recruitment_notice_hide_until_v2';
@@ -16,17 +20,7 @@ export function RecruitmentNotice({ content, locale }) {
   const closeButtonRef = useRef(null);
 
   useEffect(() => {
-    try {
-      const shownThisSession = window.sessionStorage.getItem(SESSION_KEY) === 'shown';
-      const hideUntil = Number(window.localStorage.getItem(HIDE_UNTIL_KEY) || 0);
-
-      if (shownThisSession || hideUntil > Date.now()) {
-        setShowBadge(true);
-        return undefined;
-      }
-    } catch {
-      // Show the notice when browser storage is unavailable.
-    }
+    let listeningForScroll = false;
 
     function showNotice() {
       try {
@@ -36,6 +30,7 @@ export function RecruitmentNotice({ content, locale }) {
       }
 
       window.removeEventListener('scroll', handleScroll);
+      listeningForScroll = false;
       setOpen(true);
     }
 
@@ -44,10 +39,34 @@ export function RecruitmentNotice({ content, locale }) {
       if (window.scrollY >= triggerDistance) showNotice();
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    function activateNotice() {
+      try {
+        const shownThisSession = window.sessionStorage.getItem(SESSION_KEY) === 'shown';
+        const hideUntil = Number(window.localStorage.getItem(HIDE_UNTIL_KEY) || 0);
 
-    return () => window.removeEventListener('scroll', handleScroll);
+        if (shownThisSession || hideUntil > Date.now()) {
+          setShowBadge(true);
+          return;
+        }
+      } catch {
+        // The notice can still be displayed without storage.
+      }
+
+      listeningForScroll = true;
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+    }
+
+    if (hasCookieConsentChoice()) {
+      activateNotice();
+    } else {
+      window.addEventListener(COOKIE_CONSENT_UPDATED_EVENT, activateNotice, { once: true });
+    }
+
+    return () => {
+      window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, activateNotice);
+      if (listeningForScroll) window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const closeNotice = useCallback(() => {

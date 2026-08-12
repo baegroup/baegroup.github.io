@@ -21,5 +21,5 @@ export function homePath() {
 // pagePath(locale, slug) OR pagePath(slug)
 export function pagePath(localeOrSlug, maybeSlug) {
   const slug = normalizeSlug(typeof maybeSlug === 'string' ? maybeSlug : localeOrSlug);
-  return slug ? `/${slug}` : '/';
+  return slug ? `/${slug}/` : '/';
 }

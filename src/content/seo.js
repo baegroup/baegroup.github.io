@@ -60,7 +60,7 @@ export function getSeoForPath(pathname) {
 }
 
 export function absoluteSiteUrl(path = '/') {
-  const normalized = path === '/' ? '/' : `/${String(path).replace(/^\/+|\/+$/g, '')}`;
+  const normalized = path === '/' ? '/' : `/${String(path).replace(/^\/+|\/+$/g, '')}/`;
   return `${SITE_URL}${normalized}`;
 }
 
@@ -68,7 +68,7 @@ export function getStructuredDataForPath(pathname = '/') {
   const path = getSeoForPath(pathname).path;
   const pageUrl = absoluteSiteUrl(path);
   const organizationId = `${SITE_URL}/#organization`;
-  const personId = `${SITE_URL}/team#jaehyeong-bae`;
+  const personId = `${SITE_URL}/team/#jaehyeong-bae`;
   const websiteId = `${SITE_URL}/#website`;
 
   const organization = {
@@ -99,7 +99,7 @@ export function getStructuredDataForPath(pathname = '/') {
     alternateName: ['배재형', 'Bae Jaehyeong'],
     jobTitle: 'Assistant Professor',
     email: 'jbae@khu.ac.kr',
-    url: `${SITE_URL}/team`,
+    url: `${SITE_URL}/team/`,
     affiliation: { '@id': organizationId },
     sameAs: [
       'https://orcid.org/0000-0001-6426-4310',

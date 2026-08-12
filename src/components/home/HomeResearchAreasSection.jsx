@@ -17,6 +17,8 @@ function ResearchAreaCard({ card, imagePath }) {
         <img
           alt={card.title}
           className="aspect-[16/10] max-h-[320px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] md:max-h-none"
+          decoding="async"
+          loading="lazy"
           onError={() => setImageIndex((index) => index + 1)}
           src={imageCandidates[imageIndex]}
         />

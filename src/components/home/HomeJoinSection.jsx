@@ -70,6 +70,8 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
         <img
           alt={content.joinTitle}
           className="relative z-10 mx-auto aspect-[16/10] max-h-[320px] w-full max-w-[36rem] rounded-lg border border-slate-200/90 object-cover shadow-[0_24px_44px_-34px_rgba(8,39,70,0.5)] md:max-h-none md:max-w-none"
+          decoding="async"
+          loading="lazy"
           onError={() => setImageIndex((index) => index + 1)}
           src={joinImages[imageIndex]}
         />

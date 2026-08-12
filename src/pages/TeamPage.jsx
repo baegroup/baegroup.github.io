@@ -244,6 +244,8 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
                 <img
                   alt={member.localizedName}
                   className="h-full w-full object-cover"
+                  decoding="async"
+                  loading="lazy"
                   onError={() => setBroken(true)}
                   src={`${import.meta.env.BASE_URL}${member.photo}`}
                 />
@@ -287,6 +289,8 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
             <img
               alt={member.localizedName}
               className="h-full w-full object-cover"
+              decoding="async"
+              loading="lazy"
               onError={() => setBroken(true)}
               src={`${import.meta.env.BASE_URL}${member.photo}`}
             />
@@ -457,6 +461,8 @@ function ProfessorShowcase({ professor }) {
               <img
                 alt={professor.localizedName}
                 className="h-full w-full object-cover object-top"
+                decoding="async"
+                loading="lazy"
                 onError={() => setBroken(true)}
                 src={`${import.meta.env.BASE_URL}${professor.photo}`}
               />
@@ -672,6 +678,8 @@ export function TeamPage({ locale }) {
                         <img
                           alt="Bae Lab group photo"
                           className="h-full max-h-[360px] w-full object-cover lg:max-h-none"
+                          decoding="async"
+                          loading="lazy"
                           onError={aboutImage.onError}
                           src={aboutImage.src}
                         />
@@ -695,6 +703,8 @@ export function TeamPage({ locale }) {
                           <img
                             alt="The Fearless Organization matrix"
                             className="mx-auto h-auto max-h-[260px] w-auto max-w-full object-contain p-3 md:max-h-[290px] md:p-4"
+                            decoding="async"
+                            loading="lazy"
                             onError={cultureImage.onError}
                             src={cultureImage.src}
                           />

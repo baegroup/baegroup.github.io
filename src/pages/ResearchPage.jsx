@@ -77,6 +77,8 @@ function ResearchAreaRow({ area, index, areaLabel }) {
               className={`aspect-[16/10] max-h-[380px] w-full transition-transform duration-700 group-hover:scale-[1.012] lg:max-h-none ${
                 keepFullImage ? 'object-contain bg-white p-2' : 'object-cover'
               }`}
+              decoding="async"
+              loading="lazy"
               onError={image.onError}
               src={image.src}
             />
@@ -110,7 +112,7 @@ function FundingItem({ item, index }) {
     <article className="flex h-full flex-col rounded-lg border border-slate-200 bg-white p-4 text-center shadow-soft transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_18px_34px_-28px_rgba(8,39,70,0.45)] md:p-5">
       <div className="flex min-h-[92px] items-center justify-center">
         {!image.broken ? (
-          <img alt={item.name} className="max-h-14 w-auto object-contain" onError={image.onError} src={image.src} />
+          <img alt={item.name} className="max-h-14 w-auto object-contain" decoding="async" loading="lazy" onError={image.onError} src={image.src} />
         ) : (
           <div className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">Funding Logo</div>
         )}

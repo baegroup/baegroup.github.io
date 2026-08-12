@@ -175,10 +175,10 @@ function PreprintSection({ description, items, labAuthorNames, title }) {
   }
 
   return (
-    <section className="space-y-3">
-      <h3 className="border-l-4 border-[#7a0f1f] pl-3 text-2xl font-semibold tracking-tight text-[#7a0f1f]">
+    <section className="min-w-0 space-y-3">
+      <h2 className="border-l-4 border-[#7a0f1f] pl-3 text-2xl font-semibold tracking-tight text-[#7a0f1f]">
         {title || 'Preprints in Preparation'}
-      </h3>
+      </h2>
       {description ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{description}</p> : null}
       {items.length ? (
         <ul className="space-y-3">
@@ -249,7 +249,7 @@ function PublicationJournalCoverCard({ publication }) {
     <article className="rounded-lg border border-slate-200 bg-white p-3 shadow-soft">
       {!image.broken ? (
         <div className="flex aspect-[3/4] items-center justify-center rounded-md border border-slate-100 bg-slate-50 p-2">
-          <img alt={`${journalName} cover`} className="h-full w-full object-contain" onError={image.onError} src={image.src} />
+          <img alt={`${journalName} cover`} className="h-full w-full object-contain" decoding="async" loading="lazy" onError={image.onError} src={image.src} />
         </div>
       ) : (
         <div className="flex aspect-[3/4] w-full items-center justify-center rounded-md border border-slate-100 bg-slate-100 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
@@ -274,6 +274,8 @@ function ManualJournalCoverCard({ cover }) {
           <img
             alt={`${cover.journal || 'Journal'} cover`}
             className="h-full w-full object-contain"
+            decoding="async"
+            loading="lazy"
             onError={() => setBroken(true)}
             src={imageSrc}
           />
@@ -376,7 +378,7 @@ function PublicationList({ items, numbers, labAuthorNames, sectionLabel }) {
     <div className="space-y-6">
       {years.map((year) => (
         <section className="space-y-3" key={year}>
-          <h3 className="border-l-4 border-[#7a0f1f] pl-3 text-2xl font-semibold tracking-tight text-[#7a0f1f]">{year} {sectionLabel}</h3>
+          <h2 className="border-l-4 border-[#7a0f1f] pl-3 text-2xl font-semibold tracking-tight text-[#7a0f1f]">{year} {sectionLabel}</h2>
           <ol className="space-y-3">
             {[...(grouped.get(year) || [])].sort((a, b) => (numbers.get(b.id) || 0) - (numbers.get(a.id) || 0)).map((pub) => {
               const number = numbers.get(pub.id) || '-';
@@ -655,8 +657,8 @@ export function PublicationsPage({ locale }) {
           ) : null}
 
           {!loading && !error && items.length > 0 ? (
-            <div className="grid gap-5 xl:grid-cols-[minmax(0,1.84fr)_minmax(220px,0.62fr)] xl:items-start">
-              <div className="space-y-4">
+            <div className="grid min-w-0 grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1.84fr)_minmax(220px,0.62fr)] xl:items-start">
+              <div className="min-w-0 space-y-4">
                 {showPreprintSection ? (
                   <PreprintSection
                     description={content.preprintDescription}

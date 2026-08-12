@@ -68,7 +68,14 @@ export function SiteHeader({ locale }) {
           className="flex items-center gap-3.5 no-underline md:gap-4"
           to={pagePath('')}
         >
-          <img alt="Bae Lab logo" className="site-header-logo h-20 w-20 object-contain md:h-24 md:w-24" src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`} />
+          <img
+            alt="Bae Lab logo"
+            className="site-header-logo h-20 w-20 object-contain md:h-24 md:w-24"
+            decoding="async"
+            height="96"
+            src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`}
+            width="96"
+          />
           <p className="max-w-[360px] text-xs font-medium uppercase tracking-[0.10em] text-slate-600 max-md:hidden">{tagline}</p>
           <span className="sr-only">Go to Bae Lab home</span>
         </Link>

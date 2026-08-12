@@ -19,8 +19,15 @@ const LEGACY_REDIRECTS = [
   { from: '/kr/배재형-교수', to: '/team' },
   { from: '/jaehyeong-bae', to: '/team' },
   { from: '/kr/구성원', to: '/team' },
+  { from: '/kr/박사-후-연구원', to: '/team' },
+  { from: '/kr/박사과정', to: '/team' },
+  { from: '/kr/석사과정-학부연구생', to: '/team' },
+  { from: '/kr/연구실-졸업생', to: '/team' },
+  { from: '/kr/join-our-team-2-2-2-2', to: '/team' },
   { from: '/kr/연구', to: '/research' },
   { from: '/news-2', to: '/publications' },
+  { from: '/lab-news', to: '/news' },
+  { from: '/kr/dr-jaehyeong-bae-won-the-best-poster-award-at-5th-international-conference-on-advanced-electromaterials-icae-2019-배재형-박사-icae-2019-best-poster-award-2', to: '/news' },
   { from: '/kr/대학원생-모집', to: '/join' },
   { from: '/kr/연락처', to: '/contact' }
 ];

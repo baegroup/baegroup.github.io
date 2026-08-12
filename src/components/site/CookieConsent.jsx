@@ -1,6 +1,10 @@
 import { useEffect, useId, useState } from 'react';
 
-const STORAGE_KEY = 'baelab_cookie_consent_v1';
+import {
+  COOKIE_CONSENT_STORAGE_KEY,
+  COOKIE_CONSENT_UPDATED_EVENT
+} from '@/lib/privacy';
+
 const OPEN_EVENT = 'open-cookie-preferences';
 
 const DEFAULT_PREFERENCES = {
@@ -45,7 +49,7 @@ export function CookieConsent() {
 
   useEffect(() => {
     try {
-      const saved = window.localStorage.getItem(STORAGE_KEY);
+      const saved = window.localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
       if (!saved) {
         setShowBanner(true);
         setReady(true);
@@ -89,10 +93,11 @@ export function CookieConsent() {
       }
     };
 
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    window.localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, JSON.stringify(payload));
     setPreferences(payload.preferences);
     setShowBanner(false);
     setShowPanel(false);
+    window.dispatchEvent(new CustomEvent(COOKIE_CONSENT_UPDATED_EVENT, { detail: payload.preferences }));
   }
 
   function acceptAll() {

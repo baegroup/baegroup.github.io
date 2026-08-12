@@ -36,6 +36,8 @@ function FeaturedNewsCard({ item, locale }) {
           <img
             alt={item.title}
             className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+            decoding="async"
+            loading="lazy"
             onError={() => setImageIndex((index) => index + 1)}
             src={imageCandidates[imageIndex]}
           />
