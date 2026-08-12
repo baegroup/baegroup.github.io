@@ -216,15 +216,15 @@
       "sectionTabs": [
         {
           "id": "labNews",
-          "label": "Lab News"
+          "label": "Highlights"
         },
         {
           "id": "gallery",
-          "label": "Gallery"
+          "label": "Lab Life"
         },
         {
           "id": "videos",
-          "label": "Videos"
+          "label": "Video"
         }
       ],
       "emptySection": "No items available in this section yet.",

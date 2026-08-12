@@ -12,9 +12,9 @@ Major updates from Bae Lab, including awards, conference highlights, and team mi
 Sections
 
 ## sectionTabs
-- labNews | Lab News
-- gallery | Gallery
-- videos | Videos
+- labNews | Highlights
+- gallery | Lab Life
+- videos | Video
 
 ## emptySection
 No items available in this section yet.

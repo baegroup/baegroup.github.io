@@ -29,7 +29,7 @@ export function SiteFooter({ locale }) {
 
   return (
     <footer className="mt-8 border-t border-[#d2cac3] bg-[var(--brand-footer)] text-[#222222]">
-      <div className="mx-auto w-full max-w-6xl px-5 py-8 md:py-10">
+      <div className="mx-auto w-full max-w-6xl px-5 pb-5 pt-8 md:pb-6 md:pt-10">
         <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center">
           <div className="text-left">
             <h2 className="text-xl font-semibold leading-tight tracking-tight text-[var(--brand-burgundy)]">{brand.name}</h2>
@@ -66,7 +66,7 @@ export function SiteFooter({ locale }) {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-col items-start gap-2 border-t border-[#d8d0c9] pt-4 text-sm leading-relaxed text-[#68615d] md:flex-row md:items-center md:justify-between">
+        <div className="mt-3 flex flex-col items-start gap-1.5 text-sm leading-relaxed text-[#68615d] md:flex-row md:items-center md:justify-between">
           <p>© {year} {brand.name}, Department of Chemical Engineering, Kyung Hee University. {rightsLabel}</p>
           <button
             className="text-sm text-[#68615d] underline-offset-2 transition-colors hover:text-[var(--brand-navy)] hover:underline"

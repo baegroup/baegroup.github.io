@@ -683,7 +683,7 @@ export function TeamPage({ locale }) {
                   <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)] lg:items-center lg:gap-8">
                     <div className="flex h-full flex-col justify-center space-y-5">
                       <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
-                      <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
+                      <p className="max-w-xl text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
                       <div className="site-action-links pt-2 md:pt-3">
                         <Link className="site-action-link" to={pagePath('join')}>
                           View Opportunities

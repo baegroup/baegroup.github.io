@@ -12,9 +12,9 @@ import { formatItemNumber } from '@/lib/format';
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const SECTION_IDS = ['labNews', 'gallery', 'videos'];
 const DEFAULT_SECTION_TABS = [
-  { id: 'labNews', label: 'Lab News' },
-  { id: 'gallery', label: 'Gallery' },
-  { id: 'videos', label: 'Videos' }
+  { id: 'labNews', label: 'Highlights' },
+  { id: 'gallery', label: 'Lab Life' },
+  { id: 'videos', label: 'Video' }
 ];
 const DEFAULT_PAGE_SIZE = 5;
 const VIDEOS_PAGE_SIZE = 4;
