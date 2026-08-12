@@ -196,7 +196,7 @@ function MemberDetailStackRow({ label, value, type = 'text' }) {
 
   return (
     <div className="space-y-0.5 text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
-      {label ? <p className="text-xs font-semibold uppercase tracking-[0.06em] text-slate-500">{label}</p> : null}
+      {label ? <p className="text-xs font-medium text-slate-600">{label}</p> : null}
       {isEmail ? (
         <a className="site-text-link break-all" href={`mailto:${trimmed}`}>
           {trimmed}
@@ -259,7 +259,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
             <div className="space-y-1.5">
               <p className="text-2xl font-semibold text-slate-950">{member.localizedName}</p>
               <p className="text-sm font-medium text-slate-700 md:text-base">{courseValue}</p>
-              {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{member.roleLabel}</p> : null}
+              {showRoleBadge ? <p className="text-xs font-medium text-[var(--brand-navy)]">{member.roleLabel}</p> : null}
             </div>
 
             <div className="space-y-2">
@@ -304,7 +304,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
           <div className="space-y-1.5">
             <p className="text-xl font-semibold text-slate-950 md:text-2xl">{member.localizedName}</p>
             <p className="text-sm font-medium text-slate-700 md:text-base">{courseValue}</p>
-            {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{member.roleLabel}</p> : null}
+            {showRoleBadge ? <p className="text-xs font-medium text-[var(--brand-navy)]">{member.roleLabel}</p> : null}
           </div>
 
           {summaryLeadLine ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{summaryLeadLine}</p> : null}
@@ -477,7 +477,7 @@ function ProfessorShowcase({ professor }) {
 
         <div className="flex h-full flex-col justify-center space-y-4">
           <div className="space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand-burgundy)]">{copy.sectionLead}</p>
+            <p className="text-xs font-semibold text-[var(--brand-burgundy)]">{copy.sectionLead}</p>
             <h3 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">Prof. {professor.localizedName}</h3>
             <p className="text-sm font-medium leading-relaxed text-slate-700 md:text-base">{copy.department}</p>
             <p className="text-sm font-medium leading-relaxed text-slate-600 md:text-base">{copy.institution}</p>

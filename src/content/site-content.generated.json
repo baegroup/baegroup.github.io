@@ -187,6 +187,11 @@
           "name": "Ministry of SMEs and Startups",
           "logo": "Ministry of SMEs and Startups.webp",
           "link": ""
+        },
+        {
+          "name": "Gyeonggido Business & Science Accelerator (GBSA)",
+          "logo": "Gyeonggido Business & Science Accelerator.png",
+          "link": "https://www.gbsa.or.kr/"
         }
       ]
     }

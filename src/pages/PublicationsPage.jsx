@@ -162,18 +162,18 @@ function PublicationInfoPanel({ updatedAt }) {
           .
         </p>
         <div className="h-px bg-slate-200" />
-        <p className="text-xs uppercase tracking-[0.08em] text-slate-500">
+        <p className="text-xs leading-relaxed text-slate-500">
           <span className="font-semibold text-slate-800">Bold</span> indicates Bae Lab authors.
         </p>
-        <div className="space-y-1 text-xs uppercase tracking-[0.08em] text-slate-500">
+        <div className="space-y-1 text-xs leading-relaxed text-slate-500">
           <p>
-            <span className="font-semibold">*</span> corresponding author
+            <span className="font-semibold text-slate-700">*</span> Corresponding author
           </p>
           <p>
-            <span className="font-semibold">†</span> co-first author
+            <span className="font-semibold text-slate-700">†</span> Co-first author
           </p>
         </div>
-        {updatedAt ? <p className="text-xs uppercase tracking-[0.08em] text-slate-500">Last updated {updatedAt}</p> : null}
+        {updatedAt ? <p className="text-xs leading-relaxed text-slate-500">Last updated {updatedAt}</p> : null}
     </section>
   );
 }
@@ -261,7 +261,7 @@ function JournalCoverImage({ broken, eager = false, imageSrc, journalName, onErr
           src={imageSrc}
         />
       ) : (
-        <div className="flex h-full w-full items-center justify-center border border-dashed border-slate-300 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+        <div className="flex h-full w-full items-center justify-center border border-dashed border-slate-300 px-3 text-center text-xs font-medium text-slate-500">
           Cover
         </div>
       )}
@@ -271,7 +271,7 @@ function JournalCoverImage({ broken, eager = false, imageSrc, journalName, onErr
 
 function JournalCoverMeta({ controls, dateLabel, journalName }) {
   return (
-    <div className="mt-2 flex items-end justify-between gap-3 border-t border-slate-200 pt-2">
+    <div className="mt-2 flex items-end justify-between gap-3">
       <div className="min-w-0">
         <p className="text-[0.8125rem] font-semibold leading-snug text-slate-900">{formatJournalDisplayName(journalName)}</p>
         {dateLabel ? <p className="mt-1 text-xs text-slate-600">{dateLabel}</p> : null}
@@ -443,18 +443,16 @@ function PublicationPagination({ currentPage, onPageChange, pageGroups, placemen
   );
 }
 
-function PublicationList({ items, numbers, labAuthorNames, sectionLabel, years }) {
+function PublicationList({ items, numbers, labAuthorNames, years }) {
   return (
     <div className="space-y-6">
       {years.map((year) => {
         const yearItems = items.filter((item) => item.year === year);
-        const itemCountLabel = `${yearItems.length} ${yearItems.length === 1 ? sectionLabel.replace(/s$/, '') : sectionLabel}`;
 
         return (
         <section key={year}>
-          <div className="flex items-baseline justify-between gap-4 border-b border-slate-900 pb-3">
+          <div className="border-b border-slate-900 pb-3">
             <h2 className="text-2xl font-semibold tracking-tight text-slate-950">{year}</h2>
-            <p className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500">{itemCountLabel}</p>
           </div>
           <ol>
             {yearItems
@@ -734,7 +732,6 @@ export function PublicationsPage({ locale }) {
     [allItems]
   );
   const showPreprintSection = filter === 'journal';
-  const sectionLabel = filter === 'patent' ? 'Patents' : 'Publications';
   const publicationYears = useMemo(
     () => [...new Set(items.map((item) => item.year).filter(Boolean))].sort((a, b) => b - a),
     [items]
@@ -806,7 +803,6 @@ export function PublicationsPage({ locale }) {
                     items={paginatedPublicationItems}
                     labAuthorNames={labAuthorNames}
                     numbers={activeNumbers}
-                    sectionLabel={sectionLabel}
                     years={activePublicationPage?.years || []}
                   />
                   <PublicationPagination

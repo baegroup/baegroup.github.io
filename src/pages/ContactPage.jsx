@@ -27,7 +27,7 @@ export function ContactPage({ locale }) {
             <dl className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
               {contactItems.map((item) => (
                 <div className="grid gap-1 py-3 sm:grid-cols-[120px_1fr] sm:items-start sm:gap-4 md:py-4" key={item.key}>
-                  <dt className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500 md:text-[0.8125rem]">{item.label}</dt>
+                  <dt className="text-xs font-medium text-slate-600 md:text-[0.8125rem]">{item.label}</dt>
                   <dd className="text-sm leading-relaxed text-slate-900 md:text-base">{item.value}</dd>
                 </div>
               ))}
@@ -37,14 +37,14 @@ export function ContactPage({ locale }) {
           <div>
             <h2 className="page-section-title">{content.rightTitle}</h2>
             <div className="mt-4 border-y border-slate-200 py-3 md:py-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500 md:text-[0.8125rem]">{labels.address}</p>
+              <p className="text-xs font-medium text-slate-600 md:text-[0.8125rem]">{labels.address}</p>
               <p className="mt-1 text-sm leading-relaxed text-slate-900 md:text-base">{content.address}</p>
             </div>
           </div>
         </div>
 
         <div className="mt-7 border-t border-slate-200 pt-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500 md:text-[0.8125rem]">{labels.map}</p>
+          <p className="text-xs font-medium text-slate-600 md:text-[0.8125rem]">{labels.map}</p>
           <div className="mt-2 overflow-hidden rounded-lg border border-slate-200">
             <iframe
               className="h-64 w-full md:h-72"

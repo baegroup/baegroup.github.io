@@ -38,7 +38,7 @@ export function SiteFooter({ locale }) {
             <p className="mt-2 text-sm text-[#4a4a4a]">{koreanIdentityLabel}</p>
           </div>
           <div className="md:justify-self-stretch md:text-right">
-            <p className="text-xs font-medium uppercase tracking-[0.12em] text-[#717171]">{quickLinksLabel}</p>
+            <p className="text-xs font-medium text-[#68615d]">{quickLinksLabel}</p>
             <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5 md:justify-end">
               {quickLinks.map((item) => (
                 <li key={item.slug || 'home'}>
@@ -53,12 +53,12 @@ export function SiteFooter({ locale }) {
 
         <div className="mt-6 grid gap-4 border-t border-[#d8d0c9] pt-5 md:grid-cols-2">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#717171]">{labels.address || 'Address'}</p>
+            <p className="text-xs font-medium text-[#68615d]">{labels.address || 'Address'}</p>
             <p className="mt-1 text-sm leading-relaxed text-[#2a2a2a]">{content.address}</p>
           </div>
 
           <div className="md:justify-self-stretch md:text-right">
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#717171]">{labels.email || 'Email'}</p>
+            <p className="text-xs font-medium text-[#68615d]">{labels.email || 'Email'}</p>
             <a className="mt-1 inline-block text-sm text-[#2a2a2a] no-underline transition-colors hover:text-[var(--brand-burgundy)]" href="mailto:jbae@khu.ac.kr">
               jbae@khu.ac.kr
             </a>

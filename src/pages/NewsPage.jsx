@@ -110,7 +110,7 @@ function MediaImage({ path, title, variant = 'card' }) {
   if (image.broken) {
     if (variant === 'thumb') {
       return (
-        <div className="flex h-16 w-16 items-center justify-center border border-slate-200 bg-slate-100 text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-500 md:h-[72px] md:w-[72px]">
+        <div className="flex h-16 w-16 items-center justify-center border border-slate-200 bg-slate-100 text-[10px] font-medium text-slate-500 md:h-[72px] md:w-[72px]">
           Image
         </div>
       );
@@ -118,14 +118,14 @@ function MediaImage({ path, title, variant = 'card' }) {
 
     if (variant === 'full') {
       return (
-        <div className="flex min-h-52 w-full max-w-3xl items-center justify-center rounded-md border border-slate-200 bg-slate-100 px-3 text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+        <div className="flex min-h-52 w-full max-w-3xl items-center justify-center rounded-md border border-slate-200 bg-slate-100 px-3 text-xs font-medium text-slate-500">
           Image
         </div>
       );
     }
 
     return (
-      <div className="flex aspect-[4/3] w-full items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+      <div className="flex aspect-[4/3] w-full items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-xs font-medium text-slate-500">
         Image
       </div>
     );
@@ -209,7 +209,7 @@ function VideoCard({ item }) {
       </div>
 
       <div className="space-y-2 p-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{item.date || '-'}</p>
+        <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date || '-'}</p>
         <h3 className="text-xl font-semibold leading-snug text-slate-950">{item.title}</h3>
         {item.summary ? <p className="text-sm leading-relaxed text-slate-600">{item.summary}</p> : null}
         {primaryVideoUrl ? (
@@ -244,7 +244,7 @@ function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }
           ) : null}
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{item.date || '-'}</p>
+            <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date || '-'}</p>
             <p className="mt-1 text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">{item.title}</p>
           </div>
 
@@ -562,9 +562,9 @@ export function NewsPage({ locale }) {
               )}
 
               {pageCount > 1 ? (
-                <nav aria-label="News pagination" className="flex flex-wrap items-center gap-2">
+                <nav aria-label="News pagination" className="flex flex-wrap items-center gap-x-5 gap-y-2">
                   <button
-                    className="site-control rounded-md px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50"
+                    className="page-section-tab disabled:cursor-not-allowed disabled:opacity-40"
                     disabled={currentPage === 1}
                     onClick={() => handlePageChange(currentPage - 1)}
                     type="button"
@@ -574,7 +574,7 @@ export function NewsPage({ locale }) {
                   {Array.from({ length: pageCount }, (_, index) => index + 1).map((page) => (
                     <button
                       aria-current={page === currentPage ? 'page' : undefined}
-                      className={`site-control rounded-md px-3 py-1.5 text-sm ${page === currentPage ? 'is-active' : ''}`}
+                      className={`page-section-tab ${page === currentPage ? 'font-semibold text-slate-900' : ''}`}
                       key={page}
                       onClick={() => handlePageChange(page)}
                       type="button"
@@ -583,7 +583,7 @@ export function NewsPage({ locale }) {
                     </button>
                   ))}
                   <button
-                    className="site-control rounded-md px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50"
+                    className="page-section-tab disabled:cursor-not-allowed disabled:opacity-40"
                     disabled={currentPage === pageCount}
                     onClick={() => handlePageChange(currentPage + 1)}
                     type="button"

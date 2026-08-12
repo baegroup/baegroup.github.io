@@ -35,3 +35,4 @@ Funding Sources
 - National Research Foundation of Korea | National Research Foundation of Korea.png
 - BrainKorea21 Four | BrainKorea21 Four.png
 - Ministry of SMEs and Startups | Ministry of SMEs and Startups.webp
+- Gyeonggido Business & Science Accelerator (GBSA) | Gyeonggido Business & Science Accelerator.png | https://www.gbsa.or.kr/

@@ -46,7 +46,7 @@ function FeaturedNewsCard({ item, locale }) {
         )}
       </div>
       <div className="flex-1 pt-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{item.date}</p>
+        <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date}</p>
         <h3 className="mt-1.5 text-lg font-semibold leading-snug tracking-tight text-slate-950">{item.title}</h3>
       </div>
     </Link>
@@ -104,7 +104,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
                 {listItems.map((item) => (
                   <li className="py-3 first:pt-1 md:py-3.5" key={`${item.id || item.title}-list`}>
                     <Link className="block" to={sectionPath(locale, item.section)}>
-                      <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{item.date}</p>
+                      <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date}</p>
                       <p className="mt-1 text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</p>
                     </Link>
                   </li>

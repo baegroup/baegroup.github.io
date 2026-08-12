@@ -92,14 +92,14 @@
 
   .site-cta-primary {
     background-color: var(--brand-burgundy);
-    @apply inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-white no-underline;
-    box-shadow: 0 12px 26px -20px rgba(143, 23, 20, 0.75);
+    @apply inline-flex h-[42px] items-center rounded-lg px-5 text-sm font-semibold text-white no-underline;
+    box-shadow: 0 9px 22px -17px rgba(88, 13, 11, 0.75);
     transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
   }
 
   .site-cta-primary:hover {
     background-color: var(--brand-burgundy-deep);
-    box-shadow: 0 16px 30px -20px rgba(143, 23, 20, 0.85);
+    box-shadow: 0 13px 26px -17px rgba(88, 13, 11, 0.82);
     transform: translate3d(0, -1px, 0);
   }
 
@@ -113,15 +113,15 @@
   .site-cta-secondary {
     background-color: var(--brand-burgundy);
     border-color: var(--brand-burgundy);
-    @apply inline-flex h-11 items-center rounded-full border px-6 text-sm font-semibold text-white no-underline;
-    box-shadow: 0 12px 26px -20px rgba(143, 23, 20, 0.75);
+    @apply inline-flex h-[42px] items-center rounded-lg border px-5 text-sm font-semibold text-white no-underline;
+    box-shadow: 0 9px 22px -17px rgba(88, 13, 11, 0.75);
     transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
   }
 
   .site-cta-secondary:hover {
     background-color: var(--brand-burgundy-deep);
     border-color: var(--brand-burgundy-deep);
-    box-shadow: 0 16px 30px -20px rgba(143, 23, 20, 0.85);
+    box-shadow: 0 13px 26px -17px rgba(88, 13, 11, 0.82);
     transform: translate3d(0, -1px, 0);
   }
 

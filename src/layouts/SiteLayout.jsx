@@ -15,7 +15,7 @@ export function SiteLayout({ locale, children }) {
   const homeContent = HOME_CONTENT[locale] || HOME_CONTENT.en || {};
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_12%_-8%,rgba(11,58,100,0.09),transparent_40%),radial-gradient(circle_at_88%_0%,rgba(15,23,42,0.06),transparent_30%),linear-gradient(to_bottom,#f8fafc,#f8fafc)]">
+    <div className="min-h-screen bg-[var(--brand-page)]">
       <a
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"
         href="#main-content"

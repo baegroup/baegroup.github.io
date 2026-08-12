@@ -122,7 +122,7 @@ function FundingItem({ item, index }) {
         {!image.broken ? (
           <img alt={item.name} className="max-h-14 w-auto object-contain" decoding="async" loading="lazy" onError={image.onError} src={image.src} />
         ) : (
-          <div className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">Funding Logo</div>
+          <div className="text-xs font-medium text-slate-500">Funding logo</div>
         )}
       </div>
       <div className="mt-3 flex min-h-[4rem] flex-1 items-center justify-center">
@@ -164,7 +164,7 @@ export function ResearchPage({ locale }) {
 
       <section className={fundingReveal.revealClassName} ref={fundingReveal.ref} style={fundingReveal.revealStyle}>
         <h2 className="text-center text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{fundingTitle}</h2>
-        <div className="reveal-stagger mt-6 grid border-b border-slate-200 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="reveal-stagger mt-6 grid border-b border-slate-200 sm:grid-cols-2 xl:grid-cols-5">
           {fundingItems.map((item, index) => (
             <FundingItem index={index} item={item} key={`${item.name}-${item.logo || index}`} />
           ))}
