@@ -5,7 +5,7 @@ export const DEFAULT_SOCIAL_IMAGE = '/assets/img/home/hero/cover-1920.jpg';
 export const SEO_ROUTES = [
   {
     path: '/',
-    title: '배재형 교수 연구실 (Bae Lab) | 경희대학교 화학공학과',
+    title: 'Bae Lab | 배재형 교수 연구실 · 경희대학교',
     description:
       '경희대학교 화학공학과 배재형 교수 연구실(Bae Lab)은 기능성 소재와 적층제조 기술을 기반으로 에너지·환경·바이오 응용을 연구합니다.'
   },
