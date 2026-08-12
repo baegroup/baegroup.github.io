@@ -9,7 +9,7 @@ Contact
 For collaboration and research inquiries, please contact the PI directly via email.
 
 ## leftTitle
-Lab Contact
+Contact Details
 
 ## rightTitle
 Address & Map

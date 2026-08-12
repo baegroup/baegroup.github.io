@@ -1,8 +1,5 @@
-import { Link } from 'react-router-dom';
-
 import { PageHero } from '@/components/site/PageHero';
 import { CONTACT_CONTENT } from '@/content/site-content';
-import { pagePath } from '@/lib/i18n';
 
 export function ContactPage({ locale }) {
   const content = CONTACT_CONTENT[locale];
@@ -21,7 +18,7 @@ export function ContactPage({ locale }) {
       <PageHero description={content.description} title={content.title} />
 
       <section className="py-4 md:py-5">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
+        <div className="grid gap-9 lg:grid-cols-[minmax(300px,0.82fr)_minmax(0,1.18fr)] lg:items-start lg:gap-12">
           <div>
             <h2 className="page-section-title">{content.leftTitle}</h2>
             <dl className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
@@ -40,28 +37,15 @@ export function ContactPage({ locale }) {
               <p className="text-xs font-medium text-slate-600 md:text-[0.8125rem]">{labels.address}</p>
               <p className="mt-1 text-sm leading-relaxed text-slate-900 md:text-base">{content.address}</p>
             </div>
-          </div>
-        </div>
-
-        <div className="mt-7 border-t border-slate-200 pt-5">
-          <p className="text-xs font-medium text-slate-600 md:text-[0.8125rem]">{labels.map}</p>
-          <div className="mt-2 overflow-hidden rounded-lg border border-slate-200">
-            <iframe
-              className="h-64 w-full md:h-72"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              src={mapEmbedUrl}
-              title="Bae Lab location map"
-            />
-          </div>
-        </div>
-
-        <div className="mt-7 border-t border-slate-200 pt-5 md:pt-6">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="home-body-copy text-slate-700">
-              Current undergraduate and graduate openings, along with fellowship-based postdoctoral opportunities, are listed on the Join Our Team page.
-            </p>
-            <Link className="site-action-link" to={pagePath(locale, 'join')}>View Opportunities</Link>
+            <div className="mt-4 overflow-hidden rounded-lg border border-slate-200">
+              <iframe
+                className="h-64 w-full md:h-[19rem]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                src={mapEmbedUrl}
+                title="Bae Lab location map"
+              />
+            </div>
           </div>
         </div>
       </section>

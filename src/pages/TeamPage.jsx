@@ -469,9 +469,9 @@ function ProfessorPublications({ title, items }) {
             </li>
           ))}
         </ul>
-        <div className="mt-4 flex justify-end">
-          <Link className="site-text-link text-sm" to={pagePath('publications')}>
-            View all publications
+        <div className="site-action-links mt-4">
+          <Link className="site-action-link" to={pagePath('publications')}>
+            View Publications
           </Link>
         </div>
       </div>
