@@ -5,6 +5,7 @@ import {
   absoluteSiteUrl,
   DEFAULT_SOCIAL_IMAGE,
   getSeoForPath,
+  getStructuredDataForPath,
   SITE_NAME,
   SITE_URL
 } from '@/content/seo';
@@ -47,6 +48,15 @@ export function SiteMetadata() {
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', canonicalUrl);
+
+    let structuredData = document.head.querySelector('script#site-structured-data');
+    if (!structuredData) {
+      structuredData = document.createElement('script');
+      structuredData.id = 'site-structured-data';
+      structuredData.type = 'application/ld+json';
+      document.head.appendChild(structuredData);
+    }
+    structuredData.textContent = JSON.stringify(getStructuredDataForPath(metadata.path));
   }, [pathname]);
 
   return null;

@@ -13,6 +13,7 @@ export function SiteFooter({ locale }) {
   const quickLinksLabel = 'Quick Links';
   const rightsLabel = 'All rights reserved.';
   const affiliationLabel = 'Department of Chemical Engineering, Kyung Hee University';
+  const koreanIdentityLabel = '경희대학교 화학공학과 배재형 교수 연구실';
   const description = (brand.tagline || brand.subtitle || '').trim();
   const quickLinks = [...navItems, { slug: 'contact', label: contactLabel }, { slug: 'join', label: joinLabel }].filter((item, index, array) => {
     const key = item.slug || 'home';
@@ -34,6 +35,7 @@ export function SiteFooter({ locale }) {
           <div>
             <h2 className="text-2xl font-semibold tracking-tight text-[#ad1d19]">{brand.name}</h2>
             {description ? <p className="mt-1 text-xs uppercase tracking-[0.12em] text-[#717171]">{description}</p> : null}
+            <p className="mt-2 text-sm text-[#4a4a4a]">{koreanIdentityLabel}</p>
           </div>
           <div className="md:justify-self-end">
             <p className="text-xs font-medium uppercase tracking-[0.12em] text-[#717171]">{quickLinksLabel}</p>
