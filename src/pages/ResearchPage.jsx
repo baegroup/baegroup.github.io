@@ -60,7 +60,7 @@ function slugify(value, fallback) {
   return normalized || fallback;
 }
 
-function ResearchAreaRow({ area, index, areaLabel }) {
+function ResearchAreaRow({ area, index }) {
   const imageBase = area.image || `area-${index + 1}`;
   const image = useImageFallback(`${RESEARCH_AREA_IMAGE_DIR}/${imageBase}`);
   const reverse = index % 2 === 1;
@@ -68,7 +68,7 @@ function ResearchAreaRow({ area, index, areaLabel }) {
   const { ref, revealClassName, revealStyle } = useScrollReveal(Math.min(index * 60, 120));
 
   return (
-    <article className={`group rounded-xl border border-slate-200 bg-white p-5 shadow-soft transition-[border-color,box-shadow] duration-300 hover:border-slate-300 hover:shadow-[0_24px_50px_-34px_rgba(8,39,70,0.42)] md:p-7 ${revealClassName}`} ref={ref} style={revealStyle}>
+    <article className={`group border-b border-slate-200 py-6 first:pt-0 last:border-b-0 last:pb-0 md:py-8 ${revealClassName}`} ref={ref} style={revealStyle}>
       <div className={`grid gap-6 lg:grid-cols-2 lg:items-center lg:gap-8 ${reverse ? 'lg:[&>*:first-child]:order-2' : ''}`}>
         <figure className="mx-auto w-full max-w-3xl overflow-hidden rounded-lg border border-slate-200 bg-slate-100 lg:max-w-none">
           {!image.broken ? (
@@ -88,7 +88,7 @@ function ResearchAreaRow({ area, index, areaLabel }) {
         </figure>
 
         <div className="space-y-3">
-          <p className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-600">{areaLabel}</p>
+          <p className="text-xs font-semibold tracking-[0.14em] text-[var(--brand-navy)]">{String(index + 1).padStart(2, '0')}</p>
           <h3 className="home-section-title">{area.title}</h3>
           <p className="home-body-copy max-w-[68ch] text-slate-700">{area.body}</p>
         </div>
@@ -134,7 +134,6 @@ export function ResearchPage({ locale }) {
   const content = RESEARCH_CONTENT[locale] || RESEARCH_CONTENT.en;
   const coreAreas = content.cards || [];
   const missionTitle = content.missionTitle || 'Our Mission';
-  const areaLabel = content.areaLabel || 'Research Area';
   const fundingTitle = content.fundingTitle || 'Funding Sources';
   const fundingItems = content.fundingItems || [];
   const missionReveal = useScrollReveal(40);
@@ -146,12 +145,12 @@ export function ResearchPage({ locale }) {
 
       <section className={`rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7 ${missionReveal.revealClassName}`} ref={missionReveal.ref} style={missionReveal.revealStyle}>
         <h2 className="home-section-title text-center">{missionTitle}</h2>
-        <p className="home-body-copy mx-auto mt-5 max-w-[72ch] text-slate-700">{content.description}</p>
+        <p className="home-body-copy mx-auto mt-5 max-w-4xl text-slate-700">{content.description}</p>
       </section>
 
       <section className="space-y-4 md:space-y-5">
         {coreAreas.map((area, index) => (
-          <ResearchAreaRow area={area} areaLabel={areaLabel} index={index} key={area.title} />
+          <ResearchAreaRow area={area} index={index} key={area.title} />
         ))}
       </section>
 

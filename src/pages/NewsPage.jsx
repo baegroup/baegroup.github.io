@@ -3,7 +3,6 @@ import { ChevronDown } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
 import { PageHero } from '@/components/site/PageHero';
-import { Card, CardContent } from '@/components/ui/card';
 import { NEWS_CONTENT } from '@/content/site-content';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { loadNewsFeed } from '@/lib/data';
@@ -499,23 +498,44 @@ export function NewsPage({ locale }) {
     <div className="space-y-6 md:space-y-8">
       <PageHero description={content.description} title={content.title} />
 
+      <nav aria-label="News categories" className="flex flex-wrap gap-2 lg:hidden">
+        {sections.map((section) => (
+          <button
+            aria-pressed={activeSection === section.id}
+            className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 ${
+              activeSection === section.id
+                ? 'bg-[var(--brand-navy)] text-white'
+                : 'bg-transparent text-slate-600 hover:bg-white/70 hover:text-[var(--brand-navy)]'
+            }`}
+            key={section.id}
+            onClick={() => setActiveSection(section.id)}
+            type="button"
+          >
+            {section.label}
+          </button>
+        ))}
+      </nav>
+
       <div className={`grid gap-5 lg:grid-cols-[minmax(194px,232px)_minmax(0,1fr)] lg:items-start ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
         <aside className="order-2 lg:order-1 lg:self-start">
           <div className="space-y-4 lg:sticky lg:top-36 lg:max-h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-1">
-            <Card className="border-slate-200 bg-white">
-              <CardContent className="space-y-2 pt-4">
-                {sections.map((section) => (
-                  <button
-                    className={`site-control w-full rounded-md px-3 py-2 text-left text-sm ${activeSection === section.id ? 'is-active' : ''}`}
-                    key={section.id}
-                    onClick={() => setActiveSection(section.id)}
-                    type="button"
-                  >
-                    {section.label}
-                  </button>
-                ))}
-              </CardContent>
-            </Card>
+            <nav aria-label="News categories" className="hidden space-y-1 lg:block">
+              {sections.map((section) => (
+                <button
+                  aria-pressed={activeSection === section.id}
+                  className={`w-full rounded-md px-3 py-2.5 text-left text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 ${
+                    activeSection === section.id
+                      ? 'bg-[rgba(13,50,111,0.09)] text-[var(--brand-navy)]'
+                      : 'bg-transparent text-slate-600 hover:bg-white/70 hover:text-[var(--brand-navy)]'
+                  }`}
+                  key={section.id}
+                  onClick={() => setActiveSection(section.id)}
+                  type="button"
+                >
+                  {section.label}
+                </button>
+              ))}
+            </nav>
 
             {latestInstagramEmbedUrl || latestInstagramImage ? (
               <section className="space-y-3 px-1">
@@ -567,13 +587,13 @@ export function NewsPage({ locale }) {
         </aside>
 
         <section className="order-1 space-y-3 lg:order-2" ref={listTopRef}>
-          <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-3">
+          <header className="flex flex-col items-start justify-between gap-2 px-0.5 sm:flex-row sm:items-end sm:gap-5">
             <h2 className="text-2xl font-semibold tracking-tight text-slate-950">{activeLabel}</h2>
-            <div className="text-right text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
-              <p>{activeItems.length} items</p>
-              {updatedAt ? <p className="mt-1">Updated {updatedAt}</p> : null}
+            <div className="text-left text-xs font-semibold uppercase tracking-[0.08em] text-slate-500 sm:text-right">
+              <p className="text-slate-700">{activeItems.length} items</p>
+              {updatedAt ? <p className="mt-0.5">Updated {updatedAt}</p> : null}
             </div>
-          </div>
+          </header>
 
           {loading ? <p className="rounded-lg border border-dashed border-slate-300 bg-white p-4 text-base text-slate-600">Loading news feed...</p> : null}
           {!loading && error ? <p className="rounded-lg border border-red-200 bg-red-50 p-4 text-base text-red-700">{error}</p> : null}

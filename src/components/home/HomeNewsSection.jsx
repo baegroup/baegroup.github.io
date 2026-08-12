@@ -30,7 +30,7 @@ function FeaturedNewsCard({ item, locale }) {
   }, [imageBase]);
 
   return (
-    <Link className="group block overflow-hidden rounded-lg border border-slate-200 bg-white" to={sectionPath(locale, item.section)}>
+    <Link className="group flex h-full flex-col bg-white" to={sectionPath(locale, item.section)}>
       <div className="relative h-44 overflow-hidden bg-slate-100">
         {!exhausted ? (
           <img
@@ -46,7 +46,7 @@ function FeaturedNewsCard({ item, locale }) {
         )}
         <p className="absolute left-3 top-3 rounded-full bg-slate-900/75 px-2.5 py-1 text-xs font-semibold text-white">{item.date}</p>
       </div>
-      <div className="p-4">
+      <div className="flex-1 p-4 md:p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand-navy)]">Featured</p>
         <h3 className="mt-2 text-lg font-semibold leading-snug tracking-tight text-slate-950">{item.title}</h3>
       </div>
@@ -87,7 +87,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
         <div className={featuredItems.length && listItems.length ? 'grid lg:grid-cols-[minmax(0,1.16fr)_minmax(0,1fr)]' : 'grid'}>
           {featuredItems.length ? (
             <div className={listItems.length ? 'border-b border-slate-200 lg:border-b-0 lg:border-r' : ''}>
-              <div className="reveal-stagger grid gap-3 p-4 sm:grid-cols-2 md:p-5">
+              <div className="reveal-stagger grid divide-y divide-slate-200 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
                 {featuredItems.map((item) => (
                   <FeaturedNewsCard item={item} key={`${item.id || item.title}-featured`} locale={locale} />
                 ))}

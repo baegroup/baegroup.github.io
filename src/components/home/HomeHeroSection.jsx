@@ -24,7 +24,7 @@ export function HomeHeroSection({ content, revealDelay = 0 }) {
 
       <div className="home-hero-copy relative z-10 px-6 py-10 md:px-10 md:py-14">
         <h1 className="home-display-hero max-w-4xl text-white">{content.title}</h1>
-        <p className="mt-4 max-w-3xl text-base leading-relaxed text-white/90 md:text-lg">{content.description}</p>
+        <p className="mt-5 max-w-3xl text-base leading-relaxed text-white/90 md:text-lg">{content.description}</p>
       </div>
     </section>
   );

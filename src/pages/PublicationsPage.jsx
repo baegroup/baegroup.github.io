@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { PageHero } from '@/components/site/PageHero';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PUBLICATIONS_CONTENT } from '@/content/site-content';
 import { loadPublicationCovers, loadPublications, publicationTypeLabels } from '@/lib/data';
@@ -240,67 +240,82 @@ function PreprintSection({ description, items, labAuthorNames, title }) {
   );
 }
 
-function PublicationJournalCoverCard({ publication }) {
+function JournalCoverFrame({ broken, controls, dateLabel, imageSrc, journalName, onError }) {
+  return (
+    <article>
+      <div className="flex aspect-[3/4] items-center justify-center rounded-md bg-slate-50 px-5 py-6">
+        {!broken ? (
+          <img
+            alt={`${journalName} cover`}
+            className="h-full w-full object-contain shadow-[0_18px_34px_-24px_rgba(15,23,42,0.5)]"
+            decoding="async"
+            loading="lazy"
+            onError={onError}
+            src={imageSrc}
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center border border-dashed border-slate-300 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+            Cover
+          </div>
+        )}
+      </div>
+      <div className="mt-4 flex min-h-24 items-end justify-between gap-3 border-t border-slate-200 pt-3">
+        <div className="min-w-0">
+          <p className="text-sm font-semibold leading-snug text-slate-900">{journalName}</p>
+          {dateLabel ? <p className="mt-1 text-xs text-slate-600">{dateLabel}</p> : null}
+        </div>
+        {controls}
+      </div>
+    </article>
+  );
+}
+
+function PublicationJournalCoverCard({ controls, publication }) {
   const imageBase = publication.coverImage || publication.id;
   const image = useImageFallback(`${COVER_IMAGE_BASE}/${imageBase}`);
   const journalName = publication.journal || publication.venue || '';
 
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-3 shadow-soft">
-      {!image.broken ? (
-        <div className="flex aspect-[3/4] items-center justify-center rounded-md border border-slate-100 bg-slate-50 p-2">
-          <img alt={`${journalName} cover`} className="h-full w-full object-contain" decoding="async" loading="lazy" onError={image.onError} src={image.src} />
-        </div>
-      ) : (
-        <div className="flex aspect-[3/4] w-full items-center justify-center rounded-md border border-slate-100 bg-slate-100 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
-          Cover
-        </div>
-      )}
-      <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{journalName}</p>
-      <p className="mt-0.5 text-xs text-slate-600">{publication.year}</p>
-    </article>
+    <JournalCoverFrame
+      broken={image.broken}
+      controls={controls}
+      dateLabel={publication.year}
+      imageSrc={image.src}
+      journalName={journalName}
+      onError={image.onError}
+    />
   );
 }
 
-function ManualJournalCoverCard({ cover }) {
+function ManualJournalCoverCard({ controls, cover }) {
   const [broken, setBroken] = useState(false);
   const imageSrc = `${import.meta.env.BASE_URL}${cover.path}`;
   const dateLabel = formatCoverDateLabel(cover);
 
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-3 shadow-soft">
-      {!broken ? (
-        <div className="flex aspect-[3/4] items-center justify-center rounded-md border border-slate-100 bg-slate-50 p-2">
-          <img
-            alt={`${cover.journal || 'Journal'} cover`}
-            className="h-full w-full object-contain"
-            decoding="async"
-            loading="lazy"
-            onError={() => setBroken(true)}
-            src={imageSrc}
-          />
-        </div>
-      ) : (
-        <div className="flex aspect-[3/4] w-full items-center justify-center rounded-md border border-slate-100 bg-slate-100 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
-          Cover
-        </div>
-      )}
-      <p className="mt-0.5 text-sm font-semibold leading-snug text-slate-900">{cover.journal || 'Journal Cover'}</p>
-      {dateLabel ? <p className="mt-0.5 text-xs text-slate-600">{dateLabel}</p> : null}
-    </article>
+    <JournalCoverFrame
+      broken={broken}
+      controls={controls}
+      dateLabel={dateLabel}
+      imageSrc={imageSrc}
+      journalName={cover.journal || 'Journal Cover'}
+      onError={() => setBroken(true)}
+    />
   );
 }
 
 function JournalCoverCarousel({ items }) {
   const [index, setIndex] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true);
   const total = items.length;
 
   useEffect(() => {
     setIndex(0);
+    setAutoPlay(true);
   }, [total]);
 
   useEffect(() => {
-    if (total <= 1) {
+    if (!autoPlay || total <= 1) {
       return undefined;
     }
 
@@ -309,13 +324,15 @@ function JournalCoverCarousel({ items }) {
     }, 3600);
 
     return () => window.clearInterval(timer);
-  }, [total]);
+  }, [autoPlay, total]);
 
   function goPrev() {
+    setAutoPlay(false);
     setIndex((prev) => (prev - 1 + total) % total);
   }
 
   function goNext() {
+    setAutoPlay(false);
     setIndex((prev) => (prev + 1) % total);
   }
 
@@ -323,117 +340,153 @@ function JournalCoverCarousel({ items }) {
     return <p className="rounded-md border border-dashed border-slate-300 bg-slate-50 p-3 text-sm text-slate-500">No journal covers available.</p>;
   }
 
-  return (
-    <div className="space-y-3">
-      <div className="overflow-hidden rounded-lg">
-        <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${index * 100}%)` }}>
-          {items.map((cover) => (
-            <div className="w-full shrink-0" key={cover.id}>
-              {cover.kind === 'manual' ? (
-                <ManualJournalCoverCard cover={cover} />
-              ) : (
-                <PublicationJournalCoverCard publication={cover.publication} />
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+  const cover = items[index];
+  const controls = total > 1 ? (
+    <div className="flex shrink-0 items-center gap-1.5">
+      <button
+        aria-label="Previous journal cover"
+        className="site-control inline-flex h-8 w-8 items-center justify-center rounded-md"
+        onClick={goPrev}
+        type="button"
+      >
+        <ChevronLeft className="h-4 w-4" />
+      </button>
+      <button
+        aria-label="Next journal cover"
+        className="site-control inline-flex h-8 w-8 items-center justify-center rounded-md"
+        onClick={goNext}
+        type="button"
+      >
+        <ChevronRight className="h-4 w-4" />
+      </button>
+    </div>
+  ) : null;
 
-      {total > 1 ? (
-        <div className="flex items-center justify-between">
-          <button
-            aria-label="Previous journal cover"
-            className="site-control inline-flex h-8 w-8 items-center justify-center rounded-md"
-            onClick={goPrev}
-            type="button"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{index + 1} / {total}</p>
-          <button
-            aria-label="Next journal cover"
-            className="site-control inline-flex h-8 w-8 items-center justify-center rounded-md"
-            onClick={goNext}
-            type="button"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      ) : null}
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between gap-3">
+        <h3 className="text-lg font-semibold text-slate-900">Journal Covers</h3>
+        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{index + 1} / {total}</p>
+      </div>
+      {cover.kind === 'manual' ? (
+        <ManualJournalCoverCard controls={controls} cover={cover} key={cover.id} />
+      ) : (
+        <PublicationJournalCoverCard controls={controls} key={cover.id} publication={cover.publication} />
+      )}
     </div>
   );
 }
 
-function PublicationList({ items, numbers, labAuthorNames, sectionLabel }) {
-  const grouped = items.reduce((acc, item) => {
-    const bucket = acc.get(item.year) || [];
-    bucket.push(item);
-    acc.set(item.year, bucket);
-    return acc;
-  }, new Map());
+function PublicationPagination({ currentPage, onPageChange, pageGroups, placement }) {
+  const pageCount = pageGroups.length;
 
-  const years = [...grouped.keys()].sort((a, b) => b - a);
+  if (pageCount <= 1) {
+    return null;
+  }
 
+  return (
+    <nav aria-label={`Publication pagination ${placement}`} className="flex flex-wrap items-center gap-2">
+      <button
+        className="site-control rounded-md px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50"
+        disabled={currentPage === 1}
+        onClick={() => onPageChange(currentPage - 1)}
+        type="button"
+      >
+        Prev
+      </button>
+      {pageGroups.map((group, index) => {
+        const page = index + 1;
+        return (
+          <button
+            aria-current={page === currentPage ? 'page' : undefined}
+            aria-label={`Page ${page}, ${group.label}`}
+            className={`site-control min-w-9 rounded-md px-3 py-1.5 text-sm ${page === currentPage ? 'is-active' : ''}`}
+            key={group.label}
+            onClick={() => onPageChange(page)}
+            type="button"
+          >
+            {page}
+          </button>
+        );
+      })}
+      <button
+        className="site-control rounded-md px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50"
+        disabled={currentPage === pageCount}
+        onClick={() => onPageChange(currentPage + 1)}
+        type="button"
+      >
+        Next
+      </button>
+      <span className="ml-1 text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+        Page {currentPage} of {pageCount} · {pageGroups[currentPage - 1]?.label}
+      </span>
+    </nav>
+  );
+}
+
+function PublicationList({ items, numbers, labAuthorNames, sectionLabel, years }) {
   return (
     <div className="space-y-6">
       {years.map((year) => (
         <section className="space-y-3" key={year}>
           <h2 className="border-l-4 border-[var(--brand-burgundy)] pl-3 text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">{year} {sectionLabel}</h2>
           <ol className="space-y-3">
-            {[...(grouped.get(year) || [])].sort((a, b) => (numbers.get(b.id) || 0) - (numbers.get(a.id) || 0)).map((pub) => {
-              const number = numbers.get(pub.id) || '-';
-              const labNames = labAuthorNames;
-              const metadataParts = buildMetadataParts(pub);
-              const actionLinks = buildActionLinks(pub);
+            {items
+              .filter((item) => item.year === year)
+              .sort((a, b) => (numbers.get(b.id) || 0) - (numbers.get(a.id) || 0))
+              .map((pub) => {
+                const number = numbers.get(pub.id) || '-';
+                const metadataParts = buildMetadataParts(pub);
+                const actionLinks = buildActionLinks(pub);
 
-              return (
-                <li className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_8px_20px_-16px_rgba(15,23,42,0.35)] md:p-5" key={pub.id}>
-                  <div className="space-y-2">
-                    <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">
-                      <span className="mr-2">{number}.</span>
-                      <span>{pub.localizedTitle}</span>
-                    </p>
-
-                    <p className="text-[0.95rem] leading-relaxed text-slate-700 md:text-base">
-                      {(pub.authors || []).map((author, index) => {
-                        const highlight = isLabAuthor(author, labNames);
-                        return (
-                          <span key={`${pub.id}-author-${author}-${index}`}>
-                            <span className={highlight ? 'font-semibold text-slate-900' : ''}>{author}</span>
-                            {index < pub.authors.length - 1 ? ', ' : ''}
-                          </span>
-                        );
-                      })}
-                      .
-                    </p>
-
-                    {metadataParts.length ? (
-                      <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
-                        {metadataParts.map((part, index) => (
-                          <span className="inline-flex items-center gap-x-2" key={`${pub.id}-meta-${part.key}`}>
-                            {index > 0 ? <span className="text-slate-400">·</span> : null}
-                            <span className={part.italic ? 'italic text-slate-700' : ''}>{part.value}</span>
-                          </span>
-                        ))}
+                return (
+                  <li className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_8px_20px_-16px_rgba(15,23,42,0.35)] md:p-5" key={pub.id}>
+                    <div className="space-y-2">
+                      <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">
+                        <span className="mr-2">{number}.</span>
+                        <span>{pub.localizedTitle}</span>
                       </p>
-                    ) : null}
 
-                    {actionLinks.length ? (
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[var(--brand-navy)]">
-                        {actionLinks.map((link, index) => (
-                          <span className="inline-flex items-center gap-x-2" key={`${pub.id}-link-${link.label}-${index}`}>
-                            {index > 0 ? <span className="text-slate-400">|</span> : null}
-                            <a href={link.href} rel="noreferrer" target="_blank">
-                              {link.label}
-                            </a>
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                </li>
-              );
-            })}
+                      <p className="text-[0.95rem] leading-relaxed text-slate-700 md:text-base">
+                        {(pub.authors || []).map((author, index) => {
+                          const highlight = isLabAuthor(author, labAuthorNames);
+                          return (
+                            <span key={`${pub.id}-author-${author}-${index}`}>
+                              <span className={highlight ? 'font-semibold text-slate-900' : ''}>{author}</span>
+                              {index < pub.authors.length - 1 ? ', ' : ''}
+                            </span>
+                          );
+                        })}
+                        .
+                      </p>
+
+                      {metadataParts.length ? (
+                        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+                          {metadataParts.map((part, index) => (
+                            <span className="inline-flex items-center gap-x-2" key={`${pub.id}-meta-${part.key}`}>
+                              {index > 0 ? <span className="text-slate-400">·</span> : null}
+                              <span className={part.italic ? 'italic text-slate-700' : ''}>{part.value}</span>
+                            </span>
+                          ))}
+                        </p>
+                      ) : null}
+
+                      {actionLinks.length ? (
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[var(--brand-navy)]">
+                          {actionLinks.map((link, index) => (
+                            <span className="inline-flex items-center gap-x-2" key={`${pub.id}-link-${link.label}-${index}`}>
+                              {index > 0 ? <span className="text-slate-400">|</span> : null}
+                              <a href={link.href} rel="noreferrer" target="_blank">
+                                {link.label}
+                              </a>
+                            </span>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  </li>
+                );
+              })}
           </ol>
         </section>
       ))}
@@ -451,6 +504,8 @@ export function PublicationsPage({ locale }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [labAuthorNames, setLabAuthorNames] = useState([]);
+  const [currentPublicationPage, setCurrentPublicationPage] = useState(1);
+  const publicationListRef = useRef(null);
 
   useEffect(() => {
     let mounted = true;
@@ -631,12 +686,48 @@ export function PublicationsPage({ locale }) {
   );
   const showPreprintSection = filter === 'journal';
   const sectionLabel = filter === 'patent' ? 'Patents' : 'Publications';
+  const publicationYears = useMemo(
+    () => [...new Set(items.map((item) => item.year).filter(Boolean))].sort((a, b) => b - a),
+    [items]
+  );
+  const publicationPageGroups = useMemo(() => {
+    const groups = [];
+    for (let index = 0; index < publicationYears.length; index += 3) {
+      const years = publicationYears.slice(index, index + 3);
+      groups.push({
+        label: years.join(' · '),
+        years
+      });
+    }
+
+    return groups;
+  }, [publicationYears]);
+  const activePublicationPage = publicationPageGroups[currentPublicationPage - 1] || publicationPageGroups[0];
+  const paginatedPublicationItems = useMemo(
+    () => items.filter((item) => activePublicationPage?.years.includes(item.year)),
+    [activePublicationPage, items]
+  );
+
+  function handleFilterChange(value) {
+    setCurrentPublicationPage(1);
+    setFilter(value);
+  }
+
+  function handlePublicationPageChange(page) {
+    if (page < 1 || page > publicationPageGroups.length || page === currentPublicationPage) {
+      return;
+    }
+    setCurrentPublicationPage(page);
+    window.requestAnimationFrame(() => {
+      publicationListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
 
   return (
     <div className="space-y-6 md:space-y-8">
       <PageHero description={content.description} title={content.title} />
 
-      <Tabs onValueChange={setFilter} value={filter}>
+      <Tabs onValueChange={handleFilterChange} value={filter}>
         <TabsList className="h-auto flex-wrap justify-start gap-1 bg-transparent p-0">
           {filters.map((type) => (
             <TabsTrigger
@@ -659,7 +750,7 @@ export function PublicationsPage({ locale }) {
           {!loading && !error && items.length > 0 ? (
             <div className="grid min-w-0 grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1.84fr)_minmax(220px,0.62fr)] xl:items-start">
               <div className="min-w-0 space-y-4">
-                {showPreprintSection ? (
+                {showPreprintSection && currentPublicationPage === 1 ? (
                   <PreprintSection
                     description={content.preprintDescription}
                     labAuthorNames={labAuthorNames}
@@ -667,12 +758,27 @@ export function PublicationsPage({ locale }) {
                     title={content.preprintTitle || 'Preprints in Preparation'}
                   />
                 ) : null}
-                <PublicationList
-                  items={items}
-                  labAuthorNames={labAuthorNames}
-                  numbers={activeNumbers}
-                  sectionLabel={sectionLabel}
-                />
+                <div className="scroll-mt-28 space-y-4" ref={publicationListRef}>
+                  <PublicationPagination
+                    currentPage={currentPublicationPage}
+                    onPageChange={handlePublicationPageChange}
+                    pageGroups={publicationPageGroups}
+                    placement="top"
+                  />
+                  <PublicationList
+                    items={paginatedPublicationItems}
+                    labAuthorNames={labAuthorNames}
+                    numbers={activeNumbers}
+                    sectionLabel={sectionLabel}
+                    years={activePublicationPage?.years || []}
+                  />
+                  <PublicationPagination
+                    currentPage={currentPublicationPage}
+                    onPageChange={handlePublicationPageChange}
+                    pageGroups={publicationPageGroups}
+                    placement="bottom"
+                  />
+                </div>
               </div>
 
               <aside className="xl:self-start xl:border-l xl:border-slate-200 xl:pl-5">
@@ -680,10 +786,7 @@ export function PublicationsPage({ locale }) {
                   <PublicationInfoPanel updatedAt={updatedAt} />
 
                   <Card className="border-slate-200 bg-white">
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-lg text-slate-900">Journal Covers</CardTitle>
-                    </CardHeader>
-                    <CardContent>
+                    <CardContent className="p-4 md:p-5">
                       <JournalCoverCarousel items={coverSlides} />
                     </CardContent>
                   </Card>

@@ -236,7 +236,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
 
   if (prominent) {
     return (
-      <article className="rounded-xl border border-slate-200 bg-white p-5 md:p-6">
+      <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-[0_14px_32px_-26px_rgba(13,50,111,0.34)] md:p-6">
         <div className="grid gap-5 md:grid-cols-[140px_1fr]">
           <div className="mx-auto w-full max-w-[140px]">
             <div className="h-44 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
@@ -281,7 +281,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
   }
 
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-5 md:p-6">
+    <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-[0_14px_32px_-26px_rgba(13,50,111,0.34)] md:p-6">
       <div className="grid gap-5 md:grid-cols-[180px_1fr] md:items-start">
         <div className="mx-auto w-full max-w-[180px]">
           <div className="h-56 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
@@ -660,9 +660,8 @@ export function TeamPage({ locale }) {
 
           <div className="px-4 py-6 md:px-6 md:py-7">
             {activeSection === 'identity' ? (
-              <section>
-                <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-                  <div className="grid gap-6 p-5 md:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-center lg:gap-8">
+              <section className="space-y-7 md:space-y-8">
+                  <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-center lg:gap-8">
                     <div className="flex h-full flex-col justify-center space-y-5">
                       <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
                       <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
@@ -689,9 +688,7 @@ export function TeamPage({ locale }) {
                     </figure>
                   </div>
 
-                  <div className="h-px bg-slate-200" />
-
-                  <div className="space-y-6 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 md:p-7">
+                  <div className="space-y-6 border-t border-slate-200 pt-7 md:pt-8">
                     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-center lg:gap-8">
                       <div className="flex h-full flex-col justify-center space-y-4">
                         <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'The Fearless Lab Culture'}</h2>
@@ -719,7 +716,6 @@ export function TeamPage({ locale }) {
 
                     <Principles principles={culturePrinciples} />
                   </div>
-                </section>
               </section>
             ) : null}
 
