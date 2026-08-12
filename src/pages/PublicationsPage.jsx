@@ -179,17 +179,16 @@ function PublicationInfoPanel({ updatedAt }) {
   );
 }
 
-function PreprintSection({ description, items, labAuthorNames, title }) {
-  if (!description && !items.length) {
+function PreprintSection({ items, labAuthorNames, title }) {
+  if (!items.length) {
     return null;
   }
 
   return (
     <section className="min-w-0 space-y-3">
       <h2 className="border-l-4 border-[var(--brand-burgundy)] pl-3 text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">
-        {title || 'Preprints in Preparation'}
+        {title || 'Current Manuscripts'}
       </h2>
-      {description ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{description}</p> : null}
       {items.length ? (
         <ul className="space-y-3">
           {items.map((item) => {
@@ -764,10 +763,9 @@ export function PublicationsPage({ locale }) {
               <div className="min-w-0 space-y-4">
                 {showPreprintSection && currentPublicationPage === 1 ? (
                   <PreprintSection
-                    description={content.preprintDescription}
                     labAuthorNames={labAuthorNames}
                     items={preprintItems}
-                    title={content.preprintTitle || 'Preprints in Preparation'}
+                    title={content.preprintTitle || 'Current Manuscripts'}
                   />
                 ) : null}
                 <div className="scroll-mt-28 space-y-4" ref={publicationListRef}>

@@ -326,7 +326,6 @@ async function build() {
       description: readString(publications, 'description'),
       sectionTitle: readString(publications, 'sectionTitle'),
       preprintTitle: readString(publications, 'preprintTitle'),
-      preprintDescription: readString(publications, 'preprintDescription'),
       preprintItems: readStringArray(publications, 'preprintItems'),
       loading: readString(publications, 'loading'),
       empty: readString(publications, 'empty'),

@@ -12,10 +12,7 @@ Publication records from the previous Bae Lab website were migrated into this li
 Publication List
 
 ## preprintTitle
-Preprints in Preparation
-
-## preprintDescription
-Manuscripts currently in preparation and papers expected to be submitted or published soon.
+Current Manuscripts
 
 ## preprintItems
 

@@ -143,12 +143,18 @@
   }
 
   .page-section-nav {
-    @apply flex flex-wrap items-end gap-x-6 gap-y-2;
+    @apply flex flex-wrap items-baseline gap-x-6 gap-y-2;
+  }
+
+  .page-section-marker {
+    @apply hidden h-1.5 w-1.5 shrink-0 rounded-full md:block;
+    align-self: center;
+    background-color: rgba(143, 23, 20, 0.62);
   }
 
   .page-section-tab {
-    @apply -mb-px border-b-2 border-transparent bg-transparent pb-2 text-sm font-semibold text-slate-500;
-    transition: border-color 180ms ease, color 180ms ease;
+    @apply bg-transparent p-0 text-sm font-normal text-slate-500;
+    transition: color 180ms ease;
   }
 
   .page-section-tab:hover {
@@ -157,8 +163,7 @@
 
   .page-section-tab[aria-pressed='true'],
   .page-section-tab[data-state='active'] {
-    border-bottom-color: var(--brand-navy);
-    color: var(--brand-navy);
+    @apply font-semibold text-slate-900;
   }
 
   .page-section-tab:focus-visible {
