@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { PageHero } from '@/components/site/PageHero';
-import { Card, CardContent } from '@/components/ui/card';
 import { TEAM_CONTENT } from '@/content/site-content';
 import { loadTeamProfiles } from '@/lib/data';
 import { pagePath } from '@/lib/i18n';
@@ -635,9 +634,8 @@ export function TeamPage({ locale }) {
     <>
       <PageHero description={content.description} title={content.title || 'Team'} />
 
-      <Card className="overflow-hidden">
-        <CardContent className="p-0">
-          <div className="border-b border-slate-200 px-4 pt-3 md:px-6 md:pt-4">
+      <section>
+          <div className="border-b border-slate-200 pt-2 md:pt-3">
             <nav aria-label="Team section navigation" className="flex flex-wrap gap-x-6 gap-y-2">
               {jumpNav.map((item) => {
                 const active = activeSection === item.id;
@@ -658,7 +656,7 @@ export function TeamPage({ locale }) {
             </nav>
           </div>
 
-          <div className="px-4 py-6 md:px-6 md:py-7">
+          <div className="py-6 md:py-7">
             {activeSection === 'identity' ? (
               <section className="space-y-7 md:space-y-8">
                   <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-center lg:gap-8">
@@ -812,8 +810,7 @@ export function TeamPage({ locale }) {
               </section>
             ) : null}
           </div>
-        </CardContent>
-      </Card>
+      </section>
     </>
   );
 }

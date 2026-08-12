@@ -88,7 +88,7 @@ function ResearchAreaRow({ area, index }) {
         </figure>
 
         <div className="space-y-3">
-          <p className="text-xs font-semibold tracking-[0.14em] text-[var(--brand-navy)]">{String(index + 1).padStart(2, '0')}</p>
+          <p className="font-sans text-sm font-semibold leading-none tracking-[0.1em] text-[var(--brand-navy)] tabular-nums">{String(index + 1).padStart(2, '0')}</p>
           <h3 className="home-section-title">{area.title}</h3>
           <p className="home-body-copy max-w-[68ch] text-slate-700">{area.body}</p>
         </div>
@@ -109,7 +109,7 @@ function FundingItem({ item, index }) {
   ]);
 
   return (
-    <article className="flex h-full flex-col rounded-lg border border-slate-200 bg-white p-4 text-center shadow-soft transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_18px_34px_-28px_rgba(8,39,70,0.45)] md:p-5">
+    <article className="flex h-full flex-col px-4 py-5 text-center md:px-5 md:py-6">
       <div className="flex min-h-[92px] items-center justify-center">
         {!image.broken ? (
           <img alt={item.name} className="max-h-14 w-auto object-contain" decoding="async" loading="lazy" onError={image.onError} src={image.src} />
@@ -148,15 +148,15 @@ export function ResearchPage({ locale }) {
         <p className="home-body-copy mx-auto mt-5 max-w-4xl text-slate-700">{content.description}</p>
       </section>
 
-      <section className="space-y-4 md:space-y-5">
+      <section className="space-y-4 pt-3 md:space-y-5 md:pt-5">
         {coreAreas.map((area, index) => (
           <ResearchAreaRow area={area} index={index} key={area.title} />
         ))}
       </section>
 
-      <section className={`rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7 ${fundingReveal.revealClassName}`} ref={fundingReveal.ref} style={fundingReveal.revealStyle}>
+      <section className={`pt-2 md:pt-3 ${fundingReveal.revealClassName}`} ref={fundingReveal.ref} style={fundingReveal.revealStyle}>
         <h2 className="text-center text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{fundingTitle}</h2>
-        <div className="reveal-stagger mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="reveal-stagger mt-6 grid border-y border-slate-200 sm:grid-cols-2 xl:grid-cols-4">
           {fundingItems.map((item, index) => (
             <FundingItem index={index} item={item} key={`${item.name}-${item.logo || index}`} />
           ))}

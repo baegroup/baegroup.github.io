@@ -11,6 +11,16 @@ const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const COVER_IMAGE_BASE = 'assets/img/publications/covers';
 const SCHOLAR_URL = 'https://scholar.google.com/scholar?q=Jaehyeong+Bae';
 const REPRINT_EMAIL = 'jbae@khu.ac.kr';
+const JOURNAL_DISPLAY_NAMES = {
+  'Advanced Energy Materials': 'Adv. Energy Mater.',
+  'Advanced Functional Materials': 'Adv. Funct. Mater.',
+  'Advanced Materials': 'Adv. Mater.',
+  'Energy & Environmental Science': 'Energy Environ. Sci.'
+};
+
+function formatJournalDisplayName(name) {
+  return JOURNAL_DISPLAY_NAMES[name] || name;
+}
 
 function useImageFallback(basePath) {
   const candidates = useMemo(() => IMAGE_EXTENSIONS.map((ext) => `${basePath}.${ext}`), [basePath]);
@@ -241,13 +251,15 @@ function PreprintSection({ description, items, labAuthorNames, title }) {
 }
 
 function JournalCoverFrame({ broken, controls, dateLabel, imageSrc, journalName, onError }) {
+  const displayName = formatJournalDisplayName(journalName);
+
   return (
     <article>
-      <div className="flex aspect-[3/4] items-center justify-center rounded-md bg-slate-50 px-5 py-6">
+      <div className="flex aspect-[3/4] items-center justify-center">
         {!broken ? (
           <img
             alt={`${journalName} cover`}
-            className="h-full w-full object-contain shadow-[0_18px_34px_-24px_rgba(15,23,42,0.5)]"
+            className="h-full w-full object-contain"
             decoding="async"
             loading="lazy"
             onError={onError}
@@ -261,7 +273,7 @@ function JournalCoverFrame({ broken, controls, dateLabel, imageSrc, journalName,
       </div>
       <div className="mt-4 flex min-h-24 items-end justify-between gap-3 border-t border-slate-200 pt-3">
         <div className="min-w-0">
-          <p className="text-sm font-semibold leading-snug text-slate-900">{journalName}</p>
+          <p className="text-[0.8125rem] font-semibold leading-snug text-slate-900">{displayName}</p>
           {dateLabel ? <p className="mt-1 text-xs text-slate-600">{dateLabel}</p> : null}
         </div>
         {controls}
