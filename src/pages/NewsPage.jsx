@@ -496,47 +496,25 @@ export function NewsPage({ locale }) {
 
   return (
     <div className="space-y-6 md:space-y-8">
-      <PageHero description={content.description} title={content.title} />
-
-      <nav aria-label="News categories" className="flex flex-wrap gap-2 lg:hidden">
-        {sections.map((section) => (
-          <button
-            aria-pressed={activeSection === section.id}
-            className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 ${
-              activeSection === section.id
-                ? 'bg-[var(--brand-navy)] text-white'
-                : 'bg-transparent text-slate-600 hover:bg-white/70 hover:text-[var(--brand-navy)]'
-            }`}
-            key={section.id}
-            onClick={() => setActiveSection(section.id)}
-            type="button"
-          >
-            {section.label}
-          </button>
-        ))}
-      </nav>
+      <PageHero description={content.description} title={content.title}>
+        <nav aria-label="News categories" className="page-section-nav">
+          {sections.map((section) => (
+            <button
+              aria-pressed={activeSection === section.id}
+              className="page-section-tab"
+              key={section.id}
+              onClick={() => setActiveSection(section.id)}
+              type="button"
+            >
+              {section.label}
+            </button>
+          ))}
+        </nav>
+      </PageHero>
 
       <div className={`grid gap-5 lg:grid-cols-[minmax(194px,232px)_minmax(0,1fr)] lg:items-start ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
         <aside className="order-2 lg:order-1 lg:self-start">
           <div className="space-y-4 lg:sticky lg:top-36 lg:max-h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-1">
-            <nav aria-label="News categories" className="hidden space-y-1 lg:block">
-              {sections.map((section) => (
-                <button
-                  aria-pressed={activeSection === section.id}
-                  className={`w-full rounded-md px-3 py-2.5 text-left text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 ${
-                    activeSection === section.id
-                      ? 'bg-[rgba(13,50,111,0.09)] text-[var(--brand-navy)]'
-                      : 'bg-transparent text-slate-600 hover:bg-white/70 hover:text-[var(--brand-navy)]'
-                  }`}
-                  key={section.id}
-                  onClick={() => setActiveSection(section.id)}
-                  type="button"
-                >
-                  {section.label}
-                </button>
-              ))}
-            </nav>
-
             {latestInstagramEmbedUrl || latestInstagramImage ? (
               <section className="space-y-3 px-1">
                 {latestInstagramEmbedUrl ? (

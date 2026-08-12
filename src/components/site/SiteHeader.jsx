@@ -85,7 +85,7 @@ export function SiteHeader({ locale }) {
             src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`}
             width="96"
           />
-          <p className="max-w-[360px] text-xs font-medium uppercase tracking-[0.10em] text-slate-600 max-md:hidden">{tagline}</p>
+          <p className="max-w-[360px] text-xs font-medium uppercase leading-5 tracking-[0.10em] text-slate-600 max-md:hidden">{tagline}</p>
           <span className="sr-only">Go to Bae Lab home</span>
         </Link>
 
@@ -116,7 +116,7 @@ export function SiteHeader({ locale }) {
                 <NavLink
                   className={({ isActive }) =>
                     cn(
-                      'inline-flex w-full items-center rounded-md px-3 py-2 text-sm font-medium text-slate-700 no-underline transition-colors hover:bg-slate-50 hover:text-[var(--brand-navy)] md:w-auto md:rounded-none md:border-b-2 md:border-transparent md:px-0 md:py-1 md:hover:bg-transparent',
+                      'inline-flex w-full items-center rounded-md px-3 py-2 text-sm font-medium leading-5 text-slate-700 no-underline transition-colors hover:bg-slate-50 hover:text-[var(--brand-navy)] md:w-auto md:rounded-none md:border-b-2 md:border-transparent md:px-0 md:py-1 md:hover:bg-transparent',
                       isActive && 'bg-slate-50 text-[var(--brand-navy)] md:border-b-[var(--brand-navy)] md:bg-transparent md:font-semibold'
                     )
                   }

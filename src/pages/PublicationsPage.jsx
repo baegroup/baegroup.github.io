@@ -737,22 +737,22 @@ export function PublicationsPage({ locale }) {
 
   return (
     <div className="space-y-6 md:space-y-8">
-      <PageHero description={content.description} title={content.title} />
-
       <Tabs onValueChange={handleFilterChange} value={filter}>
-        <TabsList className="h-auto flex-wrap justify-start gap-1 bg-transparent p-0">
-          {filters.map((type) => (
-            <TabsTrigger
-              className="rounded-full border border-slate-300 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 data-[state=active]:border-[var(--brand-navy)] data-[state=active]:bg-[var(--brand-navy)] data-[state=active]:text-white data-[state=active]:hover:bg-[var(--brand-navy-deep)]"
-              key={type}
-              value={type}
-            >
-              {labels[type]}
-            </TabsTrigger>
-          ))}
-        </TabsList>
+        <PageHero description={content.description} title={content.title}>
+          <TabsList className="page-section-nav h-auto rounded-none bg-transparent p-0">
+            {filters.map((type) => (
+              <TabsTrigger
+                className="page-section-tab rounded-none px-0 py-0 shadow-none data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                key={type}
+                value={type}
+              >
+                {labels[type]}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </PageHero>
 
-        <TabsContent className="mt-4" value={filter}>
+        <TabsContent className="mt-6 md:mt-8" value={filter}>
           {loading ? <p className="rounded-md border border-dashed border-border p-4 text-base text-slate-600">{content.loading}</p> : null}
           {!loading && error ? <p className="rounded-md border border-red-200 bg-red-50 p-4 text-base text-red-700">{error}</p> : null}
           {!loading && !error && items.length === 0 ? (

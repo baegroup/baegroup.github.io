@@ -50,7 +50,7 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
         <p className="home-body-copy mt-4 max-w-xl">{renderJoinDescription(content.joinDescription)}</p>
         <div className="mt-5 flex flex-wrap gap-2.5">
           <Link
-            className="site-cta-primary"
+            className="site-cta-secondary"
             to={pagePath(locale, 'join')}
           >
             {primaryLabel}

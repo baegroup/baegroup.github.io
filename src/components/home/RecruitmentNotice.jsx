@@ -86,12 +86,6 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
     setShowBadge(true);
   }, []);
 
-  const openNotice = () => {
-    setBadgeCompact(false);
-    setShowBadge(false);
-    setOpen(true);
-  };
-
   useEffect(() => {
     if (!showBadge || open) {
       setBadgeCompact(false);
@@ -166,24 +160,13 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
       ) : null}
 
       {showBadge && !open ? (
-        autoOpen ? (
-          <button
-            aria-label="Open graduate recruitment notice"
-            className={badgeClassName}
-            onClick={openNotice}
-            type="button"
-          >
-            {badgeContent}
-          </button>
-        ) : (
-          <Link
-            aria-label="View graduate recruitment details"
-            className={badgeClassName}
-            to={pagePath(locale, 'join')}
-          >
-            {badgeContent}
-          </Link>
-        )
+        <Link
+          aria-label="View graduate recruitment details"
+          className={badgeClassName}
+          to={pagePath(locale, 'join')}
+        >
+          {badgeContent}
+        </Link>
       ) : null}
     </>
   );

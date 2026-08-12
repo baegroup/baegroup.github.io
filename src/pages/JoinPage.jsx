@@ -1,5 +1,4 @@
 import { PageHero } from '@/components/site/PageHero';
-import { Card, CardContent } from '@/components/ui/card';
 import { JOIN_CONTENT } from '@/content/site-content';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
@@ -43,8 +42,7 @@ export function JoinPage({ locale }) {
     <>
       <PageHero description={content.description} title={content.title} />
 
-      <Card className={`border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
-        <CardContent className="space-y-8 p-6 md:space-y-9 md:p-8 lg:space-y-10 lg:p-10">
+      <section className={`space-y-8 py-4 md:space-y-9 md:py-5 lg:space-y-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
           {recruitmentStatuses.length ? (
             <section>
               <h2 className="home-section-title">{content.recruitmentStatusTitle || 'Current Recruitment Status'}</h2>
@@ -104,8 +102,7 @@ export function JoinPage({ locale }) {
               </a>
             ) : null}
           </section>
-        </CardContent>
-      </Card>
+      </section>
     </>
   );
 }

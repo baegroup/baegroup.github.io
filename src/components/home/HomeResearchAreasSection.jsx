@@ -66,7 +66,7 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0, her
       </div>
 
       <div className="flex flex-wrap gap-2.5">
-        <Link className="site-cta-primary" to={pagePath(locale, 'research')}>
+        <Link className="site-cta-secondary" to={pagePath(locale, 'research')}>
           {primaryCtaLabel}
         </Link>
         <Link className="site-cta-secondary" to={pagePath(locale, 'publications')}>

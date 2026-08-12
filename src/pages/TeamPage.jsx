@@ -632,30 +632,26 @@ export function TeamPage({ locale }) {
 
   return (
     <>
-      <PageHero description={content.description} title={content.title || 'Team'} />
+      <PageHero description={content.description} title={content.title || 'Team'}>
+        <nav aria-label="Team section navigation" className="page-section-nav">
+          {jumpNav.map((item) => {
+            const active = activeSection === item.id;
+            return (
+              <button
+                aria-pressed={active}
+                className="page-section-tab"
+                key={item.id}
+                onClick={() => setActiveSection(item.id)}
+                type="button"
+              >
+                {item.label}
+              </button>
+            );
+          })}
+        </nav>
+      </PageHero>
 
       <section>
-          <div className="border-b border-slate-200 pt-2 md:pt-3">
-            <nav aria-label="Team section navigation" className="flex flex-wrap gap-x-6 gap-y-2">
-              {jumpNav.map((item) => {
-                const active = activeSection === item.id;
-                return (
-                  <button
-                    aria-pressed={active}
-                    className={`-mb-px border-b-2 bg-transparent pb-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 md:text-[0.95rem] ${
-                      active ? 'border-[var(--brand-navy)] text-[var(--brand-navy)]' : 'border-transparent text-slate-500 hover:text-slate-900'
-                    }`}
-                    key={item.id}
-                    onClick={() => setActiveSection(item.id)}
-                    type="button"
-                  >
-                    {item.label}
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-
           <div className="py-6 md:py-7">
             {activeSection === 'identity' ? (
               <section className="space-y-7 md:space-y-8">
@@ -664,7 +660,7 @@ export function TeamPage({ locale }) {
                       <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
                       <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
                       <div className="pt-2 md:pt-3">
-                        <Link className="site-cta-primary" to={pagePath('join')}>
+                        <Link className="site-cta-secondary" to={pagePath('join')}>
                           {content.joinCta || 'Information for joining our team'}
                         </Link>
                       </div>

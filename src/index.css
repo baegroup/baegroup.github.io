@@ -105,16 +105,6 @@
     box-shadow: 0 0 0 2px white, 0 0 0 4px var(--brand-navy);
   }
 
-  .site-cta-primary::after {
-    content: '\2192';
-    margin-left: 0.5rem;
-    transition: transform 180ms ease;
-  }
-
-  .site-cta-primary:hover::after {
-    transform: translate3d(3px, 0, 0);
-  }
-
   .site-cta-secondary {
     border-color: rgba(122, 15, 31, 0.28);
     color: var(--brand-burgundy);
@@ -146,6 +136,30 @@
   .site-control.is-active:hover:not(:disabled) {
     background-color: var(--brand-navy-deep);
     border-color: var(--brand-navy-deep);
+  }
+
+  .page-section-nav {
+    @apply flex flex-wrap items-end gap-x-6 gap-y-2;
+  }
+
+  .page-section-tab {
+    @apply -mb-px border-b-2 border-transparent bg-transparent pb-2 text-sm font-semibold text-slate-500;
+    transition: border-color 180ms ease, color 180ms ease;
+  }
+
+  .page-section-tab:hover {
+    @apply text-slate-900;
+  }
+
+  .page-section-tab[aria-pressed='true'],
+  .page-section-tab[data-state='active'] {
+    border-bottom-color: var(--brand-navy);
+    color: var(--brand-navy);
+  }
+
+  .page-section-tab:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px var(--brand-navy);
   }
 
   .site-text-link {
@@ -368,7 +382,6 @@
   .recruitment-notice-badge,
   .recruitment-notice-badge-copy,
   .site-cta-primary,
-  .site-cta-primary::after,
   .site-cta-secondary,
   .site-control,
   .news-item-row,
