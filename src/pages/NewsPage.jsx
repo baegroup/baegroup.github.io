@@ -486,8 +486,8 @@ export function NewsPage({ locale }) {
             items={sections}
             onChange={setActiveSection}
           />
-          <p aria-live="polite" className="ml-auto text-right text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
-            <span className="text-slate-700">{activeItems.length} items</span>
+          <p aria-live="polite" className="ml-auto text-right text-[0.7rem] font-normal tracking-[0.015em] text-slate-400">
+            <span>{activeItems.length} items</span>
             {updatedAt ? (
               <>
                 <span aria-hidden="true" className="mx-2 text-slate-300">·</span>

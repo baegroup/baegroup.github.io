@@ -30,8 +30,8 @@ function FeaturedNewsCard({ item, locale }) {
   }, [imageBase]);
 
   return (
-    <Link className="group flex h-full flex-col bg-white" to={sectionPath(locale, item.section)}>
-      <div className="relative mx-4 mt-4 h-44 overflow-hidden bg-slate-100 md:mx-5 md:mt-5">
+    <Link className="group flex h-full flex-col" to={sectionPath(locale, item.section)}>
+      <div className="h-44 overflow-hidden bg-slate-100">
         {!exhausted ? (
           <img
             alt={item.title}
@@ -44,11 +44,10 @@ function FeaturedNewsCard({ item, locale }) {
         ) : (
           <div className="flex h-full items-center justify-center text-sm font-medium text-slate-500">Featured News Image</div>
         )}
-        <p className="absolute left-3 top-3 rounded-full bg-slate-900/75 px-2.5 py-1 text-xs font-semibold text-white">{item.date}</p>
       </div>
-      <div className="flex-1 p-4 md:p-5">
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand-navy)]">Featured</p>
-        <h3 className="mt-2 text-lg font-semibold leading-snug tracking-tight text-slate-950">{item.title}</h3>
+      <div className="flex-1 pt-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{item.date}</p>
+        <h3 className="mt-1.5 text-lg font-semibold leading-snug tracking-tight text-slate-950">{item.title}</h3>
       </div>
     </Link>
   );
@@ -83,11 +82,12 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
         </Link>
       </div>
 
-      <article className="home-section overflow-hidden">
+      <article className="border-b border-slate-200 pb-6 md:pb-8">
         <div className={featuredItems.length && listItems.length ? 'grid lg:grid-cols-[minmax(0,1.16fr)_minmax(0,1fr)]' : 'grid'}>
           {featuredItems.length ? (
-            <div className={listItems.length ? 'border-b border-slate-200 lg:border-b-0 lg:border-r' : ''}>
-              <div className="reveal-stagger grid divide-y divide-slate-200 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+            <div className={listItems.length ? 'border-b border-slate-200 pb-6 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-8' : ''}>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand-navy)]">Featured</p>
+              <div className="reveal-stagger grid gap-5 sm:grid-cols-2">
                 {featuredItems.map((item) => (
                   <FeaturedNewsCard item={item} key={`${item.id || item.title}-featured`} locale={locale} />
                 ))}
@@ -96,13 +96,13 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
           ) : null}
 
           {listItems.length ? (
-            <div className="bg-slate-50/70">
-              <div className="px-5 pb-2 pt-5 md:px-6">
+            <div className={featuredItems.length ? 'pt-6 lg:pl-8 lg:pt-0' : ''}>
+              <div className="pb-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand-navy)]">{listLabel}</p>
               </div>
               <ul className="reveal-stagger divide-y divide-slate-200">
                 {listItems.map((item) => (
-                  <li className="px-5 py-3 transition-colors hover:bg-white md:px-6 md:py-3.5" key={`${item.id || item.title}-list`}>
+                  <li className="py-3 first:pt-1 md:py-3.5" key={`${item.id || item.title}-list`}>
                     <Link className="block" to={sectionPath(locale, item.section)}>
                       <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{item.date}</p>
                       <p className="mt-1 text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</p>

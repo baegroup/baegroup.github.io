@@ -649,7 +649,7 @@ export function TeamPage({ locale }) {
           <div className="py-6 md:py-7">
             {activeSection === 'identity' ? (
               <section className="space-y-7 md:space-y-8">
-                  <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-center lg:gap-8">
+                  <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)] lg:items-center lg:gap-8">
                     <div className="flex h-full flex-col justify-center space-y-5">
                       <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
                       <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
@@ -660,11 +660,11 @@ export function TeamPage({ locale }) {
                       </div>
                     </div>
 
-                    <figure className="mx-auto w-full max-w-2xl overflow-hidden rounded-xl border border-slate-200 bg-slate-100 lg:max-w-[94%]">
+                    <figure className="mx-auto w-full max-w-2xl overflow-hidden rounded-xl border border-slate-200 bg-slate-100 lg:ml-auto lg:mr-0 lg:max-w-[94%]">
                       {!aboutImage.broken ? (
                         <img
                           alt="Bae Lab group photo"
-                          className="h-full max-h-[360px] w-full object-cover lg:max-h-none"
+                          className="aspect-[3/2] w-full object-cover object-bottom"
                           decoding="async"
                           loading="lazy"
                           onError={aboutImage.onError}
@@ -677,17 +677,17 @@ export function TeamPage({ locale }) {
                   </div>
 
                   <div className="space-y-8 border-t border-slate-200 pt-7 md:space-y-10 md:pt-8">
-                    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.95fr)] lg:items-center lg:gap-8">
+                    <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)] lg:items-center lg:gap-8">
                       <div className="flex h-full flex-col justify-center space-y-4">
                         <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'The Fearless Lab Culture'}</h2>
                         <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
                       </div>
 
-                      <figure className="mx-auto w-full max-w-lg lg:max-w-none">
+                      <figure className="mx-auto w-full max-w-lg lg:ml-auto lg:mr-0 lg:max-w-[80%]">
                         {!cultureImage.broken ? (
                           <img
                             alt="The Fearless Organization matrix"
-                            className="mx-auto h-auto max-h-[260px] w-auto max-w-full object-contain md:max-h-[290px]"
+                            className="h-auto max-h-[260px] w-full object-contain md:max-h-[290px]"
                             decoding="async"
                             loading="lazy"
                             onError={cultureImage.onError}
@@ -696,7 +696,7 @@ export function TeamPage({ locale }) {
                         ) : (
                           <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Culture image placeholder</div>
                         )}
-                        <figcaption className="mt-2 text-center text-xs text-slate-500">
+                        <figcaption className="mt-2 text-left text-xs text-slate-500">
                           The Fearless Organization · Amy C. Edmondson
                         </figcaption>
                       </figure>

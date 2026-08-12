@@ -4,7 +4,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { PageHero } from '@/components/site/PageHero';
 import { PageSectionNav } from '@/components/site/PageSectionNav';
 import { ResearchProfileLinks } from '@/components/site/ResearchProfileLinks';
-import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { PUBLICATIONS_CONTENT } from '@/content/site-content';
 import { loadPublicationCovers, loadPublications, loadResearchProfileLinks, publicationTypeLabels } from '@/lib/data';
@@ -147,8 +146,7 @@ function formatCoverDateLabel(item) {
 
 function PublicationInfoPanel({ updatedAt }) {
   return (
-    <Card className="border-slate-200 bg-white">
-      <CardContent className="space-y-3 p-4 text-sm text-slate-700 md:p-5">
+    <section className="space-y-3 border-b border-slate-200 pb-5 text-sm text-slate-700">
         <p>
           Complete publication list available on{' '}
           <a className="site-text-link" href={SCHOLAR_URL} rel="noreferrer" target="_blank">
@@ -176,8 +174,7 @@ function PublicationInfoPanel({ updatedAt }) {
           </p>
         </div>
         {updatedAt ? <p className="text-xs uppercase tracking-[0.08em] text-slate-500">Last updated {updatedAt}</p> : null}
-      </CardContent>
-    </Card>
+    </section>
   );
 }
 
@@ -187,17 +184,17 @@ function PreprintSection({ items, labAuthorNames, title }) {
   }
 
   return (
-    <section className="min-w-0 space-y-3">
-      <h2 className="border-l-4 border-[var(--brand-burgundy)] pl-3 text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">
+    <section className="min-w-0">
+      <h2 className="border-b border-slate-900 pb-3 text-2xl font-semibold tracking-tight text-slate-950">
         {title || 'Current Manuscripts'}
       </h2>
       {items.length ? (
-        <ul className="space-y-3">
+        <ul>
           {items.map((item) => {
             const metadataParts = buildMetadataParts(item);
             const actionLinks = buildActionLinks(item);
             return (
-              <li className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_8px_20px_-16px_rgba(15,23,42,0.35)] md:p-5" key={item.id}>
+              <li className="border-b border-slate-200 py-5" key={item.id}>
                 <div className="space-y-2">
                   <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">
                     {item.localizedTitle}
@@ -251,48 +248,48 @@ function PreprintSection({ items, labAuthorNames, title }) {
   );
 }
 
-function JournalCoverFrame({ broken, controls, dateLabel, imageSrc, journalName, onError }) {
-  const displayName = formatJournalDisplayName(journalName);
-
+function JournalCoverImage({ broken, eager = false, imageSrc, journalName, onError }) {
   return (
-    <article>
-      <div className="flex aspect-[3/4] items-center justify-center">
-        {!broken ? (
-          <img
-            alt={`${journalName} cover`}
-            className="h-full w-full object-contain"
-            decoding="async"
-            loading="lazy"
-            onError={onError}
-            src={imageSrc}
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center border border-dashed border-slate-300 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
-            Cover
-          </div>
-        )}
-      </div>
-      <div className="mt-2 flex items-end justify-between gap-3 border-t border-slate-200 pt-2">
-        <div className="min-w-0">
-          <p className="text-[0.8125rem] font-semibold leading-snug text-slate-900">{displayName}</p>
-          {dateLabel ? <p className="mt-1 text-xs text-slate-600">{dateLabel}</p> : null}
+    <div className="flex h-full w-full items-center justify-center">
+      {!broken ? (
+        <img
+          alt={`${journalName} cover`}
+          className="h-full w-full object-contain"
+          decoding="async"
+          loading={eager ? 'eager' : 'lazy'}
+          onError={onError}
+          src={imageSrc}
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center border border-dashed border-slate-300 px-3 text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+          Cover
         </div>
-        {controls}
-      </div>
-    </article>
+      )}
+    </div>
   );
 }
 
-function PublicationJournalCoverCard({ controls, publication }) {
+function JournalCoverMeta({ controls, dateLabel, journalName }) {
+  return (
+    <div className="mt-2 flex items-end justify-between gap-3 border-t border-slate-200 pt-2">
+      <div className="min-w-0">
+        <p className="text-[0.8125rem] font-semibold leading-snug text-slate-900">{formatJournalDisplayName(journalName)}</p>
+        {dateLabel ? <p className="mt-1 text-xs text-slate-600">{dateLabel}</p> : null}
+      </div>
+      {controls}
+    </div>
+  );
+}
+
+function PublicationJournalCoverImage({ eager = false, publication }) {
   const imageBase = publication.coverImage || publication.id;
   const image = useImageFallback(`${COVER_IMAGE_BASE}/${imageBase}`);
   const journalName = publication.journal || publication.venue || '';
 
   return (
-    <JournalCoverFrame
+    <JournalCoverImage
       broken={image.broken}
-      controls={controls}
-      dateLabel={publication.year}
+      eager={eager}
       imageSrc={image.src}
       journalName={journalName}
       onError={image.onError}
@@ -300,16 +297,14 @@ function PublicationJournalCoverCard({ controls, publication }) {
   );
 }
 
-function ManualJournalCoverCard({ controls, cover }) {
+function ManualJournalCoverImage({ cover, eager = false }) {
   const [broken, setBroken] = useState(false);
   const imageSrc = `${import.meta.env.BASE_URL}${cover.path}`;
-  const dateLabel = formatCoverDateLabel(cover);
 
   return (
-    <JournalCoverFrame
+    <JournalCoverImage
       broken={broken}
-      controls={controls}
-      dateLabel={dateLabel}
+      eager={eager}
       imageSrc={imageSrc}
       journalName={cover.journal || 'Journal Cover'}
       onError={() => setBroken(true)}
@@ -354,6 +349,8 @@ function JournalCoverCarousel({ items }) {
   }
 
   const cover = items[index];
+  const journalName = cover.kind === 'manual' ? cover.journal || 'Journal Cover' : cover.publication.journal || cover.publication.venue || '';
+  const dateLabel = cover.kind === 'manual' ? formatCoverDateLabel(cover) : cover.publication.year;
   const controls = total > 1 ? (
     <div className="flex shrink-0 items-center gap-1.5">
       <button
@@ -378,11 +375,26 @@ function JournalCoverCarousel({ items }) {
   return (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold text-slate-900">Journal Covers</h3>
-      {cover.kind === 'manual' ? (
-        <ManualJournalCoverCard controls={controls} cover={cover} key={cover.id} />
-      ) : (
-        <PublicationJournalCoverCard controls={controls} key={cover.id} publication={cover.publication} />
-      )}
+      <article>
+        <div className="grid aspect-[3/4] overflow-hidden">
+          {items.map((item, itemIndex) => (
+            <div
+              aria-hidden={itemIndex !== index}
+              className={`col-start-1 row-start-1 h-full w-full transition-opacity duration-[480ms] ease-in-out motion-reduce:transition-none ${
+                itemIndex === index ? 'z-10 opacity-100' : 'pointer-events-none z-0 opacity-0'
+              }`}
+              key={item.id}
+            >
+              {item.kind === 'manual' ? (
+                <ManualJournalCoverImage cover={item} eager />
+              ) : (
+                <PublicationJournalCoverImage eager publication={item.publication} />
+              )}
+            </div>
+          ))}
+        </div>
+        <JournalCoverMeta controls={controls} dateLabel={dateLabel} journalName={journalName} />
+      </article>
     </div>
   );
 }
@@ -395,9 +407,9 @@ function PublicationPagination({ currentPage, onPageChange, pageGroups, placemen
   }
 
   return (
-    <nav aria-label={`Publication pagination ${placement}`} className="flex flex-wrap items-center gap-2">
+    <nav aria-label={`Publication pagination ${placement}`} className="flex flex-wrap items-center gap-x-5 gap-y-2">
       <button
-        className="site-control rounded-md px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50"
+        className="page-section-tab disabled:cursor-not-allowed disabled:opacity-40"
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
         type="button"
@@ -409,27 +421,24 @@ function PublicationPagination({ currentPage, onPageChange, pageGroups, placemen
         return (
           <button
             aria-current={page === currentPage ? 'page' : undefined}
-            aria-label={`Page ${page}, ${group.label}`}
-            className={`site-control min-w-9 rounded-md px-3 py-1.5 text-sm ${page === currentPage ? 'is-active' : ''}`}
+            aria-label={`Publications from ${group.label}`}
+            className={`page-section-tab ${page === currentPage ? 'font-semibold text-slate-900' : ''}`}
             key={group.label}
             onClick={() => onPageChange(page)}
             type="button"
           >
-            {page}
+            {group.years.length > 1 ? `${group.years[0]}–${group.years[group.years.length - 1]}` : group.years[0]}
           </button>
         );
       })}
       <button
-        className="site-control rounded-md px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50"
+        className="page-section-tab disabled:cursor-not-allowed disabled:opacity-40"
         disabled={currentPage === pageCount}
         onClick={() => onPageChange(currentPage + 1)}
         type="button"
       >
         Next
       </button>
-      <span className="ml-1 text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
-        Page {currentPage} of {pageCount} · {pageGroups[currentPage - 1]?.label}
-      </span>
     </nav>
   );
 }
@@ -437,12 +446,18 @@ function PublicationPagination({ currentPage, onPageChange, pageGroups, placemen
 function PublicationList({ items, numbers, labAuthorNames, sectionLabel, years }) {
   return (
     <div className="space-y-6">
-      {years.map((year) => (
-        <section className="space-y-3" key={year}>
-          <h2 className="border-l-4 border-[var(--brand-burgundy)] pl-3 text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">{year} {sectionLabel}</h2>
-          <ol className="space-y-3">
-            {items
-              .filter((item) => item.year === year)
+      {years.map((year) => {
+        const yearItems = items.filter((item) => item.year === year);
+        const itemCountLabel = `${yearItems.length} ${yearItems.length === 1 ? sectionLabel.replace(/s$/, '') : sectionLabel}`;
+
+        return (
+        <section key={year}>
+          <div className="flex items-baseline justify-between gap-4 border-b border-slate-900 pb-3">
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-950">{year}</h2>
+            <p className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500">{itemCountLabel}</p>
+          </div>
+          <ol>
+            {yearItems
               .sort((a, b) => (numbers.get(b.id) || 0) - (numbers.get(a.id) || 0))
               .map((pub) => {
                 const number = numbers.get(pub.id) || '-';
@@ -450,11 +465,11 @@ function PublicationList({ items, numbers, labAuthorNames, sectionLabel, years }
                 const actionLinks = buildActionLinks(pub);
 
                 return (
-                  <li className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_8px_20px_-16px_rgba(15,23,42,0.35)] md:p-5" key={pub.id}>
+                  <li className="grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b border-slate-200 py-5" key={pub.id}>
+                    <span className="pt-1 text-xs font-semibold tracking-[0.05em] text-[var(--brand-burgundy)] tabular-nums">{number}</span>
                     <div className="space-y-2">
                       <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">
-                        <span className="mr-2">{number}.</span>
-                        <span>{pub.localizedTitle}</span>
+                        {pub.localizedTitle}
                       </p>
 
                       <p className="text-[0.95rem] leading-relaxed text-slate-700 md:text-base">
@@ -499,7 +514,8 @@ function PublicationList({ items, numbers, labAuthorNames, sectionLabel, years }
               })}
           </ol>
         </section>
-      ))}
+        );
+      })}
     </div>
   );
 }
@@ -803,16 +819,16 @@ export function PublicationsPage({ locale }) {
               </div>
 
               <aside className="xl:self-start">
-                <div className="space-y-4 xl:sticky xl:top-24">
+                <div className="xl:sticky xl:top-24">
                   <PublicationInfoPanel updatedAt={updatedAt} />
 
-                  <Card className="border-slate-200 bg-white">
-                    <CardContent className="p-4 md:p-5">
-                      <JournalCoverCarousel items={coverSlides} />
-                    </CardContent>
-                  </Card>
+                  <section className="border-b border-slate-200 py-5">
+                    <JournalCoverCarousel items={coverSlides} />
+                  </section>
 
-                  <ResearchProfileLinks links={researchProfileLinks} />
+                  <div className="pt-5">
+                    <ResearchProfileLinks links={researchProfileLinks} />
+                  </div>
                 </div>
               </aside>
             </div>

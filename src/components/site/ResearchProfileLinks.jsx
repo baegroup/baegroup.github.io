@@ -1,9 +1,9 @@
 const PROFILE_LINKS = [
-  { key: 'linkedin', label: 'LinkedIn', icon: 'assets/img/news/profiles/linkedin.ico' },
-  { key: 'webOfScience', label: 'Web of Science', icon: 'assets/img/news/profiles/webofscience.ico' },
-  { key: 'orcid', label: 'ORCID', icon: 'assets/img/news/profiles/orcid.svg' },
-  { key: 'scopus', label: 'Scopus', icon: 'assets/img/news/profiles/scopus.svg' },
   { key: 'googleScholar', label: 'Google Scholar', icon: 'assets/img/news/profiles/googlescholar.svg' },
+  { key: 'linkedin', label: 'LinkedIn', icon: 'assets/img/news/profiles/linkedin.ico' },
+  { key: 'orcid', label: 'ORCID', icon: 'assets/img/news/profiles/orcid.svg' },
+  { key: 'webOfScience', label: 'Web of Science', icon: 'assets/img/news/profiles/webofscience.ico' },
+  { key: 'scopus', label: 'Scopus', icon: 'assets/img/news/profiles/scopus.svg' },
   { key: 'researchGate', label: 'ResearchGate', icon: 'assets/img/news/profiles/researchgate.svg' }
 ];
 
@@ -15,7 +15,7 @@ export function ResearchProfileLinks({ links = {} }) {
   }
 
   return (
-    <section aria-label="Research profiles" className="space-y-3 px-1 pt-2">
+    <section aria-label="Research profiles" className="space-y-3">
       <h3 className="text-sm font-semibold text-slate-900">Research Profiles</h3>
       <div className="grid grid-cols-3 gap-x-2 gap-y-3">
         {items.map((item) => (

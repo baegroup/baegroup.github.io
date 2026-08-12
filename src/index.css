@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 34 26% 95%;
     --foreground: 222.2 47.4% 11.2%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 47.4% 11.2%;
@@ -27,6 +27,9 @@
     --brand-gold: #c0a353;
     --brand-cool-gray: #717171;
     --brand-silver: #b5b5b5;
+    --brand-header: #fbfaf8;
+    --brand-page: #f5f2ee;
+    --brand-footer: #e9e4de;
     --brand-surface: #f8fafc;
     --brand-surface-soft: #eef3f8;
   }
@@ -226,8 +229,8 @@
   }
 
   .site-header.is-scrolled {
-    background-color: rgba(255, 255, 255, 0.97);
-    border-color: rgba(203, 213, 225, 0.95);
+    background-color: rgba(251, 250, 248, 0.97);
+    border-color: rgba(230, 224, 218, 0.96);
     box-shadow: 0 12px 36px -28px rgba(15, 23, 42, 0.58);
   }
 

@@ -68,7 +68,7 @@ function ResearchAreaRow({ area, index }) {
   const { ref, revealClassName, revealStyle } = useScrollReveal(Math.min(index * 60, 120));
 
   return (
-    <article className={`group border-b border-slate-200 py-6 first:pt-0 last:border-b-0 last:pb-0 md:py-8 ${revealClassName}`} ref={ref} style={revealStyle}>
+    <article className={`group border-b border-slate-200 py-6 first:pt-0 md:py-8 ${revealClassName}`} ref={ref} style={revealStyle}>
       <div className={`grid gap-6 lg:grid-cols-2 lg:items-center lg:gap-8 ${reverse ? 'lg:[&>*:first-child]:order-2' : ''}`}>
         <figure className="mx-auto w-full max-w-3xl overflow-hidden rounded-lg border border-slate-200 bg-slate-100 lg:max-w-none">
           {!image.broken ? (
@@ -107,9 +107,17 @@ function FundingItem({ item, index }) {
     normalizedName && normalizedName !== name ? `${RESEARCH_FUNDING_IMAGE_DIR}/${normalizedName}` : '',
     `${RESEARCH_FUNDING_IMAGE_DIR}/${fallbackSlug}`
   ]);
+  const dividerClassName = [
+    index > 0 ? 'border-t border-slate-200 sm:border-t-0' : '',
+    index % 2 === 1 ? 'sm:border-l' : '',
+    index >= 2 ? 'sm:border-t xl:border-t-0' : '',
+    index > 0 ? 'xl:border-l' : ''
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <article className="flex h-full flex-col px-4 py-5 text-center md:px-5 md:py-6">
+    <article className={`flex h-full flex-col px-4 py-5 text-center md:px-5 md:py-6 ${dividerClassName}`}>
       <div className="flex min-h-[92px] items-center justify-center">
         {!image.broken ? (
           <img alt={item.name} className="max-h-14 w-auto object-contain" decoding="async" loading="lazy" onError={image.onError} src={image.src} />
@@ -154,9 +162,9 @@ export function ResearchPage({ locale }) {
         ))}
       </section>
 
-      <section className={`pt-2 md:pt-3 ${fundingReveal.revealClassName}`} ref={fundingReveal.ref} style={fundingReveal.revealStyle}>
+      <section className={fundingReveal.revealClassName} ref={fundingReveal.ref} style={fundingReveal.revealStyle}>
         <h2 className="text-center text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{fundingTitle}</h2>
-        <div className="reveal-stagger mt-6 grid border-y border-slate-200 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="reveal-stagger mt-6 grid border-b border-slate-200 sm:grid-cols-2 xl:grid-cols-4">
           {fundingItems.map((item, index) => (
             <FundingItem index={index} item={item} key={`${item.name}-${item.logo || index}`} />
           ))}

@@ -40,8 +40,8 @@ export function SiteHeader({ locale }) {
   }, []);
 
   return (
-    <header className={cn('site-header sticky top-0 z-50 border-b border-slate-200/90 bg-white/90 backdrop-blur-md', scrolled && 'is-scrolled')}>
-      <div className="border-b border-[#68101b] bg-[#7a0f1f]">
+    <header className={cn('site-header sticky top-0 z-50 border-b border-[#e6e0da]/95 bg-[#fbfaf8]/95 backdrop-blur-md', scrolled && 'is-scrolled')}>
+      <div className="border-b border-[#5e111c] bg-[#751523]">
         <div className="mx-auto flex h-8 w-full max-w-6xl items-center justify-between px-5 md:h-9">
           <a
             className={`${topLinkBaseClass} gap-2 text-sm font-semibold tracking-[0.01em] text-white/95 hover:text-white`}
@@ -93,7 +93,7 @@ export function SiteHeader({ locale }) {
           <Button
             aria-controls="site-nav"
             aria-expanded={open}
-            className="border-slate-200 text-slate-700 hover:bg-slate-50 md:hidden"
+            className="border-[#ded8d2] text-slate-700 hover:bg-[#f1ede8] md:hidden"
             onClick={() => setOpen((value) => !value)}
             size="icon"
             type="button"
@@ -107,7 +107,7 @@ export function SiteHeader({ locale }) {
             className={cn(
               'hidden md:flex md:items-center md:gap-6',
               open &&
-                'absolute right-0 top-12 z-40 flex w-56 flex-col gap-1 rounded-lg border border-slate-200 bg-white p-2 shadow-soft md:static md:w-auto md:flex-row md:items-center md:gap-6 md:border-0 md:bg-transparent md:p-0 md:shadow-none'
+                'absolute right-0 top-12 z-40 flex w-56 flex-col gap-1 rounded-lg border border-[#ded8d2] bg-[#fbfaf8] p-2 shadow-soft md:static md:w-auto md:flex-row md:items-center md:gap-6 md:border-0 md:bg-transparent md:p-0 md:shadow-none'
             )}
             id="site-nav"
           >
@@ -116,8 +116,8 @@ export function SiteHeader({ locale }) {
                 <NavLink
                   className={({ isActive }) =>
                     cn(
-                      'inline-flex w-full items-center rounded-md px-3 py-2 text-sm font-medium leading-5 text-slate-700 no-underline transition-colors hover:bg-slate-50 hover:text-[var(--brand-navy)] md:w-auto md:rounded-none md:border-b-2 md:border-transparent md:px-0 md:py-1 md:hover:bg-transparent',
-                      isActive && 'bg-slate-50 text-[var(--brand-navy)] md:border-b-[var(--brand-navy)] md:bg-transparent md:font-semibold'
+                      'inline-flex w-full items-center rounded-md px-3 py-2 text-sm font-medium leading-5 text-slate-700 no-underline transition-colors hover:bg-[#f1ede8] hover:text-[var(--brand-navy)] md:w-auto md:rounded-none md:border-b-2 md:border-transparent md:px-0 md:py-1 md:hover:bg-transparent',
+                      isActive && 'bg-[#f1ede8] text-[var(--brand-navy)] md:border-b-[var(--brand-navy)] md:bg-transparent md:font-semibold'
                     )
                   }
                   end={item.slug === ''}

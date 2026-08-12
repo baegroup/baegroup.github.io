@@ -29,7 +29,7 @@ export function SiteFooter({ locale }) {
   }
 
   return (
-    <footer className="mt-8 border-t border-[#d8d8d8] bg-[linear-gradient(180deg,#ffffff_0%,#f7f7f7_100%)] text-[#222222]">
+    <footer className="mt-8 border-t border-[#d2cac3] bg-[var(--brand-footer)] text-[#222222]">
       <div className="mx-auto w-full max-w-6xl px-5 py-8 md:py-10">
         <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center">
           <div>
@@ -51,7 +51,7 @@ export function SiteFooter({ locale }) {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-4 border-t border-[#e1e1e1] pt-5 md:grid-cols-2">
+        <div className="mt-6 grid gap-4 border-t border-[#d8d0c9] pt-5 md:grid-cols-2">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#717171]">{labels.address || 'Address'}</p>
             <p className="mt-1 text-sm leading-relaxed text-[#2a2a2a]">{content.address}</p>
@@ -65,7 +65,7 @@ export function SiteFooter({ locale }) {
           </div>
         </div>
 
-        <div className="mt-6 border-t border-[#e1e1e1] pt-4 text-xs text-[#717171] md:flex md:items-center md:justify-between">
+        <div className="mt-6 border-t border-[#d8d0c9] pt-4 text-xs text-[#68615d] md:flex md:items-center md:justify-between">
           <p>© {year} {brand.name}. {rightsLabel}</p>
           <div className="mt-1 flex items-center gap-4 md:mt-0 md:justify-end md:text-right">
             <p>{affiliationLabel}</p>
