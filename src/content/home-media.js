@@ -6,12 +6,12 @@ export const HOME_MEDIA = {
     { path: 'assets/img/home/hero/cover-1920.webp', width: 1920 }
   ],
   researchAreas: [
-    'assets/img/home/research/area-1.jpg',
-    'assets/img/home/research/area-2.png',
-    'assets/img/home/research/area-3.png'
+    'assets/img/home/research/area-1.webp',
+    'assets/img/home/research/area-2.webp',
+    'assets/img/home/research/area-3.webp'
   ],
   newsFeatured: 'assets/img/home/news/featured.jpg',
-  joinTeam: 'assets/img/home/join/team.jpg'
+  joinTeam: 'assets/img/home/join/team.webp'
 };
 
 export function resolveHomeMedia(path) {
