@@ -25,7 +25,9 @@ export function SiteLayout({ locale, children }) {
       <SiteHeader locale={locale} />
       <main className="mx-auto w-full max-w-6xl space-y-4 px-5 py-6 md:py-8" id="main-content">{children}</main>
       <SiteFooter locale={locale} />
-      {showRecruitmentNotice ? <RecruitmentNotice content={homeContent} locale={locale} /> : null}
+      {showRecruitmentNotice ? (
+        <RecruitmentNotice autoOpen={normalizedPath === '/'} content={homeContent} locale={locale} />
+      ) : null}
       <CookieConsent />
     </div>
   );
