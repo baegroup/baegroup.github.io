@@ -44,11 +44,20 @@ export function SiteHeader({ locale }) {
       <div className="border-b border-[#68101b] bg-[#7a0f1f]">
         <div className="mx-auto flex h-8 w-full max-w-6xl items-center justify-between px-5 md:h-9">
           <a
-            className={`${topLinkBaseClass} text-sm font-semibold tracking-[0.01em] text-white/95 hover:text-white`}
+            className={`${topLinkBaseClass} gap-2 text-sm font-semibold tracking-[0.01em] text-white/95 hover:text-white`}
             href={universityUrl}
             rel="noreferrer"
             target="_blank"
           >
+            <img
+              alt=""
+              aria-hidden="true"
+              className="h-5 w-auto shrink-0 brightness-0 invert"
+              decoding="async"
+              height="399"
+              src={`${import.meta.env.BASE_URL}assets/img/khu-symbol.png`}
+              width="349"
+            />
             {universityLabel}
           </a>
           <a
@@ -107,8 +116,8 @@ export function SiteHeader({ locale }) {
                 <NavLink
                   className={({ isActive }) =>
                     cn(
-                      'inline-flex w-full items-center rounded-md px-3 py-2 text-sm font-medium text-slate-700 no-underline transition-colors hover:bg-slate-50 hover:text-[#0b3a64] md:w-auto md:rounded-none md:border-b-2 md:border-transparent md:px-0 md:py-1 md:hover:bg-transparent',
-                      isActive && 'bg-slate-50 text-[#0b3a64] md:border-b-[#0b3a64] md:bg-transparent md:font-semibold'
+                      'inline-flex w-full items-center rounded-md px-3 py-2 text-sm font-medium text-slate-700 no-underline transition-colors hover:bg-slate-50 hover:text-[var(--brand-navy)] md:w-auto md:rounded-none md:border-b-2 md:border-transparent md:px-0 md:py-1 md:hover:bg-transparent',
+                      isActive && 'bg-slate-50 text-[var(--brand-navy)] md:border-b-[var(--brand-navy)] md:bg-transparent md:font-semibold'
                     )
                   }
                   end={item.slug === ''}

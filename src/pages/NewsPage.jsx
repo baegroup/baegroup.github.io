@@ -217,11 +217,11 @@ function VideoCard({ item }) {
       </div>
 
       <div className="space-y-2 p-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{item.date || '-'}</p>
         <h3 className="text-xl font-semibold leading-snug text-slate-950">{item.title}</h3>
         {item.summary ? <p className="text-sm leading-relaxed text-slate-600">{item.summary}</p> : null}
         {primaryVideoUrl ? (
-          <a className="inline-flex text-sm font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={primaryVideoUrl} rel="noreferrer" target="_blank">
+          <a className="site-text-link inline-flex text-sm" href={primaryVideoUrl} rel="noreferrer" target="_blank">
             Open video source
           </a>
         ) : null}
@@ -252,7 +252,7 @@ function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }
           ) : null}
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0d326f]">{item.date || '-'}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{item.date || '-'}</p>
             <p className="mt-1 text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">{item.title}</p>
           </div>
 
@@ -288,14 +288,14 @@ function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }
                   />
                 </div>
               ) : (
-                <a className="inline-flex text-sm font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={item.videoUrl} rel="noreferrer" target="_blank">
+                <a className="site-text-link inline-flex text-sm" href={item.videoUrl} rel="noreferrer" target="_blank">
                   Open video
                 </a>
               )
             ) : null}
 
             {item.url ? (
-              <a className="inline-flex text-sm font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={item.url} rel="noreferrer" target="_blank">
+              <a className="site-text-link inline-flex text-sm" href={item.url} rel="noreferrer" target="_blank">
                 Source link
               </a>
             ) : null}
@@ -506,11 +506,7 @@ export function NewsPage({ locale }) {
               <CardContent className="space-y-2 pt-4">
                 {sections.map((section) => (
                   <button
-                    className={`w-full rounded-md border px-3 py-2 text-left text-sm font-semibold transition-colors ${
-                      activeSection === section.id
-                        ? 'border-[#7a0f1f] bg-[#7a0f1f] text-white'
-                        : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                    }`}
+                    className={`site-control w-full rounded-md px-3 py-2 text-left text-sm ${activeSection === section.id ? 'is-active' : ''}`}
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
                     type="button"
@@ -617,7 +613,7 @@ export function NewsPage({ locale }) {
               {pageCount > 1 ? (
                 <nav aria-label="News pagination" className="flex flex-wrap items-center gap-2">
                   <button
-                    className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="site-control rounded-md px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={currentPage === 1}
                     onClick={() => handlePageChange(currentPage - 1)}
                     type="button"
@@ -626,11 +622,8 @@ export function NewsPage({ locale }) {
                   </button>
                   {Array.from({ length: pageCount }, (_, index) => index + 1).map((page) => (
                     <button
-                      className={`rounded-md border px-3 py-1.5 text-sm font-semibold ${
-                        page === currentPage
-                          ? 'border-[#7a0f1f] bg-[#7a0f1f] text-white'
-                          : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-                      }`}
+                      aria-current={page === currentPage ? 'page' : undefined}
+                      className={`site-control rounded-md px-3 py-1.5 text-sm ${page === currentPage ? 'is-active' : ''}`}
                       key={page}
                       onClick={() => handlePageChange(page)}
                       type="button"
@@ -639,7 +632,7 @@ export function NewsPage({ locale }) {
                     </button>
                   ))}
                   <button
-                    className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="site-control rounded-md px-3 py-1.5 text-sm disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={currentPage === pageCount}
                     onClick={() => handlePageChange(currentPage + 1)}
                     type="button"

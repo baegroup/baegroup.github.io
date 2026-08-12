@@ -31,9 +31,9 @@ export function SiteFooter({ locale }) {
   return (
     <footer className="mt-8 border-t border-[#d8d8d8] bg-[linear-gradient(180deg,#ffffff_0%,#f7f7f7_100%)] text-[#222222]">
       <div className="mx-auto w-full max-w-6xl px-5 py-8 md:py-10">
-        <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-start">
+        <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-[#ad1d19]">{brand.name}</h2>
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">{brand.name}</h2>
             {description ? <p className="mt-1 text-xs uppercase tracking-[0.12em] text-[#717171]">{description}</p> : null}
             <p className="mt-2 text-sm text-[#4a4a4a]">{koreanIdentityLabel}</p>
           </div>
@@ -42,7 +42,7 @@ export function SiteFooter({ locale }) {
             <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5 md:justify-end">
               {quickLinks.map((item) => (
                 <li key={item.slug || 'home'}>
-                  <Link className="text-sm text-[#4a4a4a] no-underline transition-colors hover:text-[#0d326f]" to={pagePath(locale, item.slug)}>
+                  <Link className="text-sm text-[#4a4a4a] no-underline transition-colors hover:text-[var(--brand-navy)]" to={pagePath(locale, item.slug)}>
                     {item.label}
                   </Link>
                 </li>
@@ -59,7 +59,7 @@ export function SiteFooter({ locale }) {
 
           <div className="md:justify-self-stretch md:text-right">
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#717171]">{labels.email || 'Email'}</p>
-            <a className="mt-1 inline-block text-sm text-[#2a2a2a] no-underline transition-colors hover:text-[#ad1d19]" href="mailto:jbae@khu.ac.kr">
+            <a className="mt-1 inline-block text-sm text-[#2a2a2a] no-underline transition-colors hover:text-[var(--brand-burgundy)]" href="mailto:jbae@khu.ac.kr">
               jbae@khu.ac.kr
             </a>
           </div>
@@ -70,7 +70,7 @@ export function SiteFooter({ locale }) {
           <div className="mt-1 flex items-center gap-4 md:mt-0 md:justify-end md:text-right">
             <p>{affiliationLabel}</p>
             <button
-              className="text-xs font-semibold text-[#4a4a4a] underline-offset-2 transition-colors hover:text-[#0d326f] hover:underline"
+              className="text-xs font-semibold text-[#4a4a4a] underline-offset-2 transition-colors hover:text-[var(--brand-navy)] hover:underline"
               onClick={openCookiePreferences}
               type="button"
             >

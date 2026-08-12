@@ -24,7 +24,7 @@ function DetailList({ items, title }) {
   return (
     <div className="rounded-lg border border-slate-200 bg-white p-5 md:p-6">
       <h3 className="text-base font-semibold text-slate-900 md:text-lg">{title}</h3>
-      <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700 marker:text-[#7a0f1f] md:text-base">
+      <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700 marker:text-[var(--brand-burgundy)] md:text-base">
         {items.map((item) => <li key={item}>{item}</li>)}
       </ul>
     </div>
@@ -68,14 +68,14 @@ export function JoinPage({ locale }) {
           <OpportunitySection body={content.graduateBody} title={content.graduateTitle || 'Graduate Opportunities'}>
             {content.admissionsUrl ? (
               <p className="home-body-copy text-slate-700">
-                <a className="font-semibold text-[#7a0f1f] underline-offset-2 hover:underline" href={content.admissionsUrl} rel="noreferrer" target="_blank">
+                <a className="site-text-link" href={content.admissionsUrl} rel="noreferrer" target="_blank">
                   {content.admissionsLabel || 'Graduate Admissions Information'}
                 </a>
               </p>
             ) : null}
 
             {graduateBenefits.length ? (
-              <ul className="home-body-copy max-w-[72ch] list-disc space-y-2 pl-6 text-slate-700 marker:text-[#7a0f1f]">
+              <ul className="home-body-copy max-w-[72ch] list-disc space-y-2 pl-6 text-slate-700 marker:text-[var(--brand-burgundy)]">
                 {graduateBenefits.map((benefit) => (
                   <li key={benefit}>{benefit}</li>
                 ))}
@@ -99,7 +99,7 @@ export function JoinPage({ locale }) {
             </div>
 
             {content.contactEmail ? (
-              <a className="home-cta-primary inline-flex" href={`mailto:${content.contactEmail}`}>
+              <a className="site-cta-primary" href={`mailto:${content.contactEmail}`}>
                 {content.applicationCta || 'Apply by Email'}
               </a>
             ) : null}

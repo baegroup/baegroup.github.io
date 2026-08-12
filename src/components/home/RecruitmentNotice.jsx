@@ -113,14 +113,14 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [closeNotice, open]);
 
-  const badgeClassName = `recruitment-notice-badge group fixed bottom-5 right-4 z-[80] flex items-center gap-3 rounded-full border border-slate-200 bg-white py-2 pl-2 pr-4 text-left no-underline shadow-[0_16px_45px_-18px_rgba(2,6,23,0.48)] transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d326f] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 ${badgeCompact ? 'is-compact' : ''}`;
+  const badgeClassName = `recruitment-notice-badge group fixed bottom-5 right-4 z-[80] flex items-center gap-3 rounded-full border border-slate-200 bg-white py-2 pl-2 pr-4 text-left no-underline shadow-[0_16px_45px_-18px_rgba(2,6,23,0.48)] transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 ${badgeCompact ? 'is-compact' : ''}`;
   const badgeContent = (
     <>
-      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#0d326f] text-white transition-colors group-hover:bg-[#0a2858]">
+      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand-navy)] text-white transition-colors group-hover:bg-[var(--brand-navy-deep)]">
         <GraduationCap aria-hidden="true" className="h-5 w-5" />
       </span>
       <span className="recruitment-notice-badge-copy overflow-hidden whitespace-nowrap">
-        <span className="hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-[#ad1d19] sm:block">Now Recruiting</span>
+        <span className="hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--brand-burgundy)] sm:block">Now Recruiting</span>
         <span className="block text-xs font-semibold text-slate-900 sm:mt-0.5 sm:text-sm">Graduate Students</span>
       </span>
     </>
@@ -133,18 +133,18 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
           aria-labelledby="recruitment-notice-title"
           className="recruitment-notice-card fixed bottom-3 left-3 right-3 z-[85] overflow-hidden rounded-2xl border border-slate-200 bg-white/95 px-5 pb-5 pt-6 shadow-[0_24px_60px_-28px_rgba(2,6,23,0.58)] backdrop-blur-sm sm:bottom-6 sm:left-auto sm:right-6 sm:w-[23rem]"
         >
-          <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-[#0d326f]" />
+          <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-[var(--brand-navy)]" />
           <button
             aria-label="Close recruitment notice"
-            className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d326f] focus-visible:ring-offset-2"
+            className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2"
             onClick={closeNotice}
             type="button"
           >
             <X aria-hidden="true" className="h-4 w-4" />
           </button>
 
-          <p className="flex items-center gap-2 pr-9 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#ad1d19]">
-            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#ad1d19]" />
+          <p className="flex items-center gap-2 pr-9 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--brand-burgundy)]">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[var(--brand-burgundy)]" />
             {content.recruitmentNoticeEyebrow || 'Now Recruiting'}
           </p>
           <h2 className="mt-2 pr-8 text-xl font-semibold leading-tight tracking-tight text-slate-950" id="recruitment-notice-title">
@@ -155,7 +155,7 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
           </p>
 
           <Link
-            className="mt-4 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[#0d326f] px-4 py-2 text-sm font-semibold text-white no-underline transition-colors hover:bg-[#0a2858] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d326f] focus-visible:ring-offset-2"
+            className="mt-4 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[var(--brand-navy)] px-4 py-2 text-sm font-semibold text-white no-underline transition-colors hover:bg-[var(--brand-navy-deep)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2"
             onClick={closeNotice}
             to={pagePath(locale, 'join')}
           >

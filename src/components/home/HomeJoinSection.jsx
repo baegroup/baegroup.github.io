@@ -41,24 +41,22 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
 
   return (
     <section
-      className={`home-section relative grid gap-6 overflow-hidden px-5 py-6 md:grid-cols-2 md:items-center md:gap-7 md:px-7 md:py-8 ${revealClassName}`}
+      className={`relative grid gap-6 py-1 md:grid-cols-2 md:items-center md:gap-8 md:py-2 ${revealClassName}`}
       ref={ref}
       style={revealStyle}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_8%_14%,rgba(11,58,100,0.08),transparent_34%),radial-gradient(circle_at_100%_80%,rgba(122,15,31,0.08),transparent_40%)]" />
-
       <div className="relative z-10">
         <h2 className="home-section-title">{content.joinTitle}</h2>
         <p className="home-body-copy mt-4 max-w-xl">{renderJoinDescription(content.joinDescription)}</p>
         <div className="mt-5 flex flex-wrap gap-2.5">
           <Link
-            className="home-cta-primary"
+            className="site-cta-primary"
             to={pagePath(locale, 'join')}
           >
             {primaryLabel}
           </Link>
           <Link
-            className="home-cta-primary"
+            className="site-cta-secondary"
             to={pagePath(locale, 'team')}
           >
             {secondaryLabel}

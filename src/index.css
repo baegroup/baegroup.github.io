@@ -69,6 +69,10 @@
     @apply text-3xl font-semibold leading-tight tracking-tight text-slate-950 md:text-4xl;
   }
 
+  .home-air-section {
+    @apply border-b border-slate-200 pb-8 md:pb-12;
+  }
+
   .home-display-hero {
     @apply text-4xl font-semibold leading-tight tracking-tight md:text-6xl;
   }
@@ -81,40 +85,82 @@
     @apply text-base leading-relaxed text-slate-600 md:text-lg;
   }
 
-  .home-cta-primary {
+  .site-cta-primary {
     background-color: var(--brand-burgundy);
     @apply inline-flex h-11 items-center rounded-full px-6 text-sm font-semibold text-white no-underline;
     box-shadow: 0 12px 26px -20px rgba(143, 23, 20, 0.75);
     transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
   }
 
-  .home-cta-primary:hover {
+  .site-cta-primary:hover {
     background-color: var(--brand-burgundy-deep);
     box-shadow: 0 16px 30px -20px rgba(143, 23, 20, 0.85);
     transform: translate3d(0, -1px, 0);
   }
 
-  .home-cta-primary::after {
+  .site-cta-primary:focus-visible,
+  .site-cta-secondary:focus-visible,
+  .site-control:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px var(--brand-navy);
+  }
+
+  .site-cta-primary::after {
     content: '\2192';
     margin-left: 0.5rem;
     transition: transform 180ms ease;
   }
 
-  .home-cta-primary:hover::after {
+  .site-cta-primary:hover::after {
     transform: translate3d(3px, 0, 0);
   }
 
-  .home-cta-secondary {
+  .site-cta-secondary {
     border-color: rgba(122, 15, 31, 0.28);
     color: var(--brand-burgundy);
     @apply inline-flex h-11 items-center rounded-full border bg-white px-6 text-sm font-semibold no-underline;
     transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
   }
 
-  .home-cta-secondary:hover {
+  .site-cta-secondary:hover {
     background-color: rgba(122, 15, 31, 0.06);
     border-color: rgba(122, 15, 31, 0.42);
     transform: translate3d(0, -1px, 0);
+  }
+
+  .site-control {
+    @apply border border-slate-200 bg-white font-semibold text-slate-700;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+  }
+
+  .site-control:hover:not(:disabled) {
+    @apply border-slate-300 bg-slate-50;
+  }
+
+  .site-control.is-active {
+    background-color: var(--brand-navy);
+    border-color: var(--brand-navy);
+    color: white;
+  }
+
+  .site-control.is-active:hover:not(:disabled) {
+    background-color: var(--brand-navy-deep);
+    border-color: var(--brand-navy-deep);
+  }
+
+  .site-text-link {
+    color: var(--brand-navy);
+    @apply font-semibold underline-offset-2;
+  }
+
+  .site-text-link:hover {
+    @apply underline;
+  }
+
+  .site-text-link:focus-visible {
+    outline: 2px solid var(--brand-navy);
+    outline-offset: 2px;
+    border-radius: 0.125rem;
   }
 
   .reveal-section {
@@ -321,9 +367,10 @@
 
   .recruitment-notice-badge,
   .recruitment-notice-badge-copy,
-  .home-cta-primary,
-  .home-cta-primary::after,
-  .home-cta-secondary,
+  .site-cta-primary,
+  .site-cta-primary::after,
+  .site-cta-secondary,
+  .site-control,
   .news-item-row,
   .news-item-row::before,
   .site-header,

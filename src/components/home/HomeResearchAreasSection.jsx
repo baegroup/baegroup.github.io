@@ -28,8 +28,7 @@ function ResearchAreaCard({ card, imagePath }) {
         </div>
       )}
       <div className="p-5 md:p-6">
-        <div className="h-1.5 w-12 rounded-full bg-[var(--brand-burgundy)]" />
-        <h3 className="home-display-subtitle mt-3 text-slate-950">{card.title}</h3>
+        <h3 className="home-display-subtitle text-slate-950">{card.title}</h3>
         <p className="mt-2.5 text-[0.98rem] leading-relaxed text-slate-600 md:text-base">{card.body}</p>
       </div>
     </article>
@@ -51,7 +50,7 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0, her
   }
 
   return (
-    <section className={`space-y-5 ${revealClassName}`} ref={ref} style={revealStyle}>
+    <section className={`home-air-section space-y-5 ${revealClassName}`} ref={ref} style={revealStyle}>
       <div className="space-y-2.5">
         <h2 className="home-section-title">{title}</h2>
       </div>
@@ -67,10 +66,10 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0, her
       </div>
 
       <div className="flex flex-wrap gap-2.5">
-        <Link className="home-cta-primary" to={pagePath(locale, 'research')}>
+        <Link className="site-cta-primary" to={pagePath(locale, 'research')}>
           {primaryCtaLabel}
         </Link>
-        <Link className="home-cta-primary" to={pagePath(locale, 'publications')}>
+        <Link className="site-cta-secondary" to={pagePath(locale, 'publications')}>
           {secondaryCtaLabel}
         </Link>
       </div>

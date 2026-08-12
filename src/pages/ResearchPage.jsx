@@ -119,7 +119,7 @@ function FundingItem({ item, index }) {
       </div>
       <div className="mt-3 flex min-h-[4rem] flex-1 items-center justify-center">
         {item.link ? (
-          <a className="block text-sm font-semibold leading-snug text-slate-900 no-underline hover:text-[#0d326f]" href={item.link} rel="noreferrer" target="_blank">
+          <a className="block text-sm font-semibold leading-snug text-slate-900 no-underline hover:text-[var(--brand-navy)]" href={item.link} rel="noreferrer" target="_blank">
             {item.name}
           </a>
         ) : (

@@ -47,7 +47,7 @@ function FeaturedNewsCard({ item, locale }) {
         <p className="absolute left-3 top-3 rounded-full bg-slate-900/75 px-2.5 py-1 text-xs font-semibold text-white">{item.date}</p>
       </div>
       <div className="p-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0b3a64]">Featured</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand-navy)]">Featured</p>
         <h3 className="mt-2 text-lg font-semibold leading-snug tracking-tight text-slate-950">{item.title}</h3>
       </div>
     </Link>
@@ -75,10 +75,10 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
   }
 
   return (
-    <section className={`space-y-4 md:space-y-5 ${revealClassName}`} ref={ref} style={revealStyle}>
+    <section className={`home-air-section space-y-4 md:space-y-5 ${revealClassName}`} ref={ref} style={revealStyle}>
       <div className="home-section-header">
         <h2 className="home-section-title">{sectionTitle}</h2>
-        <Link className="text-sm font-semibold text-[#0b3a64] underline-offset-4 hover:underline" to={pagePath(locale, 'news')}>
+        <Link className="site-text-link text-sm underline-offset-4" to={pagePath(locale, 'news')}>
           {viewAllLabel}
         </Link>
       </div>
@@ -98,13 +98,13 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
           {listItems.length ? (
             <div className="bg-slate-50/70">
               <div className="px-5 pb-2 pt-5 md:px-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#0b3a64]">{listLabel}</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand-navy)]">{listLabel}</p>
               </div>
               <ul className="reveal-stagger divide-y divide-slate-200">
                 {listItems.map((item) => (
                   <li className="px-5 py-3 transition-colors hover:bg-white md:px-6 md:py-3.5" key={`${item.id || item.title}-list`}>
                     <Link className="block" to={sectionPath(locale, item.section)}>
-                      <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{item.date}</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{item.date}</p>
                       <p className="mt-1 text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</p>
                     </Link>
                   </li>

@@ -176,7 +176,7 @@ function MemberDetailRow({ label, value, type = 'text' }) {
     <div className="min-w-0 break-words text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
       {label ? <span className="font-semibold text-slate-600">{label}: </span> : null}
       {isEmail ? (
-        <a className="break-all text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${trimmed}`}>
+        <a className="site-text-link break-all" href={`mailto:${trimmed}`}>
           {trimmed}
         </a>
       ) : (
@@ -198,7 +198,7 @@ function MemberDetailStackRow({ label, value, type = 'text' }) {
     <div className="space-y-0.5 text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
       {label ? <p className="text-xs font-semibold uppercase tracking-[0.06em] text-slate-500">{label}</p> : null}
       {isEmail ? (
-        <a className="break-all text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${trimmed}`}>
+        <a className="site-text-link break-all" href={`mailto:${trimmed}`}>
           {trimmed}
         </a>
       ) : (
@@ -259,7 +259,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
             <div className="space-y-1.5">
               <p className="text-2xl font-semibold text-slate-950">{member.localizedName}</p>
               <p className="text-sm font-medium text-slate-700 md:text-base">{courseValue}</p>
-              {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{member.roleLabel}</p> : null}
+              {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{member.roleLabel}</p> : null}
             </div>
 
             <div className="space-y-2">
@@ -304,7 +304,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
           <div className="space-y-1.5">
             <p className="text-xl font-semibold text-slate-950 md:text-2xl">{member.localizedName}</p>
             <p className="text-sm font-medium text-slate-700 md:text-base">{courseValue}</p>
-            {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#0b3a64]">{member.roleLabel}</p> : null}
+            {showRoleBadge ? <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--brand-navy)]">{member.roleLabel}</p> : null}
           </div>
 
           {summaryLeadLine ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{summaryLeadLine}</p> : null}
@@ -312,7 +312,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
           <div className="space-y-1 text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
             {joinedLine ? <p>{joinedLine}</p> : null}
             {emailValue ? (
-              <a className="break-all text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${emailValue}`}>
+              <a className="site-text-link break-all" href={`mailto:${emailValue}`}>
                 {emailValue}
               </a>
             ) : null}
@@ -323,7 +323,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
               <button
                 aria-controls={detailId}
                 aria-expanded={expanded}
-                className="group inline-flex items-center gap-1.5 text-left text-xs font-semibold tracking-[0.02em] text-slate-500 transition-colors hover:text-[#0d326f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d326f]/30 focus-visible:ring-offset-2"
+                className="group inline-flex items-center gap-1.5 text-left text-xs font-semibold tracking-[0.02em] text-slate-500 transition-colors hover:text-[var(--brand-navy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/30 focus-visible:ring-offset-2"
                 onClick={() => setExpanded((prev) => !prev)}
                 type="button"
               >
@@ -474,7 +474,7 @@ function ProfessorShowcase({ professor }) {
 
         <div className="flex h-full flex-col justify-center space-y-4">
           <div className="space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#7a0f1f]">{copy.sectionLead}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand-burgundy)]">{copy.sectionLead}</p>
             <h3 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">Prof. {professor.localizedName}</h3>
             <p className="text-sm font-medium leading-relaxed text-slate-700 md:text-base">{copy.department}</p>
             <p className="text-sm font-medium leading-relaxed text-slate-600 md:text-base">{copy.institution}</p>
@@ -484,7 +484,7 @@ function ProfessorShowcase({ professor }) {
             {professor.email ? (
               <li>
                 <span className="font-semibold">E-mail:</span>{' '}
-                <a className="text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${professor.email}`}>
+                <a className="site-text-link" href={`mailto:${professor.email}`}>
                   {professor.email}
                 </a>
               </li>
@@ -644,8 +644,8 @@ export function TeamPage({ locale }) {
                 return (
                   <button
                     aria-pressed={active}
-                    className={`-mb-px border-b-2 bg-transparent pb-2 text-sm font-semibold transition-colors md:text-[0.95rem] ${
-                      active ? 'border-[#0b3a64] text-[#0b3a64]' : 'border-transparent text-slate-500 hover:text-slate-900'
+                    className={`-mb-px border-b-2 bg-transparent pb-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 md:text-[0.95rem] ${
+                      active ? 'border-[var(--brand-navy)] text-[var(--brand-navy)]' : 'border-transparent text-slate-500 hover:text-slate-900'
                     }`}
                     key={item.id}
                     onClick={() => setActiveSection(item.id)}
@@ -667,7 +667,7 @@ export function TeamPage({ locale }) {
                       <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
                       <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
                       <div className="pt-2 md:pt-3">
-                        <Link className="home-cta-primary" to={pagePath('join')}>
+                        <Link className="site-cta-primary" to={pagePath('join')}>
                           {content.joinCta || 'Information for joining our team'}
                         </Link>
                       </div>

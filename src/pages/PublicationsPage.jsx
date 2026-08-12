@@ -139,14 +139,14 @@ function PublicationInfoPanel({ updatedAt }) {
       <CardContent className="space-y-3 p-4 text-sm text-slate-700 md:p-5">
         <p>
           Complete publication list available on{' '}
-          <a className="font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={SCHOLAR_URL} rel="noreferrer" target="_blank">
+          <a className="site-text-link" href={SCHOLAR_URL} rel="noreferrer" target="_blank">
             Google Scholar
           </a>
           .
         </p>
         <p>
           For reprints of publications contact{' '}
-          <a className="font-semibold text-[#0d326f] underline-offset-2 hover:underline" href={`mailto:${REPRINT_EMAIL}`}>
+          <a className="site-text-link" href={`mailto:${REPRINT_EMAIL}`}>
             {REPRINT_EMAIL}
           </a>
           .
@@ -176,7 +176,7 @@ function PreprintSection({ description, items, labAuthorNames, title }) {
 
   return (
     <section className="min-w-0 space-y-3">
-      <h2 className="border-l-4 border-[#7a0f1f] pl-3 text-2xl font-semibold tracking-tight text-[#7a0f1f]">
+      <h2 className="border-l-4 border-[var(--brand-burgundy)] pl-3 text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">
         {title || 'Preprints in Preparation'}
       </h2>
       {description ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{description}</p> : null}
@@ -217,7 +217,7 @@ function PreprintSection({ description, items, labAuthorNames, title }) {
                   ) : null}
 
                   {actionLinks.length ? (
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[#0d326f]">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[var(--brand-navy)]">
                       {actionLinks.map((link, index) => (
                         <span className="inline-flex items-center gap-x-2" key={`${item.id}-preprint-link-${link.label}-${index}`}>
                           {index > 0 ? <span className="text-slate-400">|</span> : null}
@@ -343,7 +343,7 @@ function JournalCoverCarousel({ items }) {
         <div className="flex items-center justify-between">
           <button
             aria-label="Previous journal cover"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50"
+            className="site-control inline-flex h-8 w-8 items-center justify-center rounded-md"
             onClick={goPrev}
             type="button"
           >
@@ -352,7 +352,7 @@ function JournalCoverCarousel({ items }) {
           <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{index + 1} / {total}</p>
           <button
             aria-label="Next journal cover"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50"
+            className="site-control inline-flex h-8 w-8 items-center justify-center rounded-md"
             onClick={goNext}
             type="button"
           >
@@ -378,7 +378,7 @@ function PublicationList({ items, numbers, labAuthorNames, sectionLabel }) {
     <div className="space-y-6">
       {years.map((year) => (
         <section className="space-y-3" key={year}>
-          <h2 className="border-l-4 border-[#7a0f1f] pl-3 text-2xl font-semibold tracking-tight text-[#7a0f1f]">{year} {sectionLabel}</h2>
+          <h2 className="border-l-4 border-[var(--brand-burgundy)] pl-3 text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">{year} {sectionLabel}</h2>
           <ol className="space-y-3">
             {[...(grouped.get(year) || [])].sort((a, b) => (numbers.get(b.id) || 0) - (numbers.get(a.id) || 0)).map((pub) => {
               const number = numbers.get(pub.id) || '-';
@@ -419,7 +419,7 @@ function PublicationList({ items, numbers, labAuthorNames, sectionLabel }) {
                     ) : null}
 
                     {actionLinks.length ? (
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[#0d326f]">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[var(--brand-navy)]">
                         {actionLinks.map((link, index) => (
                           <span className="inline-flex items-center gap-x-2" key={`${pub.id}-link-${link.label}-${index}`}>
                             {index > 0 ? <span className="text-slate-400">|</span> : null}
@@ -640,7 +640,7 @@ export function PublicationsPage({ locale }) {
         <TabsList className="h-auto flex-wrap justify-start gap-1 bg-transparent p-0">
           {filters.map((type) => (
             <TabsTrigger
-              className="rounded-full border border-slate-300 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 data-[state=active]:border-[#7a0f1f] data-[state=active]:bg-[#7a0f1f] data-[state=active]:text-white"
+              className="rounded-full border border-slate-300 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 data-[state=active]:border-[var(--brand-navy)] data-[state=active]:bg-[var(--brand-navy)] data-[state=active]:text-white data-[state=active]:hover:bg-[var(--brand-navy-deep)]"
               key={type}
               value={type}
             >
