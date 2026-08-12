@@ -503,15 +503,17 @@ function ProfessorShowcase({ professor }) {
           )}
         </figure>
 
-        <div className="flex h-full flex-col justify-center space-y-4">
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-[var(--brand-burgundy)]">{copy.sectionLead}</p>
-            <h3 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">Prof. {professor.localizedName}</h3>
-            <p className="text-sm font-medium leading-relaxed text-slate-700 md:text-base">{copy.department}</p>
-            <p className="text-sm font-medium leading-relaxed text-slate-600 md:text-base">{copy.institution}</p>
+        <div className="flex h-full flex-col justify-center">
+          <p className="text-xs font-semibold leading-[1.125rem] text-[var(--brand-burgundy)]">{copy.sectionLead}</p>
+          <h3 className="mt-2 text-[2rem] font-semibold leading-[1.08] tracking-tight text-slate-950 md:text-4xl">
+            Prof. {professor.localizedName}
+          </h3>
+          <div className="mt-4 space-y-1 text-[0.9375rem] font-medium leading-6">
+            <p className="text-slate-700">{copy.department}</p>
+            <p className="text-slate-600">{copy.institution}</p>
           </div>
 
-          <ul className="space-y-2 text-sm leading-relaxed text-slate-700 md:text-base">
+          <ul className="mt-5 space-y-1.5 text-[0.9375rem] leading-6 text-slate-700">
             {professor.email ? (
               <li>
                 <span className="font-semibold">E-mail:</span>{' '}

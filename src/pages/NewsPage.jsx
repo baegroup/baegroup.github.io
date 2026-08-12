@@ -545,7 +545,7 @@ export function NewsPage({ locale }) {
                 <ol className="grid gap-4 md:grid-cols-2">
                   {paginatedItems.map((item, index) => (
                     <li key={item.id}>
-                      <VideoCard item={item} number={(currentPage - 1) * pageSize + index + 1} />
+                      <VideoCard item={item} number={activeItems.length - ((currentPage - 1) * pageSize + index)} />
                     </li>
                   ))}
                 </ol>
@@ -563,7 +563,7 @@ export function NewsPage({ locale }) {
                         }
                       }}
                       key={item.id}
-                      number={(currentPage - 1) * pageSize + index + 1}
+                      number={activeItems.length - ((currentPage - 1) * pageSize + index)}
                       onToggle={() => handleToggleItem(item.id)}
                       opened={expandedId === item.id}
                     />

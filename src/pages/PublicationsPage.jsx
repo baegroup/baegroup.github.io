@@ -147,7 +147,7 @@ function formatCoverDateLabel(item) {
 
 function PublicationInfoPanel({ updatedAt }) {
   return (
-    <section className="space-y-3 border-b border-slate-200 pb-5 text-sm text-slate-700">
+    <section className="space-y-3 border-b border-slate-200 pb-5 text-[0.8125rem] leading-relaxed text-slate-700">
         <p>
           Complete publication list available on{' '}
           <a className="site-text-link" href={SCHOLAR_URL} rel="noreferrer" target="_blank">
@@ -163,10 +163,10 @@ function PublicationInfoPanel({ updatedAt }) {
           .
         </p>
         <div className="h-px bg-slate-200" />
-        <p className="text-xs leading-relaxed text-slate-500">
+        <p className="text-slate-500">
           <span className="font-semibold text-slate-800">Bold</span> indicates Bae Lab authors.
         </p>
-        <div className="space-y-1 text-xs leading-relaxed text-slate-500">
+        <div className="space-y-1 text-slate-500">
           <p>
             <span className="font-semibold text-slate-700">*</span> Corresponding author
           </p>
@@ -174,7 +174,7 @@ function PublicationInfoPanel({ updatedAt }) {
             <span className="font-semibold text-slate-700">†</span> Co-first author
           </p>
         </div>
-        {updatedAt ? <p className="text-xs leading-relaxed text-slate-500">Last updated {updatedAt}</p> : null}
+        {updatedAt ? <p className="text-slate-500">Last updated {updatedAt}</p> : null}
     </section>
   );
 }
@@ -355,22 +355,22 @@ function JournalCoverCarousel({ items }) {
   const journalName = cover.kind === 'manual' ? cover.journal || 'Journal Cover' : cover.publication.journal || cover.publication.venue || '';
   const dateLabel = cover.kind === 'manual' ? formatCoverDateLabel(cover) : cover.publication.year;
   const controls = total > 1 ? (
-    <div className="flex shrink-0 items-center gap-1.5">
+    <div className="flex shrink-0 items-center gap-0.5">
       <button
         aria-label="Previous journal cover"
-        className="site-control inline-flex h-8 w-8 items-center justify-center rounded-md"
+        className="inline-flex h-8 w-7 items-center justify-center bg-transparent p-0 text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/35"
         onClick={goPrev}
         type="button"
       >
-        <ChevronLeft className="h-4 w-4" />
+        <ChevronLeft className="h-[1.125rem] w-[1.125rem]" />
       </button>
       <button
         aria-label="Next journal cover"
-        className="site-control inline-flex h-8 w-8 items-center justify-center rounded-md"
+        className="inline-flex h-8 w-7 items-center justify-center bg-transparent p-0 text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/35"
         onClick={goNext}
         type="button"
       >
-        <ChevronRight className="h-4 w-4" />
+        <ChevronRight className="h-[1.125rem] w-[1.125rem]" />
       </button>
     </div>
   ) : null;

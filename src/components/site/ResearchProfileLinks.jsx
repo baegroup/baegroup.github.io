@@ -16,7 +16,7 @@ export function ResearchProfileLinks({ links = {} }) {
 
   return (
     <section aria-label="Research profiles" className="space-y-3">
-      <h3 className="text-sm font-semibold text-slate-900">Research Profiles</h3>
+      <h3 className="text-lg font-semibold text-slate-900">Research Profiles</h3>
       <div className="grid grid-cols-3 gap-x-2 gap-y-3">
         {items.map((item) => (
           <a className="group flex min-w-0 flex-col items-center gap-1.5 text-center no-underline" href={item.href} key={item.key} rel="noreferrer" target="_blank">

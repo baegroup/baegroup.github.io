@@ -31,7 +31,7 @@ function FeaturedNewsCard({ item, locale }) {
 
   return (
     <Link className="group flex h-full flex-col" to={sectionPath(locale, item.section)}>
-      <div className="h-44 overflow-hidden bg-slate-100">
+      <div className="h-44 overflow-hidden rounded-md border border-slate-200 bg-slate-100">
         {!exhausted ? (
           <img
             alt={item.title}
