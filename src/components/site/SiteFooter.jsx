@@ -29,7 +29,7 @@ export function SiteFooter({ locale }) {
 
   return (
     <footer className="mt-8 border-t border-[#d2cac3] bg-[var(--brand-footer)] text-[#222222]">
-      <div className="mx-auto w-full max-w-6xl px-5 pb-5 pt-8 md:pb-6 md:pt-10">
+      <div className="mx-auto w-full max-w-6xl px-5 pb-5 pt-8 md:pb-6 md:pt-8">
         <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center">
           <div className="text-left">
             <h2 className="text-xl font-semibold leading-tight tracking-tight text-[var(--brand-burgundy)]">{brand.name}</h2>
@@ -52,7 +52,7 @@ export function SiteFooter({ locale }) {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-4 border-t border-[#d8d0c9] pt-5 md:grid-cols-2">
+        <div className="mt-5 grid gap-4 border-t border-[#d8d0c9] pt-4 md:grid-cols-2">
           <div>
             <p className="text-sm font-semibold text-[#55504d]">{labels.address || 'Address'}</p>
             <p className="mt-1 text-sm leading-relaxed text-[#2a2a2a]">{content.address}</p>
