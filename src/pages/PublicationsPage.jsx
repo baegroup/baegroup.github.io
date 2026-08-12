@@ -147,7 +147,7 @@ function formatCoverDateLabel(item) {
 
 function PublicationInfoPanel({ updatedAt }) {
   return (
-    <section className="space-y-3 border-b border-slate-200 pb-5 text-[0.8125rem] leading-relaxed text-slate-700">
+    <section className="space-y-3 border-b border-slate-200 pb-5 text-[0.8125rem] leading-relaxed text-slate-600">
         <p>
           Complete publication list available on{' '}
           <a className="site-text-link" href={SCHOLAR_URL} rel="noreferrer" target="_blank">
@@ -163,15 +163,15 @@ function PublicationInfoPanel({ updatedAt }) {
           .
         </p>
         <div className="h-px bg-slate-200" />
-        <p className="text-slate-500">
+        <p>
           <span className="font-semibold text-slate-800">Bold</span> indicates Bae Lab authors.
         </p>
-        <div className="space-y-1 text-slate-500">
+        <div className="space-y-1">
           <p>
-            <span className="font-semibold text-slate-700">*</span> Corresponding author
+            <span className="font-semibold text-slate-800">*</span> Corresponding author
           </p>
           <p>
-            <span className="font-semibold text-slate-700">†</span> Co-first author
+            <span className="font-semibold text-slate-800">†</span> Co-first author
           </p>
         </div>
         {updatedAt ? <p className="text-slate-500">Last updated {updatedAt}</p> : null}
@@ -179,7 +179,7 @@ function PublicationInfoPanel({ updatedAt }) {
   );
 }
 
-function PreprintSection({ items, labAuthorNames, numberOffset = 0, numbers, title }) {
+function PreprintSection({ items, labAuthorNames, numberOffset = 0, title }) {
   if (!items.length) {
     return null;
   }
@@ -192,7 +192,7 @@ function PreprintSection({ items, labAuthorNames, numberOffset = 0, numbers, tit
       {items.length ? (
         <ol>
           {items.map((item, itemIndex) => {
-            const number = numberOffset + (numbers.get(item.id) || itemIndex + 1);
+            const number = numberOffset + items.length - itemIndex;
             const metadataParts = buildMetadataParts(item);
             const actionLinks = buildActionLinks(item);
             return (
@@ -686,7 +686,6 @@ export function PublicationsPage({ locale }) {
   }, [allItems]);
   const activeNumbers = numbersByType.get(filter) || new Map();
   const journalNumbers = numbersByType.get('journal') || new Map();
-  const preprintNumbers = numbersByType.get('preprint') || new Map();
 
   const updatedAt = useMemo(
     () =>
@@ -800,7 +799,6 @@ export function PublicationsPage({ locale }) {
                     labAuthorNames={labAuthorNames}
                     items={preprintItems}
                     numberOffset={journalNumbers.size}
-                    numbers={preprintNumbers}
                     title={content.preprintTitle || 'Current Manuscripts'}
                   />
                 ) : null}
