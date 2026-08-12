@@ -227,7 +227,7 @@ function PreprintSection({ description, items, labAuthorNames, title }) {
                   ) : null}
 
                   {actionLinks.length ? (
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[var(--brand-navy)]">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-semibold text-[var(--brand-navy)]">
                       {actionLinks.map((link, index) => (
                         <span className="inline-flex items-center gap-x-2" key={`${item.id}-preprint-link-${link.label}-${index}`}>
                           {index > 0 ? <span className="text-slate-400">|</span> : null}
@@ -484,7 +484,7 @@ function PublicationList({ items, numbers, labAuthorNames, sectionLabel, years }
                       ) : null}
 
                       {actionLinks.length ? (
-                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[var(--brand-navy)]">
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-semibold text-[var(--brand-navy)]">
                           {actionLinks.map((link, index) => (
                             <span className="inline-flex items-center gap-x-2" key={`${pub.id}-link-${link.label}-${index}`}>
                               {index > 0 ? <span className="text-slate-400">|</span> : null}

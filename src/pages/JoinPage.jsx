@@ -5,7 +5,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 function OpportunitySection({ body, children, title }) {
   return (
     <section className="space-y-4 border-t border-slate-200 pt-7 first:border-t-0 first:pt-0 md:space-y-5 md:pt-8">
-      <h2 className="home-section-title">{title}</h2>
+      <h2 className="page-section-title">{title}</h2>
       <p className="home-body-copy max-w-[72ch] text-slate-700">{body}</p>
       {children}
     </section>
@@ -45,7 +45,7 @@ export function JoinPage({ locale }) {
       <section className={`space-y-8 py-4 md:space-y-9 md:py-5 lg:space-y-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
           {recruitmentStatuses.length ? (
             <section>
-              <h2 className="home-section-title">{content.recruitmentStatusTitle || 'Current Recruitment Status'}</h2>
+              <h2 className="page-section-title">{content.recruitmentStatusTitle || 'Current Recruitment Status'}</h2>
               <dl className="mt-5 grid gap-3 md:grid-cols-3">
                 {recruitmentStatuses.map(({ label, status }) => {
                   const isOpen = status.toLowerCase() === 'open';
@@ -87,7 +87,7 @@ export function JoinPage({ locale }) {
 
           <section className="space-y-5 border-t border-slate-200 pt-7 md:pt-8">
             <div>
-              <h2 className="home-section-title">{content.applicationTitle || 'How to Apply'}</h2>
+              <h2 className="page-section-title">{content.applicationTitle || 'How to Apply'}</h2>
               <p className="home-body-copy mt-4 max-w-[72ch] text-slate-700">{content.applicationDescription}</p>
             </div>
 

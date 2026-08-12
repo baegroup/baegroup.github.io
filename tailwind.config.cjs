@@ -37,7 +37,7 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ['IBM Plex Sans', 'Noto Sans KR', 'sans-serif']
+        sans: ['IBM Plex Sans Variable', 'IBM Plex Sans', 'Noto Sans KR Variable', 'Noto Sans KR', 'sans-serif']
       },
       boxShadow: {
         soft: '0 20px 48px -30px rgba(2, 6, 23, 0.25)'

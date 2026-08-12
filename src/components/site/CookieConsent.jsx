@@ -21,7 +21,7 @@ function ToggleRow({ checked, description, disabled = false, label, onChange }) 
     <div className="flex items-start justify-between gap-3 rounded-lg border border-slate-200 bg-white p-3">
       <div>
         <label className="text-sm font-semibold text-slate-900" htmlFor={inputId}>{label}</label>
-        <p className="mt-1 text-xs leading-relaxed text-slate-600" id={descriptionId}>{description}</p>
+        <p className="mt-1 text-sm leading-relaxed text-slate-600" id={descriptionId}>{description}</p>
       </div>
 
       <label className="relative mt-0.5 inline-flex cursor-pointer items-center">
@@ -124,7 +124,7 @@ export function CookieConsent() {
             <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
               <div>
                 <p className="text-sm font-semibold text-slate-900 md:text-base">Cookie Notice</p>
-                <p className="mt-1 text-xs leading-relaxed text-slate-600 md:text-sm">
+                <p className="mt-1 text-sm leading-relaxed text-slate-600">
                   We use cookies to improve performance, analyze traffic, and personalize content.
                   You can accept all, keep only essential cookies, or customize preferences.
                 </p>
@@ -132,21 +132,21 @@ export function CookieConsent() {
 
               <div className="flex flex-wrap gap-2">
                 <button
-                  className="rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+                  className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                   onClick={acceptEssential}
                   type="button"
                 >
                   Essential Only
                 </button>
                 <button
-                  className="rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+                  className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                   onClick={() => setShowPanel(true)}
                   type="button"
                 >
                   Customize
                 </button>
                 <button
-                  className="rounded-md bg-[var(--brand-navy)] px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-[var(--brand-navy-deep)]"
+                  className="rounded-md bg-[var(--brand-burgundy)] px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--brand-burgundy-deep)]"
                   onClick={acceptAll}
                   type="button"
                 >
@@ -168,13 +168,13 @@ export function CookieConsent() {
             <div className="mb-3 flex items-start justify-between gap-2">
               <div>
                 <p className="text-base font-semibold text-slate-900" id="cookie-preferences-title">Manage Cookies</p>
-                <p className="mt-1 text-xs leading-relaxed text-slate-600">
+                <p className="mt-1 text-sm leading-relaxed text-slate-600">
                   Choose which cookies you allow for this website.
                 </p>
               </div>
               <button
                 aria-label="Close cookie preferences"
-                className="rounded-md border border-slate-300 px-2 py-1 text-xs font-semibold text-slate-600 transition-colors hover:bg-slate-50"
+                className="rounded-md border border-slate-300 px-2 py-1 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-50"
                 onClick={() => setShowPanel(false)}
                 type="button"
               >
@@ -205,14 +205,14 @@ export function CookieConsent() {
 
             <div className="mt-4 flex flex-wrap justify-end gap-2">
               <button
-                className="rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+                className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                 onClick={acceptEssential}
                 type="button"
               >
                 Essential Only
               </button>
               <button
-                className="rounded-md border border-[var(--brand-navy)] bg-[var(--brand-navy)] px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-[var(--brand-navy-deep)]"
+                className="rounded-md border border-[var(--brand-burgundy)] bg-[var(--brand-burgundy)] px-3 py-2 text-sm font-semibold text-white transition-colors hover:border-[var(--brand-burgundy-deep)] hover:bg-[var(--brand-burgundy-deep)]"
                 onClick={saveCustom}
                 type="button"
               >

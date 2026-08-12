@@ -53,12 +53,12 @@ export function SiteFooter({ locale }) {
 
         <div className="mt-6 grid gap-4 border-t border-[#e1e1e1] pt-5 md:grid-cols-2">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#717171]">{labels.address || 'Address'}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#717171]">{labels.address || 'Address'}</p>
             <p className="mt-1 text-sm leading-relaxed text-[#2a2a2a]">{content.address}</p>
           </div>
 
           <div className="md:justify-self-stretch md:text-right">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#717171]">{labels.email || 'Email'}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#717171]">{labels.email || 'Email'}</p>
             <a className="mt-1 inline-block text-sm text-[#2a2a2a] no-underline transition-colors hover:text-[var(--brand-burgundy)]" href="mailto:jbae@khu.ac.kr">
               jbae@khu.ac.kr
             </a>

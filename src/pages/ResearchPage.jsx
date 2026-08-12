@@ -89,7 +89,7 @@ function ResearchAreaRow({ area, index }) {
 
         <div className="space-y-3">
           <p className="font-sans text-sm font-semibold leading-none tracking-[0.1em] text-[var(--brand-navy)] tabular-nums">{String(index + 1).padStart(2, '0')}</p>
-          <h3 className="home-section-title">{area.title}</h3>
+          <h3 className="page-section-title">{area.title}</h3>
           <p className="home-body-copy max-w-[68ch] text-slate-700">{area.body}</p>
         </div>
       </div>
@@ -144,7 +144,7 @@ export function ResearchPage({ locale }) {
       <PageHero title={content.title} />
 
       <section className={`rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7 ${missionReveal.revealClassName}`} ref={missionReveal.ref} style={missionReveal.revealStyle}>
-        <h2 className="home-section-title text-center">{missionTitle}</h2>
+        <h2 className="page-section-title text-center">{missionTitle}</h2>
         <p className="home-body-copy mx-auto mt-5 max-w-4xl text-slate-700">{content.description}</p>
       </section>
 
