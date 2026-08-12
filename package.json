@@ -13,6 +13,7 @@
     "publish": "node scripts/publish-content.mjs",
     "publish:cms": "npm run cms:sync:notion && npm run publish",
     "publish:dry": "node scripts/publish-content.mjs --dry-run",
+    "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "check": "node scripts/validate-site.mjs",
     "predev": "npm run content:build",
     "prebuild": "npm run content:build",

@@ -67,6 +67,38 @@ function escapeHtml(value) {
     .replace(/"/g, '&quot;');
 }
 
+function rssDate(value) {
+  const date = new Date(`${value || ''}T00:00:00Z`);
+  return Number.isNaN(date.getTime()) ? new Date().toUTCString() : date.toUTCString();
+}
+
+function buildRssItems(news) {
+  const sectionNames = {
+    labNews: 'Research Highlight',
+    gallery: 'Lab Life',
+    videos: 'Video'
+  };
+
+  return Object.entries(news?.sections || {})
+    .flatMap(([section, items]) => (Array.isArray(items) ? items : []).map((item) => ({ section, item })))
+    .sort((a, b) => String(b.item.date || '').localeCompare(String(a.item.date || '')))
+    .map(({ section, item }) => {
+      const itemUrl = absoluteSiteUrl(newsItemPath(section, item));
+      const description = normalizeDescription(
+        item.summary,
+        `${item.title}. ${sectionNames[section] || 'News'} from Bae Lab at Kyung Hee University.`
+      );
+      return `  <item>
+    <title>${escapeHtml(item.title)}</title>
+    <link>${escapeHtml(itemUrl)}</link>
+    <guid isPermaLink="true">${escapeHtml(itemUrl)}</guid>
+    <description>${escapeHtml(description)}</description>
+    <category>${escapeHtml(sectionNames[section] || 'News')}</category>
+    <pubDate>${rssDate(item.date)}</pubDate>
+  </item>`;
+    });
+}
+
 function normalizeDescription(value, fallback) {
   const normalized = String(value || '')
     .replace(/\s+/g, ' ')
@@ -282,7 +314,21 @@ ${routes.map((route) => {
 }).join('\n')}
 </urlset>\n`;
 
+const rssItems = buildRssItems(news);
+const rss = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>${escapeHtml(SITE_NAME)} News</title>
+  <link>${SITE_URL}/news/</link>
+  <description>경희대학교 화학공학과 배재형 교수 연구실의 연구 성과, 수상, 학회 활동 및 연구실 소식입니다.</description>
+  <language>ko-KR</language>
+  <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />
+${rssItems.join('\n')}
+</channel>
+</rss>\n`;
+
 await writeFile(path.join(DIST_DIR, 'sitemap.xml'), sitemap);
+await writeFile(path.join(DIST_DIR, 'rss.xml'), rss);
 await writeFile(
   path.join(DIST_DIR, 'robots.txt'),
   `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
@@ -292,4 +338,4 @@ await writeFile(
   `${JSON.stringify(routes.map((route) => route.path), null, 2)}\n`
 );
 
-console.log(`Generated route HTML: ${routes.length} indexable pages, ${LEGACY_REDIRECTS.length} legacy redirects, sitemap.xml, robots.txt`);
+console.log(`Generated route HTML: ${routes.length} indexable pages, ${LEGACY_REDIRECTS.length} legacy redirects, sitemap.xml, rss.xml, robots.txt`);

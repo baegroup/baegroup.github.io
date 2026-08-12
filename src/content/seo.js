@@ -9,7 +9,7 @@ export const SEO_ROUTES = [
     path: '/',
     title: 'Bae Lab | 배재형 교수 연구실 · 경희대학교',
     description:
-      'Bae Lab at Kyung Hee University develops functional materials and advanced additive manufacturing for energy, environmental, and biomedical applications.'
+      '경희대학교 화학공학과 배재형 교수 연구실(Bae Lab)은 기능성 소재와 첨단 적층제조를 기반으로 에너지·환경·바이오 응용을 연구합니다.'
   },
   {
     path: '/team',
@@ -19,9 +19,9 @@ export const SEO_ROUTES = [
   },
   {
     path: '/team/jaehyeong-bae',
-    title: 'Jaehyeong Bae (배재형) | Bae Lab · Kyung Hee University',
+    title: '배재형 교수 (Jaehyeong Bae) | Bae Lab · 경희대학교',
     description:
-      'Professor Jaehyeong Bae leads multidisciplinary research in functional materials, additive manufacturing, energy, environmental science, and biomedical devices.'
+      '경희대학교 화학공학과 배재형 교수는 기능성 소재와 첨단 적층제조를 기반으로 에너지·환경·바이오 응용을 연구합니다.'
   },
   {
     path: '/team/members',
@@ -131,7 +131,8 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
     },
     sameAs: [
       'https://www.instagram.com/baelab.khu/',
-      'https://www.linkedin.com/in/baelabkhu/'
+      'https://www.linkedin.com/in/baelabkhu/',
+      'https://app.rndcircle.io/lab/48cf15b1-76b5-4046-8020-09b4d10e184a'
     ]
   };
 

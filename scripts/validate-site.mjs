@@ -157,6 +157,11 @@ const indexHtml = await fs.readFile(path.join(ROOT, 'index.html'), 'utf8');
 report(indexHtml.includes('<!-- route-meta:start -->'), 'SEO: route metadata start marker is missing');
 report(indexHtml.includes('<!-- route-meta:end -->'), 'SEO: route metadata end marker is missing');
 report(indexHtml.includes('name="google-site-verification"'), 'SEO: Google site verification tag is missing');
+report(indexHtml.includes('type="application/rss+xml"'), 'SEO: RSS discovery link is missing');
+
+const indexNowKey = 'b8c8c3711f534ca7a1ac73822002d8a4';
+const indexNowKeyFile = await fs.readFile(path.join(PUBLIC_DIR, `${indexNowKey}.txt`), 'utf8');
+report(indexNowKeyFile.trim() === indexNowKey, 'SEO: IndexNow verification key file is invalid');
 
 for (const filePath of await listFiles(path.join(PUBLIC_DIR, 'assets'))) {
   const stats = await fs.stat(filePath);
