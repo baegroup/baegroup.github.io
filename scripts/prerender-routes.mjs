@@ -140,11 +140,21 @@ async function renderRoute(debugPort, route) {
     let html = '';
     while (Date.now() < deadline) {
       const result = await command('Runtime.evaluate', {
-        expression: `(() => ({html: document.documentElement.outerHTML, ready: document.readyState === 'complete' && !document.body.innerText.includes('Loading news feed...') && !document.body.innerText.includes('Loading publications...') && !document.body.innerText.includes('Loading team profiles...')}))()`,
+        expression: `(() => {
+          const root = document.getElementById('root');
+          return {
+            html: document.documentElement.outerHTML,
+            ready: document.readyState === 'complete'
+              && Boolean(root?.firstElementChild)
+              && !document.body.innerText.includes('Loading news feed...')
+              && !document.body.innerText.includes('Loading publications...')
+              && !document.body.innerText.includes('Loading team profiles...')
+          };
+        })()`,
         returnByValue: true
       });
       html = result.result?.value?.html || '';
-      if (result.result?.value?.ready && html.includes('<div id="root">')) return html;
+      if (result.result?.value?.ready) return html;
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
     throw new Error(`Timed out while rendering ${route}`);
