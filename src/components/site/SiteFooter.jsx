@@ -37,9 +37,9 @@ export function SiteFooter({ locale }) {
             {description ? <p className="mt-1 text-xs uppercase tracking-[0.12em] text-[#717171]">{description}</p> : null}
             <p className="mt-2 text-sm text-[#4a4a4a]">{koreanIdentityLabel}</p>
           </div>
-          <div className="md:justify-self-end">
+          <div className="md:justify-self-stretch md:text-right">
             <p className="text-xs font-medium uppercase tracking-[0.12em] text-[#717171]">{quickLinksLabel}</p>
-            <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5">
+            <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5 md:justify-end">
               {quickLinks.map((item) => (
                 <li key={item.slug || 'home'}>
                   <Link className="text-sm text-[#4a4a4a] no-underline transition-colors hover:text-[#0d326f]" to={pagePath(locale, item.slug)}>
@@ -57,7 +57,7 @@ export function SiteFooter({ locale }) {
             <p className="mt-1 text-sm leading-relaxed text-[#2a2a2a]">{content.address}</p>
           </div>
 
-          <div className="md:justify-self-end md:text-right">
+          <div className="md:justify-self-stretch md:text-right">
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#717171]">{labels.email || 'Email'}</p>
             <a className="mt-1 inline-block text-sm text-[#2a2a2a] no-underline transition-colors hover:text-[#ad1d19]" href="mailto:jbae@khu.ac.kr">
               jbae@khu.ac.kr
@@ -67,7 +67,7 @@ export function SiteFooter({ locale }) {
 
         <div className="mt-6 border-t border-[#e1e1e1] pt-4 text-xs text-[#717171] md:flex md:items-center md:justify-between">
           <p>© {year} {brand.name}. {rightsLabel}</p>
-          <div className="mt-1 flex items-center gap-4 md:mt-0">
+          <div className="mt-1 flex items-center gap-4 md:mt-0 md:justify-end md:text-right">
             <p>{affiliationLabel}</p>
             <button
               className="text-xs font-semibold text-[#4a4a4a] underline-offset-2 transition-colors hover:text-[#0d326f] hover:underline"
