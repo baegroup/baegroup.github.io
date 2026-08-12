@@ -21,7 +21,7 @@ function DetailList({ items, title }) {
   if (!items.length) return null;
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-5 md:p-6">
+    <div className="py-5 md:py-6 md:first:pr-8 md:last:pl-8">
       <h3 className="text-base font-semibold text-slate-900 md:text-lg">{title}</h3>
       <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700 marker:text-[var(--brand-burgundy)] md:text-base">
         {items.map((item) => <li key={item}>{item}</li>)}
@@ -46,14 +46,15 @@ export function JoinPage({ locale }) {
           {recruitmentStatuses.length ? (
             <section>
               <h2 className="page-section-title">{content.recruitmentStatusTitle || 'Current Recruitment Status'}</h2>
-              <dl className="mt-5 grid gap-3 md:grid-cols-3">
+              <dl className="mt-5 grid divide-y divide-slate-200 border-y border-slate-200 md:grid-cols-3 md:divide-x md:divide-y-0">
                 {recruitmentStatuses.map(({ label, status }) => {
                   const isOpen = status.toLowerCase() === 'open';
 
                   return (
-                    <div className="rounded-lg border border-slate-200 bg-white p-4 md:p-5" key={label}>
+                    <div className="flex items-center justify-between gap-5 py-4 md:block md:px-5 md:py-5 md:first:pl-0 md:last:pr-0" key={label}>
                       <dt className="text-sm font-semibold leading-snug text-slate-900">{label}</dt>
-                      <dd className={`mt-3 inline-flex rounded-full px-3 py-1 text-xs font-semibold ${isOpen ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-900'}`}>
+                      <dd className={`inline-flex shrink-0 items-center gap-2 text-xs font-semibold md:mt-3 ${isOpen ? 'text-emerald-800' : 'text-amber-900'}`}>
+                        <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${isOpen ? 'bg-emerald-600' : 'bg-amber-600'}`} />
                         {status}
                       </dd>
                     </div>
@@ -91,7 +92,7 @@ export function JoinPage({ locale }) {
               <p className="home-body-copy mt-4 max-w-[72ch] text-slate-700">{content.applicationDescription}</p>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid divide-y divide-slate-200 border-y border-slate-200 md:grid-cols-2 md:divide-x md:divide-y-0">
               <DetailList items={applicationMaterials} title={content.applicationMaterialsTitle || 'Application Materials'} />
               <DetailList items={desiredPrograms} title={content.desiredProgramsTitle || 'Desired Position or Program'} />
             </div>

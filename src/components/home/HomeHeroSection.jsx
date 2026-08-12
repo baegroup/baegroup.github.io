@@ -22,7 +22,7 @@ export function HomeHeroSection({ content, revealDelay = 0 }) {
       </picture>
       <div className="absolute inset-0 bg-[linear-gradient(92deg,rgba(7,20,43,0.76)_0%,rgba(9,31,66,0.62)_34%,rgba(13,50,111,0.42)_66%,rgba(255,255,255,0.08)_100%)]" />
 
-      <div className="home-hero-copy relative z-10 px-6 py-10 md:px-10 md:py-14">
+      <div className="home-hero-copy relative z-10 flex min-h-[22rem] flex-col justify-center px-6 py-12 md:min-h-[25rem] md:px-10 md:py-16">
         <h1 className="home-display-hero max-w-4xl text-white">{content.title}</h1>
         <p className="mt-5 max-w-3xl text-base leading-relaxed text-white/90 md:text-lg">{content.description}</p>
       </div>

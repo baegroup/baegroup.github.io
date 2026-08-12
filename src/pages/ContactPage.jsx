@@ -20,7 +20,7 @@ export function ContactPage({ locale }) {
     <div className="space-y-5 md:space-y-6">
       <PageHero description={content.description} title={content.title} />
 
-      <section className="rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7">
+      <section className="py-4 md:py-5">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
           <div>
             <h2 className="page-section-title">{content.leftTitle}</h2>

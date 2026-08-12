@@ -7,6 +7,7 @@ import { PageSectionNav } from '@/components/site/PageSectionNav';
 import { NEWS_CONTENT } from '@/content/site-content';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { loadNewsFeed } from '@/lib/data';
+import { formatItemNumber } from '@/lib/format';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const SECTION_IDS = ['labNews', 'gallery', 'videos'];
@@ -185,7 +186,7 @@ function toYouTubeEmbedUrl(value) {
   return '';
 }
 
-function VideoCard({ item }) {
+function VideoCard({ item, number }) {
   const primaryVideoUrl = item.videoUrl || item.url;
   const youtubeEmbed = toYouTubeEmbedUrl(primaryVideoUrl);
   const fallbackImage = item.images?.[0] || '';
@@ -208,21 +209,24 @@ function VideoCard({ item }) {
         )}
       </div>
 
-      <div className="space-y-2 p-4">
-        <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date || '-'}</p>
-        <h3 className="text-xl font-semibold leading-snug text-slate-950">{item.title}</h3>
-        {item.summary ? <p className="text-sm leading-relaxed text-slate-600">{item.summary}</p> : null}
-        {primaryVideoUrl ? (
-          <a className="site-text-link inline-flex text-sm" href={primaryVideoUrl} rel="noreferrer" target="_blank">
-            Open video source
-          </a>
-        ) : null}
+      <div className="grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 p-4">
+        <span className="pt-0.5 text-xs font-semibold tracking-[0.04em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(number)}</span>
+        <div className="space-y-2">
+          <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date || '-'}</p>
+          <h3 className="text-xl font-semibold leading-snug text-slate-950">{item.title}</h3>
+          {item.summary ? <p className="text-sm leading-relaxed text-slate-600">{item.summary}</p> : null}
+          {primaryVideoUrl ? (
+            <a className="site-text-link inline-flex text-sm" href={primaryVideoUrl} rel="noreferrer" target="_blank">
+              Open video source
+            </a>
+          ) : null}
+        </div>
       </div>
     </article>
   );
 }
 
-function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }) {
+function NewsItemRow({ compactPreview = false, item, itemRef, number, onToggle, opened }) {
   const youtubeEmbed = toYouTubeEmbedUrl(item.videoUrl || item.url);
   const hasDetailContent = Boolean(item.summary || item.url || item.videoUrl || (item.images || []).length);
   const firstImage = item.images?.[0] || '';
@@ -236,7 +240,8 @@ function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }
         onClick={onToggle}
         type="button"
       >
-        <div className={`grid items-center gap-3 ${compactPreview ? 'grid-cols-[64px_minmax(0,1fr)_auto] md:grid-cols-[72px_minmax(0,1fr)_auto] md:gap-4' : 'grid-cols-[minmax(0,1fr)_auto]'}`}>
+        <div className={`grid items-center gap-3 ${compactPreview ? 'grid-cols-[2.125rem_64px_minmax(0,1fr)_auto] md:grid-cols-[2.125rem_72px_minmax(0,1fr)_auto] md:gap-4' : 'grid-cols-[2.125rem_minmax(0,1fr)_auto]'}`}>
+          <span className="text-xs font-semibold tracking-[0.04em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(number)}</span>
           {compactPreview ? (
             <div className="flex items-center justify-center">
               <MediaImage path={firstImage} title={item.title} variant="thumb" />
@@ -486,7 +491,7 @@ export function NewsPage({ locale }) {
             items={sections}
             onChange={setActiveSection}
           />
-          <p aria-live="polite" className="ml-auto text-right text-[0.7rem] font-normal tracking-[0.015em] text-slate-400">
+          <p aria-live="polite" className="ml-auto text-right text-[0.7rem] font-normal text-slate-400">
             <span>{activeItems.length} items</span>
             {updatedAt ? (
               <>
@@ -498,25 +503,27 @@ export function NewsPage({ locale }) {
         </div>
       </PageHero>
 
-      <div className={`grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,340px)] lg:items-start lg:gap-8 xl:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
+      <div className={`grid gap-6 lg:grid-cols-[minmax(0,1fr)_232px] lg:items-start lg:gap-8 xl:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
         <aside className="order-2 lg:self-start">
           <div className="space-y-4 xl:sticky xl:top-28">
             {latestInstagramEmbedUrl || latestInstagramImage ? (
               <section className="space-y-3">
                 {latestInstagramEmbedUrl ? (
-                  <div className="mx-auto w-full max-w-[340px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1">
-                    <iframe
-                      allowTransparency
-                      className="block h-[590px] w-full"
-                      loading="lazy"
-                      scrolling="no"
-                      src={latestInstagramEmbedUrl}
-                      style={{ border: 0 }}
-                      title={latestInstagramPost?.title || 'Instagram embed'}
-                    />
+                  <div className="mx-auto w-full max-w-[340px] overflow-hidden rounded-lg border border-slate-200 bg-white lg:h-[401px] lg:max-w-[232px]">
+                    <div className="h-[590px] w-full lg:w-[340px] lg:origin-top-left lg:scale-[0.676]">
+                      <iframe
+                        allowTransparency
+                        className="block h-full w-full"
+                        loading="lazy"
+                        scrolling="no"
+                        src={latestInstagramEmbedUrl}
+                        style={{ border: 0 }}
+                        title={latestInstagramPost?.title || 'Instagram embed'}
+                      />
+                    </div>
                   </div>
                 ) : (
-                  <a className="mx-auto block w-full max-w-[340px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
+                  <a className="mx-auto block w-full max-w-[340px] overflow-hidden rounded-lg border border-slate-200 bg-white lg:max-w-[232px]" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
                     <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
                   </a>
                 )}
@@ -535,14 +542,16 @@ export function NewsPage({ locale }) {
           {!loading && !error && activeItems.length > 0 ? (
             <div className="space-y-3">
               {activeSection === 'videos' ? (
-                <div className="grid gap-4 md:grid-cols-2">
-                  {paginatedItems.map((item) => (
-                    <VideoCard item={item} key={item.id} />
+                <ol className="grid gap-4 md:grid-cols-2">
+                  {paginatedItems.map((item, index) => (
+                    <li key={item.id}>
+                      <VideoCard item={item} number={(currentPage - 1) * pageSize + index + 1} />
+                    </li>
                   ))}
-                </div>
+                </ol>
               ) : (
-                <ul className="divide-y divide-slate-200 border-y border-slate-200">
-                  {paginatedItems.map((item) => (
+                <ol className="divide-y divide-slate-200 border-y border-slate-200">
+                  {paginatedItems.map((item, index) => (
                     <NewsItemRow
                       compactPreview={activeSection === 'labNews' || activeSection === 'gallery'}
                       item={item}
@@ -554,11 +563,12 @@ export function NewsPage({ locale }) {
                         }
                       }}
                       key={item.id}
+                      number={(currentPage - 1) * pageSize + index + 1}
                       onToggle={() => handleToggleItem(item.id)}
                       opened={expandedId === item.id}
                     />
                   ))}
-                </ul>
+                </ol>
               )}
 
               {pageCount > 1 ? (

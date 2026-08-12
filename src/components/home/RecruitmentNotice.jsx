@@ -114,7 +114,7 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
         <GraduationCap aria-hidden="true" className="h-5 w-5" />
       </span>
       <span className="recruitment-notice-badge-copy overflow-hidden whitespace-nowrap">
-        <span className="hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--brand-burgundy)] sm:block">Now Recruiting</span>
+        <span className="hidden text-[10px] font-semibold uppercase tracking-[0.10em] text-[var(--brand-burgundy)] sm:block">Now Recruiting</span>
         <span className="block text-xs font-semibold text-slate-900 sm:mt-0.5 sm:text-sm">Graduate Students</span>
       </span>
     </>
@@ -136,7 +136,7 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
             <X aria-hidden="true" className="h-4 w-4" />
           </button>
 
-          <p className="flex items-center gap-2 pr-9 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--brand-burgundy)]">
+          <p className="flex items-center gap-2 pr-9 text-[11px] font-semibold uppercase tracking-[0.10em] text-[var(--brand-burgundy)]">
             <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[var(--brand-burgundy)]" />
             {content.recruitmentNoticeEyebrow || 'Now Recruiting'}
           </p>
@@ -147,13 +147,15 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
             {content.recruitmentNoticeDescription || 'M.S. · Ph.D. · Integrated M.S.–Ph.D.'}
           </p>
 
-          <Link
-            className="mt-4 inline-flex min-h-10 items-center justify-center rounded-full bg-[var(--brand-burgundy)] px-4 py-2 text-sm font-semibold text-white no-underline transition-colors hover:bg-[var(--brand-burgundy-deep)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2"
-            onClick={closeNotice}
-            to={pagePath(locale, 'join')}
-          >
-            {content.recruitmentNoticeCta || 'View Details'}
-          </Link>
+          <div className="site-action-links mt-4">
+            <Link
+              className="site-action-link"
+              onClick={closeNotice}
+              to={pagePath(locale, 'join')}
+            >
+              {content.recruitmentNoticeCta || 'View Details'}
+            </Link>
+          </div>
         </aside>
       ) : null}
 

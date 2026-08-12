@@ -9,7 +9,7 @@ Team
 People and culture at the lab.
 
 ## aboutTitle
-Lab Identity
+About Our Lab
 
 ## aboutBody
 Introduce the team in one concise paragraph.
@@ -39,7 +39,7 @@ Staff
 Alumni
 
 ## jumpNav
-- identity | Lab Identity
+- identity | About Our Lab
 - professor | Professor
 - current | Current Students
 - staff | Staff

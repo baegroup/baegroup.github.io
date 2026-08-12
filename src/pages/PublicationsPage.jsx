@@ -7,6 +7,7 @@ import { ResearchProfileLinks } from '@/components/site/ResearchProfileLinks';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { PUBLICATIONS_CONTENT } from '@/content/site-content';
 import { loadPublicationCovers, loadPublications, loadResearchProfileLinks, publicationTypeLabels } from '@/lib/data';
+import { formatItemNumber } from '@/lib/format';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const COVER_IMAGE_BASE = 'assets/img/publications/covers';
@@ -178,7 +179,7 @@ function PublicationInfoPanel({ updatedAt }) {
   );
 }
 
-function PreprintSection({ items, labAuthorNames, title }) {
+function PreprintSection({ items, labAuthorNames, numberOffset = 0, numbers, title }) {
   if (!items.length) {
     return null;
   }
@@ -189,12 +190,14 @@ function PreprintSection({ items, labAuthorNames, title }) {
         {title || 'Current Manuscripts'}
       </h2>
       {items.length ? (
-        <ul>
-          {items.map((item) => {
+        <ol>
+          {items.map((item, itemIndex) => {
+            const number = numberOffset + (numbers.get(item.id) || itemIndex + 1);
             const metadataParts = buildMetadataParts(item);
             const actionLinks = buildActionLinks(item);
             return (
-              <li className="border-b border-slate-200 py-5" key={item.id}>
+              <li className="grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b border-slate-200 py-5" key={item.id}>
+                <span className="pt-1 text-xs font-semibold tracking-[0.04em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(number)}</span>
                 <div className="space-y-2">
                   <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">
                     {item.localizedTitle}
@@ -240,7 +243,7 @@ function PreprintSection({ items, labAuthorNames, title }) {
               </li>
             );
           })}
-        </ul>
+        </ol>
       ) : (
         <p className="text-sm text-slate-500">No preprints added yet.</p>
       )}
@@ -464,7 +467,7 @@ function PublicationList({ items, numbers, labAuthorNames, years }) {
 
                 return (
                   <li className="grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b border-slate-200 py-5" key={pub.id}>
-                    <span className="pt-1 text-xs font-semibold tracking-[0.05em] text-[var(--brand-burgundy)] tabular-nums">{number}</span>
+                    <span className="pt-1 text-xs font-semibold tracking-[0.04em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(number)}</span>
                     <div className="space-y-2">
                       <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">
                         {pub.localizedTitle}
@@ -683,6 +686,7 @@ export function PublicationsPage({ locale }) {
   }, [allItems]);
   const activeNumbers = numbersByType.get(filter) || new Map();
   const journalNumbers = numbersByType.get('journal') || new Map();
+  const preprintNumbers = numbersByType.get('preprint') || new Map();
 
   const updatedAt = useMemo(
     () =>
@@ -789,12 +793,14 @@ export function PublicationsPage({ locale }) {
           ) : null}
 
           {!loading && !error && items.length > 0 ? (
-            <div className="grid min-w-0 grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.84fr)_minmax(220px,0.62fr)] xl:items-start xl:gap-10">
+            <div className="grid min-w-0 grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_232px] lg:items-start lg:gap-8 xl:gap-10">
               <div className="min-w-0 space-y-4">
                 {showPreprintSection && currentPublicationPage === 1 ? (
                   <PreprintSection
                     labAuthorNames={labAuthorNames}
                     items={preprintItems}
+                    numberOffset={journalNumbers.size}
+                    numbers={preprintNumbers}
                     title={content.preprintTitle || 'Current Manuscripts'}
                   />
                 ) : null}
@@ -814,7 +820,7 @@ export function PublicationsPage({ locale }) {
                 </div>
               </div>
 
-              <aside className="xl:self-start">
+              <aside className="lg:self-start">
                 <div className="xl:sticky xl:top-24">
                   <PublicationInfoPanel updatedAt={updatedAt} />
 

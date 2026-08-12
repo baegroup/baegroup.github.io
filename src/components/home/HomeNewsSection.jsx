@@ -86,7 +86,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
         <div className={featuredItems.length && listItems.length ? 'grid lg:grid-cols-[minmax(0,1.16fr)_minmax(0,1fr)]' : 'grid'}>
           {featuredItems.length ? (
             <div className={listItems.length ? 'border-b border-slate-200 pb-6 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-8' : ''}>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand-navy)]">Featured</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.10em] text-[var(--brand-navy)]">Featured</p>
               <div className="reveal-stagger grid gap-5 sm:grid-cols-2">
                 {featuredItems.map((item) => (
                   <FeaturedNewsCard item={item} key={`${item.id || item.title}-featured`} locale={locale} />
@@ -98,7 +98,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
           {listItems.length ? (
             <div className={featuredItems.length ? 'pt-6 lg:pl-8 lg:pt-0' : ''}>
               <div className="pb-2">
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand-navy)]">{listLabel}</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.10em] text-[var(--brand-navy)]">{listLabel}</p>
               </div>
               <ul className="reveal-stagger divide-y divide-slate-200">
                 {listItems.map((item) => (

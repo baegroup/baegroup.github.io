@@ -5,6 +5,7 @@ import { PageHero } from '@/components/site/PageHero';
 import { PageSectionNav } from '@/components/site/PageSectionNav';
 import { TEAM_CONTENT } from '@/content/site-content';
 import { loadTeamProfiles } from '@/lib/data';
+import { formatItemNumber } from '@/lib/format';
 import { pagePath } from '@/lib/i18n';
 
 const DEFAULT_JUMP_NAV = [
@@ -23,9 +24,6 @@ const GRAD_PROGRAM_ORDER = { MSPhD: 0, PhD: 1, MS: 2 };
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const LAB_GROUP_IMAGE_BASE = 'assets/img/team/group/group-photo';
 const FEARLESS_IMAGE_BASE = 'assets/img/team/culture/fearless-organization';
-const IDENTITY_COPY = {
-  aboutHeading: 'About Our Team'
-};
 const MEMBER_FIELD_LABELS = {
   course: 'Course',
   joining: 'Lab Tenure',
@@ -328,7 +326,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
               <button
                 aria-controls={detailId}
                 aria-expanded={expanded}
-                className="group inline-flex items-center gap-1.5 text-left text-xs font-semibold tracking-[0.02em] text-slate-500 transition-colors hover:text-[var(--brand-navy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/30 focus-visible:ring-offset-2"
+                className="group inline-flex items-center gap-1.5 text-left text-xs font-semibold text-slate-500 transition-colors hover:text-[var(--brand-navy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/30 focus-visible:ring-offset-2"
                 onClick={() => setExpanded((prev) => !prev)}
                 type="button"
               >
@@ -380,7 +378,7 @@ function Principles({ principles }) {
     <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2 md:gap-y-10">
       {principles.map((item, index) => (
         <article className="grid min-w-0 grid-cols-[2rem_minmax(0,1fr)] gap-x-4" key={item.title}>
-          <p className="pt-1 text-xs font-semibold tracking-[0.12em] text-[var(--brand-burgundy)] tabular-nums">{String(index + 1).padStart(2, '0')}</p>
+          <p className="pt-1 text-xs font-semibold tracking-[0.08em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(index + 1)}</p>
           <div className="min-w-0">
             <h3 className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">{item.title}</h3>
             <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">{item.body}</p>
@@ -549,7 +547,7 @@ function ProfessorShowcase({ professor }) {
 
 export function TeamPage({ locale }) {
   const content = TEAM_CONTENT[locale] || TEAM_CONTENT.en;
-  const identityCopy = IDENTITY_COPY;
+  const identityCopy = { aboutHeading: content.aboutTitle || 'About Our Lab' };
   const [currentGroups, setCurrentGroups] = useState([]);
   const [alumniGroups, setAlumniGroups] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -7,7 +7,7 @@ Team
 People and culture at Bae Lab.
 
 ## aboutTitle
-Lab Identity
+About Our Lab
 
 ## aboutBody
 We are a multidisciplinary team of undergraduate, graduate, and postdoctoral researchers with expertise in chemical engineering, materials science, fluid mechanics, additive manufacturing, and carbon capture. We pursue a highly innovative and collaborative research environment, and we strongly value the different backgrounds, experiences, skills, and cultures in our team.
@@ -37,7 +37,7 @@ Staff
 Alumni
 
 ## jumpNav
-- identity | Lab Identity
+- identity | About Our Lab
 - professor | Professor
 - current | Current Students
 - staff | Staff

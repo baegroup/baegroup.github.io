@@ -12,6 +12,8 @@ export function SiteHeader({ locale }) {
   const [scrolled, setScrolled] = useState(false);
   const brand = BRAND[locale] || BRAND.en || {};
   const tagline = (brand.tagline || '').trim() || 'Functional Materials Additive Manufacturing';
+  const taglineMatch = tagline.match(/^(Functional Materials)\s+(Additive Manufacturing)$/i);
+  const taglineLines = taglineMatch ? [taglineMatch[1], taglineMatch[2]] : [tagline];
   const universityLabel = 'Kyung Hee University';
   const affiliationLabel = 'Department of Chemical Engineering';
   const universityUrl = 'https://www.khu.ac.kr';
@@ -61,7 +63,7 @@ export function SiteHeader({ locale }) {
             {universityLabel}
           </a>
           <a
-            className={`${topLinkBaseClass} text-xs font-medium tracking-[0.08em] text-white/80 hover:text-white max-md:hidden`}
+            className={`${topLinkBaseClass} text-xs font-medium tracking-[0.025em] text-white/80 hover:text-white max-md:hidden`}
             href={departmentUrl}
             rel="noreferrer"
             target="_blank"
@@ -85,7 +87,13 @@ export function SiteHeader({ locale }) {
             src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`}
             width="96"
           />
-          <p className="max-w-[360px] text-xs font-medium uppercase leading-5 tracking-[0.10em] text-slate-600 max-md:hidden">{tagline}</p>
+          <p className="max-w-[260px] max-md:hidden">
+            {taglineLines.map((line) => (
+              <span className="block text-[0.8125rem] font-medium leading-[1.45] tracking-[0.025em] text-slate-600" key={line}>
+                {line}
+              </span>
+            ))}
+          </p>
           <span className="sr-only">Go to Bae Lab home</span>
         </Link>
 

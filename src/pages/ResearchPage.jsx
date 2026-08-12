@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { PageHero } from '@/components/site/PageHero';
 import { RESEARCH_CONTENT } from '@/content/site-content';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { formatItemNumber } from '@/lib/format';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const RESEARCH_AREA_IMAGE_DIR = 'assets/img/research/areas';
@@ -88,7 +89,7 @@ function ResearchAreaRow({ area, index }) {
         </figure>
 
         <div className="space-y-3">
-          <p className="text-xs font-semibold tracking-[0.12em] text-[var(--brand-burgundy)] tabular-nums">{String(index + 1).padStart(2, '0')}</p>
+          <p className="text-xs font-semibold tracking-[0.08em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(index + 1)}</p>
           <h3 className="page-section-title">{area.title}</h3>
           <p className="home-body-copy max-w-[68ch] text-slate-700">{area.body}</p>
         </div>
