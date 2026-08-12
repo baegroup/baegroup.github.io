@@ -117,7 +117,7 @@ function MediaImage({ path, title, variant = 'card' }) {
   if (image.broken) {
     if (variant === 'thumb') {
       return (
-        <div className="flex h-16 w-16 items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-500">
+        <div className="flex h-16 w-16 items-center justify-center border border-slate-200 bg-slate-100 text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-500 md:h-[72px] md:w-[72px]">
           Image
         </div>
       );
@@ -139,7 +139,7 @@ function MediaImage({ path, title, variant = 'card' }) {
   }
 
   if (variant === 'thumb') {
-    return <img alt={title} className="h-16 w-16 rounded-md object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+    return <img alt={title} className="h-16 w-16 object-cover md:h-[72px] md:w-[72px]" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
   }
 
   if (variant === 'full') {
@@ -236,14 +236,14 @@ function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }
   const toggleLabel = opened ? 'Collapse details' : 'View details';
 
   return (
-    <li className="news-item-row scroll-mt-28 overflow-hidden rounded-lg border border-slate-200 bg-white" ref={itemRef}>
+    <li className="scroll-mt-28" ref={itemRef}>
       <button
         aria-expanded={opened}
-        className="news-item-trigger w-full px-4 py-4 text-left transition-colors hover:bg-slate-50 md:px-5"
+        className="w-full px-1 py-4 text-left transition-colors hover:bg-white/40 md:px-2 md:py-5"
         onClick={onToggle}
         type="button"
       >
-        <div className={`grid gap-3 md:items-center ${compactPreview ? 'md:grid-cols-[72px_minmax(0,1fr)_auto]' : 'md:grid-cols-[minmax(0,1fr)_auto]'}`}>
+        <div className={`grid items-center gap-3 ${compactPreview ? 'grid-cols-[64px_minmax(0,1fr)_auto] md:grid-cols-[72px_minmax(0,1fr)_auto] md:gap-4' : 'grid-cols-[minmax(0,1fr)_auto]'}`}>
           {compactPreview ? (
             <div className="flex items-center justify-center">
               <MediaImage path={firstImage} title={item.title} variant="thumb" />
@@ -255,7 +255,7 @@ function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }
             <p className="mt-1 text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">{item.title}</p>
           </div>
 
-          <span className="inline-flex items-center justify-center rounded-full border border-slate-200 p-1 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-700">
+          <span className="inline-flex items-center justify-center text-slate-400 transition-colors hover:text-slate-700">
             <ChevronDown className={`h-4 w-4 transition-transform ${opened ? 'rotate-180' : ''}`} />
             <span className="sr-only">{toggleLabel}</span>
           </span>
@@ -263,7 +263,7 @@ function NewsItemRow({ compactPreview = false, item, itemRef, onToggle, opened }
       </button>
 
       {opened ? (
-        <div className="border-t border-slate-200 px-4 pb-4 pt-3 md:px-5">
+        <div className="border-t border-slate-200/80 px-1 pb-5 pt-4 md:px-2">
           <div className="space-y-4">
             {item.summary ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{item.summary}</p> : null}
 
@@ -483,7 +483,6 @@ export function NewsPage({ locale }) {
     });
   }
 
-  const activeLabel = sections.find((section) => section.id === activeSection)?.label || '';
   const emptySectionLabel = content.emptySection || 'No items available in this section yet.';
   const piLinksDescription = content.piLinksDescription || 'External research profiles and citation services.';
   const updatedAt = feed.updatedAt || content.updatedAt || '';
@@ -497,23 +496,34 @@ export function NewsPage({ locale }) {
   return (
     <div className="space-y-6 md:space-y-8">
       <PageHero description={content.description} title={content.title}>
-        <nav aria-label="News categories" className="page-section-nav">
-          {sections.map((section) => (
-            <button
-              aria-pressed={activeSection === section.id}
-              className="page-section-tab"
-              key={section.id}
-              onClick={() => setActiveSection(section.id)}
-              type="button"
-            >
-              {section.label}
-            </button>
-          ))}
-        </nav>
+        <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
+          <nav aria-label="News categories" className="page-section-nav">
+            {sections.map((section) => (
+              <button
+                aria-pressed={activeSection === section.id}
+                className="page-section-tab"
+                key={section.id}
+                onClick={() => setActiveSection(section.id)}
+                type="button"
+              >
+                {section.label}
+              </button>
+            ))}
+          </nav>
+          <p aria-live="polite" className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+            <span className="text-slate-700">{activeItems.length} items</span>
+            {updatedAt ? (
+              <>
+                <span aria-hidden="true" className="mx-2 text-slate-300">·</span>
+                <span>Updated {updatedAt}</span>
+              </>
+            ) : null}
+          </p>
+        </div>
       </PageHero>
 
-      <div className={`grid gap-5 lg:grid-cols-[minmax(194px,232px)_minmax(0,1fr)] lg:items-start ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
-        <aside className="order-2 lg:order-1 lg:self-start">
+      <div className={`grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(194px,232px)] lg:items-start lg:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
+        <aside className="order-2 lg:self-start">
           <div className="space-y-4 lg:sticky lg:top-36 lg:max-h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-1">
             {latestInstagramEmbedUrl || latestInstagramImage ? (
               <section className="space-y-3 px-1">
@@ -564,15 +574,7 @@ export function NewsPage({ locale }) {
           </div>
         </aside>
 
-        <section className="order-1 space-y-3 lg:order-2" ref={listTopRef}>
-          <header className="flex flex-col items-start justify-between gap-2 px-0.5 sm:flex-row sm:items-end sm:gap-5">
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-950">{activeLabel}</h2>
-            <div className="text-left text-xs font-semibold uppercase tracking-[0.08em] text-slate-500 sm:text-right">
-              <p className="text-slate-700">{activeItems.length} items</p>
-              {updatedAt ? <p className="mt-0.5">Updated {updatedAt}</p> : null}
-            </div>
-          </header>
-
+        <section className="order-1 space-y-3" ref={listTopRef}>
           {loading ? <p className="rounded-lg border border-dashed border-slate-300 bg-white p-4 text-base text-slate-600">Loading news feed...</p> : null}
           {!loading && error ? <p className="rounded-lg border border-red-200 bg-red-50 p-4 text-base text-red-700">{error}</p> : null}
           {!loading && !error && activeItems.length === 0 ? (
@@ -588,7 +590,7 @@ export function NewsPage({ locale }) {
                   ))}
                 </div>
               ) : (
-                <ul className="space-y-2">
+                <ul className="divide-y divide-slate-200 border-y border-slate-200">
                   {paginatedItems.map((item) => (
                     <NewsItemRow
                       compactPreview={activeSection === 'labNews' || activeSection === 'gallery'}

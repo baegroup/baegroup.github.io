@@ -371,11 +371,14 @@ function Principles({ principles }) {
   }
 
   return (
-    <div className="grid gap-3 sm:grid-cols-2">
-      {principles.map((item) => (
-        <article className="rounded-lg border border-slate-200/90 bg-slate-50/70 p-4 md:p-5" key={item.title}>
-          <h3 className="text-base font-semibold text-slate-900 md:text-lg">{item.title}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.body}</p>
+    <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2 md:gap-y-10">
+      {principles.map((item, index) => (
+        <article className="grid min-w-0 grid-cols-[2rem_minmax(0,1fr)] gap-x-4" key={item.title}>
+          <p className="pt-1 text-xs font-semibold tracking-[0.12em] text-[var(--brand-burgundy)] tabular-nums">{String(index + 1).padStart(2, '0')}</p>
+          <div className="min-w-0">
+            <h3 className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">{item.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">{item.body}</p>
+          </div>
         </article>
       ))}
     </div>
@@ -689,11 +692,11 @@ export function TeamPage({ locale }) {
                         <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
                       </div>
 
-                      <figure className="mx-auto w-full max-w-lg overflow-hidden rounded-xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#eef3f8_100%)] lg:max-w-none">
+                      <figure className="mx-auto w-full max-w-lg lg:max-w-none">
                         {!cultureImage.broken ? (
                           <img
                             alt="The Fearless Organization matrix"
-                            className="mx-auto h-auto max-h-[260px] w-auto max-w-full object-contain p-3 md:max-h-[290px] md:p-4"
+                            className="mx-auto h-auto max-h-[260px] w-auto max-w-full object-contain md:max-h-[290px]"
                             decoding="async"
                             loading="lazy"
                             onError={cultureImage.onError}
@@ -702,8 +705,9 @@ export function TeamPage({ locale }) {
                         ) : (
                           <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Culture image placeholder</div>
                         )}
-                        <figcaption className="border-t border-slate-200 px-4 py-3 text-xs italic text-slate-500">
-                          From "The Fearless Organization" by Amy Edmondson
+                        <figcaption className="mt-3 text-center">
+                          <p className="text-sm font-semibold text-slate-900">The Fearless Organization</p>
+                          <p className="mt-1 text-xs text-slate-500">Amy C. Edmondson</p>
                         </figcaption>
                       </figure>
                     </div>

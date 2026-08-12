@@ -270,7 +270,7 @@ function JournalCoverFrame({ broken, controls, dateLabel, imageSrc, journalName,
           </div>
         )}
       </div>
-      <div className="mt-4 flex min-h-24 items-end justify-between gap-3 border-t border-slate-200 pt-3">
+      <div className="mt-2 flex items-end justify-between gap-3 border-t border-slate-200 pt-2">
         <div className="min-w-0">
           <p className="text-[0.8125rem] font-semibold leading-snug text-slate-900">{displayName}</p>
           {dateLabel ? <p className="mt-1 text-xs text-slate-600">{dateLabel}</p> : null}
@@ -375,10 +375,7 @@ function JournalCoverCarousel({ items }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between gap-3">
-        <h3 className="text-lg font-semibold text-slate-900">Journal Covers</h3>
-        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{index + 1} / {total}</p>
-      </div>
+      <h3 className="text-lg font-semibold text-slate-900">Journal Covers</h3>
       {cover.kind === 'manual' ? (
         <ManualJournalCoverCard controls={controls} cover={cover} key={cover.id} />
       ) : (
@@ -759,7 +756,7 @@ export function PublicationsPage({ locale }) {
           ) : null}
 
           {!loading && !error && items.length > 0 ? (
-            <div className="grid min-w-0 grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1.84fr)_minmax(220px,0.62fr)] xl:items-start">
+            <div className="grid min-w-0 grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.84fr)_minmax(220px,0.62fr)] xl:items-start xl:gap-10">
               <div className="min-w-0 space-y-4">
                 {showPreprintSection && currentPublicationPage === 1 ? (
                   <PreprintSection
@@ -791,7 +788,7 @@ export function PublicationsPage({ locale }) {
                 </div>
               </div>
 
-              <aside className="xl:self-start xl:border-l xl:border-slate-200 xl:pl-5">
+              <aside className="xl:self-start">
                 <div className="space-y-4 xl:sticky xl:top-24 xl:max-h-[calc(100vh-7rem)] xl:overflow-y-auto xl:pr-1">
                   <PublicationInfoPanel updatedAt={updatedAt} />
 
