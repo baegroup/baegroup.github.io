@@ -1,28 +1,39 @@
+import { execFileSync } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import {
   absoluteSiteUrl,
   DEFAULT_SOCIAL_IMAGE,
+  DEFAULT_SOCIAL_IMAGE_HEIGHT,
+  DEFAULT_SOCIAL_IMAGE_WIDTH,
   getStructuredDataForPath,
   SEO_ROUTES,
   SITE_NAME,
   SITE_URL
 } from '../src/content/seo.js';
+import {
+  newsItemPath,
+  newsSectionPath,
+  publicationPagePath
+} from '../src/lib/seo-paths.js';
 
 const DIST_DIR = path.resolve('dist');
+const PUBLIC_DIR = path.resolve('public');
 const META_START = '<!-- route-meta:start -->';
 const META_END = '<!-- route-meta:end -->';
+const NEWS_PAGE_SIZE = 5;
+const VIDEO_PAGE_SIZE = 4;
 
 const LEGACY_REDIRECTS = [
   { from: '/kr', to: '/' },
-  { from: '/kr/배재형-교수', to: '/team' },
-  { from: '/jaehyeong-bae', to: '/team' },
-  { from: '/kr/구성원', to: '/team' },
-  { from: '/kr/박사-후-연구원', to: '/team' },
-  { from: '/kr/박사과정', to: '/team' },
-  { from: '/kr/석사과정-학부연구생', to: '/team' },
-  { from: '/kr/연구실-졸업생', to: '/team' },
+  { from: '/kr/배재형-교수', to: '/team/jaehyeong-bae' },
+  { from: '/jaehyeong-bae', to: '/team/jaehyeong-bae' },
+  { from: '/kr/구성원', to: '/team/members' },
+  { from: '/kr/박사-후-연구원', to: '/team/staff' },
+  { from: '/kr/박사과정', to: '/team/members' },
+  { from: '/kr/석사과정-학부연구생', to: '/team/members' },
+  { from: '/kr/연구실-졸업생', to: '/team/alumni' },
   { from: '/kr/join-our-team-2-2-2-2', to: '/team' },
   { from: '/kr/연구', to: '/research' },
   { from: '/news-2', to: '/publications' },
@@ -32,6 +43,22 @@ const LEGACY_REDIRECTS = [
   { from: '/kr/연락처', to: '/contact' }
 ];
 
+const ROUTE_SOURCE_FILES = {
+  '/': ['src/pages/HomePage.jsx', 'content/en/home.md'],
+  '/team': ['src/pages/TeamPage.jsx', 'content/en/team.md', 'public/data/team.json'],
+  '/team/jaehyeong-bae': ['src/pages/TeamPage.jsx', 'public/data/team.json'],
+  '/team/members': ['src/pages/TeamPage.jsx', 'public/data/team.json'],
+  '/team/staff': ['src/pages/TeamPage.jsx', 'public/data/team.json'],
+  '/team/alumni': ['src/pages/TeamPage.jsx', 'public/data/team.json'],
+  '/research': ['src/pages/ResearchPage.jsx', 'content/en/research.md'],
+  '/publications': ['src/pages/PublicationsPage.jsx', 'public/data/publications.json'],
+  '/publications/patents': ['src/pages/PublicationsPage.jsx', 'public/data/publications.json'],
+  '/news': ['src/pages/NewsPage.jsx', 'public/data/news.json'],
+  '/join': ['src/pages/JoinPage.jsx', 'content/en/join.md'],
+  '/contact': ['src/pages/ContactPage.jsx', 'content/en/contact.md'],
+  '/ko': ['src/pages/KoreanLandingPage.jsx']
+};
+
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, '&amp;')
@@ -40,27 +67,145 @@ function escapeHtml(value) {
     .replace(/"/g, '&quot;');
 }
 
+function normalizeDescription(value, fallback) {
+  const normalized = String(value || '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const result = normalized || fallback;
+  return result.length > 180 ? `${result.slice(0, 177).trim()}…` : result;
+}
+
+function absoluteAssetUrl(value) {
+  const source = String(value || '').trim();
+  if (!source) return `${SITE_URL}${DEFAULT_SOCIAL_IMAGE}`;
+  if (/^https?:\/\//i.test(source)) return source;
+  return `${SITE_URL}/${source.replace(/^\/+/, '')}`;
+}
+
+async function readJson(filePath, fallback) {
+  try {
+    return JSON.parse(await readFile(filePath, 'utf8'));
+  } catch {
+    return fallback;
+  }
+}
+
+function gitLastModified(files = []) {
+  if (!files.length) return '';
+  try {
+    return execFileSync('git', ['log', '-1', '--format=%cs', '--', ...files], { encoding: 'utf8' }).trim();
+  } catch {
+    return '';
+  }
+}
+
+function buildNewsRoutes(news) {
+  const labels = {
+    labNews: 'Highlights',
+    gallery: 'Lab Life',
+    videos: 'Video'
+  };
+  const descriptions = {
+    labNews: 'Research achievements, awards, conference activities, and major milestones from Bae Lab at Kyung Hee University.',
+    gallery: 'Photos and stories from daily research, celebrations, events, and team life at Bae Lab, Kyung Hee University.',
+    videos: 'Watch research demonstrations, presentations, and laboratory videos from Bae Lab at Kyung Hee University.'
+  };
+  const routes = [];
+
+  for (const [section, itemsValue] of Object.entries(news?.sections || {})) {
+    if (!labels[section]) continue;
+    const items = Array.isArray(itemsValue) ? itemsValue : [];
+    const pageSize = section === 'videos' ? VIDEO_PAGE_SIZE : NEWS_PAGE_SIZE;
+    const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
+
+    for (let page = 1; page <= pageCount; page += 1) {
+      const routePath = newsSectionPath(section, page);
+      if (routePath === '/news/') continue;
+      routes.push({
+        path: routePath,
+        title: `${labels[section]}${page > 1 ? ` – Page ${page}` : ''} | Bae Lab News`,
+        description: descriptions[section],
+        language: 'en',
+        lastmod: news.updatedAt || ''
+      });
+    }
+
+    for (const item of items) {
+      const fallback = `${item.date ? `${item.date} · ` : ''}${item.title}. Read this update from Bae Lab at Kyung Hee University.`;
+      routes.push({
+        path: newsItemPath(section, item),
+        title: `${item.title} | Bae Lab News`,
+        articleTitle: item.title,
+        description: normalizeDescription(item.summary, fallback),
+        image: absoluteAssetUrl(item.images?.[0]),
+        imageAlt: item.title,
+        language: 'en',
+        lastmod: item.date || news.updatedAt || '',
+        datePublished: item.date || undefined,
+        dateModified: item.date || undefined,
+        schemaType: 'NewsArticle'
+      });
+    }
+  }
+
+  return routes;
+}
+
+function buildPublicationRoutes(publications) {
+  const routes = [];
+  for (const type of ['journal', 'patent']) {
+    const years = [...new Set(
+      publications
+        .filter((item) => item?.type === type && item?.year)
+        .map((item) => Number(item.year))
+    )].sort((a, b) => b - a);
+
+    for (let index = 0; index < years.length; index += 3) {
+      if (index === 0) continue;
+      const group = years.slice(index, index + 3);
+      const label = group.length > 1 ? `${group[0]}–${group[group.length - 1]}` : String(group[0]);
+      routes.push({
+        path: publicationPagePath(type, index / 3, group),
+        title: `${label} ${type === 'patent' ? 'Patents' : 'Journal Articles'} | Bae Lab`,
+        description: `Browse Bae Lab ${type === 'patent' ? 'patents' : 'peer-reviewed journal articles'} published in ${label}, with links to available records and publishers.`,
+        language: 'en'
+      });
+    }
+  }
+  return routes;
+}
+
 function renderMetadata(route) {
   const title = escapeHtml(route.title);
   const description = escapeHtml(route.description);
   const canonicalUrl = escapeHtml(absoluteSiteUrl(route.path));
-  const socialImageUrl = escapeHtml(`${SITE_URL}${DEFAULT_SOCIAL_IMAGE}`);
-  const structuredData = JSON.stringify(getStructuredDataForPath(route.path)).replace(/</g, '\\u003c');
+  const socialImageUrl = escapeHtml(route.image || `${SITE_URL}${DEFAULT_SOCIAL_IMAGE}`);
+  const imageAlt = escapeHtml(route.imageAlt || 'Bae Lab research at Kyung Hee University');
+  const structuredData = JSON.stringify(getStructuredDataForPath(route.path, route)).replace(/</g, '\\u003c');
+  const defaultImageDimensions = route.image
+    ? ''
+    : `\n    <meta property="og:image:width" content="${DEFAULT_SOCIAL_IMAGE_WIDTH}" />\n    <meta property="og:image:height" content="${DEFAULT_SOCIAL_IMAGE_HEIGHT}" />`;
+  const languageAlternates = route.path === '/' || route.path === '/ko'
+    ? `\n    <link rel="alternate" hreflang="en" href="${SITE_URL}/" />\n    <link rel="alternate" hreflang="ko" href="${SITE_URL}/ko/" />\n    <link rel="alternate" hreflang="x-default" href="${SITE_URL}/" />`
+    : '';
 
   return `${META_START}
+    <meta name="seo-route" content="${escapeHtml(route.path)}" />
     <title>${title}</title>
     <meta name="description" content="${description}" />
-    <link rel="canonical" href="${canonicalUrl}" />
-    <meta property="og:type" content="website" />
+    <link rel="canonical" href="${canonicalUrl}" />${languageAlternates}
+    <meta property="og:type" content="${route.schemaType === 'NewsArticle' ? 'article' : 'website'}" />
     <meta property="og:site_name" content="${escapeHtml(SITE_NAME)}" />
     <meta property="og:title" content="${title}" />
     <meta property="og:description" content="${description}" />
     <meta property="og:url" content="${canonicalUrl}" />
-    <meta property="og:image" content="${socialImageUrl}" />
+    <meta property="og:image" content="${socialImageUrl}" />${defaultImageDimensions}
+    <meta property="og:image:alt" content="${imageAlt}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${title}" />
     <meta name="twitter:description" content="${description}" />
     <meta name="twitter:image" content="${socialImageUrl}" />
+    <meta name="twitter:image:alt" content="${imageAlt}" />
     <script id="site-structured-data" type="application/ld+json">${structuredData}</script>
     ${META_END}`;
 }
@@ -75,6 +220,7 @@ function renderLegacyRedirect({ from, to }) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
     <title>페이지 이동 | Bae Lab</title>
     <link rel="canonical" href="${safeTargetUrl}" />
     <meta http-equiv="refresh" content="0; url=${safeTargetUrl}" />
@@ -86,6 +232,22 @@ function renderLegacyRedirect({ from, to }) {
 </html>`;
 }
 
+const [news, publications] = await Promise.all([
+  readJson(path.join(PUBLIC_DIR, 'data', 'news.json'), { sections: {} }),
+  readJson(path.join(PUBLIC_DIR, 'data', 'publications.json'), [])
+]);
+
+const staticRoutes = SEO_ROUTES.map((route) => ({
+  ...route,
+  language: route.path === '/ko' ? 'ko' : 'en',
+  lastmod: gitLastModified(ROUTE_SOURCE_FILES[route.path] || [])
+}));
+const routeMap = new Map(
+  [...staticRoutes, ...buildNewsRoutes(news), ...buildPublicationRoutes(publications)]
+    .map((route) => [route.path.replace(/\/+$/, '') || '/', { ...route, path: route.path.replace(/\/+$/, '') || '/' }])
+);
+const routes = [...routeMap.values()];
+
 const baseHtml = await readFile(path.join(DIST_DIR, 'index.html'), 'utf8');
 const metaPattern = new RegExp(`${META_START}[\\s\\S]*?${META_END}`);
 
@@ -93,12 +255,14 @@ if (!metaPattern.test(baseHtml)) {
   throw new Error('Route metadata block was not found in dist/index.html');
 }
 
-for (const route of SEO_ROUTES) {
+for (const route of routes) {
   const outputDirectory = route.path === '/'
     ? DIST_DIR
     : path.join(DIST_DIR, route.path.replace(/^\//, ''));
   const outputPath = path.join(outputDirectory, 'index.html');
-  const routeHtml = baseHtml.replace(metaPattern, renderMetadata(route));
+  const routeHtml = baseHtml
+    .replace(metaPattern, renderMetadata(route))
+    .replace(/<html lang="[^"]+">/, `<html lang="${route.language || 'en'}">`);
 
   await mkdir(outputDirectory, { recursive: true });
   await writeFile(outputPath, routeHtml);
@@ -112,7 +276,10 @@ for (const redirect of LEGACY_REDIRECTS) {
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${SEO_ROUTES.map((route) => `  <url><loc>${escapeHtml(absoluteSiteUrl(route.path))}</loc></url>`).join('\n')}
+${routes.map((route) => {
+  const lastmod = route.lastmod ? `<lastmod>${escapeHtml(route.lastmod)}</lastmod>` : '';
+  return `  <url><loc>${escapeHtml(absoluteSiteUrl(route.path))}</loc>${lastmod}</url>`;
+}).join('\n')}
 </urlset>\n`;
 
 await writeFile(path.join(DIST_DIR, 'sitemap.xml'), sitemap);
@@ -120,5 +287,9 @@ await writeFile(
   path.join(DIST_DIR, 'robots.txt'),
   `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
 );
+await writeFile(
+  path.join(DIST_DIR, 'seo-routes.json'),
+  `${JSON.stringify(routes.map((route) => route.path), null, 2)}\n`
+);
 
-console.log(`Generated route HTML: ${SEO_ROUTES.length} pages, ${LEGACY_REDIRECTS.length} legacy redirects, sitemap.xml, robots.txt`);
+console.log(`Generated route HTML: ${routes.length} indexable pages, ${LEGACY_REDIRECTS.length} legacy redirects, sitemap.xml, robots.txt`);

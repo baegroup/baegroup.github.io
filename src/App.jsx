@@ -10,6 +10,7 @@ import { PublicationsPage } from '@/pages/PublicationsPage';
 import { ResearchPage } from '@/pages/ResearchPage';
 import { ContactPage } from '@/pages/ContactPage';
 import { JoinPage } from '@/pages/JoinPage';
+import { KoreanLandingPage } from '@/pages/KoreanLandingPage';
 
 const DEFAULT_LOCALE = 'en';
 
@@ -38,10 +39,20 @@ function SiteRoutes() {
       <Routes>
         <Route element={<HomePage locale={locale} />} index />
         <Route element={<TeamPage locale={locale} />} path="team" />
+        <Route element={<TeamPage locale={locale} section="professor" />} path="team/jaehyeong-bae" />
+        <Route element={<TeamPage locale={locale} section="current" />} path="team/members" />
+        <Route element={<TeamPage locale={locale} section="staff" />} path="team/staff" />
+        <Route element={<TeamPage locale={locale} section="alumni" />} path="team/alumni" />
         <Route element={<Navigate replace to="/team/" />} path="members" />
         <Route element={<ResearchPage locale={locale} />} path="research" />
         <Route element={<PublicationsPage locale={locale} />} path="publications" />
+        <Route element={<PublicationsPage locale={locale} />} path="publications/:typeSlug" />
+        <Route element={<PublicationsPage locale={locale} />} path="publications/:typeSlug/:periodSlug" />
         <Route element={<NewsPage locale={locale} />} path="news" />
+        <Route element={<NewsPage locale={locale} />} path="news/:sectionSlug" />
+        <Route element={<NewsPage locale={locale} />} path="news/:sectionSlug/page/:pageNumber" />
+        <Route element={<NewsPage locale={locale} />} path="news/:sectionSlug/:itemSlug" />
+        <Route element={<KoreanLandingPage />} path="ko" />
         <Route element={<JoinPage locale={locale} />} path="join" />
         <Route element={<ContactPage locale={locale} />} path="contact" />
         <Route element={<Navigate replace to="/" />} path="*" />

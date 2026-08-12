@@ -17,7 +17,7 @@ Research Area
 ## cards
 - Printing Technology | We develop advanced additive manufacturing strategies and AI-assisted printable inks to fabricate high-performance functional systems that are difficult to realize with conventional methods. | printing-tech.jpg
 - Energy & Environmental Technology | We design functional polymers and chemical materials for next-generation energy harvesters, lithium metal batteries, environmental sensors, and carbon-capture related platforms. | energy-environment-tech.png
-- Bio Technology | We engineer soft and functional materials for biosensors, bioelectronics, and soft robotic applications requiring compliant, high-performance interfaces. | biomedical-tech.png
+- Bio Technology | We engineer soft and functional materials for biosensors, bioelectronics, and soft robotic applications requiring compliant, high-performance interfaces. | biomedical-tech.webp
 
 ## methodsTitle
 Research Methodology

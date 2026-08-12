@@ -7,6 +7,7 @@ import { TEAM_CONTENT } from '@/content/site-content';
 import { loadTeamProfiles } from '@/lib/data';
 import { formatItemNumber } from '@/lib/format';
 import { pagePath } from '@/lib/i18n';
+import { TEAM_SECTION_PATHS } from '@/lib/seo-paths';
 
 const DEFAULT_JUMP_NAV = [
   { id: 'identity', label: 'About Our Lab' },
@@ -17,6 +18,13 @@ const DEFAULT_JUMP_NAV = [
 ];
 
 const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'staff', 'alumni']);
+const SECTION_PAGE_TITLES = {
+  identity: 'Team',
+  professor: 'Jaehyeong Bae',
+  current: 'Lab Members',
+  staff: 'Researchers & Staff',
+  alumni: 'Alumni'
+};
 const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
 const STAFF_SECTION_ROLES = new Set(['Staff', 'Researcher']);
 const TERM_SORT_ORDER = { spring: 0, summer: 1, fall: 2, winter: 3 };
@@ -547,14 +555,14 @@ function ProfessorShowcase({ professor }) {
   );
 }
 
-export function TeamPage({ locale }) {
+export function TeamPage({ locale, section = 'identity' }) {
   const content = TEAM_CONTENT[locale] || TEAM_CONTENT.en;
   const identityCopy = { aboutHeading: content.aboutTitle || 'About Our Lab' };
   const [currentGroups, setCurrentGroups] = useState([]);
   const [alumniGroups, setAlumniGroups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [activeSection, setActiveSection] = useState('identity');
+  const activeSection = SUPPORTED_SECTION_IDS.has(section) ? section : 'identity';
   const aboutImage = useImageFallback(LAB_GROUP_IMAGE_BASE);
   const cultureImage = useImageFallback(FEARLESS_IMAGE_BASE);
 
@@ -599,14 +607,9 @@ export function TeamPage({ locale }) {
       ? content.jumpNav.filter((item) => item?.id && item?.label && SUPPORTED_SECTION_IDS.has(item.id))
       : [];
 
-    return fromContent.length ? fromContent : fallback;
+    const items = fromContent.length ? fromContent : fallback;
+    return items.map((item) => ({ ...item, to: TEAM_SECTION_PATHS[item.id] || TEAM_SECTION_PATHS.identity }));
   }, [content.jumpNav, locale]);
-
-  useEffect(() => {
-    if (!jumpNav.some((item) => item.id === activeSection)) {
-      setActiveSection(jumpNav[0]?.id || 'identity');
-    }
-  }, [activeSection, jumpNav]);
 
   const culturePrinciples = useMemo(() => {
     if (Array.isArray(content.culturePrinciples)) {
@@ -667,12 +670,11 @@ export function TeamPage({ locale }) {
 
   return (
     <>
-      <PageHero description={content.description} title={content.title || 'Team'}>
+      <PageHero description={content.description} title={SECTION_PAGE_TITLES[activeSection] || content.title || 'Team'}>
         <PageSectionNav
           activeId={activeSection}
           ariaLabel="Team section navigation"
           items={jumpNav}
-          onChange={setActiveSection}
         />
       </PageHero>
 

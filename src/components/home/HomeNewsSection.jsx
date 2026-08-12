@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { pagePath } from '@/lib/i18n';
+import { newsItemPath } from '@/lib/seo-paths';
 
 function parseNewsDate(value) {
   const raw = String(value || '').trim();
@@ -14,12 +15,12 @@ function parseNewsDate(value) {
   return Date.UTC(year, month - 1, day);
 }
 
-function sectionPath(locale, sectionId) {
-  const section = ['labNews', 'gallery', 'videos'].includes(sectionId) ? sectionId : 'labNews';
-  return `${pagePath(locale, 'news')}?section=${section}`;
+function itemPath(item) {
+  const section = ['labNews', 'gallery', 'videos'].includes(item?.section) ? item.section : 'labNews';
+  return newsItemPath(section, item);
 }
 
-function FeaturedNewsCard({ item, locale }) {
+function FeaturedNewsCard({ item }) {
   const [imageIndex, setImageIndex] = useState(0);
   const imageBase = item.image || HOME_MEDIA.newsFeatured;
   const imageCandidates = mediaCandidates(imageBase);
@@ -30,7 +31,7 @@ function FeaturedNewsCard({ item, locale }) {
   }, [imageBase]);
 
   return (
-    <Link className="group flex h-full flex-col" to={sectionPath(locale, item.section)}>
+    <Link className="group flex h-full flex-col" reloadDocument to={itemPath(item)}>
       <div className="h-44 overflow-hidden rounded-md border border-slate-200 bg-slate-100">
         {!exhausted ? (
           <img
@@ -89,7 +90,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.10em] text-[var(--brand-navy)]">Featured</p>
               <div className="reveal-stagger grid gap-5 sm:grid-cols-2">
                 {featuredItems.map((item) => (
-                  <FeaturedNewsCard item={item} key={`${item.id || item.title}-featured`} locale={locale} />
+                  <FeaturedNewsCard item={item} key={`${item.id || item.title}-featured`} />
                 ))}
               </div>
             </div>
@@ -103,7 +104,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
               <ul className="reveal-stagger divide-y divide-slate-200">
                 {listItems.map((item) => (
                   <li className="py-3 first:pt-1 md:py-3.5" key={`${item.id || item.title}-list`}>
-                    <Link className="block" to={sectionPath(locale, item.section)}>
+                    <Link className="block" reloadDocument to={itemPath(item)}>
                       <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date}</p>
                       <p className="mt-1 text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</p>
                     </Link>

@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
 
 import { PageHero } from '@/components/site/PageHero';
 import { PageSectionNav } from '@/components/site/PageSectionNav';
@@ -8,6 +9,7 @@ import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { PUBLICATIONS_CONTENT } from '@/content/site-content';
 import { loadPublicationCovers, loadPublications, loadResearchProfileLinks, publicationTypeLabels } from '@/lib/data';
 import { formatItemNumber } from '@/lib/format';
+import { publicationPagePath, publicationPeriodSlug } from '@/lib/seo-paths';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const COVER_IMAGE_BASE = 'assets/img/publications/covers';
@@ -402,7 +404,7 @@ function JournalCoverCarousel({ items }) {
   );
 }
 
-function PublicationPagination({ currentPage, onPageChange, pageGroups, placement }) {
+function PublicationPagination({ currentPage, pageGroups, placement, type }) {
   const pageCount = pageGroups.length;
 
   if (pageCount <= 1) {
@@ -411,37 +413,26 @@ function PublicationPagination({ currentPage, onPageChange, pageGroups, placemen
 
   return (
     <nav aria-label={`Publication pagination ${placement}`} className="flex flex-wrap items-center gap-x-5 gap-y-2">
-      <button
-        className="page-section-tab disabled:cursor-not-allowed disabled:opacity-40"
-        disabled={currentPage === 1}
-        onClick={() => onPageChange(currentPage - 1)}
-        type="button"
-      >
-        Prev
-      </button>
+      {currentPage > 1 ? (
+        <Link className="page-section-tab no-underline" to={publicationPagePath(type, currentPage - 2, pageGroups[currentPage - 2]?.years)}>Prev</Link>
+      ) : <span className="page-section-tab opacity-40">Prev</span>}
       {pageGroups.map((group, index) => {
         const page = index + 1;
         return (
-          <button
+          <Link
             aria-current={page === currentPage ? 'page' : undefined}
             aria-label={`Publications from ${group.label}`}
-            className={`page-section-tab ${page === currentPage ? 'font-semibold text-slate-900' : ''}`}
+            className={`page-section-tab no-underline ${page === currentPage ? 'font-semibold text-slate-900' : ''}`}
             key={group.label}
-            onClick={() => onPageChange(page)}
-            type="button"
+            to={publicationPagePath(type, index, group.years)}
           >
             {group.years.length > 1 ? `${group.years[0]}–${group.years[group.years.length - 1]}` : group.years[0]}
-          </button>
+          </Link>
         );
       })}
-      <button
-        className="page-section-tab disabled:cursor-not-allowed disabled:opacity-40"
-        disabled={currentPage === pageCount}
-        onClick={() => onPageChange(currentPage + 1)}
-        type="button"
-      >
-        Next
-      </button>
+      {currentPage < pageCount ? (
+        <Link className="page-section-tab no-underline" to={publicationPagePath(type, currentPage, pageGroups[currentPage]?.years)}>Next</Link>
+      ) : <span className="page-section-tab opacity-40">Next</span>}
     </nav>
   );
 }
@@ -522,9 +513,10 @@ function PublicationList({ items, numbers, labAuthorNames, years }) {
 }
 
 export function PublicationsPage({ locale }) {
+  const { periodSlug = '', typeSlug = '' } = useParams();
   const content = PUBLICATIONS_CONTENT[locale] || PUBLICATIONS_CONTENT.en;
   const labels = publicationTypeLabels(locale);
-  const [filter, setFilter] = useState('journal');
+  const filter = typeSlug === 'patent' || typeSlug === 'patents' ? 'patent' : 'journal';
   const [items, setItems] = useState([]);
   const [allItems, setAllItems] = useState([]);
   const [coverManifest, setCoverManifest] = useState([]);
@@ -532,8 +524,6 @@ export function PublicationsPage({ locale }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [labAuthorNames, setLabAuthorNames] = useState([]);
-  const [currentPublicationPage, setCurrentPublicationPage] = useState(1);
-  const publicationListRef = useRef(null);
 
   useEffect(() => {
     let mounted = true;
@@ -751,36 +741,29 @@ export function PublicationsPage({ locale }) {
 
     return groups;
   }, [publicationYears]);
+  const currentPublicationPage = useMemo(() => {
+    if (!periodSlug) return 1;
+    const index = publicationPageGroups.findIndex((group) => publicationPeriodSlug(group.years) === periodSlug);
+    return index >= 0 ? index + 1 : 1;
+  }, [periodSlug, publicationPageGroups]);
   const activePublicationPage = publicationPageGroups[currentPublicationPage - 1] || publicationPageGroups[0];
   const paginatedPublicationItems = useMemo(
     () => items.filter((item) => activePublicationPage?.years.includes(item.year)),
     [activePublicationPage, items]
   );
 
-  function handleFilterChange(value) {
-    setCurrentPublicationPage(1);
-    setFilter(value);
-  }
-
-  function handlePublicationPageChange(page) {
-    if (page < 1 || page > publicationPageGroups.length || page === currentPublicationPage) {
-      return;
-    }
-    setCurrentPublicationPage(page);
-    window.requestAnimationFrame(() => {
-      publicationListRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  }
-
   return (
     <div className="space-y-6 md:space-y-8">
-      <Tabs onValueChange={handleFilterChange} value={filter}>
+      <Tabs value={filter}>
         <PageHero description={content.description} title={content.title}>
           <PageSectionNav
             activeId={filter}
             ariaLabel="Publication categories"
-            items={filters.map((type) => ({ id: type, label: labels[type] }))}
-            onChange={handleFilterChange}
+            items={filters.map((type) => ({
+              id: type,
+              label: labels[type],
+              to: type === 'patent' ? '/publications/patents/' : '/publications/'
+            }))}
           />
         </PageHero>
 
@@ -802,7 +785,7 @@ export function PublicationsPage({ locale }) {
                     title={content.preprintTitle || 'Current Manuscripts'}
                   />
                 ) : null}
-                <div className="scroll-mt-28 space-y-4" ref={publicationListRef}>
+                <div className="scroll-mt-28 space-y-4">
                   <PublicationList
                     items={paginatedPublicationItems}
                     labAuthorNames={labAuthorNames}
@@ -811,9 +794,9 @@ export function PublicationsPage({ locale }) {
                   />
                   <PublicationPagination
                     currentPage={currentPublicationPage}
-                    onPageChange={handlePublicationPageChange}
                     pageGroups={publicationPageGroups}
                     placement="bottom"
+                    type={filter}
                   />
                 </div>
               </div>

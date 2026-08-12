@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 import { PageHero } from '@/components/site/PageHero';
 import { PageSectionNav } from '@/components/site/PageSectionNav';
@@ -8,6 +8,12 @@ import { NEWS_CONTENT } from '@/content/site-content';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { loadNewsFeed } from '@/lib/data';
 import { formatItemNumber } from '@/lib/format';
+import {
+  NEWS_SLUG_SECTIONS,
+  newsItemPath,
+  newsItemSlug,
+  newsSectionPath
+} from '@/lib/seo-paths';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const SECTION_IDS = ['labNews', 'gallery', 'videos'];
@@ -186,7 +192,7 @@ function toYouTubeEmbedUrl(value) {
   return '';
 }
 
-function VideoCard({ item, number }) {
+function VideoCard({ detailPath, item, number }) {
   const primaryVideoUrl = item.videoUrl || item.url;
   const youtubeEmbed = toYouTubeEmbedUrl(primaryVideoUrl);
   const fallbackImage = item.images?.[0] || '';
@@ -213,7 +219,9 @@ function VideoCard({ item, number }) {
         <span className="pt-0.5 text-xs font-semibold tracking-[0.04em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(number)}</span>
         <div className="space-y-2">
           <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date || '-'}</p>
-          <h3 className="text-xl font-semibold leading-snug text-slate-950">{item.title}</h3>
+          <h3 className="text-xl font-semibold leading-snug text-slate-950">
+            <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
+          </h3>
           {item.summary ? <p className="text-sm leading-relaxed text-slate-600">{item.summary}</p> : null}
           {primaryVideoUrl ? (
             <a className="site-text-link inline-flex text-sm" href={primaryVideoUrl} rel="noreferrer" target="_blank">
@@ -226,7 +234,7 @@ function VideoCard({ item, number }) {
   );
 }
 
-function NewsItemRow({ compactPreview = false, item, itemRef, number, onToggle, opened }) {
+function NewsItemRow({ compactPreview = false, detailPath, item, itemRef, number, onToggle, opened }) {
   const youtubeEmbed = toYouTubeEmbedUrl(item.videoUrl || item.url);
   const hasDetailContent = Boolean(item.summary || item.url || item.videoUrl || (item.images || []).length);
   const firstImage = item.images?.[0] || '';
@@ -234,12 +242,7 @@ function NewsItemRow({ compactPreview = false, item, itemRef, number, onToggle, 
 
   return (
     <li className="scroll-mt-28" ref={itemRef}>
-      <button
-        aria-expanded={opened}
-        className="w-full px-1 py-4 text-left transition-colors hover:bg-white/40 md:px-2 md:py-5"
-        onClick={onToggle}
-        type="button"
-      >
+      <div className="w-full px-1 py-4 text-left transition-colors hover:bg-white/40 md:px-2 md:py-5">
         <div className={`grid items-center gap-3 ${compactPreview ? 'grid-cols-[2.125rem_64px_minmax(0,1fr)_auto] md:grid-cols-[2.125rem_72px_minmax(0,1fr)_auto] md:gap-4' : 'grid-cols-[2.125rem_minmax(0,1fr)_auto]'}`}>
           <span className="text-xs font-semibold tracking-[0.04em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(number)}</span>
           {compactPreview ? (
@@ -250,15 +253,22 @@ function NewsItemRow({ compactPreview = false, item, itemRef, number, onToggle, 
 
           <div>
             <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date || '-'}</p>
-            <p className="mt-1 text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">{item.title}</p>
+            <p className="mt-1 text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">
+              <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
+            </p>
           </div>
 
-          <span className="inline-flex items-center justify-center text-slate-400 transition-colors hover:text-slate-700">
+          <button
+            aria-expanded={opened}
+            className="inline-flex items-center justify-center text-slate-400 transition-colors hover:text-slate-700"
+            onClick={onToggle}
+            type="button"
+          >
             <ChevronDown className={`h-4 w-4 transition-transform ${opened ? 'rotate-180' : ''}`} />
             <span className="sr-only">{toggleLabel}</span>
-          </span>
+          </button>
         </div>
-      </button>
+      </div>
 
       {opened ? (
         <div className="border-t border-slate-200/80 px-1 pb-5 pt-4 md:px-2">
@@ -305,8 +315,62 @@ function NewsItemRow({ compactPreview = false, item, itemRef, number, onToggle, 
   );
 }
 
+function NewsDetail({ item, section }) {
+  const primaryVideoUrl = item.videoUrl || item.url;
+  const youtubeEmbed = toYouTubeEmbedUrl(primaryVideoUrl);
+
+  return (
+    <article className="space-y-7 md:space-y-9">
+      <PageHero description={item.summary} showDescription={Boolean(item.summary)} title={item.title} />
+
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-10">
+        <div className="space-y-6">
+          {item.date ? (
+            <time className="block text-sm font-semibold text-[var(--brand-navy)]" dateTime={item.date}>{item.date}</time>
+          ) : null}
+
+          {item.images?.length ? (
+            <div className="flex flex-col items-center gap-5">
+              {item.images.map((path, index) => (
+                <MediaImage key={`${item.id}-detail-image-${index}`} path={path} title={item.title} variant="full" />
+              ))}
+            </div>
+          ) : null}
+
+          {item.videoUrl ? (
+            youtubeEmbed ? (
+              <div className="overflow-hidden rounded-md border border-slate-200">
+                <iframe
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="aspect-video w-full"
+                  loading="lazy"
+                  src={youtubeEmbed}
+                  title={`${item.title} video`}
+                />
+              </div>
+            ) : (
+              <a className="site-text-link inline-flex text-sm" href={item.videoUrl} rel="noreferrer" target="_blank">Open video</a>
+            )
+          ) : null}
+
+          {item.url ? (
+            <a className="site-text-link inline-flex text-sm" href={item.url} rel="noreferrer" target="_blank">Source link</a>
+          ) : null}
+        </div>
+
+        <aside className="border-t border-slate-200 pt-4 lg:border-t-0 lg:pt-0">
+          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">Bae Lab News</p>
+          <Link className="site-action-link mt-3 inline-flex" to={newsSectionPath(section)}>Back to {section === 'gallery' ? 'Lab Life' : section === 'videos' ? 'Video' : 'Highlights'}</Link>
+        </aside>
+      </div>
+    </article>
+  );
+}
+
 export function NewsPage({ locale }) {
   const location = useLocation();
+  const { itemSlug = '', pageNumber = '', sectionSlug = '' } = useParams();
   const content = NEWS_CONTENT[locale] || NEWS_CONTENT.en;
   const [feed, setFeed] = useState({
     updatedAt: '',
@@ -323,11 +387,17 @@ export function NewsPage({ locale }) {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [activeSection, setActiveSection] = useState('labNews');
   const [expandedId, setExpandedId] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
   const listTopRef = useRef(null);
   const itemRefs = useRef(new Map());
+
+  const legacyRequestedSection = useMemo(() => {
+    const params = new URLSearchParams(location.search);
+    const requested = String(params.get('section') || '').trim();
+    return SECTION_IDS.includes(requested) ? requested : '';
+  }, [location.search]);
+  const activeSection = NEWS_SLUG_SECTIONS[sectionSlug] || legacyRequestedSection || 'labNews';
+  const currentPage = Math.max(1, Number(pageNumber) || 1);
 
   useEffect(() => {
     let mounted = true;
@@ -403,22 +473,7 @@ export function NewsPage({ locale }) {
   }, [feed.sections, fallbackLabNews]);
 
   useEffect(() => {
-    if (!sections.find((section) => section.id === activeSection)) {
-      setActiveSection(sections[0]?.id || 'labNews');
-    }
-  }, [sections, activeSection]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const requested = String(params.get('section') || '').trim();
-    if (SECTION_IDS.includes(requested) && requested !== activeSection) {
-      setActiveSection(requested);
-    }
-  }, [location.search, activeSection]);
-
-  useEffect(() => {
     setExpandedId('');
-    setCurrentPage(1);
   }, [activeSection]);
 
   const activeItems = mergedSections[activeSection] || [];
@@ -436,19 +491,6 @@ export function NewsPage({ locale }) {
     node?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  function smoothScrollToPageTop() {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  useEffect(() => {
-    if (currentPage > pageCount) {
-      setCurrentPage(pageCount);
-    }
-  }, [currentPage, pageCount]);
-
   function handleToggleItem(itemId) {
     const willOpen = expandedId !== itemId;
     setExpandedId(willOpen ? itemId : '');
@@ -464,15 +506,6 @@ export function NewsPage({ locale }) {
     }
   }
 
-  function handlePageChange(page) {
-    const next = Math.min(Math.max(1, page), pageCount);
-    setCurrentPage(next);
-    setExpandedId('');
-    window.requestAnimationFrame(() => {
-      smoothScrollToPageTop();
-    });
-  }
-
   const emptySectionLabel = content.emptySection || 'No items available in this section yet.';
   const updatedAt = feed.updatedAt || content.updatedAt || '';
   const latestInstagramPost = (feed.instagram.recent || []).find((post) => (post.images || []).length) || (feed.instagram.recent || [])[0] || null;
@@ -480,6 +513,23 @@ export function NewsPage({ locale }) {
   const latestInstagramPermalink = normalizeInstagramPermalink(latestInstagramPost?.url);
   const latestInstagramEmbedUrl = toInstagramEmbedUrl(latestInstagramPost?.url);
   const contentReveal = useScrollReveal(40);
+  const detailItem = itemSlug
+    ? activeItems.find((item) => newsItemSlug(item) === itemSlug)
+    : null;
+
+  if (!loading && itemSlug) {
+    if (detailItem) {
+      return <NewsDetail item={detailItem} section={activeSection} />;
+    }
+
+    return (
+      <div className="space-y-6">
+        <PageHero title="News item not found" />
+        <p className="text-base text-slate-700">This news item is no longer available.</p>
+        <Link className="site-action-link" to={newsSectionPath(activeSection)}>Back to News</Link>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -488,8 +538,7 @@ export function NewsPage({ locale }) {
           <PageSectionNav
             activeId={activeSection}
             ariaLabel="News categories"
-            items={sections}
-            onChange={setActiveSection}
+            items={sections.map((section) => ({ ...section, to: newsSectionPath(section.id) }))}
           />
           <p aria-live="polite" className="ml-auto text-right text-[0.7rem] font-normal text-slate-400">
             <span>{activeItems.length} items</span>
@@ -545,7 +594,11 @@ export function NewsPage({ locale }) {
                 <ol className="grid gap-4 md:grid-cols-2">
                   {paginatedItems.map((item, index) => (
                     <li key={item.id}>
-                      <VideoCard item={item} number={activeItems.length - ((currentPage - 1) * pageSize + index)} />
+                      <VideoCard
+                        detailPath={newsItemPath(activeSection, item)}
+                        item={item}
+                        number={activeItems.length - ((currentPage - 1) * pageSize + index)}
+                      />
                     </li>
                   ))}
                 </ol>
@@ -554,6 +607,7 @@ export function NewsPage({ locale }) {
                   {paginatedItems.map((item, index) => (
                     <NewsItemRow
                       compactPreview={activeSection === 'labNews' || activeSection === 'gallery'}
+                      detailPath={newsItemPath(activeSection, item)}
                       item={item}
                       itemRef={(node) => {
                         if (node) {
@@ -573,33 +627,22 @@ export function NewsPage({ locale }) {
 
               {pageCount > 1 ? (
                 <nav aria-label="News pagination" className="flex flex-wrap items-center gap-x-5 gap-y-2">
-                  <button
-                    className="page-section-tab disabled:cursor-not-allowed disabled:opacity-40"
-                    disabled={currentPage === 1}
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    type="button"
-                  >
-                    Prev
-                  </button>
+                  {currentPage > 1 ? (
+                    <Link className="page-section-tab no-underline" to={newsSectionPath(activeSection, currentPage - 1)}>Prev</Link>
+                  ) : <span className="page-section-tab opacity-40">Prev</span>}
                   {Array.from({ length: pageCount }, (_, index) => index + 1).map((page) => (
-                    <button
+                    <Link
                       aria-current={page === currentPage ? 'page' : undefined}
                       className={`page-section-tab ${page === currentPage ? 'font-semibold text-slate-900' : ''}`}
                       key={page}
-                      onClick={() => handlePageChange(page)}
-                      type="button"
+                      to={newsSectionPath(activeSection, page)}
                     >
                       {page}
-                    </button>
+                    </Link>
                   ))}
-                  <button
-                    className="page-section-tab disabled:cursor-not-allowed disabled:opacity-40"
-                    disabled={currentPage === pageCount}
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    type="button"
-                  >
-                    Next
-                  </button>
+                  {currentPage < pageCount ? (
+                    <Link className="page-section-tab no-underline" to={newsSectionPath(activeSection, currentPage + 1)}>Next</Link>
+                  ) : <span className="page-section-tab opacity-40">Next</span>}
                 </nav>
               ) : null}
             </div>

@@ -6,12 +6,15 @@ import { SiteFooter } from '@/components/site/SiteFooter';
 import { SiteHeader } from '@/components/site/SiteHeader';
 import { HOME_CONTENT } from '@/content/site-content';
 
-const RECRUITMENT_NOTICE_PATHS = new Set(['/', '/team', '/research', '/publications', '/news']);
+const RECRUITMENT_NOTICE_PREFIXES = ['/', '/team', '/research', '/publications', '/news'];
 
 export function SiteLayout({ locale, children }) {
   const { pathname } = useLocation();
   const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
-  const showRecruitmentNotice = RECRUITMENT_NOTICE_PATHS.has(normalizedPath);
+  const prerendering = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('prerender');
+  const showRecruitmentNotice = !prerendering && RECRUITMENT_NOTICE_PREFIXES.some((path) => (
+    path === '/' ? normalizedPath === '/' : normalizedPath === path || normalizedPath.startsWith(`${path}/`)
+  ));
   const homeContent = HOME_CONTENT[locale] || HOME_CONTENT.en || {};
 
   return (
@@ -28,7 +31,7 @@ export function SiteLayout({ locale, children }) {
       {showRecruitmentNotice ? (
         <RecruitmentNotice autoOpen={normalizedPath === '/'} content={homeContent} locale={locale} />
       ) : null}
-      <CookieConsent />
+      <CookieConsent disabled={prerendering} />
     </div>
   );
 }

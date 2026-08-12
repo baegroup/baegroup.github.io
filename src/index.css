@@ -181,6 +181,7 @@
   }
 
   .page-section-tab[aria-pressed='true'],
+  .page-section-tab[aria-current='page'],
   .page-section-tab[data-state='active'] {
     @apply font-semibold text-slate-900;
   }

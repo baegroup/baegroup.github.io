@@ -41,7 +41,7 @@ function ToggleRow({ checked, description, disabled = false, label, onChange }) 
   );
 }
 
-export function CookieConsent() {
+export function CookieConsent({ disabled = false }) {
   const [ready, setReady] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [showPanel, setShowPanel] = useState(false);
@@ -112,7 +112,7 @@ export function CookieConsent() {
     persist(preferences);
   }
 
-  if (!ready) {
+  if (disabled || !ready) {
     return null;
   }
 

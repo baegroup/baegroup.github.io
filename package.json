@@ -17,7 +17,7 @@
     "predev": "npm run content:build",
     "prebuild": "npm run content:build",
     "dev": "vite",
-    "build": "vite build && node scripts/build-route-html.mjs && cp dist/index.html dist/404.html",
+    "build": "vite build && node scripts/build-route-html.mjs && node scripts/prerender-routes.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

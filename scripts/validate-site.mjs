@@ -110,7 +110,21 @@ for (const item of researchContent.fundingItems || []) {
 }
 
 const seoPaths = SEO_ROUTES.map((item) => item.path);
-const requiredSeoPaths = ['/', '/team', '/research', '/publications', '/news', '/join', '/contact'];
+const requiredSeoPaths = [
+  '/',
+  '/team',
+  '/team/jaehyeong-bae',
+  '/team/members',
+  '/team/staff',
+  '/team/alumni',
+  '/research',
+  '/publications',
+  '/publications/patents',
+  '/news',
+  '/join',
+  '/contact',
+  '/ko'
+];
 report(new Set(seoPaths).size === seoPaths.length, 'SEO: route paths must be unique');
 report(new Set(SEO_ROUTES.map((item) => item.title)).size === SEO_ROUTES.length, 'SEO: titles must be unique');
 report(SITE_URL.startsWith('https://'), 'SEO: SITE_URL must use HTTPS');
@@ -120,6 +134,14 @@ for (const requiredPath of requiredSeoPaths) {
 for (const route of SEO_ROUTES) {
   report(route.description.length >= 50 && route.description.length <= 180, `SEO: description length is invalid for "${route.path}"`);
 }
+report(
+  SEO_ROUTES.find((route) => route.path === '/team/jaehyeong-bae')?.title.includes('Jaehyeong Bae'),
+  'SEO: professor profile title must include "Jaehyeong Bae"'
+);
+report(
+  SEO_ROUTES.find((route) => route.path === '/ko')?.title.includes('배재형 교수 연구실'),
+  'SEO: Korean landing title must include the Korean lab identity'
+);
 
 const contentSources = await Promise.all([
   fs.readFile(path.join(ROOT, 'public/data/news.json'), 'utf8'),
@@ -134,6 +156,7 @@ for (const forbiddenText of ['Enginnering', 'ICAE (2026)']) {
 const indexHtml = await fs.readFile(path.join(ROOT, 'index.html'), 'utf8');
 report(indexHtml.includes('<!-- route-meta:start -->'), 'SEO: route metadata start marker is missing');
 report(indexHtml.includes('<!-- route-meta:end -->'), 'SEO: route metadata end marker is missing');
+report(indexHtml.includes('name="google-site-verification"'), 'SEO: Google site verification tag is missing');
 
 for (const filePath of await listFiles(path.join(PUBLIC_DIR, 'assets'))) {
   const stats = await fs.stat(filePath);
