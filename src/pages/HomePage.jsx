@@ -49,7 +49,6 @@ export function HomePage({ locale }) {
       <div className="pt-1 md:pt-2">
         <HomeResearchAreasSection
           content={researchContent}
-          heroCtas={{ primary: homeContent.primaryCta, secondary: homeContent.secondaryCta }}
           locale={locale}
           revealDelay={70}
         />

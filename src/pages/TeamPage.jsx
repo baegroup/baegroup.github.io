@@ -8,7 +8,7 @@ import { loadTeamProfiles } from '@/lib/data';
 import { pagePath } from '@/lib/i18n';
 
 const DEFAULT_JUMP_NAV = [
-  { id: 'identity', label: 'Lab Identity' },
+  { id: 'identity', label: 'About Our Lab' },
   { id: 'professor', label: 'Professor' },
   { id: 'current', label: 'Current Students' },
   { id: 'staff', label: 'Staff' },
@@ -684,9 +684,9 @@ export function TeamPage({ locale }) {
                     <div className="flex h-full flex-col justify-center space-y-5">
                       <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
                       <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
-                      <div className="pt-2 md:pt-3">
-                        <Link className="site-cta-secondary" to={pagePath('join')}>
-                          {content.joinCta || 'Information for joining our team'}
+                      <div className="site-action-links pt-2 md:pt-3">
+                        <Link className="site-action-link" to={pagePath('join')}>
+                          View Opportunities
                         </Link>
                       </div>
                     </div>

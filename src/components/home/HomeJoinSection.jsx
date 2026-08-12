@@ -35,8 +35,8 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const joinImages = mediaCandidates(HOME_MEDIA.joinTeam);
   const exhausted = imageIndex >= joinImages.length;
-  const primaryLabel = 'Read More About Joining';
-  const secondaryLabel = 'Explore Our Lab Culture';
+  const primaryLabel = 'View Opportunities';
+  const secondaryLabel = 'Explore Lab Culture';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   return (
@@ -48,15 +48,15 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
       <div className="relative z-10">
         <h2 className="home-section-title">{content.joinTitle}</h2>
         <p className="home-body-copy mt-4 max-w-xl">{renderJoinDescription(content.joinDescription)}</p>
-        <div className="mt-5 flex flex-wrap gap-2.5">
+        <div className="site-action-links mt-5">
           <Link
-            className="site-cta-secondary"
+            className="site-action-link"
             to={pagePath(locale, 'join')}
           >
             {primaryLabel}
           </Link>
           <Link
-            className="site-cta-secondary"
+            className="site-action-link"
             to={pagePath(locale, 'team')}
           >
             {secondaryLabel}

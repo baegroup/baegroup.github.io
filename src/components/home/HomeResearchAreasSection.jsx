@@ -35,14 +35,14 @@ function ResearchAreaCard({ card, imagePath }) {
   );
 }
 
-export function HomeResearchAreasSection({ content, locale, revealDelay = 0, heroCtas = {} }) {
+export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
   const cards = (content.cards || []).slice(0, 3).map((card, index) => ({
     ...card,
     body: HOME_RESEARCH_CARD_COPY[locale]?.[index] || HOME_RESEARCH_CARD_COPY.en[index] || card.body
   }));
   const title = 'Research Area';
-  const primaryCtaLabel = heroCtas.primary || 'Explore Research Areas';
-  const secondaryCtaLabel = heroCtas.secondary || 'View Key Publications';
+  const primaryCtaLabel = 'Explore Research';
+  const secondaryCtaLabel = 'View Publications';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   if (!cards.length) {
@@ -51,8 +51,16 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0, her
 
   return (
     <section className={`home-air-section space-y-5 ${revealClassName}`} ref={ref} style={revealStyle}>
-      <div className="space-y-2.5">
+      <div className="home-section-header flex-col items-start sm:flex-row sm:items-end">
         <h2 className="home-section-title">{title}</h2>
+        <div className="site-action-links">
+          <Link className="site-action-link" to={pagePath(locale, 'research')}>
+            {primaryCtaLabel}
+          </Link>
+          <Link className="site-action-link" to={pagePath(locale, 'publications')}>
+            {secondaryCtaLabel}
+          </Link>
+        </div>
       </div>
 
       <div className="reveal-stagger grid gap-7 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3 xl:gap-[1.375rem]">
@@ -63,15 +71,6 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0, her
             key={card.title}
           />
         ))}
-      </div>
-
-      <div className="flex flex-wrap justify-end gap-2.5 pt-3 md:pt-5">
-        <Link className="site-cta-secondary" to={pagePath(locale, 'research')}>
-          {primaryCtaLabel}
-        </Link>
-        <Link className="site-cta-secondary" to={pagePath(locale, 'publications')}>
-          {secondaryCtaLabel}
-        </Link>
       </div>
     </section>
   );

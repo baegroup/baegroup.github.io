@@ -110,8 +110,9 @@ function FundingItem({ item, index }) {
   const dividerClassName = [
     index > 0 ? 'border-t border-slate-200 sm:border-t-0' : '',
     index % 2 === 1 ? 'sm:border-l' : '',
-    index >= 2 ? 'sm:border-t xl:border-t-0' : '',
-    index > 0 ? 'xl:border-l' : ''
+    index >= 2 ? 'sm:border-t' : '',
+    index < 4 ? 'xl:border-t-0' : 'xl:border-t',
+    index % 4 === 0 ? 'xl:border-l-0' : 'xl:border-l'
   ]
     .filter(Boolean)
     .join(' ');
@@ -164,7 +165,7 @@ export function ResearchPage({ locale }) {
 
       <section className={fundingReveal.revealClassName} ref={fundingReveal.ref} style={fundingReveal.revealStyle}>
         <h2 className="text-center text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{fundingTitle}</h2>
-        <div className="reveal-stagger mt-6 grid border-b border-slate-200 sm:grid-cols-2 xl:grid-cols-5">
+        <div className="reveal-stagger mt-6 grid sm:grid-cols-2 xl:grid-cols-4">
           {fundingItems.map((item, index) => (
             <FundingItem index={index} item={item} key={`${item.name}-${item.logo || index}`} />
           ))}

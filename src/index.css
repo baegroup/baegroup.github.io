@@ -66,6 +66,28 @@
     @apply flex items-end justify-between gap-3;
   }
 
+  .site-action-links {
+    @apply flex flex-wrap items-center gap-x-5 gap-y-2;
+  }
+
+  .site-action-link {
+    color: var(--brand-burgundy-deep);
+    text-decoration-color: color-mix(in srgb, var(--brand-burgundy) 48%, transparent);
+    @apply text-sm font-semibold underline decoration-1 underline-offset-4;
+    transition: color 180ms ease, text-decoration-color 180ms ease;
+  }
+
+  .site-action-link:hover {
+    color: var(--brand-burgundy);
+    text-decoration-color: var(--brand-burgundy);
+  }
+
+  .site-action-link:focus-visible {
+    border-radius: 0.125rem;
+    outline: 2px solid var(--brand-navy);
+    outline-offset: 3px;
+  }
+
   .home-section-title {
     @apply text-3xl font-semibold leading-tight tracking-tight text-slate-950 md:text-4xl;
   }

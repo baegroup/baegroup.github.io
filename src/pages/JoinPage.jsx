@@ -97,7 +97,7 @@ export function JoinPage({ locale }) {
             </div>
 
             {content.contactEmail ? (
-              <a className="site-cta-primary" href={`mailto:${content.contactEmail}`}>
+              <a className="site-action-link" href={`mailto:${content.contactEmail}`}>
                 {content.applicationCta || 'Apply by Email'}
               </a>
             ) : null}

@@ -66,7 +66,7 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
   const listItems = items.slice(2, 6);
   const sectionTitle = 'Lab News';
   const listLabel = 'Recent Highlights';
-  const viewAllLabel = 'View all news';
+  const viewAllLabel = 'View All News';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   if (!featuredItems.length && !listItems.length) {
@@ -77,12 +77,12 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
     <section className={`home-air-section space-y-4 md:space-y-5 ${revealClassName}`} ref={ref} style={revealStyle}>
       <div className="home-section-header">
         <h2 className="home-section-title">{sectionTitle}</h2>
-        <Link className="site-text-link text-sm underline-offset-4" to={pagePath(locale, 'news')}>
+        <Link className="site-action-link" to={pagePath(locale, 'news')}>
           {viewAllLabel}
         </Link>
       </div>
 
-      <article className="border-b border-slate-200 pb-6 md:pb-8">
+      <article>
         <div className={featuredItems.length && listItems.length ? 'grid lg:grid-cols-[minmax(0,1.16fr)_minmax(0,1fr)]' : 'grid'}>
           {featuredItems.length ? (
             <div className={listItems.length ? 'border-b border-slate-200 pb-6 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-8' : ''}>
