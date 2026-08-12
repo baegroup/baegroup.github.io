@@ -12,7 +12,6 @@ export function SiteFooter({ locale }) {
   const joinLabel = 'Join Our Team';
   const quickLinksLabel = 'Quick Links';
   const rightsLabel = 'All rights reserved.';
-  const affiliationLabel = 'Department of Chemical Engineering, Kyung Hee University';
   const koreanIdentityLabel = '경희대학교 화학공학과 배재형 교수 연구실';
   const description = (brand.tagline || brand.subtitle || '').trim();
   const quickLinks = [...navItems, { slug: 'contact', label: contactLabel }, { slug: 'join', label: joinLabel }].filter((item, index, array) => {
@@ -32,13 +31,15 @@ export function SiteFooter({ locale }) {
     <footer className="mt-8 border-t border-[#d2cac3] bg-[var(--brand-footer)] text-[#222222]">
       <div className="mx-auto w-full max-w-6xl px-5 py-8 md:py-10">
         <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">{brand.name}</h2>
-            {description ? <p className="mt-1 text-xs uppercase tracking-[0.12em] text-[#717171]">{description}</p> : null}
-            <p className="mt-2 text-sm text-[#4a4a4a]">{koreanIdentityLabel}</p>
+          <div className="text-left">
+            <h2 className="text-xl font-semibold leading-tight tracking-tight text-[var(--brand-burgundy)]">{brand.name}</h2>
+            <div className="mt-2 space-y-1 text-left text-sm leading-relaxed">
+              {description ? <p className="font-medium text-[#55504d]">{description}</p> : null}
+              <p className="text-[#55504d]">{koreanIdentityLabel}</p>
+            </div>
           </div>
           <div className="md:justify-self-stretch md:text-right">
-            <p className="text-xs font-medium text-[#68615d]">{quickLinksLabel}</p>
+            <p className="text-sm font-semibold text-[#55504d]">{quickLinksLabel}</p>
             <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5 md:justify-end">
               {quickLinks.map((item) => (
                 <li key={item.slug || 'home'}>
@@ -53,30 +54,27 @@ export function SiteFooter({ locale }) {
 
         <div className="mt-6 grid gap-4 border-t border-[#d8d0c9] pt-5 md:grid-cols-2">
           <div>
-            <p className="text-xs font-medium text-[#68615d]">{labels.address || 'Address'}</p>
+            <p className="text-sm font-semibold text-[#55504d]">{labels.address || 'Address'}</p>
             <p className="mt-1 text-sm leading-relaxed text-[#2a2a2a]">{content.address}</p>
           </div>
 
           <div className="md:justify-self-stretch md:text-right">
-            <p className="text-xs font-medium text-[#68615d]">{labels.email || 'Email'}</p>
+            <p className="text-sm font-semibold text-[#55504d]">{labels.email || 'Email'}</p>
             <a className="mt-1 inline-block text-sm text-[#2a2a2a] no-underline transition-colors hover:text-[var(--brand-burgundy)]" href="mailto:jbae@khu.ac.kr">
               jbae@khu.ac.kr
             </a>
           </div>
         </div>
 
-        <div className="mt-6 border-t border-[#d8d0c9] pt-4 text-xs text-[#68615d] md:flex md:items-center md:justify-between">
-          <p>© {year} {brand.name}. {rightsLabel}</p>
-          <div className="mt-1 flex items-center gap-4 md:mt-0 md:justify-end md:text-right">
-            <p>{affiliationLabel}</p>
-            <button
-              className="text-xs font-semibold text-[#4a4a4a] underline-offset-2 transition-colors hover:text-[var(--brand-navy)] hover:underline"
-              onClick={openCookiePreferences}
-              type="button"
-            >
-              Manage Cookies
-            </button>
-          </div>
+        <div className="mt-6 flex flex-col items-start gap-2 border-t border-[#d8d0c9] pt-4 text-sm leading-relaxed text-[#68615d] md:flex-row md:items-center md:justify-between">
+          <p>© {year} {brand.name}, Department of Chemical Engineering, Kyung Hee University. {rightsLabel}</p>
+          <button
+            className="text-sm text-[#68615d] underline-offset-2 transition-colors hover:text-[var(--brand-navy)] hover:underline"
+            onClick={openCookiePreferences}
+            type="button"
+          >
+            Cookie Settings
+          </button>
         </div>
       </div>
     </footer>

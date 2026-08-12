@@ -43,26 +43,31 @@ const PROFESSOR_COPY = {
   sectionLead: 'Principal Investigator',
   department: 'Department of Chemical Engineering',
   institution: 'Kyung Hee University',
+  researchTitle: 'Research Overview',
   educationTitle: 'Education',
   appointmentsTitle: 'Academic Appointments',
-  honorsTitle: 'Honors & Award',
+  honorsTitle: 'Honors & Awards',
   publicationsTitle: 'Selected Publications'
 };
 const PROFESSOR_PROFILE_DETAILS = {
   'bae-jaehyeong': {
     phone: '+82-31-201-2477',
     fax: '+82-31-204-8114',
+    researchOverview: [
+      'Jaehyeong Bae conducts multidisciplinary research at the intersection of functional materials, additive manufacturing, and energy and environmental science. His work spans photoacid-enabled liquid-state photovoltaics, solvogel-passivated lithium-metal anodes, stretchable hydrogel supercapacitors, chemical and temperature sensors, nonclassical nucleation and crystallization, and direct ink writing.',
+      'His current research focuses on advanced additive manufacturing and functional materials, including direct ink writing of aerogels and liquid metals for thermal management, functional hydrogels for carbon capture, and embedded 3D printing for biomedical applications.'
+    ],
     education: [
       { year: '2020', text: 'Ph.D. in Materials Science and Engineering, KAIST, Korea' },
       { year: '2016', text: 'M.S. in Chemical and Biomolecular Engineering, KAIST, Korea' },
       { year: '2013', text: 'B.S. in Chemical Engineering, Tsinghua University, China' }
     ],
     appointments: [
-      { year: '2023.03-Present', text: 'Assistant Professor, Dept. of Chemical Engineering, Kyung Hee University' },
-      { year: '2022.04-2022.10', text: 'Postdoctoral Fellow, Harvard University (Prof. Jennifer A. Lewis)' },
-      { year: '2021.06-2022.11', text: 'Postdoctoral Fellow, Harvard University (Prof. Jennifer A. Lewis)' },
-      { year: '2020.09-2023.02', text: 'Postdoctoral Fellow, KAIST (Prof. Il-Doo Kim)' },
-      { year: '2018.03-2018.06', text: 'Visiting Scholar, University of California, Irvine (Prof. Reginald M. Penner)' }
+      { year: '2023.03–Present', text: 'Assistant Professor, Department of Chemical Engineering, Kyung Hee University' },
+      { year: '2022.04–2022.10', text: 'Postdoctoral Fellow, Harvard University (Prof. Jennifer A. Lewis)' },
+      { year: '2021.06–2022.11', text: 'Postdoctoral Fellow, Harvard University (Prof. Jennifer A. Lewis)' },
+      { year: '2020.09–2023.02', text: 'Postdoctoral Fellow, KAIST (Prof. Il-Doo Kim)' },
+      { year: '2018.03–2018.06', text: 'Visiting Scholar, University of California, Irvine (Prof. Reginald M. Penner)' }
     ],
     honors: [
       { year: '2021.03', text: 'Sejong Science Fellowship, National Research Foundation of Korea (NRF)' },
@@ -70,10 +75,10 @@ const PROFESSOR_PROFILE_DETAILS = {
       { year: '2020.09', text: 'Research Fellowship of BK21 Plus Program' },
       { year: '2019.12', text: 'Best Poster Award, International Conference on Advanced Electromaterials (ICAE) 2019' },
       { year: '2017.12', text: 'Best Poster Award, ICAE 2017' },
-      { year: '2016-2020', text: 'KAIST Scholarship, KAIST' },
-      { year: '2014-2016', text: 'Korean Government Scholarship, KAIST' },
+      { year: '2016–2020', text: 'KAIST Scholarship, KAIST' },
+      { year: '2014–2016', text: 'Korean Government Scholarship, KAIST' },
       { year: '2011', text: 'Academic Excellence Award, Tsinghua University' },
-      { year: '2010-2013', text: 'Beijing Government International Student Full Scholarship, Tsinghua University' }
+      { year: '2010–2013', text: 'Beijing Government International Student Full Scholarship, Tsinghua University' }
     ],
     publications: [
       {
@@ -392,16 +397,33 @@ function ProfessorTimeline({ title, items }) {
   }
 
   return (
-    <section className="space-y-3">
-      <h3 className="text-3xl font-semibold tracking-tight text-slate-950">{title}</h3>
-      <ul className="space-y-2">
+    <section className="grid gap-4 border-t border-slate-300 pt-6 md:grid-cols-[168px_minmax(0,1fr)] md:gap-8 md:pt-8 lg:grid-cols-[190px_minmax(0,1fr)]">
+      <h3 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h3>
+      <ul className="divide-y divide-slate-200 border-b border-slate-200">
         {items.map((item) => (
-          <li className="flex flex-col gap-1 text-sm leading-relaxed text-slate-700 md:flex-row md:gap-5 md:text-base" key={`${item.year}-${item.text}`}>
-            <span className="font-semibold text-[#2563eb] md:min-w-[168px]">{item.year}</span>
-            <span>{item.text}</span>
+          <li className="grid gap-1 py-4 first:pt-0 md:grid-cols-[168px_minmax(0,1fr)] md:gap-6" key={`${item.year}-${item.text}`}>
+            <span className="whitespace-nowrap text-sm font-semibold text-[var(--brand-burgundy)] tabular-nums md:text-base">{item.year}</span>
+            <span className="text-sm leading-relaxed text-slate-700 md:text-base">{item.text}</span>
           </li>
         ))}
       </ul>
+    </section>
+  );
+}
+
+function ProfessorResearchOverview({ title, paragraphs }) {
+  if (!paragraphs.length) {
+    return null;
+  }
+
+  return (
+    <section className="grid gap-4 border-t border-slate-300 pt-6 md:grid-cols-[168px_minmax(0,1fr)] md:gap-8 md:pt-8 lg:grid-cols-[190px_minmax(0,1fr)]">
+      <h3 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h3>
+      <div className="max-w-3xl space-y-4 text-sm leading-relaxed text-slate-700 md:text-base">
+        {paragraphs.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+      </div>
     </section>
   );
 }
@@ -418,7 +440,7 @@ function HighlightPIName({ authors, piName }) {
         <span key={`${chunk}-${index}`}>
           {chunk}
           {index < chunks.length - 1 ? (
-            <span className="underline decoration-slate-500 decoration-2 underline-offset-4">{piName}</span>
+            <span className="font-semibold text-slate-900">{piName}</span>
           ) : null}
         </span>
       ))}
@@ -432,19 +454,29 @@ function ProfessorPublications({ title, items }) {
   }
 
   return (
-    <section className="space-y-3">
-      <h3 className="text-3xl font-semibold tracking-tight text-slate-950">{title}</h3>
-      <ul className="list-disc space-y-4 pl-6 text-sm leading-relaxed text-slate-700 md:text-base">
-        {items.map((item) => (
-          <li key={`${item.title}-${item.journalName}`}>
-            <HighlightPIName authors={item.authors} piName="Jaehyeong Bae" />
-            <span>, </span>
-            <span>"{item.title}", </span>
-            <strong className="font-semibold text-slate-900">{item.journalName}</strong>
-            {item.details ? <span>, {item.details}</span> : null}
-          </li>
-        ))}
-      </ul>
+    <section className="grid gap-4 border-t border-slate-300 pt-6 md:grid-cols-[168px_minmax(0,1fr)] md:gap-8 md:pt-8 lg:grid-cols-[190px_minmax(0,1fr)]">
+      <h3 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h3>
+      <div>
+        <ul className="divide-y divide-slate-200 border-b border-slate-200">
+          {items.map((item) => (
+            <li className="py-5 first:pt-0" key={`${item.title}-${item.journalName}`}>
+              <h4 className="text-base font-semibold leading-snug text-slate-950 md:text-lg">{item.title}</h4>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                <HighlightPIName authors={item.authors} piName="Jaehyeong Bae" />
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-500">
+                <span className="font-semibold italic text-slate-700">{item.journalName}</span>
+                {item.details ? <span> · {item.details}</span> : null}
+              </p>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-4 flex justify-end">
+          <Link className="site-text-link text-sm" to={pagePath('publications')}>
+            View all publications
+          </Link>
+        </div>
+      </div>
     </section>
   );
 }
@@ -458,22 +490,20 @@ function ProfessorShowcase({ professor }) {
   return (
     <article className="space-y-8 md:space-y-10">
       <div className="grid gap-7 lg:grid-cols-[minmax(220px,300px)_minmax(0,1fr)] lg:items-center lg:gap-14">
-        <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
-          <div className="min-h-[240px] lg:min-h-[320px]">
-            {hasPhoto ? (
-              <img
-                alt={professor.localizedName}
-                className="h-full w-full object-cover object-top"
-                decoding="async"
-                loading="lazy"
-                onError={() => setBroken(true)}
-                src={`${import.meta.env.BASE_URL}${professor.photo}`}
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center text-6xl font-semibold tracking-tight text-slate-600">{professor.initials}</div>
-            )}
-          </div>
-        </div>
+        <figure className="aspect-[3/4] w-full overflow-hidden rounded-[4px] border border-slate-200">
+          {hasPhoto ? (
+            <img
+              alt={professor.localizedName}
+              className="h-full w-full object-cover object-top"
+              decoding="async"
+              loading="lazy"
+              onError={() => setBroken(true)}
+              src={`${import.meta.env.BASE_URL}${professor.photo}`}
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center text-6xl font-semibold tracking-tight text-slate-600">{professor.initials}</div>
+          )}
+        </figure>
 
         <div className="flex h-full flex-col justify-center space-y-4">
           <div className="space-y-2">
@@ -507,6 +537,7 @@ function ProfessorShowcase({ professor }) {
       </div>
 
       <div className="space-y-8 md:space-y-10">
+        <ProfessorResearchOverview paragraphs={profile?.researchOverview || []} title={copy.researchTitle} />
         <ProfessorTimeline items={profile?.education || []} title={copy.educationTitle} />
         <ProfessorTimeline items={profile?.appointments || []} title={copy.appointmentsTitle} />
         <ProfessorTimeline items={profile?.honors || []} title={copy.honorsTitle} />
@@ -680,7 +711,7 @@ export function TeamPage({ locale }) {
                     <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)] lg:items-center lg:gap-8">
                       <div className="flex h-full flex-col justify-center space-y-4">
                         <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'The Fearless Lab Culture'}</h2>
-                        <p className="text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
+                        <p className="max-w-xl text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
                       </div>
 
                       <figure className="mx-auto w-full max-w-lg lg:ml-auto lg:mr-0 lg:max-w-[80%]">

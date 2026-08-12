@@ -498,16 +498,16 @@ export function NewsPage({ locale }) {
         </div>
       </PageHero>
 
-      <div className={`grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(194px,232px)] lg:items-start lg:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
+      <div className={`grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,340px)] lg:items-start lg:gap-8 xl:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
         <aside className="order-2 lg:self-start">
-          <div className="space-y-4 lg:sticky lg:top-36 lg:max-h-[calc(100vh-10rem)] lg:overflow-y-auto lg:pr-1">
+          <div className="space-y-4 xl:sticky xl:top-28">
             {latestInstagramEmbedUrl || latestInstagramImage ? (
-              <section className="space-y-3 px-1">
+              <section className="space-y-3">
                 {latestInstagramEmbedUrl ? (
-                  <div className="mx-auto w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1.5">
+                  <div className="mx-auto w-full max-w-[340px] overflow-hidden rounded-lg border border-slate-200 bg-white p-1">
                     <iframe
                       allowTransparency
-                      className="block h-[420px] w-full sm:h-[460px]"
+                      className="block h-[590px] w-full"
                       loading="lazy"
                       scrolling="no"
                       src={latestInstagramEmbedUrl}
@@ -516,7 +516,7 @@ export function NewsPage({ locale }) {
                     />
                   </div>
                 ) : (
-                  <a className="mx-auto block w-full max-w-[248px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
+                  <a className="mx-auto block w-full max-w-[340px] overflow-hidden rounded-lg border border-slate-200 bg-white" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
                     <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
                   </a>
                 )}
