@@ -43,13 +43,13 @@ Bae Lab welcomes motivated undergraduate researchers and graduate students from 
 Read More About Joining
 
 ## recruitmentNoticeEyebrow
-Join Bae Lab
+Now Recruiting
 
 ## recruitmentNoticeTitle
-Graduate Research Opportunities
+Graduate Students
 
 ## recruitmentNoticeDescription
-Explore M.S., Ph.D., and integrated degree opportunities at Bae Lab.
+M.S. · Ph.D. · Integrated M.S.–Ph.D.
 
 ## recruitmentNoticeCta
-Explore Opportunities
+View Details
