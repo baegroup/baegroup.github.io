@@ -56,6 +56,7 @@ const ROUTE_SOURCE_FILES = {
   '/news': ['src/pages/NewsPage.jsx', 'public/data/news.json'],
   '/join': ['src/pages/JoinPage.jsx', 'content/en/join.md'],
   '/contact': ['src/pages/ContactPage.jsx', 'content/en/contact.md'],
+  '/privacy': ['src/pages/PrivacyPage.jsx', 'src/components/site/SiteAnalytics.jsx'],
   '/ko': ['src/pages/KoreanLandingPage.jsx']
 };
 

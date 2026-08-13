@@ -78,6 +78,12 @@ export const SEO_ROUTES = [
       'Find the email, telephone, campus address, laboratory location, and directions for Bae Lab at Kyung Hee University.'
   },
   {
+    path: '/privacy',
+    title: 'Privacy and Analytics | Bae Lab · Kyung Hee University',
+    description:
+      'Learn how Bae Lab uses consent-based Google Analytics to measure aggregate visitor countries, traffic sources, page usage, and engagement.'
+  },
+  {
     path: '/ko',
     title: '배재형 교수 연구실 | Bae Lab · 경희대학교 화학공학과',
     description:

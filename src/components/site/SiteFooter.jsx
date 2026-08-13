@@ -68,13 +68,18 @@ export function SiteFooter({ locale }) {
 
         <div className="mt-3 flex flex-col items-start gap-1.5 text-sm leading-relaxed text-[#68615d] md:flex-row md:items-center md:justify-between">
           <p>© {year} {brand.name}, Department of Chemical Engineering, Kyung Hee University. {rightsLabel}</p>
-          <button
-            className="text-sm text-[#68615d] underline-offset-2 transition-colors hover:text-[var(--brand-navy)] hover:underline"
-            onClick={openCookiePreferences}
-            type="button"
-          >
-            Cookie Settings
-          </button>
+          <div className="flex items-center gap-3">
+            <Link className="text-sm text-[#68615d] underline-offset-2 transition-colors hover:text-[var(--brand-navy)] hover:underline" to="/privacy/">
+              Privacy
+            </Link>
+            <button
+              className="text-sm text-[#68615d] underline-offset-2 transition-colors hover:text-[var(--brand-navy)] hover:underline"
+              onClick={openCookiePreferences}
+              type="button"
+            >
+              Cookie Settings
+            </button>
+          </div>
         </div>
       </div>
     </footer>

@@ -130,6 +130,7 @@ const requiredSeoPaths = [
   '/news',
   '/join',
   '/contact',
+  '/privacy',
   '/ko'
 ];
 report(new Set(seoPaths).size === seoPaths.length, 'SEO: route paths must be unique');

@@ -2,7 +2,8 @@ import { useEffect, useId, useState } from 'react';
 
 import {
   COOKIE_CONSENT_STORAGE_KEY,
-  COOKIE_CONSENT_UPDATED_EVENT
+  COOKIE_CONSENT_UPDATED_EVENT,
+  readCookiePreferences
 } from '@/lib/privacy';
 
 const OPEN_EVENT = 'open-cookie-preferences';
@@ -49,19 +50,16 @@ export function CookieConsent({ disabled = false }) {
 
   useEffect(() => {
     try {
-      const saved = window.localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
-      if (!saved) {
+      const savedPreferences = readCookiePreferences();
+      if (!savedPreferences) {
         setShowBanner(true);
         setReady(true);
         return;
       }
-
-      const parsed = JSON.parse(saved);
-      const savedPreferences = parsed?.preferences || {};
       setPreferences({
         necessary: true,
         analytics: Boolean(savedPreferences.analytics),
-        marketing: Boolean(savedPreferences.marketing)
+        marketing: false
       });
       setShowBanner(false);
       setReady(true);
@@ -84,12 +82,12 @@ export function CookieConsent({ disabled = false }) {
 
   function persist(nextPreferences) {
     const payload = {
-      version: 1,
+      version: 2,
       updatedAt: new Date().toISOString(),
       preferences: {
         necessary: true,
         analytics: Boolean(nextPreferences.analytics),
-        marketing: Boolean(nextPreferences.marketing)
+        marketing: false
       }
     };
 
@@ -101,7 +99,7 @@ export function CookieConsent({ disabled = false }) {
   }
 
   function acceptAll() {
-    persist({ necessary: true, analytics: true, marketing: true });
+    persist({ necessary: true, analytics: true, marketing: false });
   }
 
   function acceptEssential() {
@@ -125,8 +123,8 @@ export function CookieConsent({ disabled = false }) {
               <div>
                 <p className="text-sm font-semibold text-slate-900 md:text-base">Cookie Notice</p>
                 <p className="mt-1 text-sm leading-relaxed text-slate-600">
-                  We use cookies to improve performance, analyze traffic, and personalize content.
-                  You can accept all, keep only essential cookies, or customize preferences.
+                  With your permission, Google Analytics helps us understand visitor countries,
+                  traffic sources, and page usage. We do not use advertising cookies.
                 </p>
               </div>
 
@@ -191,15 +189,9 @@ export function CookieConsent({ disabled = false }) {
               />
               <ToggleRow
                 checked={preferences.analytics}
-                description="Helps us understand usage patterns and improve performance."
+                description="Collects aggregate country, traffic source, and page-usage information through Google Analytics."
                 label="Analytics"
                 onChange={(event) => setPreferences((prev) => ({ ...prev, analytics: event.target.checked }))}
-              />
-              <ToggleRow
-                checked={preferences.marketing}
-                description="Used to measure campaign effectiveness and relevance."
-                label="Marketing"
-                onChange={(event) => setPreferences((prev) => ({ ...prev, marketing: event.target.checked }))}
               />
             </div>
 

@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { SiteLayout } from '@/layouts/SiteLayout';
 import { SiteMetadata } from '@/components/site/SiteMetadata';
+import { SiteAnalytics } from '@/components/site/SiteAnalytics';
 import { HomePage } from '@/pages/HomePage';
 import { TeamPage } from '@/pages/TeamPage';
 import { NewsPage } from '@/pages/NewsPage';
@@ -11,6 +12,7 @@ import { ResearchPage } from '@/pages/ResearchPage';
 import { ContactPage } from '@/pages/ContactPage';
 import { JoinPage } from '@/pages/JoinPage';
 import { KoreanLandingPage } from '@/pages/KoreanLandingPage';
+import { PrivacyPage } from '@/pages/PrivacyPage';
 
 const DEFAULT_LOCALE = 'en';
 
@@ -55,6 +57,7 @@ function SiteRoutes() {
         <Route element={<KoreanLandingPage />} path="ko" />
         <Route element={<JoinPage locale={locale} />} path="join" />
         <Route element={<ContactPage locale={locale} />} path="contact" />
+        <Route element={<PrivacyPage />} path="privacy" />
         <Route element={<Navigate replace to="/" />} path="*" />
       </Routes>
     </SiteLayout>
@@ -65,6 +68,7 @@ export default function App() {
   return (
     <>
       <SiteMetadata />
+      <SiteAnalytics />
       <ScrollToTop />
       <Routes>
         <Route element={<LegacyLocaleRedirect />} path="en/*" />
