@@ -5,7 +5,8 @@ const GOOGLE_SCOPES = [
   'https://www.googleapis.com/auth/analytics.readonly',
   'https://www.googleapis.com/auth/webmasters.readonly'
 ].join(' ');
-const DASHBOARD_TITLE = 'Website Analytics';
+const DASHBOARD_TITLE = '웹사이트 방문자 분석';
+const LEGACY_DASHBOARD_TITLES = ['Website Analytics'];
 const GA_REPORT_URL = 'https://analytics.google.com/analytics/web/#/a252415216p346894074/reports/intelligenthome';
 const SEARCH_CONSOLE_URL = 'https://search.google.com/search-console?resource_id=https%3A%2F%2Fwww.baelab.khu.ac.kr%2F';
 
@@ -148,27 +149,45 @@ async function findOrCreateDashboard({ token, parentDatabaseId }) {
     throw new Error('The existing Notion CMS database is not nested under a page. Set NOTION_ANALYTICS_PARENT_PAGE_ID explicitly.');
   }
 
-  let cursor = null;
-  do {
-    const search = await notionRequest({
-      token,
-      endpoint: '/search',
-      method: 'POST',
-      body: {
-        query: DASHBOARD_TITLE,
-        filter: { property: 'object', value: 'page' },
-        page_size: 100,
-        ...(cursor ? { start_cursor: cursor } : {})
+  const dashboardTitles = [DASHBOARD_TITLE, ...LEGACY_DASHBOARD_TITLES];
+  for (const dashboardTitle of dashboardTitles) {
+    let cursor = null;
+    do {
+      const search = await notionRequest({
+        token,
+        endpoint: '/search',
+        method: 'POST',
+        body: {
+          query: dashboardTitle,
+          filter: { property: 'object', value: 'page' },
+          page_size: 100,
+          ...(cursor ? { start_cursor: cursor } : {})
+        }
+      });
+      const existing = (search.results || []).find((page) => (
+        dashboardTitles.includes(getPageTitle(page)) && page.parent?.page_id === parentPageId
+      ));
+      if (existing) {
+        if (getPageTitle(existing) !== DASHBOARD_TITLE) {
+          return notionRequest({
+            token,
+            endpoint: `/pages/${existing.id}`,
+            method: 'PATCH',
+            body: {
+              icon: { type: 'emoji', emoji: '📊' },
+              properties: {
+                title: {
+                  title: [{ type: 'text', text: { content: DASHBOARD_TITLE } }]
+                }
+              }
+            }
+          });
+        }
+        return existing;
       }
-    });
-    const existing = (search.results || []).find((page) => (
-      getPageTitle(page) === DASHBOARD_TITLE && page.parent?.page_id === parentPageId
-    ));
-    if (existing) {
-      return existing;
-    }
-    cursor = search.has_more ? search.next_cursor : null;
-  } while (cursor);
+      cursor = search.has_more ? search.next_cursor : null;
+    } while (cursor);
+  }
 
   return notionRequest({
     token,
@@ -249,34 +268,33 @@ function linkedParagraph(label, url) {
   return { object: 'block', type: 'paragraph', paragraph: { rich_text: plainText(label, { link: url }) } };
 }
 
-function tableBlock(headers, rows) {
-  const cells = [headers, ...rows].map((row, rowIndex) => ({
-    object: 'block',
-    type: 'table_row',
-    table_row: {
-      cells: row.map((value) => plainText(value, { bold: rowIndex === 0 }))
-    }
-  }));
-  return {
-    object: 'block',
-    type: 'table',
-    table: {
-      table_width: headers.length,
-      has_column_header: true,
-      has_row_header: false,
-      children: cells
-    }
-  };
-}
-
-function callout(content) {
+function callout(content, { emoji = 'ℹ️', color = 'gray_background' } = {}) {
   return {
     object: 'block',
     type: 'callout',
     callout: {
       rich_text: plainText(content),
-      icon: { type: 'emoji', emoji: 'ℹ️' },
-      color: 'gray_background'
+      icon: { type: 'emoji', emoji },
+      color
+    }
+  };
+}
+
+function bulletedItem(content) {
+  return {
+    object: 'block',
+    type: 'bulleted_list_item',
+    bulleted_list_item: { rich_text: plainText(content) }
+  };
+}
+
+function toggleBlock(title, children) {
+  return {
+    object: 'block',
+    type: 'toggle',
+    toggle: {
+      rich_text: plainText(title, { bold: true }),
+      children: children.length ? children : [paragraph('표시할 데이터가 아직 없습니다.')]
     }
   };
 }
@@ -294,7 +312,7 @@ function dimensionValue(row, index) {
 }
 
 function compactNumber(value) {
-  return new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(Number(value || 0));
+  return new Intl.NumberFormat('ko-KR', { maximumFractionDigits: 0 }).format(Number(value || 0));
 }
 
 function percentage(value, digits = 1) {
@@ -305,29 +323,68 @@ function duration(value) {
   const seconds = Math.round(Number(value || 0));
   const minutes = Math.floor(seconds / 60);
   const remainder = seconds % 60;
-  return minutes ? `${minutes}m ${remainder}s` : `${remainder}s`;
+  return minutes ? `${minutes}분 ${remainder}초` : `${remainder}초`;
 }
 
 function changeLabel(current, previous) {
   const currentValue = Number(current || 0);
   const previousValue = Number(previous || 0);
-  if (!previousValue) return currentValue ? 'New' : '—';
+  if (!previousValue) return currentValue ? '신규' : '변화 없음';
   const change = ((currentValue - previousValue) / previousValue) * 100;
-  return `${change >= 0 ? '+' : ''}${change.toFixed(1)}%`;
+  return `전주 대비 ${change >= 0 ? '+' : ''}${change.toFixed(1)}%`;
 }
 
 function rowsFromReport(report, mapper) {
   return (report.rows || []).map(mapper);
 }
 
-function searchRows(report, keyLabel = 'Unknown') {
-  return (report.rows || []).map((row) => [
-    String(row.keys?.[0] || keyLabel),
-    compactNumber(row.clicks),
-    compactNumber(row.impressions),
-    percentage(row.ctr),
-    Number(row.position || 0).toFixed(1)
-  ]);
+function topRows(report, limit = 5) {
+  return (report.rows || []).slice(0, limit);
+}
+
+function joinedList(values) {
+  return values.filter(Boolean).join(' · ');
+}
+
+function topLabel(report, dimensionIndex = 0) {
+  return report.rows?.length ? dimensionValue(report.rows[0], dimensionIndex) : '데이터 없음';
+}
+
+function translateVisitorType(value) {
+  return ({ new: '신규 방문자', returning: '재방문자', '(not set)': '분류되지 않음' })[String(value).toLowerCase()] || value;
+}
+
+function translateCountry(value) {
+  return ({
+    'South Korea': '대한민국',
+    'United States': '미국',
+    China: '중국',
+    Japan: '일본',
+    India: '인도',
+    Germany: '독일',
+    France: '프랑스',
+    Canada: '캐나다',
+    Singapore: '싱가포르',
+    Taiwan: '대만',
+    Australia: '호주',
+    Netherlands: '네덜란드',
+    'United Kingdom': '영국',
+    '(not set)': '분류되지 않음'
+  })[value] || value;
+}
+
+function translateChannel(value) {
+  return ({
+    Direct: '직접 방문',
+    'Organic Search': '검색 유입',
+    Referral: '외부 링크',
+    'Organic Social': '소셜 미디어',
+    Unassigned: '분류되지 않음'
+  })[value] || value;
+}
+
+function reportList(report, formatter) {
+  return topRows(report).map((row) => bulletedItem(formatter(row)));
 }
 
 function buildDashboardBlocks({
@@ -350,77 +407,92 @@ function buildDashboardBlocks({
   const previous = previousSummary.rows?.[0] || {};
   const currentMetrics = Array.from({ length: 7 }, (_, index) => metricValue(current, index));
   const previousMetrics = Array.from({ length: 7 }, (_, index) => metricValue(previous, index));
-  const metricRows = [
-    ['Active users', compactNumber(currentMetrics[0]), compactNumber(previousMetrics[0]), changeLabel(currentMetrics[0], previousMetrics[0])],
-    ['New users', compactNumber(currentMetrics[1]), compactNumber(previousMetrics[1]), changeLabel(currentMetrics[1], previousMetrics[1])],
-    ['Sessions', compactNumber(currentMetrics[2]), compactNumber(previousMetrics[2]), changeLabel(currentMetrics[2], previousMetrics[2])],
-    ['Page views', compactNumber(currentMetrics[3]), compactNumber(previousMetrics[3]), changeLabel(currentMetrics[3], previousMetrics[3])],
-    ['Engagement rate', percentage(currentMetrics[4]), percentage(previousMetrics[4]), changeLabel(currentMetrics[4], previousMetrics[4])],
-    ['Avg. session duration', duration(currentMetrics[5]), duration(previousMetrics[5]), changeLabel(currentMetrics[5], previousMetrics[5])],
-    ['Engaged sessions', compactNumber(currentMetrics[6]), compactNumber(previousMetrics[6]), changeLabel(currentMetrics[6], previousMetrics[6])]
-  ];
   const signalCounts = new Map(rowsFromReport(connectionSignals, (row) => [
     dimensionValue(row, 0), metricValue(row, 0)
   ]));
-  const signalRows = [
-    ['Recruitment interest', compactNumber(signalCounts.get('recruitment_interest'))],
-    ['Application email intent', compactNumber(signalCounts.get('application_intent'))],
-    ['Contact email intent', compactNumber(signalCounts.get('contact_intent'))],
-    ['Research profile interest', compactNumber(signalCounts.get('research_profile_interest'))],
-    ['Publication interest', compactNumber(signalCounts.get('publication_interest'))]
-  ];
   const searchTotals = searchSummary.rows?.[0] || {};
+  const periodComparison = [
+    `활성 방문자 ${compactNumber(currentMetrics[0])}명 (${changeLabel(currentMetrics[0], previousMetrics[0])})`,
+    `신규 방문자 ${compactNumber(currentMetrics[1])}명 (${changeLabel(currentMetrics[1], previousMetrics[1])})`,
+    `방문 ${compactNumber(currentMetrics[2])}회 (${changeLabel(currentMetrics[2], previousMetrics[2])})`,
+    `페이지 조회 ${compactNumber(currentMetrics[3])}회 (${changeLabel(currentMetrics[3], previousMetrics[3])})`,
+    `참여 세션 ${compactNumber(currentMetrics[6])}회 (${changeLabel(currentMetrics[6], previousMetrics[6])})`
+  ];
+  const connectionSummary = [
+    `모집 안내 관심 ${compactNumber(signalCounts.get('recruitment_interest'))}회`,
+    `지원 이메일 클릭 ${compactNumber(signalCounts.get('application_intent'))}회`,
+    `연락 이메일 클릭 ${compactNumber(signalCounts.get('contact_intent'))}회`,
+    `연구자 프로필 클릭 ${compactNumber(signalCounts.get('research_profile_interest'))}회`,
+    `논문 링크 클릭 ${compactNumber(signalCounts.get('publication_interest'))}회`
+  ];
+  const topCountry = translateCountry(topLabel(countries));
+  const topChannel = translateChannel(topLabel(channels));
+  const topPage = topLabel(pages);
+  const topQuery = String(searchQueries.rows?.[0]?.keys?.[0] || '아직 검색어 데이터가 없습니다');
 
   return [
     heading(DASHBOARD_TITLE, 1),
-    callout(`Last updated ${updatedAt} · GA4 data is consent-based and excludes visitors who decline Analytics.`),
-    heading('Last 7 Days', 2),
-    tableBlock(['Metric', 'Current', 'Previous', 'Change'], metricRows),
+    callout(`업데이트: ${updatedAt} · 최근 7일 기준 · Analytics에 동의한 방문자의 집계 데이터만 포함합니다.`, {
+      emoji: '🕘'
+    }),
+    heading('한눈에 보기', 2),
+    paragraph(`최근 7일 동안 ${compactNumber(currentMetrics[0])}명이 ${compactNumber(currentMetrics[2])}회 방문해 ${compactNumber(currentMetrics[3])}개의 페이지를 조회했습니다. 가장 많은 방문 국가는 ${topCountry}, 주요 유입 경로는 ${topChannel}입니다.`),
+    callout(`방문자  ${compactNumber(currentMetrics[0])}명 · 신규 ${compactNumber(currentMetrics[1])}명 · ${changeLabel(currentMetrics[0], previousMetrics[0])}`, {
+      emoji: '👥', color: 'blue_background'
+    }),
+    callout(`이용량  방문 ${compactNumber(currentMetrics[2])}회 · 페이지 조회 ${compactNumber(currentMetrics[3])}회`, {
+      emoji: '📈', color: 'green_background'
+    }),
+    callout(`참여도  참여율 ${percentage(currentMetrics[4])} · 평균 체류 ${duration(currentMetrics[5])}`, {
+      emoji: '⏱️', color: 'yellow_background'
+    }),
+    callout(`Google 검색(확정 28일)  클릭 ${compactNumber(searchTotals.clicks)}회 · 노출 ${compactNumber(searchTotals.impressions)}회 · 평균 ${Number(searchTotals.position || 0).toFixed(1)}위`, {
+      emoji: '🔎', color: 'purple_background'
+    }),
     divider(),
-    heading('Connection Signals', 2),
-    paragraph('Aggregate actions that indicate possible collaboration, recruitment, or research interest.'),
-    tableBlock(['Signal', 'Last 7 days'], signalRows),
-    heading('Google Search Discovery', 2),
-    tableBlock(['Period', 'Clicks', 'Impressions', 'CTR', 'Avg. position'], [[
-      'Last 28 final days', compactNumber(searchTotals.clicks), compactNumber(searchTotals.impressions),
-      percentage(searchTotals.ctr), Number(searchTotals.position || 0).toFixed(1)
-    ]]),
-    tableBlock(['Search query', 'Clicks', 'Impressions', 'CTR', 'Position'], searchRows(searchQueries)),
-    heading('Search Landing Pages', 3),
-    tableBlock(['Page', 'Clicks', 'Impressions', 'CTR', 'Position'], searchRows(searchPages)),
+    heading('연구 연결 가능성', 2),
+    paragraph('모집, 공동연구, 연구자 정보 및 논문에 관심을 보인 행동을 개인정보 없이 합산한 수치입니다.'),
+    callout(joinedList(connectionSummary), { emoji: '🤝', color: 'gray_background' }),
     divider(),
-    heading('Visitor Countries', 2),
-    tableBlock(['Country', 'Active users', 'Sessions'], rowsFromReport(countries, (row) => [
-      dimensionValue(row, 0), compactNumber(metricValue(row, 0)), compactNumber(metricValue(row, 1))
-    ])),
-    heading('New vs. Returning', 3),
-    tableBlock(['Visitor type', 'Active users'], rowsFromReport(returning, (row) => [
-      dimensionValue(row, 0), compactNumber(metricValue(row, 0))
-    ])),
-    heading('Traffic Channels', 2),
-    tableBlock(['Channel', 'Sessions', 'Active users'], rowsFromReport(channels, (row) => [
-      dimensionValue(row, 0), compactNumber(metricValue(row, 0)), compactNumber(metricValue(row, 1))
-    ])),
-    heading('Traffic Sources', 2),
-    tableBlock(['Source / medium', 'Sessions'], rowsFromReport(sources, (row) => [
-      dimensionValue(row, 0), compactNumber(metricValue(row, 0))
-    ])),
-    heading('Entry Pages', 3),
-    tableBlock(['Landing page', 'Sessions', 'Users'], rowsFromReport(landingPages, (row) => [
-      dimensionValue(row, 0), compactNumber(metricValue(row, 0)), compactNumber(metricValue(row, 1))
-    ])),
-    heading('Most Viewed Pages', 2),
-    tableBlock(['Page', 'Title', 'Views', 'Users'], rowsFromReport(pages, (row) => [
-      dimensionValue(row, 0), dimensionValue(row, 1), compactNumber(metricValue(row, 0)), compactNumber(metricValue(row, 1))
-    ])),
-    heading('Outbound Research Destinations', 3),
-    tableBlock(['Destination domain', 'Clicks'], rowsFromReport(outboundLinks, (row) => [
-      dimensionValue(row, 0), compactNumber(metricValue(row, 0))
-    ])),
+    heading('세부 정보', 2),
+    paragraph(`가장 많이 본 페이지는 ${topPage}, 대표 Google 검색어는 “${topQuery}”입니다. 필요한 항목만 펼쳐서 확인하세요.`),
+    toggleBlock('지난주와 비교', periodComparison.map(bulletedItem)),
+    toggleBlock('방문 국가와 신규·재방문', [
+      heading('방문 국가 상위 5개', 3),
+      ...reportList(countries, (row) => `${translateCountry(dimensionValue(row, 0))} · 방문자 ${compactNumber(metricValue(row, 0))}명 · 방문 ${compactNumber(metricValue(row, 1))}회`),
+      heading('신규·재방문', 3),
+      ...reportList(returning, (row) => `${translateVisitorType(dimensionValue(row, 0))} · ${compactNumber(metricValue(row, 0))}명`)
+    ]),
+    toggleBlock('방문 경로와 첫 진입 페이지', [
+      heading('유입 채널 상위 5개', 3),
+      ...reportList(channels, (row) => `${translateChannel(dimensionValue(row, 0))} · 방문 ${compactNumber(metricValue(row, 0))}회 · 방문자 ${compactNumber(metricValue(row, 1))}명`),
+      heading('상세 출처 상위 5개', 3),
+      ...reportList(sources, (row) => `${dimensionValue(row, 0)} · 방문 ${compactNumber(metricValue(row, 0))}회`),
+      heading('첫 진입 페이지 상위 5개', 3),
+      ...reportList(landingPages, (row) => `${dimensionValue(row, 0)} · 방문 ${compactNumber(metricValue(row, 0))}회 · 방문자 ${compactNumber(metricValue(row, 1))}명`)
+    ]),
+    toggleBlock('많이 본 페이지와 외부 링크', [
+      heading('조회 페이지 상위 5개', 3),
+      ...reportList(pages, (row) => `${dimensionValue(row, 0)} · 조회 ${compactNumber(metricValue(row, 0))}회 · 방문자 ${compactNumber(metricValue(row, 1))}명`),
+      heading('외부 연구 링크 상위 5개', 3),
+      ...reportList(outboundLinks, (row) => `${dimensionValue(row, 0)} · 클릭 ${compactNumber(metricValue(row, 0))}회`)
+    ]),
+    toggleBlock('Google 검색 상세', [
+      paragraph(`최근 확정 28일 · 클릭 ${compactNumber(searchTotals.clicks)}회 · 노출 ${compactNumber(searchTotals.impressions)}회 · 클릭률 ${percentage(searchTotals.ctr)} · 평균 ${Number(searchTotals.position || 0).toFixed(1)}위`),
+      heading('검색어 상위 5개', 3),
+      ...topRows(searchQueries).map((row) => bulletedItem(
+        `${String(row.keys?.[0] || '검색어 없음')} · 클릭 ${compactNumber(row.clicks)} · 노출 ${compactNumber(row.impressions)} · ${Number(row.position || 0).toFixed(1)}위`
+      )),
+      heading('검색 유입 페이지 상위 5개', 3),
+      ...topRows(searchPages).map((row) => bulletedItem(
+        `${String(row.keys?.[0] || '페이지 없음')} · 클릭 ${compactNumber(row.clicks)} · 노출 ${compactNumber(row.impressions)} · ${Number(row.position || 0).toFixed(1)}위`
+      ))
+    ]),
     divider(),
-    paragraph('Use the source systems below for detailed exploration and search-query performance.'),
-    linkedParagraph('Open Google Analytics', GA_REPORT_URL),
-    linkedParagraph('Open Google Search Console', SEARCH_CONSOLE_URL)
+    heading('원본 데이터', 2),
+    paragraph('더 자세한 분석이 필요한 경우 아래 원본 서비스에서 확인할 수 있습니다.'),
+    linkedParagraph('Google Analytics 열기', GA_REPORT_URL),
+    linkedParagraph('Google Search Console 열기', SEARCH_CONSOLE_URL)
   ];
 }
 
@@ -511,7 +583,7 @@ async function main() {
   const accessToken = await getGoogleAccessToken(credentials);
   const analytics = await collectAnalytics({ accessToken, propertyId, searchConsoleSiteUrl });
   const dashboard = await findOrCreateDashboard({ token: notionToken, parentDatabaseId: notionNewsDatabaseId });
-  const updatedAt = new Intl.DateTimeFormat('en-CA', {
+  const updatedAt = new Intl.DateTimeFormat('ko-KR', {
     timeZone: 'Asia/Seoul', dateStyle: 'medium', timeStyle: 'short'
   }).format(new Date());
   const children = buildDashboardBlocks({ ...analytics, updatedAt });
