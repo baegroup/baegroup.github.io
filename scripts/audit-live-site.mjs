@@ -78,6 +78,7 @@ report(urls.every((url) => url.startsWith(`${SITE_URL}/`)), 'sitemap: every URL 
 
 const titles = new Map();
 const imageUrls = new Set();
+let homeStructuredData = null;
 
 await runPool(urls, async (url) => {
   const { response, text: html } = await fetchText(url);
@@ -103,7 +104,8 @@ await runPool(urls, async (url) => {
   }
 
   try {
-    JSON.parse(jsonLd);
+    const parsedStructuredData = JSON.parse(jsonLd);
+    if (url === `${SITE_URL}/`) homeStructuredData = parsedStructuredData;
   } catch {
     report(false, `${url}: structured data is missing or invalid JSON`);
   }
@@ -117,6 +119,16 @@ await runPool(urls, async (url) => {
 const { text: robotsText } = await fetchText(`${SITE_URL}/robots.txt`);
 report(robotsText.includes(`Sitemap: ${SITE_URL}/sitemap.xml`), 'robots.txt: canonical sitemap declaration is missing');
 report(!/Disallow:\s*\//i.test(robotsText), 'robots.txt: site-wide crawling is blocked');
+report(/User-agent:\s*OAI-SearchBot[\s\S]*?Allow:\s*\//i.test(robotsText), 'robots.txt: OAI-SearchBot is not explicitly allowed');
+report(/User-agent:\s*ChatGPT-User[\s\S]*?Allow:\s*\//i.test(robotsText), 'robots.txt: ChatGPT-User is not explicitly allowed');
+
+const homeGraph = homeStructuredData?.['@graph'] || [];
+const labEntity = homeGraph.find((item) => item?.['@type'] === 'ResearchOrganization');
+const professorEntity = homeGraph.find((item) => item?.['@type'] === 'Person');
+report(Boolean(labEntity?.description), 'structured data: Bae Lab entity description is missing');
+report(Boolean(labEntity?.parentOrganization?.['@id']), 'structured data: Bae Lab parent organization is missing');
+report((labEntity?.knowsAbout || []).length >= 8, 'structured data: Bae Lab research topics are incomplete');
+report((professorEntity?.sameAs || []).some((url) => url.includes('orcid.org/')), 'structured data: professor ORCID identity link is missing');
 
 const { text: rssText } = await fetchText(`${SITE_URL}/rss.xml`);
 report(/<rss\b/i.test(rssText), 'RSS: root element is missing');

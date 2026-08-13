@@ -181,12 +181,63 @@ function buildNewsRoutes(news) {
         lastmod: item.date || news.updatedAt || '',
         datePublished: item.date || undefined,
         dateModified: item.date || undefined,
-        schemaType: 'NewsArticle'
+        schemaType: 'NewsArticle',
+        articleSection: labels[section],
+        keywords: [labels[section], 'Bae Lab', 'Kyung Hee University', 'Chemical Engineering']
       });
     }
   }
 
   return routes;
+}
+
+function normalizeSchemaAuthorName(value) {
+  return String(value || '')
+    .replace(/[†*]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function schemaAuthor(value) {
+  const name = normalizeSchemaAuthorName(value);
+  if (name.toLowerCase() === 'jaehyeong bae') {
+    return {
+      '@type': 'Person',
+      '@id': `${SITE_URL}/team/jaehyeong-bae/#person`,
+      name
+    };
+  }
+  return { '@type': 'Person', name };
+}
+
+function publicationSchema(item) {
+  const isPatent = item.type === 'patent';
+  const isCurrentManuscript = item.type === 'preprint';
+  const doi = String(item.doi || '').trim();
+  const link = String(item.link || '').trim();
+  const journal = String(item.journal || '').trim();
+
+  return {
+    '@type': isPatent ? 'CreativeWork' : 'ScholarlyArticle',
+    name: item.title,
+    author: (item.authors || [])
+      .map(normalizeSchemaAuthorName)
+      .filter(Boolean)
+      .map(schemaAuthor),
+    datePublished: item.year ? String(item.year) : undefined,
+    creativeWorkStatus: isCurrentManuscript ? 'In preparation' : undefined,
+    genre: isPatent ? 'Patent' : isCurrentManuscript ? 'Current manuscript' : 'Journal article',
+    isPartOf: journal && journal !== 'TBD'
+      ? { '@type': 'Periodical', name: journal }
+      : undefined,
+    volumeNumber: item.volume || undefined,
+    issueNumber: item.issue || undefined,
+    pagination: item.pages || undefined,
+    identifier: doi
+      ? { '@type': 'PropertyValue', propertyID: 'DOI', value: doi }
+      : undefined,
+    url: link || (doi ? `https://doi.org/${doi}` : undefined)
+  };
 }
 
 function buildPublicationRoutes(publications) {
@@ -199,14 +250,27 @@ function buildPublicationRoutes(publications) {
     )].sort((a, b) => b - a);
 
     for (let index = 0; index < years.length; index += 3) {
-      if (index === 0) continue;
       const group = years.slice(index, index + 3);
       const label = group.length > 1 ? `${group[0]}–${group[group.length - 1]}` : String(group[0]);
+      const pageIndex = index / 3;
+      const baseRoute = SEO_ROUTES.find((route) => route.path === (type === 'patent' ? '/publications/patents' : '/publications'));
+      const listedItems = publications.filter((item) => item?.type === type && group.includes(Number(item.year)));
+      if (type === 'journal' && pageIndex === 0) {
+        listedItems.unshift(...publications.filter((item) => item?.type === 'preprint'));
+      }
       routes.push({
-        path: publicationPagePath(type, index / 3, group),
-        title: `${label} ${type === 'patent' ? 'Patents' : 'Journal Articles'} | Bae Lab`,
-        description: `Browse Bae Lab ${type === 'patent' ? 'patents' : 'peer-reviewed journal articles'} published in ${label}, with links to available records and publishers.`,
-        language: 'en'
+        path: publicationPagePath(type, pageIndex, group),
+        title: pageIndex === 0
+          ? baseRoute.title
+          : `${label} ${type === 'patent' ? 'Patents' : 'Journal Articles'} | Bae Lab`,
+        description: pageIndex === 0
+          ? baseRoute.description
+          : `Browse Bae Lab ${type === 'patent' ? 'patents' : 'peer-reviewed journal articles'} published in ${label}, with links to available records and publishers.`,
+        language: 'en',
+        lastmod: gitLastModified(['public/data/publications.json']),
+        schemaType: 'CollectionPage',
+        itemListName: `${type === 'patent' ? 'Bae Lab patents' : 'Bae Lab publications'} · ${label}`,
+        itemListElements: listedItems.map(publicationSchema)
       });
     }
   }
@@ -337,7 +401,7 @@ await writeFile(path.join(DIST_DIR, 'sitemap.xml'), sitemap);
 await writeFile(path.join(DIST_DIR, 'rss.xml'), rss);
 await writeFile(
   path.join(DIST_DIR, 'robots.txt'),
-  `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
+  `User-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
 );
 await writeFile(
   path.join(DIST_DIR, 'seo-routes.json'),

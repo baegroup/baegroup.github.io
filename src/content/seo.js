@@ -4,6 +4,21 @@ export const DEFAULT_SOCIAL_IMAGE = '/assets/img/home/hero/cover-1920.jpg';
 export const DEFAULT_SOCIAL_IMAGE_WIDTH = 1920;
 export const DEFAULT_SOCIAL_IMAGE_HEIGHT = 2560;
 
+export const RESEARCH_TOPICS = [
+  'Additive manufacturing',
+  'Direct ink writing',
+  'Functional materials',
+  'Aerogel additive manufacturing',
+  'Liquid metal printing',
+  'Functional hydrogels',
+  'Carbon capture',
+  'Lithium-metal batteries',
+  'Energy harvesting',
+  'Chemical and temperature sensors',
+  'Embedded 3D printing',
+  'Biomedical devices'
+];
+
 export const SEO_ROUTES = [
   {
     path: '/',
@@ -119,22 +134,55 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
   const organizationId = `${SITE_URL}/#organization`;
   const personId = `${SITE_URL}/team/jaehyeong-bae/#person`;
   const websiteId = `${SITE_URL}/#website`;
+  const departmentId = 'https://chemeng.khu.ac.kr/#organization';
+  const universityId = 'https://www.khu.ac.kr/#organization';
+
+  const university = {
+    '@type': 'CollegeOrUniversity',
+    '@id': universityId,
+    name: 'Kyung Hee University',
+    alternateName: '경희대학교',
+    url: 'https://www.khu.ac.kr/'
+  };
+
+  const department = {
+    '@type': 'Organization',
+    '@id': departmentId,
+    name: 'Department of Chemical Engineering, Kyung Hee University',
+    alternateName: '경희대학교 화학공학과',
+    url: 'https://chemeng.khu.ac.kr/chemeng/user/main/view.do',
+    parentOrganization: { '@id': universityId }
+  };
 
   const organization = {
     '@type': 'ResearchOrganization',
     '@id': organizationId,
     name: 'Bae Lab',
     alternateName: ['배재형 교수 연구실', '배랩', 'Functional Materials Additive Manufacturing Lab'],
+    description:
+      'Bae Lab integrates materials design and process engineering to transform complex functional materials into precise and scalable manufacturing technologies.',
     url: `${SITE_URL}/`,
     logo: `${SITE_URL}/assets/img/lab-logo.png`,
     email: 'jbae@khu.ac.kr',
     telephone: '+82-31-201-2477',
-    parentOrganization: {
-      '@type': 'CollegeOrUniversity',
-      name: 'Kyung Hee University',
-      alternateName: '경희대학교',
-      url: 'https://www.khu.ac.kr/'
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'research and collaboration inquiries',
+      email: 'jbae@khu.ac.kr',
+      telephone: '+82-31-201-2477',
+      availableLanguage: ['English', 'Korean']
     },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '1732 Deogyeong-daero, Giheung-gu',
+      addressLocality: 'Yongin-si',
+      addressRegion: 'Gyeonggi-do',
+      postalCode: '17104',
+      addressCountry: 'KR'
+    },
+    parentOrganization: { '@id': departmentId },
+    member: { '@id': personId },
+    knowsAbout: RESEARCH_TOPICS,
     sameAs: [
       'https://www.instagram.com/baelab.khu/',
       'https://www.linkedin.com/in/baelabkhu/',
@@ -148,10 +196,14 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
     name: 'Jaehyeong Bae',
     alternateName: ['배재형', 'Bae Jaehyeong'],
     jobTitle: 'Assistant Professor',
+    description:
+      'Jaehyeong Bae conducts multidisciplinary research at the intersection of functional materials, additive manufacturing, and energy and environmental science.',
     email: 'jbae@khu.ac.kr',
     image: `${SITE_URL}/assets/img/team/notion/bae-jaehyeong.jpg`,
     url: `${SITE_URL}/team/jaehyeong-bae/`,
-    affiliation: { '@id': organizationId },
+    affiliation: [{ '@id': organizationId }, { '@id': departmentId }],
+    memberOf: { '@id': organizationId },
+    worksFor: { '@id': departmentId },
     sameAs: [
       'https://orcid.org/0000-0001-6426-4310',
       'https://scholar.google.com/citations?user=F4hhc78AAAAJ&hl=en',
@@ -161,19 +213,22 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
       'https://chemeng.khu.ac.kr/chemeng/user/professor/list.do?menuNo=17600016',
       'https://www.linkedin.com/in/baelabkhu/'
     ],
-    knowsAbout: [
-      'Additive manufacturing',
-      'Functional materials',
-      'Energy harvesting',
-      'Environmental technology',
-      'Biomedical devices'
-    ]
+    knowsAbout: RESEARCH_TOPICS
   };
 
   const isProfessorPage = path === '/team/jaehyeong-bae';
   const isKoreanPage = path === '/ko';
+  const pageType = isProfessorPage
+    ? 'ProfilePage'
+    : path === '/contact'
+      ? 'ContactPage'
+      : path === '/ko' || path === '/team'
+        ? 'AboutPage'
+        : path === '/research' || path.startsWith('/publications') || path === '/news'
+          ? 'CollectionPage'
+          : 'WebPage';
   const webPage = {
-    '@type': isProfessorPage ? 'ProfilePage' : 'WebPage',
+    '@type': pageType,
     '@id': `${pageUrl}#webpage`,
     url: pageUrl,
     name: metadata.title,
@@ -184,6 +239,8 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
   };
   if (isProfessorPage) {
     webPage.mainEntity = { '@id': personId };
+  } else if (path === '/' || path === '/ko' || path === '/contact') {
+    webPage.mainEntity = { '@id': organizationId };
   }
 
   const graph = [
@@ -197,23 +254,48 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
       inLanguage: ['ko', 'en']
     },
     webPage,
+    university,
+    department,
     organization,
     person
   ];
 
+  if (Array.isArray(metadata.itemListElements) && metadata.itemListElements.length) {
+    const itemListId = `${pageUrl}#item-list`;
+    graph.push({
+      '@type': 'ItemList',
+      '@id': itemListId,
+      name: metadata.itemListName || metadata.title,
+      itemListOrder: 'https://schema.org/ItemListOrderDescending',
+      numberOfItems: metadata.itemListElements.length,
+      itemListElement: metadata.itemListElements.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item
+      }))
+    });
+    webPage.mainEntity = { '@id': itemListId };
+  }
+
   if (metadata.schemaType === 'NewsArticle') {
+    const articleId = `${pageUrl}#article`;
     graph.push({
       '@type': 'NewsArticle',
-      '@id': `${pageUrl}#article`,
+      '@id': articleId,
       headline: metadata.articleTitle || metadata.title,
       description: metadata.description,
       datePublished: metadata.datePublished,
       dateModified: metadata.dateModified || metadata.datePublished,
       image: metadata.image ? [metadata.image] : undefined,
+      articleSection: metadata.articleSection || 'Bae Lab News',
+      keywords: metadata.keywords || RESEARCH_TOPICS,
+      inLanguage: metadata.language || 'en',
+      about: { '@id': organizationId },
       mainEntityOfPage: { '@id': `${pageUrl}#webpage` },
       author: { '@id': organizationId },
       publisher: { '@id': organizationId }
     });
+    webPage.mainEntity = { '@id': articleId };
   }
 
   return {

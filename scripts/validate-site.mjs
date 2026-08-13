@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { HOME_MEDIA } from '../src/content/home-media.js';
-import { SEO_ROUTES, SITE_URL } from '../src/content/seo.js';
+import { getStructuredDataForPath, RESEARCH_TOPICS, SEO_ROUTES, SITE_URL } from '../src/content/seo.js';
 
 const ROOT = process.cwd();
 const PUBLIC_DIR = path.join(ROOT, 'public');
@@ -149,6 +149,28 @@ report(
 report(
   SEO_ROUTES.find((route) => route.path === '/ko')?.title.includes('배재형 교수 연구실'),
   'SEO: Korean landing title must include the Korean lab identity'
+);
+
+const homeStructuredData = getStructuredDataForPath('/');
+const homeGraph = homeStructuredData['@graph'] || [];
+const researchOrganization = homeGraph.find((item) => item['@type'] === 'ResearchOrganization');
+const professorEntity = homeGraph.find((item) => item['@type'] === 'Person');
+const departmentEntity = homeGraph.find((item) => item['@id'] === 'https://chemeng.khu.ac.kr/#organization');
+report(Boolean(researchOrganization?.description), 'GEO: research organization description is missing');
+report(Boolean(researchOrganization?.address?.postalCode), 'GEO: research organization address is incomplete');
+report(
+  researchOrganization?.parentOrganization?.['@id'] === departmentEntity?.['@id'],
+  'GEO: lab-to-department entity relationship is missing'
+);
+report(
+  RESEARCH_TOPICS.every((topic) => researchOrganization?.knowsAbout?.includes(topic)),
+  'GEO: research organization topics are incomplete'
+);
+report(
+  professorEntity?.sameAs?.some((url) => url.includes('orcid.org/'))
+    && professorEntity?.sameAs?.some((url) => url.includes('scholar.google.com/'))
+    && professorEntity?.sameAs?.some((url) => url.includes('chemeng.khu.ac.kr/')),
+  'GEO: professor entity must link to ORCID, Google Scholar, and the official department profile'
 );
 
 const contentSources = await Promise.all([
