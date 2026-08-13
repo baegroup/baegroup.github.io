@@ -25,6 +25,16 @@ npm run build
 npm run preview
 ```
 
+## Health Checks
+
+```bash
+npm run check
+npm run audit:live
+```
+
+GitHub Actions also validates the repository, creates a full production build,
+and audits every canonical URL on the public site each Monday at 09:15 KST.
+
 ## Content/Data Update Flows
 
 ### A) Page copy (static text)
@@ -72,3 +82,8 @@ npm run publish:cms
 - Research funding logos: `public/assets/img/research/funding/*`
 - News sync assets: `public/assets/img/news/notion/*`
 - Publication covers: `public/assets/img/publications/covers/*`
+
+News `Summary` values entered in Notion are published automatically to the
+expanded news row, detail page, search metadata, and RSS. Notion news images
+are converted to WebP during synchronization. Existing news images can be
+optimized with `npm run images:optimize:news`.

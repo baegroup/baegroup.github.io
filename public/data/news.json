@@ -28,11 +28,11 @@
   },
   "piLinks": {
     "linkedin": "https://www.linkedin.com/in/baelabkhu/",
-    "webOfScience": "https://www.webofscience.com/wos/author/search",
+    "webOfScience": "https://www.webofscience.com/wos/author/record/GVR-7870-2022",
     "orcid": "https://orcid.org/0000-0001-6426-4310",
-    "scopus": "https://www.scopus.com/",
+    "scopus": "https://www.scopus.com/authid/detail.uri?authorId=57211514022",
     "googleScholar": "https://scholar.google.com/citations?user=F4hhc78AAAAJ&hl=en",
-    "researchGate": "https://www.researchgate.net/"
+    "researchGate": ""
   },
   "sections": {
     "labNews": [
@@ -66,9 +66,9 @@
         "url": "",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31d6760c5a6580b5b1bbe3042f712a55-1.jpg",
+          "assets/img/news/notion/31d6760c5a6580b5b1bbe3042f712a55-1.webp",
           "assets/img/news/notion/31d6760c5a6580b5b1bbe3042f712a55-2.webp",
-          "assets/img/news/notion/31d6760c5a6580b5b1bbe3042f712a55-3.jpg"
+          "assets/img/news/notion/31d6760c5a6580b5b1bbe3042f712a55-3.webp"
         ]
       },
       {
@@ -102,7 +102,7 @@
         "url": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/aenm.202203818",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31d6760c5a6580dea0b6c6ac01fd5886-1.jpg"
+          "assets/img/news/notion/31d6760c5a6580dea0b6c6ac01fd5886-1.webp"
         ]
       },
       {
@@ -113,7 +113,7 @@
         "url": "https://n.news.naver.com/article/421/0006189130, https://news.kbs.co.kr/news/pc/view/view.do?ncd=5505195,https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/adfm.202200463",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31d6760c5a6580629bf1d9707360a879-1.jpg"
+          "assets/img/news/notion/31d6760c5a6580629bf1d9707360a879-1.webp"
         ]
       },
       {
@@ -124,7 +124,7 @@
         "url": "https://advanced.onlinelibrary.wiley.com/doi/10.1002/adma.202270178",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31d6760c5a6580bc849cc0236e3c7f81-1.jpg"
+          "assets/img/news/notion/31d6760c5a6580bc849cc0236e3c7f81-1.webp"
         ]
       },
       {
@@ -135,9 +135,9 @@
         "url": "",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31d6760c5a6580848ba4fa778084c26d-1.jpg",
-          "assets/img/news/notion/31d6760c5a6580848ba4fa778084c26d-2.jpg",
-          "assets/img/news/notion/31d6760c5a6580848ba4fa778084c26d-3.jpg"
+          "assets/img/news/notion/31d6760c5a6580848ba4fa778084c26d-1.webp",
+          "assets/img/news/notion/31d6760c5a6580848ba4fa778084c26d-2.webp",
+          "assets/img/news/notion/31d6760c5a6580848ba4fa778084c26d-3.webp"
         ]
       },
       {
@@ -148,7 +148,7 @@
         "url": "",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31d6760c5a658027bd8cd74c58899fcb-1.png"
+          "assets/img/news/notion/31d6760c5a658027bd8cd74c58899fcb-1.webp"
         ]
       },
       {
@@ -159,7 +159,7 @@
         "url": "",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31d6760c5a65809ba933fff0c2b58c51-1.jpg"
+          "assets/img/news/notion/31d6760c5a65809ba933fff0c2b58c51-1.webp"
         ]
       }
     ],
@@ -185,7 +185,7 @@
         "url": "",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31e6760c5a6580b89c83e1b232d174a4-1.jpg"
+          "assets/img/news/notion/31e6760c5a6580b89c83e1b232d174a4-1.webp"
         ]
       },
       {
@@ -197,7 +197,7 @@
         "videoUrl": "",
         "images": [
           "assets/img/news/notion/31e6760c5a65801f86d0f9098481f87d-1.webp",
-          "assets/img/news/notion/31e6760c5a65801f86d0f9098481f87d-2.jpg"
+          "assets/img/news/notion/31e6760c5a65801f86d0f9098481f87d-2.webp"
         ]
       },
       {
@@ -220,8 +220,8 @@
         "url": "",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31e6760c5a65803cb05bf93681a1da0b-1.jpg",
-          "assets/img/news/notion/31e6760c5a65803cb05bf93681a1da0b-2.jpg"
+          "assets/img/news/notion/31e6760c5a65803cb05bf93681a1da0b-1.webp",
+          "assets/img/news/notion/31e6760c5a65803cb05bf93681a1da0b-2.webp"
         ]
       },
       {
@@ -232,8 +232,8 @@
         "url": "",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31e6760c5a658096b15bc8ba05eafede-1.jpg",
-          "assets/img/news/notion/31e6760c5a658096b15bc8ba05eafede-2.jpg"
+          "assets/img/news/notion/31e6760c5a658096b15bc8ba05eafede-1.webp",
+          "assets/img/news/notion/31e6760c5a658096b15bc8ba05eafede-2.webp"
         ]
       },
       {
@@ -244,8 +244,8 @@
         "url": "",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31e6760c5a65802c8c2bcbb994348b15-1.jpg",
-          "assets/img/news/notion/31e6760c5a65802c8c2bcbb994348b15-2.jpg"
+          "assets/img/news/notion/31e6760c5a65802c8c2bcbb994348b15-1.webp",
+          "assets/img/news/notion/31e6760c5a65802c8c2bcbb994348b15-2.webp"
         ]
       },
       {
@@ -256,8 +256,8 @@
         "url": "",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31e6760c5a6580e5a59ee7d534474adc-1.jpg",
-          "assets/img/news/notion/31e6760c5a6580e5a59ee7d534474adc-2.jpg"
+          "assets/img/news/notion/31e6760c5a6580e5a59ee7d534474adc-1.webp",
+          "assets/img/news/notion/31e6760c5a6580e5a59ee7d534474adc-2.webp"
         ]
       },
       {
@@ -268,11 +268,11 @@
         "url": "",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-1.jpg",
-          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-2.jpg",
-          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-3.jpg",
-          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-4.jpg",
-          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-5.jpg"
+          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-1.webp",
+          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-2.webp",
+          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-3.webp",
+          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-4.webp",
+          "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-5.webp"
         ]
       }
     ],

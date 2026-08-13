@@ -6,7 +6,7 @@ import { SEO_ROUTES, SITE_URL } from '../src/content/seo.js';
 
 const ROOT = process.cwd();
 const PUBLIC_DIR = path.join(ROOT, 'public');
-const MAX_PUBLIC_ASSET_BYTES = 2 * 1024 * 1024;
+const MAX_PUBLIC_ASSET_BYTES = 750 * 1024;
 const errors = [];
 
 function report(condition, message) {
@@ -81,8 +81,15 @@ const newsItems = ['labNews', 'gallery', 'videos'].flatMap((section) => {
 });
 validateUniqueIds(newsItems, 'news');
 
+report(/citations\?user=/.test(news.piLinks?.googleScholar || ''), 'profiles: Google Scholar must point to a specific author profile');
+report(/orcid\.org\/\d{4}-\d{4}-\d{4}-\d{4}/.test(news.piLinks?.orcid || ''), 'profiles: ORCID must point to a specific researcher record');
+report(/authorId=\d+/.test(news.piLinks?.scopus || ''), 'profiles: Scopus must point to a specific author profile');
+report(/\/author\/record\//.test(news.piLinks?.webOfScience || ''), 'profiles: Web of Science must point to a specific researcher record');
+
 for (const item of newsItems) {
   report(isValidIsoDate(item.date), `news: invalid date for "${item.id}"`);
+  report(typeof item.summary === 'string', `news: summary must be a string for "${item.id}"`);
+  report(Array.isArray(item.images), `news: images must be an array for "${item.id}"`);
   for (const image of item.images || []) await validatePublicFile(image, `news item "${item.id}"`);
 }
 for (const member of team) await validatePublicFile(member.photo, `team member "${member.id}"`);
@@ -167,7 +174,7 @@ report(indexNowKeyFile.trim() === indexNowKey, 'SEO: IndexNow verification key f
 for (const filePath of await listFiles(path.join(PUBLIC_DIR, 'assets'))) {
   const stats = await fs.stat(filePath);
   if (stats.size > MAX_PUBLIC_ASSET_BYTES) {
-    errors.push(`assets: ${path.relative(ROOT, filePath)} is ${(stats.size / 1024 / 1024).toFixed(2)} MB (limit: 2 MB)`);
+    errors.push(`assets: ${path.relative(ROOT, filePath)} is ${(stats.size / 1024 / 1024).toFixed(2)} MB (limit: 750 KB)`);
   }
 }
 

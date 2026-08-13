@@ -103,7 +103,12 @@ function normalizeDescription(value, fallback) {
   const normalized = String(value || '')
     .replace(/\s+/g, ' ')
     .trim();
-  const result = normalized || fallback;
+  const context = 'Research update from Bae Lab at Kyung Hee University.';
+  const result = normalized
+    ? normalized.length < 50
+      ? `${normalized.replace(/[.\s]+$/, '')}. ${context}`
+      : normalized
+    : fallback;
   return result.length > 180 ? `${result.slice(0, 177).trim()}…` : result;
 }
 

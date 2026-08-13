@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+import sharp from 'sharp';
+
 const ROOT = process.cwd();
 const NEWS_OUTPUT_PATH = path.join(ROOT, 'public', 'data', 'news.json');
 const NOTION_ASSET_DIR = path.join(ROOT, 'public', 'assets', 'img', 'news', 'notion');
@@ -8,6 +10,8 @@ const INSTAGRAM_ASSET_DIR = path.join(ROOT, 'public', 'assets', 'img', 'news', '
 const NOTION_API_VERSION = '2025-09-03';
 const SECTION_KEYS = ['labNews', 'gallery', 'videos'];
 const URL_PATTERN = /https?:\/\/[^\s<>"')\]}]+/gi;
+const NEWS_IMAGE_MAX_DIMENSION = 1920;
+const NEWS_IMAGE_WEBP_QUALITY = 82;
 const KNOWN_NEWS_CORRECTIONS = {
   '31d6760c5a6580c9945cf5aaef8dbddd': {
     title: 'Myeong Lee won the KHU Chemical Engineering Undergraduate Research Award'
@@ -536,10 +540,24 @@ async function downloadAsset(url, destinationDir, fileBaseName, defaultExt = 'jp
     throw new Error(`Rejected HTML payload for asset URL: ${url}`);
   }
 
-  const ext = fileExtensionFromUrl(url, contentType) || defaultExt;
+  const isImage = String(contentType).toLowerCase().startsWith('image/');
+  const ext = isImage ? 'webp' : fileExtensionFromUrl(url, contentType) || defaultExt;
   const fileName = `${fileBaseName}.${ext}`;
   const outputPath = path.join(destinationDir, fileName);
-  await fs.writeFile(outputPath, bytes);
+  if (isImage) {
+    await sharp(bytes, { animated: true })
+      .rotate()
+      .resize({
+        width: NEWS_IMAGE_MAX_DIMENSION,
+        height: NEWS_IMAGE_MAX_DIMENSION,
+        fit: 'inside',
+        withoutEnlargement: true
+      })
+      .webp({ effort: 4, quality: NEWS_IMAGE_WEBP_QUALITY, smartSubsample: true })
+      .toFile(outputPath);
+  } else {
+    await fs.writeFile(outputPath, bytes);
+  }
   return fileName;
 }
 

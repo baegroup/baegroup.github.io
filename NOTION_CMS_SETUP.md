@@ -27,9 +27,9 @@ Optional social links:
 
 ```bash
 export PI_LINKEDIN_URL="https://www.linkedin.com/in/..."
-export PI_WOS_URL="https://www.webofscience.com/wos/author/record/..."
+export PI_WOS_URL="https://www.webofscience.com/wos/author/record/GVR-7870-2022"
 export PI_ORCID_URL="https://orcid.org/..."
-export PI_SCOPUS_URL="https://www.scopus.com/authid/detail.uri?authorId=..."
+export PI_SCOPUS_URL="https://www.scopus.com/authid/detail.uri?authorId=57211514022"
 export PI_SCHOLAR_URL="https://scholar.google.com/citations?user=..."
 export PI_RESEARCHGATE_URL="https://www.researchgate.net/profile/..."
 ```
@@ -67,7 +67,7 @@ npm run cms:sync:notion
 | Title | Title | Yes | Item title |
 | Section | Select | Yes | `Lab News` / `Gallery` / `Videos` |
 | Date | Date | Yes | Sorting uses latest first |
-| Summary | Rich text | No | First paragraph shown when expanded |
+| Summary | Rich text | No | Automatically shown in expanded rows and detail pages, and reused for search metadata and RSS |
 | Link | URL | No | External source |
 | Video | URL | No | YouTube/Video link |
 | Images | Files & media | No | Multiple files allowed |
@@ -116,5 +116,7 @@ npm run cms:sync:notion
 ## 6) Recommended Editing Rule
 
 - Team and Publications should always be edited in Notion first.
+- For News, write a concise one- or two-sentence `Summary`; the next daily sync publishes it automatically.
+- News images are resized to a maximum of 1920 px and converted to WebP during sync.
 - Run `npm run cms:sync:notion` after edits.
 - Review JSON diff, then commit/push.

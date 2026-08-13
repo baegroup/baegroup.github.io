@@ -149,7 +149,10 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
     sameAs: [
       'https://orcid.org/0000-0001-6426-4310',
       'https://scholar.google.com/citations?user=F4hhc78AAAAJ&hl=en',
+      'https://www.scopus.com/authid/detail.uri?authorId=57211514022',
+      'https://www.webofscience.com/wos/author/record/GVR-7870-2022',
       'https://khu.elsevierpure.com/en/persons/jaehyeong-bae/',
+      'https://chemeng.khu.ac.kr/chemeng/user/professor/list.do?menuNo=17600016',
       'https://www.linkedin.com/in/baelabkhu/'
     ],
     knowsAbout: [
