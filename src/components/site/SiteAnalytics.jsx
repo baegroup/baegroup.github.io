@@ -8,6 +8,14 @@ import {
 
 const MEASUREMENT_ID = String(import.meta.env.VITE_GA_MEASUREMENT_ID || '').trim();
 const GOOGLE_TAG_SCRIPT_ID = 'baelab-google-tag';
+const RESEARCH_PROFILE_HOSTS = [
+  'scholar.google.com',
+  'orcid.org',
+  'www.scopus.com',
+  'www.webofscience.com',
+  'www.researchgate.net',
+  'www.linkedin.com'
+];
 
 function configureDataLayer() {
   window.dataLayer = window.dataLayer || [];
@@ -60,6 +68,32 @@ function sendPageView(pathname, search) {
   });
 }
 
+function classifyConnectionSignal(anchor) {
+  const href = String(anchor.getAttribute('href') || '').trim();
+  if (!href) return '';
+
+  if (href.toLowerCase().startsWith('mailto:')) {
+    return window.location.pathname.startsWith('/join') ? 'application_intent' : 'contact_intent';
+  }
+
+  try {
+    const url = new URL(href, window.location.origin);
+    if (url.origin === window.location.origin && url.pathname.startsWith('/join')) {
+      return 'recruitment_interest';
+    }
+    if (RESEARCH_PROFILE_HOSTS.includes(url.hostname)) {
+      return 'research_profile_interest';
+    }
+    if (url.hostname === 'doi.org') {
+      return 'publication_interest';
+    }
+  } catch {
+    return '';
+  }
+
+  return '';
+}
+
 export function SiteAnalytics() {
   const { pathname, search } = useLocation();
   const lastPageViewRef = useRef('');
@@ -94,8 +128,22 @@ export function SiteAnalytics() {
       }
     }
 
+    function handleDocumentClick(event) {
+      if (!readCookiePreferences()?.analytics) return;
+      const anchor = event.target.closest?.('a');
+      if (!anchor) return;
+      const eventName = classifyConnectionSignal(anchor);
+      if (!eventName) return;
+      loadGoogleTag();
+      window.gtag('event', eventName, { send_to: MEASUREMENT_ID });
+    }
+
     window.addEventListener(COOKIE_CONSENT_UPDATED_EVENT, handleConsentUpdate);
-    return () => window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, handleConsentUpdate);
+    document.addEventListener('click', handleDocumentClick);
+    return () => {
+      window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, handleConsentUpdate);
+      document.removeEventListener('click', handleDocumentClick);
+    };
   }, []);
 
   useEffect(() => {

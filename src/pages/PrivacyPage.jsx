@@ -12,8 +12,9 @@ export function PrivacyPage() {
           <h2 className="page-section-title">Information We Measure</h2>
           <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
             With your consent, this website uses Google Analytics to understand aggregate usage patterns,
-            including approximate country, traffic source, device category, pages viewed, and engagement.
-            We do not use advertising or personalization features.
+            including approximate country, traffic source, device category, pages viewed, engagement, and
+            selected interactions with recruitment, contact, publication, and research-profile links. We do
+            not use advertising or personalization features.
           </p>
         </section>
 

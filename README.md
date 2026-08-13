@@ -56,6 +56,7 @@ npm run content:build
 - Publications: `npm run publications:sync:notion`
 - Bootstrap Team/Publications from local JSON into Notion: `npm run notion:push:site-data`
 - All at once: `npm run cms:sync:notion`
+- Analytics dashboard: `npm run analytics:sync:notion` (daily GitHub Action; requires `GA4_SERVICE_ACCOUNT_JSON`)
 
 Detailed setup and DB schema:
 

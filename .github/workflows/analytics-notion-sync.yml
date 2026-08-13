@@ -1,0 +1,51 @@
+name: Daily Analytics to Notion
+
+on:
+  schedule:
+    - cron: '0 16 * * *' # Every day 01:00 KST (UTC+9)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: analytics-notion-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN || secrets.NOTION_INTEGRATION_TOKEN || secrets.NOTION_API_TOKEN }}
+      NOTION_NEWS_DB_ID: 31d6760c-5a65-807c-a312-ce5f7978f25d
+      GA4_PROPERTY_ID: '346894074'
+      SEARCH_CONSOLE_SITE_URL: https://www.baelab.khu.ac.kr/
+      GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Validate analytics configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(NOTION_TOKEN NOTION_NEWS_DB_ID GA4_PROPERTY_ID GA4_SERVICE_ACCOUNT_JSON)
+          missing=()
+          for key in "${required[@]}"; do
+            if [[ -z "${!key:-}" ]]; then
+              missing+=("$key")
+            fi
+          done
+          if (( ${#missing[@]} > 0 )); then
+            echo "::error::Missing required configuration: ${missing[*]}"
+            exit 1
+          fi
+
+      - name: Update Notion analytics dashboard
+        run: npm run analytics:sync:notion

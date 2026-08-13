@@ -124,7 +124,7 @@ export function CookieConsent({ disabled = false }) {
                 <p className="text-sm font-semibold text-slate-900 md:text-base">Cookie Notice</p>
                 <p className="mt-1 text-sm leading-relaxed text-slate-600">
                   With your permission, Google Analytics helps us understand visitor countries,
-                  traffic sources, and page usage. We do not use advertising cookies.
+                  traffic sources, page usage, and selected site interactions. We do not use advertising cookies.
                 </p>
               </div>
 
@@ -189,7 +189,7 @@ export function CookieConsent({ disabled = false }) {
               />
               <ToggleRow
                 checked={preferences.analytics}
-                description="Collects aggregate country, traffic source, and page-usage information through Google Analytics."
+                description="Collects aggregate country, traffic source, page usage, and selected link interactions through Google Analytics."
                 label="Analytics"
                 onChange={(event) => setPreferences((prev) => ({ ...prev, analytics: event.target.checked }))}
               />
