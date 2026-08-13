@@ -6,6 +6,7 @@ export const DEFAULT_SOCIAL_IMAGE_HEIGHT = 2560;
 
 export const RESEARCH_TOPICS = [
   'Additive manufacturing',
+  '3D printing',
   'Direct ink writing',
   'Functional materials',
   'Aerogel additive manufacturing',
@@ -17,6 +18,22 @@ export const RESEARCH_TOPICS = [
   'Chemical and temperature sensors',
   'Embedded 3D printing',
   'Biomedical devices'
+];
+
+export const KOREAN_RESEARCH_TOPICS = [
+  '첨단 적층제조',
+  '3D 프린팅',
+  '직접잉크쓰기',
+  '기능성 소재',
+  '에어로젤 적층제조',
+  '액체금속 프린팅',
+  '기능성 하이드로젤',
+  '탄소포집',
+  '리튬금속전지',
+  '에너지 하베스팅',
+  '화학·온도 센서',
+  '임베디드 3D 프린팅',
+  '생체의료 소자'
 ];
 
 export const SEO_ROUTES = [
@@ -102,7 +119,7 @@ export const SEO_ROUTES = [
     path: '/ko',
     title: '배재형 교수 연구실 | Bae Lab · 경희대학교 화학공학과',
     description:
-      '경희대학교 화학공학과 배재형 교수 연구실의 첨단 적층제조, 기능성 소재, 탄소포집, 에너지·바이오 연구와 주요 논문 및 모집 정보를 소개합니다.'
+      '경희대학교 화학공학과 배재형 교수 연구실의 3D 프린팅·첨단 적층제조, 기능성 소재, 탄소포집, 에너지·바이오 연구와 주요 논문을 소개합니다.'
   }
 ];
 
@@ -182,7 +199,7 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
     },
     parentOrganization: { '@id': departmentId },
     member: { '@id': personId },
-    knowsAbout: RESEARCH_TOPICS,
+    knowsAbout: path === '/ko' ? [...RESEARCH_TOPICS, ...KOREAN_RESEARCH_TOPICS] : RESEARCH_TOPICS,
     sameAs: [
       'https://www.instagram.com/baelab.khu/',
       'https://www.linkedin.com/in/baelabkhu/',
@@ -213,7 +230,7 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
       'https://chemeng.khu.ac.kr/chemeng/user/professor/list.do?menuNo=17600016',
       'https://www.linkedin.com/in/baelabkhu/'
     ],
-    knowsAbout: RESEARCH_TOPICS
+    knowsAbout: path === '/ko' ? [...RESEARCH_TOPICS, ...KOREAN_RESEARCH_TOPICS] : RESEARCH_TOPICS
   };
 
   const isProfessorPage = path === '/team/jaehyeong-bae';
