@@ -40,7 +40,11 @@ export function newsSectionPath(section, page = 1) {
 }
 
 export function newsItemSlug(item) {
-  const date = String(item?.date || '').trim();
+  const rawDate = String(item?.date || '').trim();
+  const dateParts = rawDate.match(/^(\d{4})[./-](\d{1,2})[./-](\d{1,2})$/);
+  const date = dateParts
+    ? `${dateParts[1]}-${dateParts[2].padStart(2, '0')}-${dateParts[3].padStart(2, '0')}`
+    : slugifyPathSegment(rawDate, '');
   const title = slugifyPathSegment(item?.title, 'update');
   return date ? `${date}-${title}` : title;
 }

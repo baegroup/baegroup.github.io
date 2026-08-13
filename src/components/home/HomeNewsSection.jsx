@@ -16,7 +16,10 @@ function parseNewsDate(value) {
 }
 
 function itemPath(item) {
-  const section = ['labNews', 'gallery', 'videos'].includes(item?.section) ? item.section : 'labNews';
+  if (!item?.id || !['labNews', 'gallery', 'videos'].includes(item?.section)) {
+    return '/news/';
+  }
+  const section = item.section;
   return newsItemPath(section, item);
 }
 

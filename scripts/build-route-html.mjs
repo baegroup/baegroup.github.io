@@ -40,7 +40,10 @@ const LEGACY_REDIRECTS = [
   { from: '/lab-news', to: '/news' },
   { from: '/kr/dr-jaehyeong-bae-won-the-best-poster-award-at-5th-international-conference-on-advanced-electromaterials-icae-2019-배재형-박사-icae-2019-best-poster-award-2', to: '/news' },
   { from: '/kr/대학원생-모집', to: '/join' },
-  { from: '/kr/연락처', to: '/contact' }
+  { from: '/kr/연락처', to: '/contact' },
+  { from: '/join-our-team', to: '/join' },
+  { from: '/join-our-team-2', to: '/join' },
+  { from: '/博士研究生-2', to: '/team/members' }
 ];
 
 const ROUTE_SOURCE_FILES = {

@@ -1,8 +1,8 @@
 export const SITE_URL = 'https://www.baelab.khu.ac.kr';
 export const SITE_NAME = 'Bae Lab | 배재형 교수 연구실';
-export const DEFAULT_SOCIAL_IMAGE = '/assets/img/home/hero/cover-1920.jpg';
-export const DEFAULT_SOCIAL_IMAGE_WIDTH = 1920;
-export const DEFAULT_SOCIAL_IMAGE_HEIGHT = 2560;
+export const DEFAULT_SOCIAL_IMAGE = '/assets/img/social/bae-lab-social.jpg';
+export const DEFAULT_SOCIAL_IMAGE_WIDTH = 1200;
+export const DEFAULT_SOCIAL_IMAGE_HEIGHT = 630;
 
 export const RESEARCH_TOPICS = [
   'Additive manufacturing',
@@ -203,7 +203,7 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
     sameAs: [
       'https://www.instagram.com/baelab.khu/',
       'https://www.linkedin.com/in/baelabkhu/',
-      'https://app.rndcircle.io/lab/48cf15b1-76b5-4046-8020-09b4d10e184a'
+      'https://app.rndcircle.io/lab/425f0660-0149-4868-967d-345fb251a5a7'
     ]
   };
 
@@ -254,6 +254,20 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
     about: isProfessorPage ? { '@id': personId } : { '@id': organizationId },
     inLanguage: isKoreanPage ? 'ko' : 'en'
   };
+  const primaryImageId = `${pageUrl}#primaryimage`;
+  const primaryImageUrl = metadata.image || `${SITE_URL}${DEFAULT_SOCIAL_IMAGE}`;
+  const primaryImage = {
+    '@type': 'ImageObject',
+    '@id': primaryImageId,
+    url: primaryImageUrl,
+    contentUrl: primaryImageUrl,
+    caption: metadata.imageAlt || 'Bae Lab research at Kyung Hee University',
+    width: metadata.image ? undefined : DEFAULT_SOCIAL_IMAGE_WIDTH,
+    height: metadata.image ? undefined : DEFAULT_SOCIAL_IMAGE_HEIGHT,
+    representativeOfPage: true
+  };
+  webPage.primaryImageOfPage = { '@id': primaryImageId };
+  webPage.thumbnailUrl = primaryImageUrl;
   if (isProfessorPage) {
     webPage.mainEntity = { '@id': personId };
   } else if (path === '/' || path === '/ko' || path === '/contact') {
@@ -271,6 +285,7 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
       inLanguage: ['ko', 'en']
     },
     webPage,
+    primaryImage,
     university,
     department,
     organization,
@@ -303,7 +318,7 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
       description: metadata.description,
       datePublished: metadata.datePublished,
       dateModified: metadata.dateModified || metadata.datePublished,
-      image: metadata.image ? [metadata.image] : undefined,
+      image: { '@id': primaryImageId },
       articleSection: metadata.articleSection || 'Bae Lab News',
       keywords: metadata.keywords || RESEARCH_TOPICS,
       inLanguage: metadata.language || 'en',

@@ -84,7 +84,8 @@ function formatVolumeIssue(publication) {
 }
 
 function buildMetadataParts(publication) {
-  const journalName = String(publication?.journal || publication?.venue || '').trim();
+  const rawJournalName = String(publication?.journal || publication?.venue || '').trim();
+  const journalName = /^(tbd|n\/?a|none|-+)$/i.test(rawJournalName) ? '' : rawJournalName;
   const year = publication?.year ? String(publication.year) : '';
   const volumeIssue = formatVolumeIssue(publication);
   const articleNumber = String(publication?.pages || '').trim();
@@ -176,7 +177,7 @@ function PublicationInfoPanel({ updatedAt }) {
             <span className="font-semibold text-slate-800">†</span> Co-first author
           </p>
         </div>
-        {updatedAt ? <p className="text-slate-500">Last updated {updatedAt}</p> : null}
+        {updatedAt ? <p className="text-slate-600">Last updated {updatedAt}</p> : null}
     </section>
   );
 }
@@ -219,7 +220,7 @@ function PreprintSection({ items, labAuthorNames, numberOffset = 0, title }) {
                   </p>
 
                   {metadataParts.length ? (
-                    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+                    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-600">
                       {metadataParts.map((part, index) => (
                         <span className="inline-flex items-center gap-x-2" key={`${item.id}-meta-${part.key}`}>
                           {index > 0 ? <span className="text-slate-400">·</span> : null}
@@ -247,7 +248,7 @@ function PreprintSection({ items, labAuthorNames, numberOffset = 0, title }) {
           })}
         </ol>
       ) : (
-        <p className="text-sm text-slate-500">No preprints added yet.</p>
+        <p className="text-sm text-slate-600">No preprints added yet.</p>
       )}
     </section>
   );
@@ -360,7 +361,7 @@ function JournalCoverCarousel({ items }) {
     <div className="flex shrink-0 items-center gap-0.5">
       <button
         aria-label="Previous journal cover"
-        className="inline-flex h-8 w-7 items-center justify-center bg-transparent p-0 text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/35"
+        className="inline-flex h-8 w-7 items-center justify-center bg-transparent p-0 text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/35"
         onClick={goPrev}
         type="button"
       >
@@ -368,7 +369,7 @@ function JournalCoverCarousel({ items }) {
       </button>
       <button
         aria-label="Next journal cover"
-        className="inline-flex h-8 w-7 items-center justify-center bg-transparent p-0 text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/35"
+        className="inline-flex h-8 w-7 items-center justify-center bg-transparent p-0 text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/35"
         onClick={goNext}
         type="button"
       >
@@ -478,7 +479,7 @@ function PublicationList({ items, numbers, labAuthorNames, years }) {
                       </p>
 
                       {metadataParts.length ? (
-                        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+                        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-600">
                           {metadataParts.map((part, index) => (
                             <span className="inline-flex items-center gap-x-2" key={`${pub.id}-meta-${part.key}`}>
                               {index > 0 ? <span className="text-slate-400">·</span> : null}

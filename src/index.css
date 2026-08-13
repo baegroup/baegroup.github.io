@@ -172,7 +172,7 @@
   }
 
   .page-section-tab {
-    @apply bg-transparent p-0 font-sans text-sm font-normal leading-5 text-slate-500;
+    @apply bg-transparent p-0 font-sans text-sm font-normal leading-5 text-slate-600;
     transition: color 180ms ease;
   }
 

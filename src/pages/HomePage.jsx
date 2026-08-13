@@ -12,6 +12,7 @@ export function HomePage({ locale }) {
   const researchContent = RESEARCH_CONTENT[locale];
   const newsContent = NEWS_CONTENT[locale];
   const [latestNewsItems, setLatestNewsItems] = useState(newsContent.items || []);
+  const [latestNewsReady, setLatestNewsReady] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -25,6 +26,10 @@ export function HomePage({ locale }) {
         setLatestNewsItems(items);
       } catch {
         // Keep markdown fallback items when API data load fails.
+      } finally {
+        if (mounted) {
+          setLatestNewsReady(true);
+        }
       }
     }
 
@@ -53,7 +58,9 @@ export function HomePage({ locale }) {
           revealDelay={70}
         />
       </div>
-      <HomeNewsSection content={mergedNewsContent} locale={locale} revealDelay={120} />
+      <div data-prerender-pending={latestNewsReady ? undefined : 'true'}>
+        <HomeNewsSection content={mergedNewsContent} locale={locale} revealDelay={120} />
+      </div>
       <HomeJoinSection content={homeContent} locale={locale} revealDelay={170} />
     </div>
   );

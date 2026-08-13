@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "type": "module",
   "scripts": {
-    "content:build": "node scripts/build-content.mjs && node scripts/build-publication-covers.mjs",
+    "content:build": "node scripts/build-content.mjs && node scripts/build-publication-covers.mjs && node scripts/build-brand-assets.mjs",
     "images:optimize:news": "node scripts/optimize-news-images.mjs",
     "news:sync:notion": "node scripts/sync-news-from-notion.mjs",
     "team:sync:notion": "node scripts/sync-team-from-notion.mjs",
@@ -21,7 +21,7 @@
     "predev": "npm run content:build",
     "prebuild": "npm run content:build",
     "dev": "vite",
-    "build": "vite build && node scripts/build-route-html.mjs && node scripts/prerender-routes.mjs",
+    "build": "vite build && node scripts/build-route-html.mjs && node scripts/prerender-routes.mjs && node scripts/validate-dist-links.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

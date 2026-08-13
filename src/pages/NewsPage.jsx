@@ -260,7 +260,7 @@ function NewsItemRow({ compactPreview = false, detailPath, item, itemRef, number
 
           <button
             aria-expanded={opened}
-            className="inline-flex items-center justify-center text-slate-400 transition-colors hover:text-slate-700"
+            className="inline-flex items-center justify-center text-slate-600 transition-colors hover:text-slate-900"
             onClick={onToggle}
             type="button"
           >
@@ -307,7 +307,7 @@ function NewsItemRow({ compactPreview = false, detailPath, item, itemRef, number
               </a>
             ) : null}
 
-            {!hasDetailContent ? <p className="text-sm text-slate-500">No additional details yet.</p> : null}
+            {!hasDetailContent ? <p className="text-sm text-slate-600">No additional details yet.</p> : null}
           </div>
         </div>
       ) : null}
@@ -540,7 +540,7 @@ export function NewsPage({ locale }) {
             ariaLabel="News categories"
             items={sections.map((section) => ({ ...section, to: newsSectionPath(section.id) }))}
           />
-          <p aria-live="polite" className="ml-auto text-right text-[0.7rem] font-normal text-slate-400">
+          <p aria-live="polite" className="ml-auto text-right text-[0.7rem] font-normal text-slate-600">
             <span>{activeItems.length} items</span>
             {updatedAt ? (
               <>

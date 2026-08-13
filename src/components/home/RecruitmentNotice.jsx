@@ -107,10 +107,10 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [closeNotice, open]);
 
-  const badgeClassName = `recruitment-notice-badge group fixed bottom-5 right-4 z-[80] flex items-center gap-3 rounded-full border border-slate-200 bg-white py-2 pl-2 pr-4 text-left no-underline shadow-[0_16px_45px_-18px_rgba(2,6,23,0.48)] transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 ${badgeCompact ? 'is-compact' : ''}`;
+  const badgeClassName = `recruitment-notice-badge group fixed bottom-3 right-3 z-[80] flex items-center gap-2.5 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 text-left no-underline shadow-[0_16px_45px_-18px_rgba(2,6,23,0.48)] transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 sm:gap-3 sm:py-2 sm:pl-2 sm:pr-4 ${badgeCompact ? 'is-compact' : ''}`;
   const badgeContent = (
     <>
-      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand-burgundy)] text-white transition-colors group-hover:bg-[var(--brand-burgundy-deep)]">
+      <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--brand-burgundy)] text-white transition-colors group-hover:bg-[var(--brand-burgundy-deep)] sm:h-10 sm:w-10">
         <GraduationCap aria-hidden="true" className="h-5 w-5" />
       </span>
       <span className="recruitment-notice-badge-copy overflow-hidden whitespace-nowrap">
@@ -129,7 +129,7 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
         >
           <button
             aria-label="Close recruitment notice"
-            className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2"
+            className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2"
             onClick={closeNotice}
             type="button"
           >

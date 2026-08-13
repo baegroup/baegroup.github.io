@@ -231,7 +231,8 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
   const researchValue = member.localizedInterests?.filter(Boolean).join(', ') || '';
   const currentLine = member.currentAffiliation ? `Current: ${member.currentAffiliation}` : '';
   const summaryLeadLine = isAlumni ? currentLine : researchValue;
-  const emailValue = member.email || '';
+  const rawEmailValue = String(member.email || '').trim();
+  const emailValue = /^(tbd|n\/?a|none|-+)$/i.test(rawEmailValue) ? '' : rawEmailValue;
   const joinedLine = joinValue ? (/^joined\b/i.test(joinValue) ? joinValue : `Joined ${joinValue}`) : '';
   const koreanLine = member.koreanProficiency ? `Korean proficiency: ${member.koreanProficiency}` : '';
   const detailRows = [
@@ -334,7 +335,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
               <button
                 aria-controls={detailId}
                 aria-expanded={expanded}
-                className="group inline-flex items-center gap-1.5 text-left text-xs font-semibold text-slate-500 transition-colors hover:text-[var(--brand-navy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/30 focus-visible:ring-offset-2"
+                className="group inline-flex items-center gap-1.5 text-left text-xs font-semibold text-slate-600 transition-colors hover:text-[var(--brand-navy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/30 focus-visible:ring-offset-2"
                 onClick={() => setExpanded((prev) => !prev)}
                 type="button"
               >
@@ -470,7 +471,7 @@ function ProfessorPublications({ title, items }) {
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
                 <HighlightPIName authors={item.authors} piName="Jaehyeong Bae" />
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-500">
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
                 <span className="font-semibold italic text-slate-700">{item.journalName}</span>
                 {item.details ? <span> · {item.details}</span> : null}
               </p>
@@ -729,7 +730,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                         ) : (
                           <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Culture image placeholder</div>
                         )}
-                        <figcaption className="mt-2 text-left text-xs text-slate-500">
+                        <figcaption className="mt-2 text-left text-xs text-slate-600">
                           The Fearless Organization · Amy C. Edmondson
                         </figcaption>
                       </figure>
@@ -771,7 +772,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                       <section className="space-y-3" key={group.role}>
                         <h3 className="text-lg font-semibold text-slate-900">
                           {group.label}
-                          <span className="ml-2 text-base font-medium text-slate-500">({group.members.length})</span>
+                          <span className="ml-2 text-base font-medium text-slate-600">({group.members.length})</span>
                         </h3>
                         <div className="grid gap-4 md:grid-cols-2">
                           {group.members.map((member) => (
@@ -802,7 +803,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                         {staffGroups.length > 1 ? (
                           <h3 className="text-lg font-semibold text-slate-900">
                             {group.label}
-                            <span className="ml-2 text-base font-medium text-slate-500">({group.members.length})</span>
+                            <span className="ml-2 text-base font-medium text-slate-600">({group.members.length})</span>
                           </h3>
                         ) : null}
                         <div className="grid gap-4 md:grid-cols-2">

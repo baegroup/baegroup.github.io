@@ -146,6 +146,7 @@ async function renderRoute(debugPort, route) {
             html: document.documentElement.outerHTML,
             ready: document.readyState === 'complete'
               && Boolean(root?.firstElementChild)
+              && !document.querySelector('[data-prerender-pending="true"]')
               && !document.body.innerText.includes('Loading news feed...')
               && !document.body.innerText.includes('Loading publications...')
               && !document.body.innerText.includes('Loading team profiles...')
