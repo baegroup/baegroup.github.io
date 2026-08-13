@@ -48,7 +48,7 @@ const SELECTED_PUBLICATIONS = [
   },
   {
     year: 2023,
-    topic: '하이드로볼타익 에너지 하베스팅',
+    topic: '수분 기반 에너지 하베스팅',
     title: 'Hydrovoltaic Electricity Generator with Hygroscopic Materials: A Review and New Perspective',
     journal: 'Advanced Materials',
     link: 'https://doi.org/10.1002/adma.202301080'
@@ -89,7 +89,8 @@ export function KoreanLandingPage() {
           <div className="space-y-4 text-base leading-relaxed text-slate-700">
             <p>
               경희대학교 화학공학과 배재형 교수는 기능성 소재와 적층제조의 접점에서 에너지·환경 문제를 해결하는 다학제 연구를 수행합니다.
-              광산(photoacid) 기반 액상 태양전지, 솔보젤 패시베이션 리튬금속 음극, 신축성 하이드로젤 슈퍼커패시터, 화학·온도 센서,
+              빛에 의해 산성도가 변하는 광산(photoacid) 기반 액상 태양전지, 솔보젤 패시베이션 리튬금속 음극,
+              신축성 하이드로젤 슈퍼커패시터, 화학·온도 센서,
               비고전적 핵생성과 결정화 및 직접잉크쓰기 공정을 연구해 왔습니다.
             </p>
             <p>
