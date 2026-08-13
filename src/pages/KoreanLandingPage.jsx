@@ -5,7 +5,7 @@ import { PageHero } from '@/components/site/PageHero';
 const RESEARCH_AREAS = [
   {
     title: '첨단 적층제조·3D 프린팅',
-    body: '에어로젤, 액체금속, 하이드로젤처럼 공정 조건에 민감한 소재를 안정적으로 프린팅할 수 있는 조성과 공정을 개발하고 있습니다. 이를 바탕으로 직접잉크쓰기와 임베디드 3D 프린팅에 적용할 수 있는 소재와 구조를 넓혀가고자 합니다.'
+    body: '에어로젤, 액체금속, 하이드로젤을 안정적으로 프린팅할 수 있는 조성과 공정을 개발하고, 직접잉크쓰기와 임베디드 3D 프린팅에 적용할 소재와 구조를 연구하고 있습니다.'
   },
   {
     title: '에너지·환경 소재',
@@ -35,18 +35,6 @@ const SELECTED_PUBLICATIONS = [
     title: 'Two-Step Nucleation and Amorphization of Carbamazepine Using a Micro-Droplet Precipitation System',
     journal: 'Pharmaceutics',
     link: 'https://doi.org/10.3390/pharmaceutics17081035'
-  },
-  {
-    year: 2024,
-    title: 'Advancing Breathability of Respiratory Nanofilter by Optimizing Pore Structure and Alignment in Nanofiber Networks',
-    journal: 'ACS Nano',
-    link: 'https://doi.org/10.1021/acsnano.3c06060'
-  },
-  {
-    year: 2023,
-    title: 'Hydrovoltaic Electricity Generator with Hygroscopic Materials: A Review and New Perspective',
-    journal: 'Advanced Materials',
-    link: 'https://doi.org/10.1002/adma.202301080'
   }
 ];
 
@@ -54,13 +42,13 @@ export function KoreanLandingPage() {
   return (
     <article className="space-y-9 md:space-y-12" lang="ko">
       <PageHero
-        description="경희대학교 화학공학과 Bae Lab의 연구 분야와 구성원, 학생 모집 정보를 소개합니다."
+        description="기능성 소재와 적층제조를 기반으로 한 에너지·환경·바이오 연구"
         showDescription
         title="배재형 교수 연구실 · Bae Lab"
       />
 
       <section className="border-t border-slate-200 pt-7">
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-10">
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,1.45fr)] lg:gap-10">
           <h2 className="page-section-title">연구실 소개</h2>
           <div className="space-y-4 text-base leading-relaxed text-slate-700">
             <p>
@@ -129,8 +117,8 @@ export function KoreanLandingPage() {
       </section>
 
       <section className="border-t border-slate-200 pt-7">
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-10">
-          <h2 className="page-section-title">대학원생 및 학부연구생 모집</h2>
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,1.45fr)] lg:gap-10">
+          <h2 className="page-section-title">학생 모집</h2>
           <div className="space-y-4 text-base leading-relaxed text-slate-700">
             <p>
               Bae Lab에서는 현재 석사과정, 박사과정, 석박통합과정 및 학부연구생으로 함께 연구할 학생을 찾고 있습니다.
