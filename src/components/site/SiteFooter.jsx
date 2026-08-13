@@ -14,7 +14,7 @@ export function SiteFooter({ locale }) {
   const rightsLabel = 'All rights reserved.';
   const koreanIdentityLabel = '경희대학교 화학공학과 배재형 교수 연구실';
   const description = (brand.tagline || brand.subtitle || '').trim();
-  const quickLinks = [...navItems, { slug: 'contact', label: contactLabel }, { slug: 'join', label: joinLabel }, { slug: 'ko', label: '한국어' }].filter((item, index, array) => {
+  const quickLinks = [...navItems, { slug: 'contact', label: contactLabel }, { slug: 'join', label: joinLabel }].filter((item, index, array) => {
     const key = item.slug || 'home';
     return array.findIndex((candidate) => (candidate.slug || 'home') === key) === index;
   });
