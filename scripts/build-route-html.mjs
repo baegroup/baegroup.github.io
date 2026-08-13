@@ -26,7 +26,7 @@ const NEWS_PAGE_SIZE = 5;
 const VIDEO_PAGE_SIZE = 4;
 
 const LEGACY_REDIRECTS = [
-  { from: '/kr', to: '/' },
+  { from: '/kr', to: '/ko' },
   { from: '/kr/배재형-교수', to: '/team/jaehyeong-bae' },
   { from: '/jaehyeong-bae', to: '/team/jaehyeong-bae' },
   { from: '/kr/구성원', to: '/team/members' },

@@ -3,6 +3,7 @@ import { SITE_URL } from '../src/content/seo.js';
 const REQUEST_TIMEOUT_MS = 20_000;
 const MINIMUM_INDEXABLE_ROUTES = 12;
 const MAX_LIVE_IMAGE_BYTES = 1.25 * 1024 * 1024;
+const DOMAIN_ALIAS_URL = SITE_URL.replace('://www.', '://');
 const errors = [];
 
 function report(condition, message) {
@@ -52,6 +53,22 @@ async function runPool(items, worker, concurrency = 6) {
     }
   });
   await Promise.all(runners);
+}
+
+try {
+  const aliasResponse = await request(DOMAIN_ALIAS_URL, { redirect: 'manual' });
+  const redirectLocation = aliasResponse.headers.get('location') || '';
+  const redirectTarget = redirectLocation ? new URL(redirectLocation, DOMAIN_ALIAS_URL) : null;
+  report(
+    [301, 302, 307, 308].includes(aliasResponse.status),
+    `${DOMAIN_ALIAS_URL}: expected an HTTP redirect, received ${aliasResponse.status}`
+  );
+  report(
+    redirectTarget?.origin === new URL(SITE_URL).origin,
+    `${DOMAIN_ALIAS_URL}: expected redirect to ${SITE_URL}, received ${redirectTarget?.href || 'no Location header'}`
+  );
+} catch (error) {
+  errors.push(`${DOMAIN_ALIAS_URL}: HTTPS or redirect check failed (${error.message})`);
 }
 
 const { text: sitemapXml } = await fetchText(`${SITE_URL}/sitemap.xml`);
