@@ -299,6 +299,20 @@ function toggleBlock(title, children) {
   };
 }
 
+function columnList(columns) {
+  return {
+    object: 'block',
+    type: 'column_list',
+    column_list: {
+      children: columns.map((children) => ({
+        object: 'block',
+        type: 'column',
+        column: { children }
+      }))
+    }
+  };
+}
+
 function divider() {
   return { object: 'block', type: 'divider', divider: {} };
 }
@@ -431,24 +445,29 @@ function buildDashboardBlocks({
   const topQuery = String(searchQueries.rows?.[0]?.keys?.[0] || '아직 검색어 데이터가 없습니다');
 
   return [
-    heading(DASHBOARD_TITLE, 1),
     callout(`업데이트: ${updatedAt} · 최근 7일 기준 · Analytics에 동의한 방문자의 집계 데이터만 포함합니다.`, {
       emoji: '🕘'
     }),
     heading('한눈에 보기', 2),
     paragraph(`최근 7일 동안 ${compactNumber(currentMetrics[0])}명이 ${compactNumber(currentMetrics[2])}회 방문해 ${compactNumber(currentMetrics[3])}개의 페이지를 조회했습니다. 가장 많은 방문 국가는 ${topCountry}, 주요 유입 경로는 ${topChannel}입니다.`),
-    callout(`방문자  ${compactNumber(currentMetrics[0])}명 · 신규 ${compactNumber(currentMetrics[1])}명 · ${changeLabel(currentMetrics[0], previousMetrics[0])}`, {
-      emoji: '👥', color: 'blue_background'
-    }),
-    callout(`이용량  방문 ${compactNumber(currentMetrics[2])}회 · 페이지 조회 ${compactNumber(currentMetrics[3])}회`, {
-      emoji: '📈', color: 'green_background'
-    }),
-    callout(`참여도  참여율 ${percentage(currentMetrics[4])} · 평균 체류 ${duration(currentMetrics[5])}`, {
-      emoji: '⏱️', color: 'yellow_background'
-    }),
-    callout(`Google 검색(확정 28일)  클릭 ${compactNumber(searchTotals.clicks)}회 · 노출 ${compactNumber(searchTotals.impressions)}회 · 평균 ${Number(searchTotals.position || 0).toFixed(1)}위`, {
-      emoji: '🔎', color: 'purple_background'
-    }),
+    columnList([
+      [
+        callout(`방문자  ${compactNumber(currentMetrics[0])}명 · 신규 ${compactNumber(currentMetrics[1])}명 · ${changeLabel(currentMetrics[0], previousMetrics[0])}`, {
+          emoji: '👥', color: 'blue_background'
+        }),
+        callout(`참여도  참여율 ${percentage(currentMetrics[4])} · 평균 체류 ${duration(currentMetrics[5])}`, {
+          emoji: '⏱️', color: 'yellow_background'
+        })
+      ],
+      [
+        callout(`이용량  방문 ${compactNumber(currentMetrics[2])}회 · 페이지 조회 ${compactNumber(currentMetrics[3])}회`, {
+          emoji: '📈', color: 'green_background'
+        }),
+        callout(`Google 검색(확정 28일)  클릭 ${compactNumber(searchTotals.clicks)}회 · 노출 ${compactNumber(searchTotals.impressions)}회 · 평균 ${Number(searchTotals.position || 0).toFixed(1)}위`, {
+          emoji: '🔎', color: 'purple_background'
+        })
+      ]
+    ]),
     divider(),
     heading('연구 연결 가능성', 2),
     paragraph('모집, 공동연구, 연구자 정보 및 논문에 관심을 보인 행동을 개인정보 없이 합산한 수치입니다.'),
@@ -584,7 +603,8 @@ async function main() {
   const analytics = await collectAnalytics({ accessToken, propertyId, searchConsoleSiteUrl });
   const dashboard = await findOrCreateDashboard({ token: notionToken, parentDatabaseId: notionNewsDatabaseId });
   const updatedAt = new Intl.DateTimeFormat('ko-KR', {
-    timeZone: 'Asia/Seoul', dateStyle: 'medium', timeStyle: 'short'
+    timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
   }).format(new Date());
   const children = buildDashboardBlocks({ ...analytics, updatedAt });
   await replacePageChildren({ token: notionToken, pageId: dashboard.id, children });
