@@ -397,8 +397,8 @@
 
   .reveal-section {
     opacity: 0;
-    transform: translate3d(0, 6px, 0);
-    transition: opacity var(--motion-base) var(--motion-ease), transform var(--motion-base) var(--motion-ease);
+    transform: translate3d(0, 4px, 0);
+    transition: opacity var(--motion-slow) var(--motion-ease), transform var(--motion-slow) var(--motion-ease);
     will-change: opacity, transform;
   }
 
@@ -409,8 +409,8 @@
 
   .reveal-stagger > * {
     opacity: 0;
-    transform: translate3d(0, 4px, 0);
-    transition: opacity var(--motion-base) var(--motion-ease), transform var(--motion-base) var(--motion-ease);
+    transform: translate3d(0, 3px, 0);
+    transition: opacity var(--motion-slow) var(--motion-ease), transform var(--motion-slow) var(--motion-ease);
   }
 
   .reveal-section.is-visible .reveal-stagger > * {
@@ -419,15 +419,15 @@
   }
 
   .reveal-section.is-visible .reveal-stagger > :nth-child(2) {
-    transition-delay: 60ms;
+    transition-delay: 40ms;
   }
 
   .reveal-section.is-visible .reveal-stagger > :nth-child(3) {
-    transition-delay: 120ms;
+    transition-delay: 80ms;
   }
 
   .reveal-section.is-visible .reveal-stagger > :nth-child(4) {
-    transition-delay: 180ms;
+    transition-delay: 120ms;
   }
 
   .site-header {
@@ -500,6 +500,22 @@
   .site-header.is-scrolled .site-header-logo {
     height: 4.5rem;
     width: 4.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .reveal-section,
+  .reveal-stagger > *,
+  .home-hero-copy > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .home-hero-media {
+    transform: none;
+    transition: none;
   }
 }
 

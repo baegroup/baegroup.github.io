@@ -126,7 +126,7 @@ function MediaImage({ path, title, variant = 'card' }) {
 
     if (variant === 'strip') {
       return (
-        <div className="flex h-[72px] w-24 items-center justify-center rounded-sm bg-slate-100 text-[10px] font-medium text-slate-500 md:h-[82px] md:w-[110px]">
+        <div className="flex h-[63px] w-[84px] items-center justify-center rounded-sm bg-slate-100 text-[10px] font-medium text-slate-500 md:h-[82px] md:w-[110px]">
           Image
         </div>
       );
@@ -172,7 +172,7 @@ function MediaImage({ path, title, variant = 'card' }) {
   }
 
   if (variant === 'strip') {
-    return <img alt={title} className="h-[72px] w-24 rounded-sm object-cover md:h-[82px] md:w-[110px]" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+    return <img alt={title} className="h-[63px] w-[84px] rounded-sm object-cover md:h-[82px] md:w-[110px]" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
   }
 
   if (variant === 'galleryFill') {
@@ -337,14 +337,16 @@ function LabLifeCard({ detailPath, item, number }) {
         ))}
       </Link>
 
-      <div className="site-media-caption">
-        <h3 className="site-media-title">
-          <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
-        </h3>
-        <div className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
-          <span className="site-meta-index">{formatItemNumber(number)}</span>
-          <span className="site-meta-context">{item.date || '-'}</span>
-          {images.length ? <span className="site-meta-secondary">{images.length} {images.length === 1 ? 'photo' : 'photos'}</span> : null}
+      <div className="site-media-caption grid grid-cols-[1.5rem_minmax(0,1fr)] gap-x-2">
+        <span className="site-meta-index pt-1">{formatItemNumber(number)}</span>
+        <div className="min-w-0">
+          <h3 className="site-media-title">
+            <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
+          </h3>
+          <div className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+            <span className="site-meta-context">{item.date || '-'}</span>
+            {images.length ? <span className="site-meta-secondary">{images.length} {images.length === 1 ? 'photo' : 'photos'}</span> : null}
+          </div>
         </div>
       </div>
     </article>
@@ -408,20 +410,22 @@ function VideoCard({ detailPath, item, number }) {
         )}
       </div>
 
-      <div className="site-media-caption">
-        <h3 className="text-xl font-semibold leading-snug text-slate-950">
-          <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
-        </h3>
-        <div className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
-          <span className="site-meta-index">{formatItemNumber(number)}</span>
-          <span className="site-meta-context">{item.date || '-'}</span>
+      <div className="site-media-caption grid grid-cols-[1.5rem_minmax(0,1fr)] gap-x-2">
+        <span className="site-meta-index pt-1.5">{formatItemNumber(number)}</span>
+        <div className="min-w-0">
+          <h3 className="text-xl font-semibold leading-snug text-slate-950">
+            <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
+          </h3>
+          <div className="mt-1.5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <span className="site-meta-context">{item.date || '-'}</span>
+            {primaryVideoUrl ? (
+              <a className="site-text-link inline-flex whitespace-nowrap text-sm" href={primaryVideoUrl} rel="noreferrer" target="_blank">
+                View original video<ExternalLinkIcon />
+              </a>
+            ) : null}
+          </div>
+          {item.summary ? <p className="site-media-description">{item.summary}</p> : null}
         </div>
-        {item.summary ? <p className="site-media-description">{item.summary}</p> : null}
-        {primaryVideoUrl ? (
-          <a className="site-text-link mt-2 inline-flex text-sm" href={primaryVideoUrl} rel="noreferrer" target="_blank">
-            View original video<ExternalLinkIcon />
-          </a>
-        ) : null}
       </div>
     </article>
   );
@@ -440,29 +444,29 @@ function NewsItemRow({ compactPreview = false, detailPath, editorialPreview = fa
         <div
           className={`grid ${
             editorialPreview
-              ? 'grid-cols-[96px_minmax(0,1fr)_auto] items-start gap-x-3 gap-y-2.5 md:grid-cols-[2.125rem_110px_minmax(0,1fr)_auto] md:items-center md:gap-4'
+            ? 'grid-cols-[1.5rem_5.25rem_minmax(0,1fr)_auto] items-start gap-x-2.5 md:grid-cols-[2.125rem_110px_minmax(0,1fr)_auto] md:items-center md:gap-4'
               : compactPreview
                 ? 'grid-cols-[2.125rem_64px_minmax(0,1fr)_auto] items-center gap-3 md:grid-cols-[2.125rem_72px_minmax(0,1fr)_auto] md:gap-4'
                 : 'grid-cols-[2.125rem_minmax(0,1fr)_auto] items-center gap-3'
           }`}
         >
-          <span className={editorialPreview ? 'site-meta-index self-center md:self-auto' : 'site-meta-index'}>{formatItemNumber(number)}</span>
-          {editorialPreview ? <p className="site-meta-context col-start-2 row-start-1 self-center md:hidden">{item.date || '-'}</p> : null}
+          <span className={editorialPreview ? 'site-meta-index pt-1 md:self-auto md:pt-0' : 'site-meta-index'}>{formatItemNumber(number)}</span>
           {compactPreview || editorialPreview ? (
-            <div className={editorialPreview ? 'col-start-1 row-start-2 flex items-center justify-center md:col-start-2 md:row-start-1' : 'flex items-center justify-center'}>
+            <div className={editorialPreview ? 'col-start-2 row-start-1 flex items-center justify-center md:col-start-2 md:row-start-1' : 'flex items-center justify-center'}>
               <MediaImage path={firstImage} title={item.title} variant={editorialPreview ? 'strip' : 'thumb'} />
             </div>
           ) : null}
 
-          <div className={editorialPreview ? 'col-span-2 col-start-2 row-start-2 min-w-0 md:col-span-1 md:col-start-3 md:row-start-1' : ''}>
+          <div className={editorialPreview ? 'col-start-3 row-start-1 min-w-0 md:col-span-1 md:col-start-3 md:row-start-1' : ''}>
             {!editorialPreview ? <p className="site-meta-context">{item.date || '-'}</p> : null}
             <p className="site-balanced-heading mt-1 text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">
               <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
             </p>
+            {editorialPreview ? <p className="site-meta-context mt-1.5 md:hidden">{item.date || '-'}</p> : null}
             {editorialPreview && item.summary ? <p className="site-copy-support mt-2 line-clamp-2">{item.summary}</p> : null}
           </div>
 
-          <div className={editorialPreview ? 'col-start-3 row-start-1 flex self-center flex-col items-end gap-3 md:col-start-4 md:row-start-1 md:self-start' : ''}>
+          <div className={editorialPreview ? 'col-start-4 row-start-1 flex self-start flex-col items-end gap-3 md:col-start-4 md:row-start-1 md:self-start' : ''}>
             {editorialPreview ? <p className="site-meta-context hidden whitespace-nowrap md:block">{item.date || '-'}</p> : null}
             <button
               aria-controls={detailsId}
@@ -765,8 +769,8 @@ export function NewsPage({ locale }) {
       </PageHero>
 
       <div className={`page-content-offset grid gap-6 lg:grid-cols-[minmax(0,1fr)_232px] lg:items-start lg:gap-8 xl:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
-        <aside className="order-2 w-full max-w-sm lg:max-w-none lg:self-start">
-          <div className="space-y-4 xl:sticky xl:top-28">
+        <aside className="order-2 w-full lg:self-start">
+          <div className="mx-auto w-full max-w-sm space-y-4 lg:max-w-none xl:sticky xl:top-28">
             <InstagramRail
               displayName={feed.instagram.displayName}
               handle={feed.instagram.handle}

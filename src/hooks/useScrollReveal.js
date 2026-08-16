@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
 const OBSERVER_OPTIONS = {
-  threshold: 0.15,
-  rootMargin: '0px 0px -10% 0px'
+  threshold: 0.01,
+  rootMargin: '0px 0px 10% 0px'
 };
 
 export function useScrollReveal(delay = 0) {

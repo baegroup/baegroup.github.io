@@ -181,12 +181,12 @@ function PreprintSection({ items, labAuthorNames, numberOffset = 0, title }) {
   }
 
   return (
-    <section className="min-w-0 md:grid md:grid-cols-[132px_minmax(0,1fr)] md:gap-8">
+    <section className="min-w-0">
       <h2 className="text-2xl font-semibold tracking-tight text-slate-950">
         {title || 'Current Manuscripts'}
       </h2>
       {items.length ? (
-        <ol className="site-rule-strong mt-4 border-t md:mt-0">
+        <ol className="site-rule-strong mt-4 border-t">
           {items.map((item, itemIndex) => {
             const number = numberOffset + items.length - itemIndex;
             const metadataParts = buildMetadataParts(item);
@@ -194,12 +194,9 @@ function PreprintSection({ items, labAuthorNames, numberOffset = 0, title }) {
               <li className="site-list-row site-rule-soft grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b" key={item.id}>
                 <span className="site-meta-index pt-1">{formatItemNumber(number)}</span>
                 <div className="space-y-2">
-                  <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
-                    <p className="site-balanced-heading line-clamp-2 min-w-0 text-lg font-semibold leading-snug text-slate-950 md:line-clamp-none md:text-xl">
-                      {item.localizedTitle}
-                    </p>
-                    <PublicationDoiLink publication={item} />
-                  </div>
+                  <p className="site-balanced-heading line-clamp-2 min-w-0 text-lg font-semibold leading-snug text-slate-950 md:line-clamp-none md:text-xl">
+                    {item.localizedTitle}
+                  </p>
 
                   <p className="site-copy-body">
                     {(item.authors || []).map((author, index) => {
@@ -214,15 +211,17 @@ function PreprintSection({ items, labAuthorNames, numberOffset = 0, title }) {
                     .
                   </p>
 
-                  {metadataParts.length ? (
-                    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-600">
+                  {metadataParts.length || item.doi ? (
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-600">
                       {metadataParts.map((part, index) => (
                         <span className="inline-flex items-center gap-x-2" key={`${item.id}-meta-${part.key}`}>
                           {index > 0 ? <span className="text-slate-400">·</span> : null}
                           <span className={part.italic ? 'italic text-slate-700' : ''}>{part.value}</span>
                         </span>
                       ))}
-                    </p>
+                      {metadataParts.length && item.doi ? <span className="text-slate-400">·</span> : null}
+                      <PublicationDoiLink publication={item} />
+                    </div>
                   ) : null}
 
                 </div>
@@ -453,9 +452,9 @@ function PublicationList({ items, numbers, labAuthorNames, years }) {
         const yearItems = items.filter((item) => item.year === year);
 
         return (
-        <section className="md:grid md:grid-cols-[132px_minmax(0,1fr)] md:gap-8" key={year}>
+        <section key={year}>
           <h2 className="text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">{year}</h2>
-          <ol className="site-rule-strong mt-4 border-t md:mt-0">
+          <ol className="site-rule-strong mt-4 border-t">
             {yearItems
               .sort((a, b) => (numbers.get(b.id) || 0) - (numbers.get(a.id) || 0))
               .map((pub) => {
@@ -466,12 +465,9 @@ function PublicationList({ items, numbers, labAuthorNames, years }) {
                   <li className="site-list-row site-rule-soft grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b" key={pub.id}>
                     <span className="site-meta-index pt-1">{formatItemNumber(number)}</span>
                     <div className="space-y-2">
-                      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
-                        <p className="site-balanced-heading line-clamp-2 min-w-0 text-lg font-semibold leading-snug text-slate-950 md:line-clamp-none md:text-xl">
-                          {pub.localizedTitle}
-                        </p>
-                        <PublicationDoiLink publication={pub} />
-                      </div>
+                      <p className="site-balanced-heading line-clamp-2 min-w-0 text-lg font-semibold leading-snug text-slate-950 md:line-clamp-none md:text-xl">
+                        {pub.localizedTitle}
+                      </p>
 
                       <p className="site-copy-body">
                         {(pub.authors || []).map((author, index) => {
@@ -486,15 +482,17 @@ function PublicationList({ items, numbers, labAuthorNames, years }) {
                         .
                       </p>
 
-                      {metadataParts.length ? (
-                        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-600">
+                      {metadataParts.length || pub.doi ? (
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-600">
                           {metadataParts.map((part, index) => (
                             <span className="inline-flex items-center gap-x-2" key={`${pub.id}-meta-${part.key}`}>
                               {index > 0 ? <span className="text-slate-400">·</span> : null}
                               <span className={part.italic ? 'italic text-slate-700' : ''}>{part.value}</span>
                             </span>
                           ))}
-                        </p>
+                          {metadataParts.length && pub.doi ? <span className="text-slate-400">·</span> : null}
+                          <PublicationDoiLink publication={pub} />
+                        </div>
                       ) : null}
 
                     </div>
@@ -798,12 +796,14 @@ export function PublicationsPage({ locale }) {
                 </div>
               </div>
 
-              <aside className="w-full max-w-sm lg:max-w-none lg:self-start">
+              <aside className="w-full lg:self-start">
                 <div className="xl:sticky xl:top-24">
                   <PublicationInfoPanel updatedAt={updatedAt} />
 
                   <section className="site-rule-strong border-b py-5">
-                    <JournalCoverCarousel items={coverSlides} />
+                    <div className="mx-auto w-full max-w-sm lg:max-w-none">
+                      <JournalCoverCarousel items={coverSlides} />
+                    </div>
                   </section>
 
                   <div className="pt-5">
