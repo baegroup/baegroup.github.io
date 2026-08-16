@@ -6,6 +6,7 @@
   "scripts": {
     "content:build": "node scripts/build-content.mjs && node scripts/build-publication-covers.mjs && node scripts/build-brand-assets.mjs",
     "images:optimize:news": "node scripts/optimize-news-images.mjs",
+    "instagram:sync": "node scripts/sync-news-from-notion.mjs --instagram-only",
     "news:sync:notion": "node scripts/sync-news-from-notion.mjs",
     "team:sync:notion": "node scripts/sync-team-from-notion.mjs",
     "publications:sync:notion": "node scripts/sync-publications-from-notion.mjs",

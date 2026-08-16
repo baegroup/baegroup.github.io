@@ -175,7 +175,7 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
     '@type': 'ResearchOrganization',
     '@id': organizationId,
     name: 'Bae Lab',
-    alternateName: ['배재형 교수 연구실', '배랩', 'Functional Materials Additive Manufacturing Lab'],
+    alternateName: ['배재형 교수 연구실', '배랩', 'Additive Manufacturing of Functional Materials Lab', 'Functional Materials Additive Manufacturing Lab'],
     description:
       'Bae Lab integrates materials design and process engineering to transform complex functional materials into precise and scalable manufacturing technologies.',
     url: `${SITE_URL}/`,

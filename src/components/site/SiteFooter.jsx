@@ -6,7 +6,6 @@ import { pagePath } from '@/lib/i18n';
 export function SiteFooter({ locale }) {
   const brand = BRAND[locale] || BRAND.en || {};
   const content = CONTACT_CONTENT[locale] || CONTACT_CONTENT.en || {};
-  const labels = content.labels || {};
   const navItems = NAV_ITEMS[locale] || NAV_ITEMS.en || [];
   const contactLabel = 'Contact';
   const joinLabel = 'Join Our Team';
@@ -28,9 +27,9 @@ export function SiteFooter({ locale }) {
   }
 
   return (
-    <footer className="mt-8 border-t border-[#d2cac3] bg-[var(--brand-footer)] text-[#222222]">
-      <div className="mx-auto w-full max-w-6xl px-5 pb-5 pt-8 md:pb-6 md:pt-8">
-        <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center">
+    <footer className="site-rule-strong mt-8 border-t bg-[var(--brand-footer)] text-[#222222]">
+      <div className="site-frame pb-3 pt-8 md:pb-4 md:pt-8">
+        <div className="grid gap-7 md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)_minmax(0,1.15fr)] md:items-start md:gap-8">
           <div className="text-left">
             <h2 className="text-xl font-semibold leading-tight tracking-tight text-[var(--brand-burgundy)]">{brand.name}</h2>
             <div className="mt-2 space-y-1 text-left text-sm leading-relaxed">
@@ -38,12 +37,23 @@ export function SiteFooter({ locale }) {
               <p className="text-[#55504d]">{koreanIdentityLabel}</p>
             </div>
           </div>
-          <div className="md:justify-self-stretch md:text-right">
+
+          <div className="text-left">
+            <p className="text-sm font-semibold text-[#55504d]">{contactLabel}</p>
+            <div className="mt-2 space-y-1.5 text-sm leading-relaxed text-[#2a2a2a]">
+              <p>{content.address}</p>
+              <a className="inline-block no-underline transition-colors hover:text-[var(--brand-navy)]" href="mailto:jbae@khu.ac.kr">
+                jbae@khu.ac.kr
+              </a>
+            </div>
+          </div>
+
+          <div className="text-left">
             <p className="text-sm font-semibold text-[#55504d]">{quickLinksLabel}</p>
-            <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5 md:justify-end">
+            <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5">
               {quickLinks.map((item) => (
                 <li key={item.slug || 'home'}>
-                  <Link className="text-sm text-[#4a4a4a] no-underline transition-colors hover:text-[var(--brand-navy)]" to={pagePath(locale, item.slug)}>
+                  <Link className="text-sm text-[#4a4a4a] no-underline transition-colors hover:text-[var(--brand-burgundy)]" to={pagePath(locale, item.slug)}>
                     {item.label}
                   </Link>
                 </li>
@@ -52,28 +62,14 @@ export function SiteFooter({ locale }) {
           </div>
         </div>
 
-        <div className="mt-5 grid gap-4 border-t border-[#d8d0c9] pt-4 md:grid-cols-2">
-          <div>
-            <p className="text-sm font-semibold text-[#55504d]">{labels.address || 'Address'}</p>
-            <p className="mt-1 text-sm leading-relaxed text-[#2a2a2a]">{content.address}</p>
-          </div>
-
-          <div className="md:justify-self-stretch md:text-right">
-            <p className="text-sm font-semibold text-[#55504d]">{labels.email || 'Email'}</p>
-            <a className="mt-1 inline-block text-sm text-[#2a2a2a] no-underline transition-colors hover:text-[var(--brand-burgundy)]" href="mailto:jbae@khu.ac.kr">
-              jbae@khu.ac.kr
-            </a>
-          </div>
-        </div>
-
-        <div className="mt-3 flex flex-col items-start gap-1.5 text-sm leading-relaxed text-[#68615d] md:flex-row md:items-center md:justify-between">
+        <div className="site-rule-soft mt-4 flex flex-col items-start gap-2 border-t pt-3 text-sm leading-relaxed text-[#68615d] md:flex-row md:items-center md:justify-between">
           <p>© {year} {brand.name}, Department of Chemical Engineering, Kyung Hee University. {rightsLabel}</p>
           <div className="flex items-center gap-3">
-            <Link className="text-sm text-[#68615d] underline-offset-2 transition-colors hover:text-[var(--brand-navy)] hover:underline" to="/privacy/">
+            <Link className="text-sm text-[#68615d] underline-offset-2 transition-colors hover:text-[var(--brand-burgundy)] hover:underline" to="/privacy/">
               Privacy
             </Link>
             <button
-              className="text-sm text-[#68615d] underline-offset-2 transition-colors hover:text-[var(--brand-navy)] hover:underline"
+              className="text-sm text-[#68615d] underline-offset-2 transition-colors hover:text-[var(--brand-burgundy)] hover:underline"
               onClick={openCookiePreferences}
               type="button"
             >

@@ -12,24 +12,24 @@ function ResearchAreaCard({ card, imagePath }) {
   const exhausted = imageIndex >= imageCandidates.length;
 
   return (
-    <article className="group mx-auto w-full max-w-[36rem] md:max-w-none">
+    <article className="group mx-auto grid w-full max-w-[36rem] content-start md:max-w-none">
       {!exhausted ? (
         <img
           alt={card.title}
-          className="aspect-[16/10] max-h-[320px] w-full rounded-md border border-slate-200 object-cover transition-[border-color,filter] duration-300 group-hover:border-slate-300 group-hover:brightness-[1.015] md:max-h-none"
+          className="media-landscape max-h-[320px] w-full object-cover transition-[filter] duration-[320ms] group-hover:brightness-[1.015] md:max-h-none"
           decoding="async"
           loading="lazy"
           onError={() => setImageIndex((index) => index + 1)}
           src={imageCandidates[imageIndex]}
         />
       ) : (
-        <div className="flex aspect-[16/10] max-h-[320px] w-full items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-sm font-medium text-slate-500 md:max-h-none">
+        <div className="media-landscape flex max-h-[320px] w-full items-center justify-center bg-slate-100 text-sm font-medium text-slate-500 md:max-h-none">
           Image Placeholder
         </div>
       )}
-      <div className="pt-4">
+      <div className="site-media-caption">
         <h3 className="home-display-subtitle text-slate-950">{card.title}</h3>
-        <p className="mt-2.5 text-[0.98rem] leading-relaxed text-slate-600 md:text-base">{card.body}</p>
+        <p className="site-media-description">{card.body}</p>
       </div>
     </article>
   );
@@ -40,7 +40,7 @@ export function HomeResearchAreasSection({ content, locale, revealDelay = 0 }) {
     ...card,
     body: HOME_RESEARCH_CARD_COPY[locale]?.[index] || HOME_RESEARCH_CARD_COPY.en[index] || card.body
   }));
-  const title = 'Research Area';
+  const title = 'Research Areas';
   const primaryCtaLabel = 'Explore Research';
   const secondaryCtaLabel = 'View Publications';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);

@@ -3,7 +3,7 @@
 # Publications
 
 ## title
-Publications
+Research Publications
 
 ## description
 Publication records from the previous Bae Lab website were migrated into this list. Entries are maintained in JSON and rendered automatically in IEEE-style format.

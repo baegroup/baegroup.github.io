@@ -20,7 +20,7 @@ Explore Research
 View Publications
 
 ## newsTitle
-Lab News
+Latest Highlights
 
 ## newsItems
 - 2025.12 | KHU Chemical Engineering Undergraduate Research Award.

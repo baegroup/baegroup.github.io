@@ -52,6 +52,7 @@ npm run content:build
 ### B) Dynamic data (recommended: Notion)
 
 - News: `npm run news:sync:notion`
+- Instagram: `npm run instagram:sync`
 - Team: `npm run team:sync:notion`
 - Publications: `npm run publications:sync:notion`
 - Bootstrap Team/Publications from local JSON into Notion: `npm run notion:push:site-data`
@@ -88,3 +89,22 @@ News `Summary` values entered in Notion are published automatically to the
 expanded news row, detail page, search metadata, and RSS. Notion news images
 are converted to WebP during synchronization. Existing news images can be
 optimized with `npm run images:optimize:news`.
+
+## Instagram feed automation
+
+The News sidebar mirrors the latest posts from the official Bae Lab Instagram
+account. The scheduled `Instagram Sync` workflow runs every six hours and saves
+post media locally as optimized WebP files so the website does not depend on
+expiring Instagram CDN URLs.
+
+The Instagram account must be a Professional account (Business or Creator).
+Configure a Meta app using Instagram API with Instagram Login and grant
+`instagram_business_basic`, then add these repository secrets:
+
+- `INSTAGRAM_ACCESS_TOKEN`: Instagram User access token
+- `INSTAGRAM_USER_ID`: Instagram-scoped professional account ID
+
+Optional local variables are `INSTAGRAM_API_VERSION`, `INSTAGRAM_POST_LIMIT`,
+`INSTAGRAM_HANDLE`, and `INSTAGRAM_PROFILE_URL`. Carousel posts are downloaded
+and displayed with their original image order, caption, timestamp, and
+permalink.

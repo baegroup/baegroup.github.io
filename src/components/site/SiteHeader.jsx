@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
@@ -10,16 +10,17 @@ import { pagePath } from '@/lib/i18n';
 export function SiteHeader({ locale }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef(null);
   const brand = BRAND[locale] || BRAND.en || {};
-  const tagline = (brand.tagline || '').trim() || 'Functional Materials Additive Manufacturing';
-  const taglineMatch = tagline.match(/^(Functional Materials)\s+(Additive Manufacturing)$/i);
+  const tagline = (brand.tagline || '').trim() || 'Additive Manufacturing of Functional Materials';
+  const taglineMatch = tagline.match(/^(Additive Manufacturing)\s+(of Functional Materials)$/i);
   const taglineLines = taglineMatch ? [taglineMatch[1], taglineMatch[2]] : [tagline];
   const universityLabel = 'Kyung Hee University';
   const affiliationLabel = 'Department of Chemical Engineering';
   const universityUrl = 'https://www.khu.ac.kr';
   const departmentUrl = 'https://chemeng.khu.ac.kr';
   const topLinkBaseClass =
-    'inline-flex items-center rounded-sm px-1.5 py-0.5 no-underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40';
+    'inline-flex items-center rounded px-1.5 py-0.5 no-underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40';
   const navItems = useMemo(() => NAV_ITEMS[locale] || NAV_ITEMS.en || [], [locale]);
 
   useEffect(() => {
@@ -41,10 +42,33 @@ export function SiteHeader({ locale }) {
     };
   }, []);
 
+  useEffect(() => {
+    if (!open) return undefined;
+
+    function handlePointerDown(event) {
+      if (!headerRef.current?.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [open]);
+
   return (
-    <header className={cn('site-header sticky top-0 z-50 border-b border-[#e6e0da]/95 bg-[#fbfaf8]/95 backdrop-blur-md', scrolled && 'is-scrolled')}>
+    <header className={cn('site-header sticky top-0 z-50 border-b border-[#e6e0da]/95 bg-[#fbfaf8]/95 backdrop-blur-md', scrolled && 'is-scrolled')} ref={headerRef}>
       <div className="border-b border-[#5e111c] bg-[#751523]">
-        <div className="mx-auto flex h-8 w-full max-w-6xl items-center justify-between px-5 md:h-9">
+        <div className="site-frame flex h-8 items-center justify-between">
           <a
             className={`${topLinkBaseClass} gap-2 text-sm font-semibold tracking-[0.01em] text-white/95 hover:text-white`}
             href={universityUrl}
@@ -73,15 +97,15 @@ export function SiteHeader({ locale }) {
         </div>
       </div>
 
-      <div className="site-header-main mx-auto flex min-h-24 w-full max-w-6xl items-center justify-between px-5 md:min-h-28">
+      <div className="site-header-main site-frame flex min-h-[5.5rem] items-center justify-between md:min-h-24">
         <Link
           aria-label="Bae Lab home"
-          className="flex items-center gap-3.5 no-underline md:gap-4"
+          className="flex items-center gap-3 no-underline"
           to={pagePath('')}
         >
           <img
             alt="Bae Lab logo"
-            className="site-header-logo h-20 w-20 object-contain md:h-24 md:w-24"
+            className="site-header-logo h-[4.5rem] w-[4.5rem] object-contain md:h-20 md:w-20"
             decoding="async"
             height="96"
             src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`}
@@ -101,7 +125,7 @@ export function SiteHeader({ locale }) {
           <Button
             aria-controls="site-nav"
             aria-expanded={open}
-            className="border-[#ded8d2] text-slate-700 hover:bg-[#f1ede8] md:hidden"
+            className="h-11 w-11 rounded border-[#ded8d2] text-slate-700 hover:bg-[#f1ede8] md:hidden"
             onClick={() => setOpen((value) => !value)}
             size="icon"
             type="button"
@@ -113,9 +137,9 @@ export function SiteHeader({ locale }) {
 
           <ul
             className={cn(
-              'hidden md:flex md:items-center md:gap-6',
+              'hidden md:flex md:items-center md:gap-5',
               open &&
-                'absolute right-0 top-12 z-40 flex w-56 flex-col gap-1 rounded-lg border border-[#ded8d2] bg-[#fbfaf8] p-2 shadow-soft md:static md:w-auto md:flex-row md:items-center md:gap-6 md:border-0 md:bg-transparent md:p-0 md:shadow-none'
+                'surface-floating absolute right-0 top-11 z-40 flex w-52 flex-col gap-0.5 rounded-lg border border-[#ded8d2] bg-[#fbfaf8] p-1.5 md:static md:w-auto md:flex-row md:items-center md:gap-5 md:border-0 md:bg-transparent md:p-0 md:shadow-none'
             )}
             id="site-nav"
           >
@@ -124,8 +148,8 @@ export function SiteHeader({ locale }) {
                 <NavLink
                   className={({ isActive }) =>
                     cn(
-                      'inline-flex w-full items-center rounded-md px-3 py-2 text-sm font-medium leading-5 text-slate-700 no-underline transition-colors hover:bg-[#f1ede8] hover:text-[var(--brand-navy)] md:w-auto md:rounded-none md:border-b-2 md:border-transparent md:px-0 md:py-1 md:hover:bg-transparent',
-                      isActive && 'bg-[#f1ede8] text-[var(--brand-navy)] md:border-b-[var(--brand-navy)] md:bg-transparent md:font-semibold'
+                      'inline-flex min-h-11 w-full items-center rounded px-3 py-2 text-sm font-medium leading-5 text-slate-700 no-underline transition-colors hover:bg-[#f1ede8] hover:text-[var(--brand-burgundy)] md:min-h-0 md:w-auto md:rounded-none md:border-b md:border-transparent md:px-0 md:py-1 md:hover:bg-transparent',
+                      isActive && 'font-semibold text-[var(--brand-burgundy)] md:border-b-[var(--brand-burgundy)]'
                     )
                   }
                   end={item.slug === ''}

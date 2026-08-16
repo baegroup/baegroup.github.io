@@ -7,7 +7,7 @@ Contact
 For collaboration and research inquiries, please contact the PI directly via email.
 
 ## leftTitle
-Contact Details
+Contact Information
 
 ## rightTitle
 Address & Map
@@ -16,12 +16,12 @@ Address & Map
 - email | Email
 - phone | Phone
 - fax | Fax
-- office | Office
+- affiliation | Affiliation
 - address | Address
 - map | Map
 
-## office
-#912-1, Department of Chemical Engineering, Kyung Hee University
+## affiliation
+Department of Chemical Engineering, Kyung Hee University
 
 ## address
 1732 Deogyeong-daero, Giheung-gu, Yongin-si, Gyeonggi-do 17104, Republic of Korea

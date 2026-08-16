@@ -10,18 +10,19 @@ export function ContactPage({ locale }) {
     { key: 'email', label: labels.email, value: <a href="mailto:jbae@khu.ac.kr">jbae@khu.ac.kr</a> },
     { key: 'phone', label: labels.phone, value: <a href="tel:+82312012477">+82-31-201-2477</a> },
     { key: 'fax', label: labels.fax, value: '+82-31-204-8114' },
-    { key: 'office', label: labels.office, value: content.office },
+    { key: 'affiliation', label: labels.affiliation, value: content.affiliation },
+    { key: 'address', label: labels.address, value: content.address },
   ];
 
   return (
-    <div className="space-y-5 md:space-y-6">
+    <div>
       <PageHero description={content.description} title={content.title} />
 
-      <section className="py-4 md:py-5">
-        <div className="grid gap-9 lg:grid-cols-[minmax(300px,0.82fr)_minmax(0,1.18fr)] lg:items-start lg:gap-12">
+      <section className="page-content-offset pb-6 md:pb-8">
+        <div className="grid gap-9 lg:grid-cols-[minmax(280px,0.9fr)_minmax(0,1.55fr)] lg:items-start lg:gap-12">
           <div>
             <h2 className="page-section-title">{content.leftTitle}</h2>
-            <dl className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
+            <dl className="site-divide-soft site-rule-strong mt-4 divide-y border-t">
               {contactItems.map((item) => (
                 <div className="grid gap-1 py-3 sm:grid-cols-[120px_1fr] sm:items-start sm:gap-4 md:py-4" key={item.key}>
                   <dt className="text-xs font-medium text-slate-600 md:text-[0.8125rem]">{item.label}</dt>
@@ -31,21 +32,14 @@ export function ContactPage({ locale }) {
             </dl>
           </div>
 
-          <div>
-            <h2 className="page-section-title">{content.rightTitle}</h2>
-            <div className="mt-4 border-y border-slate-200 py-3 md:py-4">
-              <p className="text-xs font-medium text-slate-600 md:text-[0.8125rem]">{labels.address}</p>
-              <p className="mt-1 text-sm leading-relaxed text-slate-900 md:text-base">{content.address}</p>
-            </div>
-            <div className="mt-4 overflow-hidden rounded-lg border border-slate-200">
-              <iframe
-                className="h-64 w-full md:h-[19rem]"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                src={mapEmbedUrl}
-                title="Bae Lab location map"
-              />
-            </div>
+          <div className="overflow-hidden">
+            <iframe
+              className="h-72 w-full md:h-[23rem]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              src={mapEmbedUrl}
+              title="Bae Lab location map"
+            />
           </div>
         </div>
       </section>

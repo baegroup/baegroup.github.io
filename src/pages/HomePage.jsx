@@ -42,22 +42,20 @@ export function HomePage({ locale }) {
   const mergedNewsContent = useMemo(
     () => ({
       ...newsContent,
-      newsTitle: homeContent.newsTitle || 'Lab News',
+      newsTitle: homeContent.newsTitle || 'Latest Highlights',
       items: latestNewsItems
     }),
     [homeContent.newsTitle, newsContent, latestNewsItems]
   );
 
   return (
-    <div className="space-y-8 md:space-y-12 xl:space-y-14">
+    <div>
       <HomeHeroSection content={homeContent} revealDelay={0} />
-      <div className="pt-1 md:pt-2">
-        <HomeResearchAreasSection
-          content={researchContent}
-          locale={locale}
-          revealDelay={70}
-        />
-      </div>
+      <HomeResearchAreasSection
+        content={researchContent}
+        locale={locale}
+        revealDelay={70}
+      />
       <div data-prerender-pending={latestNewsReady ? undefined : 'true'}>
         <HomeNewsSection content={mergedNewsContent} locale={locale} revealDelay={120} />
       </div>

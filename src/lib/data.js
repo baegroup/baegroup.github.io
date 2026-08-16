@@ -333,7 +333,9 @@ function normalizeInstagram(value) {
   const input = value && typeof value === 'object' ? value : {};
   return {
     handle: String(input.handle || '').trim(),
+    displayName: String(input.displayName || '').trim(),
     profileUrl: String(input.profileUrl || '').trim(),
+    profileImage: String(input.profileImage || '').trim(),
     recent: normalizeNewsItems(input.recent, 'gallery').map((item) => ({
       ...item,
       section: 'instagram'

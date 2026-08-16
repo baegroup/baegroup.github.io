@@ -26,8 +26,8 @@
   "BRAND": {
     "en": {
       "name": "Bae Lab",
-      "subtitle": "Functional Materials Additive Manufacturing",
-      "tagline": "Functional Materials Additive Manufacturing"
+      "subtitle": "Additive Manufacturing of Functional Materials",
+      "tagline": "Additive Manufacturing of Functional Materials"
     }
   },
   "HOME_CONTENT": {
@@ -41,7 +41,7 @@
       ],
       "primaryCta": "Explore Research Areas",
       "secondaryCta": "View Key Publications",
-      "newsTitle": "Lab News",
+      "newsTitle": "Latest Highlights",
       "newsItems": [
         {
           "date": "2025.12",
@@ -60,12 +60,12 @@
       "focusDescription": "",
       "focusCta": "See Research Details",
       "joinTitle": "Join Our Team",
-      "joinDescription": "Bae Lab welcomes motivated undergraduate researchers and graduate students from diverse backgrounds, including chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life sciences. Postdoctoral opportunities are available for fellowship applicants.",
+      "joinDescription": "Bae Lab welcomes self-motivated undergraduate researchers and prospective graduate students across engineering, physical sciences, computer science, and life sciences. Postdoctoral opportunities are available to candidates applying for external or institutional fellowships.",
       "joinCta": "Read More About Joining",
       "recruitmentNoticeEyebrow": "Now Recruiting",
       "recruitmentNoticeTitle": "Graduate Students",
       "recruitmentNoticeDescription": "M.S. · Ph.D. · Integrated M.S.–Ph.D.",
-      "recruitmentNoticeCta": "View Details"
+      "recruitmentNoticeCta": "View Opportunities"
     }
   },
   "TEAM_CONTENT": {
@@ -73,25 +73,29 @@
       "title": "Team",
       "description": "People and culture at Bae Lab.",
       "aboutTitle": "About Our Lab",
-      "aboutBody": "We are a multidisciplinary team of undergraduate, graduate, and postdoctoral researchers with expertise in chemical engineering, materials science, fluid mechanics, additive manufacturing, and carbon capture. We pursue a highly innovative and collaborative research environment, and we strongly value the different backgrounds, experiences, skills, and cultures in our team.",
+      "aboutBody": "Bae Lab brings together undergraduate, graduate, and postdoctoral researchers from chemical engineering, materials science and engineering, chemistry, polymer science, mechanical and electrical engineering, bioengineering, and computer science. We integrate functional materials design, fluid mechanics, photonics, and process engineering with advanced additive manufacturing to develop energy-harvesting systems, carbon-capture technologies, environmental sensors, and biomedical devices. We cultivate a rigorous and open research culture where diverse perspectives sharpen scientific judgment, bold ideas withstand constructive challenge, and collaboration turns individual expertise into stronger science.",
+      "aboutParagraphs": [
+        "Bae Lab brings together undergraduate, graduate, and postdoctoral researchers from chemical engineering, materials science and engineering, chemistry, polymer science, mechanical and electrical engineering, bioengineering, and computer science. We integrate functional materials design, fluid mechanics, photonics, and process engineering with advanced additive manufacturing to develop energy-harvesting systems, carbon-capture technologies, environmental sensors, and biomedical devices.",
+        "We cultivate a rigorous and open research culture where diverse perspectives sharpen scientific judgment, bold ideas withstand constructive challenge, and collaboration turns individual expertise into stronger science."
+      ],
       "cultureTitle": "The Fearless Lab Culture",
-      "cultureBody": "We pursue a research environment with high standards and psychological safety for innovation, learning, and growth. To build a creative environment full of new ideas, challenges, and critical thought, Bae Lab cultivates strong psychological safety so that every member feels safe taking risks, giving and receiving criticism, and embracing challenges.",
+      "cultureBody": "We pursue high standards in an environment where psychological safety enables intellectual risk-taking. Every member is encouraged to challenge assumptions, explore unconventional ideas, learn from failure, and exchange candid feedback.",
       "culturePrinciples": [
         {
           "title": "Diversity, Inclusion, and Belonging",
-          "body": "We are committed to diversity, inclusion, and belonging through equitable and inclusive policies and practices. We recruit diverse students, postdoctoral researchers, and staff to create a welcoming environment where individuals of all identities, backgrounds, and experiences can thrive, build a strong sense of belonging, and pursue excellence."
+          "body": "Diverse perspectives strengthen science. We therefore strive to make recruitment, mentorship, collaboration, and everyday lab practices equitable and inclusive, enabling every member to contribute fully, develop a genuine sense of belonging, and pursue excellence."
         },
         {
           "title": "Open Conversation",
-          "body": "We strongly encourage open and candid conversation on sensitive, controversial, and difficult issues to address scientific and societal problems. We welcome first-principles reasoning, as well as unfinished thoughts and unconventional questions, because talking through ideas is essential to the creative process."
+          "body": "We engage difficult scientific and societal questions through open, candid, and respectful conversation. First-principles reasoning, unfinished thoughts, and unconventional questions are welcomed—not as signs of uncertainty, but as essential ingredients of discovery."
         },
         {
-          "title": "Attitude to Risk and Failure",
-          "body": "We believe innovation requires failure on the path to success. We do not hold mistakes against each other when learning from them drives growth, development, and innovation. Through timely feedback and course correction, we maximize research quality, value, and impact with efficient use of time, effort, and cost."
+          "title": "Risk, Failure, and Learning",
+          "body": "Innovation requires the freedom to fail intelligently. We treat mistakes as part of learning—not as reasons for blame—while relying on honest reflection, timely feedback, and decisive course correction to protect research quality and make responsible use of time and resources."
         },
         {
-          "title": "Willingness to Help",
-          "body": "We become safer, more effective, and more intelligent when we help each other and feel appreciated by colleagues. By helping, interacting, and learning from one another in Bae Lab, we expand our roles as scientists, engineers, and educators. We value collective effort and actively pursue collaborative multidisciplinary research."
+          "title": "Mutual Support",
+          "body": "Scientific progress is a collective effort. We help one another, share knowledge freely, and recognize each person’s contributions because collaboration makes us safer, more capable, and more effective as scientists, engineers, and educators."
         }
       ],
       "professorTitle": "Professor",
@@ -131,23 +135,23 @@
   "RESEARCH_CONTENT": {
     "en": {
       "title": "Research",
-      "description": "The mission of Bae Lab is advancing the frontiers of printing, energy, environment and biomedical research through principles from chemistry, physics, and materials science to address important societal needs. Our research focuses on creating the next-generation structural & functional materials by leveraging our expertise in materials science, additive manufacturing, fluid mechanics, and photonics.",
+      "description": "Bae Lab advances the frontiers of printing, energy, environmental, and biomedical research by combining principles of chemistry, physics, and materials science with additive manufacturing, fluid mechanics, and photonics to create next-generation structural and functional materials for pressing societal needs.",
       "missionTitle": "Our Mission",
       "areaLabel": "Research Area",
       "cards": [
         {
           "title": "Printing Tech",
-          "body": "We are developing novel 3D printing inks and printing methods to address point-of-need fabrication required in various applications. To achieve a desired function, composition, structure, and physical & chemical properties, we design customized printheads and AI-assisted printing system to overcome current physical design constraints in 3D printing technology. We investigate printing various materials including polymers, hydrogels, elastomers, metal oxides, metals, and composites with stimuli-responsive functions and heat & electrical conductive properties.",
+          "body": "Our research advances additive manufacturing through the integrated design of functional inks, customized printheads, and AI-assisted printing systems. We engineer material composition, rheology, structure, and processing conditions to overcome manufacturing constraints and enable precise printing of polymers, hydrogels, elastomers, metals, metal oxides, and multifunctional composites.",
           "image": "printing-tech.webp"
         },
         {
           "title": "Energy & Environmental Tech",
-          "body": "For a sustainable future, we are developing unconventional energy harvesting and carbon capture systems by employing novel combination of functional materials. For real-world applications, we completely design a device from a molecular level of active materials to a integrated macrostructure for their optimal performance. Besides, we also study hydrogel & solvogel with tunable functionalities and properties for next-generation environmental sensor and Li-metal battery applications.",
+          "body": "Our research integrates molecular-level materials design with device-scale engineering for energy and environmental technologies. We develop unconventional energy-harvesting and carbon-capture systems and investigate functional hydrogels and solvogels for environmental sensors and lithium-metal batteries.",
           "image": "energy-environment-tech.webp"
         },
         {
           "title": "Biomedical Tech",
-          "body": "We are developing a practical translational device for in-vivo and epidermal point-of-care applications for all ages, personalized by 3D printing method. High performance soft & functional materials are being developed and assembled by advanced 3D printing method for next-generation real-time biosensors, minimally-invasive bioelectronics, and soft robotics with remote control.",
+          "body": "Our research integrates functional soft materials with advanced additive manufacturing to create personalized biomedical devices. We engineer in vivo, epidermal, and point-of-care platforms for real-time biosensing, minimally invasive bioelectronics, and remotely controlled soft robotics.",
           "image": "biomedical-tech.webp"
         }
       ],
@@ -198,7 +202,7 @@
   },
   "PUBLICATIONS_CONTENT": {
     "en": {
-      "title": "Publications",
+      "title": "Research Publications",
       "description": "Publication records from the previous Bae Lab website were migrated into this list. Entries are maintained in JSON and rendered automatically in IEEE-style format.",
       "sectionTitle": "Publication List",
       "preprintTitle": "Current Manuscripts",
@@ -268,32 +272,32 @@
     "en": {
       "title": "Join Our Team",
       "description": "Opportunities for motivated students and researchers who want to build next-generation functional materials and additive manufacturing technologies.",
-      "recruitmentStatusTitle": "Current Recruitment Status",
+      "recruitmentStatusTitle": "Current Openings",
       "recruitmentStatuses": [
-        "Graduate Opportunities | Open",
-        "Undergraduate Opportunities | Open",
-        "Postdoctoral Opportunities | Fellowship applicants only"
+        "Graduate Students | Open",
+        "Undergraduate Researchers | Open",
+        "Postdoctoral Researchers | Fellowship applicants only"
       ],
-      "graduateTitle": "Graduate Opportunities",
-      "graduateBody": "Motivated prospective graduate students interested in joining Bae Lab are encouraged to apply to the M.S., Ph.D., or integrated M.S.–Ph.D. program in Chemical Engineering at Kyung Hee University. Complete information about graduate admissions can be found through the official admissions page. Prospective students are also welcome to contact Prof. Jaehyeong Bae directly to discuss research fit, projects, and current openings.",
+      "graduateTitle": "Graduate Programs",
+      "graduateBody": "Bae Lab welcomes self-motivated M.S., Ph.D., and integrated M.S.–Ph.D. applicants with strong academic preparation and a commitment to rigorous research in Chemical Engineering at Kyung Hee University. Prospective students are encouraged to review the official graduate admissions information and contact Prof. Jaehyeong Bae to discuss research interests, potential projects, and current openings.",
       "graduateBenefits": [
-        "Full tuition support and monthly salary for qualified students.",
-        "Financial support for international conference participation.",
-        "Mentored research training with publication-focused project tracks."
+        "Full tuition and a monthly stipend for eligible students.",
+        "Financial support for attending and presenting at international conferences.",
+        "Close research mentorship and support for developing work toward peer-reviewed publication."
       ],
-      "undergraduateTitle": "Undergraduate Opportunities",
-      "undergraduateBody": "Motivated KHU undergraduate students are encouraged to contact Prof. Jaehyeong Bae for possible Undergraduate Research Program (URP) positions and research internship opportunities.",
-      "postdocTitle": "Postdoctoral Opportunities",
-      "postdocBody": "Postdoctoral opportunities are currently available only to candidates applying for an external or institutional fellowship. Prospective fellowship applicants with expertise in additive manufacturing, functional and soft materials, energy devices, and related fields are welcome to contact Prof. Jaehyeong Bae to discuss research fit and fellowship plans.",
+      "undergraduateTitle": "Undergraduate Research",
+      "undergraduateBody": "Kyung Hee University undergraduates interested in building a strong foundation for advanced research are encouraged to contact Prof. Jaehyeong Bae about Undergraduate Research Program (URP) opportunities.",
+      "postdocTitle": "Postdoctoral Fellowships",
+      "postdocBody": "Postdoctoral opportunities are currently limited to candidates applying for external or institutional fellowships. Applicants with expertise in additive manufacturing, functional and soft materials, energy devices, or related fields are encouraged to contact Prof. Jaehyeong Bae to discuss research fit and fellowship plans.",
       "applicationTitle": "How to Apply",
-      "applicationDescription": "Please email the following materials to Prof. Jaehyeong Bae. In your message, indicate the position or degree program you are interested in.",
+      "applicationDescription": "",
       "applicationMaterialsTitle": "Application Materials",
       "applicationMaterials": [
         "Curriculum vitae (CV)",
         "Academic transcript",
         "Brief description of research interests"
       ],
-      "desiredProgramsTitle": "Desired Position or Program",
+      "desiredProgramsTitle": "Program or Position",
       "desiredPrograms": [
         "Undergraduate researcher (URP)",
         "M.S. program",
@@ -301,8 +305,8 @@
         "Ph.D. program",
         "Postdoctoral fellowship applicant"
       ],
-      "applicationCta": "Apply by Email",
-      "admissionsLabel": "Graduate Admissions Information",
+      "applicationCta": "Submit by Email",
+      "admissionsLabel": "Graduate Admissions",
       "admissionsUrl": "https://gskh.khu.ac.kr/",
       "contactEmail": "jbae@khu.ac.kr"
     }
@@ -311,17 +315,17 @@
     "en": {
       "title": "Contact",
       "description": "For collaboration and research inquiries, please contact the PI directly via email.",
-      "leftTitle": "Contact Details",
+      "leftTitle": "Contact Information",
       "rightTitle": "Address & Map",
       "labels": {
         "email": "Email",
         "phone": "Phone",
         "fax": "Fax",
-        "office": "Office",
+        "affiliation": "Affiliation",
         "address": "Address",
         "map": "Map"
       },
-      "office": "#912-1, Department of Chemical Engineering, Kyung Hee University",
+      "affiliation": "Department of Chemical Engineering, Kyung Hee University",
       "address": "1732 Deogyeong-daero, Giheung-gu, Yongin-si, Gyeonggi-do 17104, Republic of Korea",
       "map": "Open in Google Maps",
       "apply": ""

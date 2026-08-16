@@ -3,7 +3,10 @@
 # Brand
 
 ## name
-Bae Lab for Electrochemical Energy Storage
+Bae Lab
 
 ## subtitle
-Department of Chemical Engineering, Kyung Hee University
+Additive Manufacturing of Functional Materials
+
+## tagline
+Additive Manufacturing of Functional Materials

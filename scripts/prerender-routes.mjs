@@ -7,7 +7,7 @@ import path from 'node:path';
 const ROOT = process.cwd();
 const DIST_DIR = path.join(ROOT, 'dist');
 const HOST = '127.0.0.1';
-const PORT = 4173;
+const PORT = await findAvailablePort();
 const BASE_URL = `http://${HOST}:${PORT}`;
 const CHROME_TIMEOUT_MS = 10000;
 const META_START = '<!-- route-meta:start -->';
@@ -45,7 +45,13 @@ async function waitForServer(preview) {
     }
     try {
       const response = await fetch(BASE_URL);
-      if (response.ok) return;
+      if (response.ok) {
+        await new Promise((resolve) => setTimeout(resolve, 75));
+        if (preview.exitCode !== null) {
+          throw new Error(`Vite preview exited before prerendering (code ${preview.exitCode}).`);
+        }
+        return;
+      }
     } catch {
       // The preview server may still be starting.
     }
@@ -71,7 +77,7 @@ function assertRendered(route, html) {
   }
 }
 
-function findDebugPort() {
+function findAvailablePort() {
   return new Promise((resolve, reject) => {
     const server = net.createServer();
     server.unref();
@@ -173,7 +179,7 @@ const preview = spawn(process.execPath, [viteBin, 'preview', '--host', HOST, '--
   stdio: ['ignore', 'pipe', 'pipe']
 });
 const chromeProfile = await mkdtemp(path.join(os.tmpdir(), 'baelab-prerender-'));
-const debugPort = await findDebugPort();
+const debugPort = await findAvailablePort();
 const chromeProcess = spawn(chrome, [
   '--headless=new',
   '--no-sandbox',

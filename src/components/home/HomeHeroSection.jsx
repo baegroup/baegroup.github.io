@@ -5,10 +5,10 @@ export function HomeHeroSection({ content, revealDelay = 0 }) {
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   return (
-    <section className={`home-hero relative overflow-hidden rounded-xl border border-slate-200/90 bg-slate-900 shadow-soft ${revealClassName}`} ref={ref} style={revealStyle}>
+    <section className={`home-hero relative overflow-hidden rounded-md bg-slate-900 ${revealClassName}`} ref={ref} style={revealStyle}>
       <picture className="absolute inset-0">
         <source
-          sizes="(max-width: 767px) calc(100vw - 40px), 1152px"
+          sizes="(max-width: 767px) calc(100vw - 32px), 1152px"
           srcSet={buildImageSrcSet(HOME_MEDIA.heroCoverWebp)}
           type="image/webp"
         />
@@ -17,7 +17,10 @@ export function HomeHeroSection({ content, revealDelay = 0 }) {
           className="home-hero-media h-full w-full object-cover"
           decoding="async"
           fetchPriority="high"
+          height="2560"
+          loading="eager"
           src={resolveHomeMedia(HOME_MEDIA.heroCover)}
+          width="1920"
         />
       </picture>
       <div className="absolute inset-0 bg-[linear-gradient(92deg,rgba(7,20,43,0.76)_0%,rgba(9,31,66,0.62)_34%,rgba(13,50,111,0.42)_66%,rgba(255,255,255,0.08)_100%)]" />

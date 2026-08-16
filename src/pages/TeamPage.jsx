@@ -18,13 +18,6 @@ const DEFAULT_JUMP_NAV = [
 ];
 
 const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'staff', 'alumni']);
-const SECTION_PAGE_TITLES = {
-  identity: 'Team',
-  professor: 'Jaehyeong Bae',
-  current: 'Lab Members',
-  staff: 'Researchers & Staff',
-  alumni: 'Alumni'
-};
 const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
 const STAFF_SECTION_ROLES = new Set(['Staff', 'Researcher']);
 const TERM_SORT_ORDER = { spring: 0, summer: 1, fall: 2, winter: 3 };
@@ -60,8 +53,8 @@ const PROFESSOR_PROFILE_DETAILS = {
     phone: '+82-31-201-2477',
     fax: '+82-31-204-8114',
     researchOverview: [
-      'Jaehyeong Bae conducts multidisciplinary research at the intersection of functional materials, additive manufacturing, and energy and environmental science. His work spans photoacid-enabled liquid-state photovoltaics, solvogel-passivated lithium-metal anodes, stretchable hydrogel supercapacitors, chemical and temperature sensors, nonclassical nucleation and crystallization, and direct ink writing.',
-      'His current research focuses on advanced additive manufacturing and functional materials, including direct ink writing of aerogels and liquid metals for thermal management, functional hydrogels for carbon capture, and embedded 3D printing for biomedical applications.'
+      'Jaehyeong Bae conducts multidisciplinary research at the intersection of functional materials, additive manufacturing, and energy and environmental science. His work encompasses photoacid-enabled liquid-state photovoltaics, solvogel-passivated lithium-metal anodes, stretchable hydrogel supercapacitors, chemical and temperature sensors, nonclassical nucleation and crystallization, and direct ink writing.',
+      'His current research advances functional materials and additive manufacturing through direct ink writing of aerogels and liquid metals for thermal management, functional hydrogels for carbon capture, and embedded 3D printing for biomedical applications.'
     ],
     education: [
       { year: '2020', text: 'Ph.D. in Materials Science and Engineering, KAIST, Korea' },
@@ -219,7 +212,7 @@ function MemberDetailStackRow({ label, value, type = 'text' }) {
   );
 }
 
-function MemberCard({ member, prominent = false, showRoleBadge = false }) {
+function MemberCard({ member, open = false, prominent = false, showRoleBadge = false }) {
   const [broken, setBroken] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const hasPhoto = Boolean(member.photo) && !broken;
@@ -248,10 +241,10 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
 
   if (prominent) {
     return (
-      <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-[0_14px_32px_-26px_rgba(13,50,111,0.34)] md:p-6">
+      <article className="rounded-lg border border-slate-200 bg-white p-5 md:p-6">
         <div className="grid gap-5 md:grid-cols-[140px_1fr]">
           <div className="mx-auto w-full max-w-[140px]">
-            <div className="h-44 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+            <div className="aspect-[4/5] overflow-hidden rounded-sm bg-slate-100">
               {hasPhoto ? (
                 <img
                   alt={member.localizedName}
@@ -271,7 +264,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
             <div className="space-y-1.5">
               <p className="text-2xl font-semibold text-slate-950">{member.localizedName}</p>
               <p className="text-sm font-medium text-slate-700 md:text-base">{courseValue}</p>
-              {showRoleBadge ? <p className="text-xs font-medium text-[var(--brand-navy)]">{member.roleLabel}</p> : null}
+              {showRoleBadge ? <p className="site-meta-context">{member.roleLabel}</p> : null}
             </div>
 
             <div className="space-y-2">
@@ -293,10 +286,22 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
   }
 
   return (
-    <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-[0_14px_32px_-26px_rgba(13,50,111,0.34)] md:p-6">
-      <div className="grid gap-5 md:grid-cols-[180px_1fr] md:items-start">
-        <div className="mx-auto w-full max-w-[180px]">
-          <div className="h-56 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+    <article
+      className={
+        open
+          ? 'site-rule-soft border-t pt-5'
+          : 'rounded-lg border border-slate-200 bg-white p-5 md:p-6'
+      }
+    >
+      <div
+        className={
+          open
+            ? 'grid grid-cols-[92px_minmax(0,1fr)] gap-4 sm:grid-cols-[110px_minmax(0,1fr)] sm:gap-5 md:items-start'
+            : 'grid gap-5 md:grid-cols-[180px_1fr] md:items-start'
+        }
+      >
+        <div className={open ? 'w-full' : 'mx-auto w-full max-w-[180px]'}>
+          <div className="media-portrait overflow-hidden bg-slate-100">
           {hasPhoto ? (
             <img
               alt={member.localizedName}
@@ -314,13 +319,13 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
 
         <div className="space-y-3">
           <div className="space-y-1.5">
-            <p className="text-xl font-semibold text-slate-950 md:text-2xl">{member.localizedName}</p>
+            <p className={`${open ? 'text-lg md:text-xl' : 'text-xl md:text-2xl'} font-semibold text-slate-950`}>{member.localizedName}</p>
             <p className="text-sm font-medium text-slate-700 md:text-base">{courseValue}</p>
-            {showRoleBadge ? <p className="text-xs font-medium text-[var(--brand-navy)]">{member.roleLabel}</p> : null}
+            {showRoleBadge ? <p className="site-meta-context">{member.roleLabel}</p> : null}
           </div>
 
-          {summaryLeadLine ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{summaryLeadLine}</p> : null}
-          {koreanLine ? <p className="text-sm leading-relaxed text-slate-600 md:text-[0.95rem]">{koreanLine}</p> : null}
+          {summaryLeadLine ? <p className="site-copy-body">{summaryLeadLine}</p> : null}
+          {koreanLine ? <p className="site-copy-support">{koreanLine}</p> : null}
           <div className="space-y-1 text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
             {joinedLine ? <p>{joinedLine}</p> : null}
             {emailValue ? (
@@ -335,7 +340,7 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
               <button
                 aria-controls={detailId}
                 aria-expanded={expanded}
-                className="group inline-flex items-center gap-1.5 text-left text-xs font-semibold text-slate-600 transition-colors hover:text-[var(--brand-navy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/30 focus-visible:ring-offset-2"
+                className="group inline-flex items-center gap-1.5 text-left text-xs font-semibold text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/30 focus-visible:ring-offset-2"
                 onClick={() => setExpanded((prev) => !prev)}
                 type="button"
               >
@@ -347,8 +352,8 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
                 </span>
               </button>
               <div
-                className={`grid overflow-hidden transition-all duration-300 ease-out ${
-                  expanded ? 'mt-2 max-h-[520px] gap-y-2.5 border-t border-slate-200 pt-2 opacity-100' : 'max-h-0 opacity-0'
+                className={`grid overflow-hidden transition-all duration-[320ms] ease-out ${
+                  expanded ? 'site-rule-soft mt-2 max-h-[520px] gap-y-2.5 border-t pt-2 opacity-100' : 'max-h-0 opacity-0'
                 }`}
                 id={detailId}
               >
@@ -370,12 +375,12 @@ function MemberCard({ member, prominent = false, showRoleBadge = false }) {
 
 function SectionState({ content, loading, error }) {
   if (loading) {
-    return <p className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600 md:text-base">{content.loading}</p>;
+    return <div className="content-state-row" role="status"><p className="content-state-label">Loading</p><p className="content-state-message">{content.loading}</p></div>;
   }
   if (error) {
-    return <p className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700 md:text-base">{error}</p>;
+    return <div className="content-state-row is-error" role="alert"><p className="content-state-label">Error</p><p className="content-state-message">{error}</p></div>;
   }
-  return <p className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600 md:text-base">{content.empty}</p>;
+  return <div className="content-state-row"><p className="content-state-label">Empty</p><p className="content-state-message">{content.empty}</p></div>;
 }
 
 function Principles({ principles }) {
@@ -387,10 +392,10 @@ function Principles({ principles }) {
     <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2 md:gap-y-10">
       {principles.map((item, index) => (
         <article className="grid min-w-0 grid-cols-[2rem_minmax(0,1fr)] gap-x-4" key={item.title}>
-          <p className="pt-1 text-xs font-semibold tracking-[0.08em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(index + 1)}</p>
+          <p className="site-meta-index pt-1">{formatItemNumber(index + 1)}</p>
           <div className="min-w-0">
             <h3 className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">{item.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">{item.body}</p>
+            <p className="site-copy-body mt-3">{item.body}</p>
           </div>
         </article>
       ))}
@@ -404,13 +409,13 @@ function ProfessorTimeline({ title, items }) {
   }
 
   return (
-    <section className="grid gap-4 border-t border-slate-300 pt-6 md:grid-cols-[168px_minmax(0,1fr)] md:gap-8 md:pt-8 lg:grid-cols-[190px_minmax(0,1fr)]">
+    <section className="site-rule-strong border-t pt-7 md:pt-8">
       <h3 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h3>
-      <ul className="divide-y divide-slate-200 border-b border-slate-200">
+      <ul className="site-divide-soft site-rule-strong mt-6 divide-y border-b">
         {items.map((item) => (
-          <li className="grid gap-1 py-4 first:pt-0 md:grid-cols-[168px_minmax(0,1fr)] md:gap-6" key={`${item.year}-${item.text}`}>
+          <li className="site-list-row grid gap-1 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-6" key={`${item.year}-${item.text}`}>
             <span className="whitespace-nowrap text-sm font-semibold text-[var(--brand-burgundy)] tabular-nums md:text-base">{item.year}</span>
-            <span className="text-sm leading-relaxed text-slate-700 md:text-base">{item.text}</span>
+            <span className="site-copy-body">{item.text}</span>
           </li>
         ))}
       </ul>
@@ -424,9 +429,9 @@ function ProfessorResearchOverview({ title, paragraphs }) {
   }
 
   return (
-    <section className="grid gap-4 border-t border-slate-300 pt-6 md:grid-cols-[168px_minmax(0,1fr)] md:gap-8 md:pt-8 lg:grid-cols-[190px_minmax(0,1fr)]">
+    <section className="site-rule-strong border-t pt-7 md:pt-8">
       <h3 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h3>
-      <div className="max-w-3xl space-y-4 text-sm leading-relaxed text-slate-700 md:text-base">
+      <div className="site-copy-body site-reading-measure mt-5 space-y-4">
         {paragraphs.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
         ))}
@@ -461,26 +466,31 @@ function ProfessorPublications({ title, items }) {
   }
 
   return (
-    <section className="grid gap-4 border-t border-slate-300 pt-6 md:grid-cols-[168px_minmax(0,1fr)] md:gap-8 md:pt-8 lg:grid-cols-[190px_minmax(0,1fr)]">
+    <section className="site-rule-strong border-t pt-7 md:pt-8">
       <h3 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h3>
-      <div>
-        <ul className="divide-y divide-slate-200 border-b border-slate-200">
-          {items.map((item) => (
-            <li className="py-5 first:pt-0" key={`${item.title}-${item.journalName}`}>
-              <h4 className="text-base font-semibold leading-snug text-slate-950 md:text-lg">{item.title}</h4>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                <HighlightPIName authors={item.authors} piName="Jaehyeong Bae" />
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                <span className="font-semibold italic text-slate-700">{item.journalName}</span>
-                {item.details ? <span> · {item.details}</span> : null}
-              </p>
+      <div className="mt-6">
+        <ul className="site-divide-soft site-rule-strong divide-y border-b">
+          {items.map((item, index) => (
+            <li className="site-list-row grid gap-3 sm:grid-cols-[42px_minmax(0,1fr)] sm:gap-5" key={`${item.title}-${item.journalName}`}>
+              <span className="text-sm font-semibold text-[var(--brand-burgundy)] tabular-nums md:text-base">
+                {formatItemNumber(index + 1)}
+              </span>
+              <div>
+                <h4 className="text-base font-semibold leading-snug text-slate-950 md:text-lg">{item.title}</h4>
+                <p className="site-copy-support mt-2">
+                  <HighlightPIName authors={item.authors} piName="Jaehyeong Bae" />
+                </p>
+                <p className="site-copy-support mt-2">
+                  <span className="font-semibold italic text-slate-700">{item.journalName}</span>
+                  {item.details ? <span> · {item.details}</span> : null}
+                </p>
+              </div>
             </li>
           ))}
         </ul>
-        <div className="site-action-links mt-4">
+        <div className="site-action-links mt-5">
           <Link className="site-action-link" to={pagePath('publications')}>
-            View Publications
+            Explore Publications
           </Link>
         </div>
       </div>
@@ -496,8 +506,8 @@ function ProfessorShowcase({ professor }) {
 
   return (
     <article className="space-y-8 md:space-y-10">
-      <div className="grid gap-7 lg:grid-cols-[minmax(220px,300px)_minmax(0,1fr)] lg:items-center lg:gap-14">
-        <figure className="aspect-[3/4] w-full overflow-hidden rounded-[4px] border border-slate-200">
+      <div className="grid gap-7 lg:grid-cols-[minmax(220px,280px)_minmax(0,1fr)] lg:items-center lg:gap-14">
+        <figure className="media-portrait w-full overflow-hidden">
           {hasPhoto ? (
             <img
               alt={professor.localizedName}
@@ -522,7 +532,7 @@ function ProfessorShowcase({ professor }) {
             <p className="text-slate-600">{copy.institution}</p>
           </div>
 
-          <ul className="mt-5 space-y-1.5 text-[0.9375rem] leading-6 text-slate-700">
+          <ul className="site-rule-soft mt-5 space-y-1.5 border-t pt-4 text-[0.9375rem] leading-6 text-slate-700">
             {professor.email ? (
               <li>
                 <span className="font-semibold">E-mail:</span>{' '}
@@ -559,6 +569,9 @@ function ProfessorShowcase({ professor }) {
 export function TeamPage({ locale, section = 'identity' }) {
   const content = TEAM_CONTENT[locale] || TEAM_CONTENT.en;
   const identityCopy = { aboutHeading: content.aboutTitle || 'About Our Lab' };
+  const aboutParagraphs = Array.isArray(content.aboutParagraphs) && content.aboutParagraphs.length
+    ? content.aboutParagraphs
+    : [content.aboutBody || content.description].filter(Boolean);
   const [currentGroups, setCurrentGroups] = useState([]);
   const [alumniGroups, setAlumniGroups] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -671,22 +684,27 @@ export function TeamPage({ locale, section = 'identity' }) {
 
   return (
     <>
-      <PageHero description={content.description} title={SECTION_PAGE_TITLES[activeSection] || content.title || 'Team'}>
+      <PageHero description={content.description} title={content.title || 'Team'}>
         <PageSectionNav
           activeId={activeSection}
           ariaLabel="Team section navigation"
           items={jumpNav}
+          mobileOverflowCue
         />
       </PageHero>
 
       <section>
-          <div className="py-6 md:py-7">
+          <div className="page-content-offset pb-6 md:pb-8">
             {activeSection === 'identity' ? (
               <section className="space-y-7 md:space-y-8">
-                  <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)] lg:items-center lg:gap-8">
-                    <div className="flex h-full flex-col justify-center space-y-5">
-                      <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{identityCopy.aboutHeading}</h2>
-                      <p className="max-w-xl text-sm leading-relaxed text-slate-700 md:text-base">{content.aboutBody || content.description}</p>
+                  <div className="grid gap-7 lg:grid-cols-[minmax(0,1.25fr)_minmax(300px,0.75fr)] lg:items-start lg:gap-10">
+                    <div className="flex flex-col space-y-5">
+                      <h2 className="page-section-title">{identityCopy.aboutHeading}</h2>
+                      <div className="site-reading-measure space-y-3">
+                        {aboutParagraphs.map((paragraph) => (
+                          <p className="site-copy-body" key={paragraph}>{paragraph}</p>
+                        ))}
+                      </div>
                       <div className="site-action-links pt-2 md:pt-3">
                         <Link className="site-action-link" to={pagePath('join')}>
                           View Opportunities
@@ -694,11 +712,11 @@ export function TeamPage({ locale, section = 'identity' }) {
                       </div>
                     </div>
 
-                    <figure className="mx-auto w-full max-w-2xl overflow-hidden rounded-xl border border-slate-200 bg-slate-100 lg:ml-auto lg:mr-0 lg:max-w-[94%]">
+                    <figure className="mx-auto w-full max-w-2xl overflow-hidden rounded-sm lg:ml-auto lg:mr-0 lg:max-w-[88%]">
                       {!aboutImage.broken ? (
                         <img
                           alt="Bae Lab group photo"
-                          className="aspect-[3/2] w-full object-cover object-bottom"
+                          className="media-landscape w-full object-cover object-bottom"
                           decoding="async"
                           loading="lazy"
                           onError={aboutImage.onError}
@@ -710,18 +728,18 @@ export function TeamPage({ locale, section = 'identity' }) {
                     </figure>
                   </div>
 
-                  <div className="space-y-8 border-t border-slate-200 pt-7 md:space-y-10 md:pt-8">
-                    <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)] lg:items-center lg:gap-8">
+                  <div className="site-rule-strong space-y-10 border-t pt-7 md:space-y-12 md:pt-8">
+                    <div className="grid gap-7 lg:grid-cols-[minmax(0,1.25fr)_minmax(300px,0.75fr)] lg:items-center lg:gap-10">
                       <div className="flex h-full flex-col justify-center space-y-4">
-                        <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{content.cultureTitle || 'The Fearless Lab Culture'}</h2>
-                        <p className="max-w-xl text-sm leading-relaxed text-slate-700 md:text-base">{content.cultureBody || ''}</p>
+                        <h2 className="page-section-title">{content.cultureTitle || 'The Fearless Lab Culture'}</h2>
+                        <p className="site-copy-body site-reading-measure">{content.cultureBody || ''}</p>
                       </div>
 
-                      <figure className="mx-auto w-full max-w-lg lg:ml-auto lg:mr-0 lg:max-w-[80%]">
+                      <figure className="mx-auto w-full max-w-sm lg:ml-auto lg:mr-0 lg:max-w-[77%]">
                         {!cultureImage.broken ? (
                           <img
                             alt="The Fearless Organization matrix"
-                            className="h-auto max-h-[260px] w-full object-contain md:max-h-[290px]"
+                            className="media-document max-h-[230px] md:max-h-[250px]"
                             decoding="async"
                             loading="lazy"
                             onError={cultureImage.onError}
@@ -730,7 +748,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                         ) : (
                           <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Culture image placeholder</div>
                         )}
-                        <figcaption className="mt-2 text-left text-xs text-slate-600">
+                        <figcaption className="site-copy-caption site-media-caption text-left">
                           The Fearless Organization · Amy C. Edmondson
                         </figcaption>
                       </figure>
@@ -779,11 +797,12 @@ export function TeamPage({ locale, section = 'identity' }) {
                             <MemberCard
                               key={member.id}
                               member={member}
+                              open
                               showRoleBadge={!PRIMARY_STUDENT_ROLES.has(group.role)}
                             />
                           ))}
                         </div>
-                        {index < currentStudentGroups.length - 1 ? <div className="h-px bg-slate-200" /> : null}
+                        {index < currentStudentGroups.length - 1 ? <div className="site-fill-soft h-px" /> : null}
                       </section>
                     ))}
                   </div>
@@ -808,10 +827,15 @@ export function TeamPage({ locale, section = 'identity' }) {
                         ) : null}
                         <div className="grid gap-4 md:grid-cols-2">
                           {group.members.map((member) => (
-                            <MemberCard key={member.id} member={member} showRoleBadge={staffGroups.length > 1 || !STAFF_SECTION_ROLES.has(group.role)} />
+                            <MemberCard
+                              key={member.id}
+                              member={member}
+                              open
+                              showRoleBadge={staffGroups.length > 1 || !STAFF_SECTION_ROLES.has(group.role)}
+                            />
                           ))}
                         </div>
-                        {index < staffGroups.length - 1 ? <div className="h-px bg-slate-200" /> : null}
+                        {index < staffGroups.length - 1 ? <div className="site-fill-soft h-px" /> : null}
                       </section>
                     ))}
                   </div>
@@ -827,7 +851,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                 {alumniMembers.length > 0 ? (
                   <div className="grid gap-4 md:grid-cols-2">
                     {alumniMembers.map((member) => (
-                      <MemberCard key={member.id} member={member} />
+                      <MemberCard key={member.id} member={member} open />
                     ))}
                   </div>
                 ) : (

@@ -761,23 +761,34 @@ async function convertNotionPagesToSections({ pages, token }) {
 async function fetchInstagramRecent(existingInstagram = {}) {
   const accessToken = String(process.env.INSTAGRAM_ACCESS_TOKEN || '').trim();
   const userId = String(process.env.INSTAGRAM_USER_ID || '').trim();
+  const configuredVersion = String(process.env.INSTAGRAM_API_VERSION || 'v25.0').trim();
+  const apiVersion = /^v\d+\.\d+$/.test(configuredVersion) ? configuredVersion : 'v25.0';
 
   if (!accessToken || !userId) {
     return {
       handle: String(existingInstagram.handle || process.env.INSTAGRAM_HANDLE || '').trim(),
+      displayName: String(existingInstagram.displayName || '').trim(),
       profileUrl: String(existingInstagram.profileUrl || process.env.INSTAGRAM_PROFILE_URL || '').trim(),
+      profileImage: String(existingInstagram.profileImage || '').trim(),
       recent: Array.isArray(existingInstagram.recent) ? existingInstagram.recent : []
     };
   }
 
   const limit = Number(process.env.INSTAGRAM_POST_LIMIT || 5);
-  await fs.mkdir(INSTAGRAM_ASSET_DIR, { recursive: true });
-  await fs.rm(INSTAGRAM_ASSET_DIR, { recursive: true, force: true });
-  await fs.mkdir(INSTAGRAM_ASSET_DIR, { recursive: true });
-  await fs.writeFile(path.join(INSTAGRAM_ASSET_DIR, '.gitkeep'), '', 'utf8');
-
-  const endpoint = `https://graph.instagram.com/${userId}/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp&limit=${Math.max(1, Math.min(limit, 20))}&access_token=${encodeURIComponent(accessToken)}`;
-  const response = await fetch(endpoint);
+  const graphBaseUrl = `https://graph.instagram.com/${apiVersion}`;
+  const requestHeaders = { Authorization: `Bearer ${accessToken}` };
+  const mediaFields = [
+    'id',
+    'caption',
+    'media_type',
+    'media_url',
+    'thumbnail_url',
+    'permalink',
+    'timestamp',
+    'children{media_type,media_url,thumbnail_url}'
+  ].join(',');
+  const endpoint = `${graphBaseUrl}/${encodeURIComponent(userId)}/media?fields=${encodeURIComponent(mediaFields)}&limit=${Math.max(1, Math.min(limit, 20))}`;
+  const response = await fetch(endpoint, { headers: requestHeaders });
   if (!response.ok) {
     const text = await response.text();
     throw new Error(`Instagram API error (${response.status}): ${text}`);
@@ -786,20 +797,46 @@ async function fetchInstagramRecent(existingInstagram = {}) {
   const payload = await response.json();
   const media = Array.isArray(payload.data) ? payload.data : [];
 
+  let profile = {};
+  try {
+    const profileEndpoint = `${graphBaseUrl}/${encodeURIComponent(userId)}?fields=${encodeURIComponent('username,name,profile_picture_url')}`;
+    const profileResponse = await fetch(profileEndpoint, { headers: requestHeaders });
+    if (profileResponse.ok) {
+      profile = await profileResponse.json();
+    } else {
+      console.warn(`[warn] Instagram profile request failed (${profileResponse.status}); retaining existing profile metadata.`);
+    }
+  } catch (error) {
+    console.warn(`[warn] Instagram profile request failed; retaining existing profile metadata: ${error.message}`);
+  }
+
+  await fs.mkdir(INSTAGRAM_ASSET_DIR, { recursive: true });
+  await fs.writeFile(path.join(INSTAGRAM_ASSET_DIR, '.gitkeep'), '', 'utf8');
+
   const recent = [];
   for (let index = 0; index < media.length; index += 1) {
     const post = media[index];
-    const mediaUrl = post.media_type === 'VIDEO' ? post.thumbnail_url || post.media_url : post.media_url;
     const caption = String(post.caption || '').trim();
     const title = caption.split('\n').map((line) => line.trim()).filter(Boolean)[0] || `Instagram Post ${index + 1}`;
+    const postMedia = post.media_type === 'CAROUSEL_ALBUM' && Array.isArray(post.children?.data)
+      ? post.children.data
+      : [post];
 
     const images = [];
-    if (mediaUrl) {
+    for (let mediaIndex = 0; mediaIndex < postMedia.length; mediaIndex += 1) {
+      const mediaItem = postMedia[mediaIndex];
+      const mediaUrl = mediaItem.media_type === 'VIDEO'
+        ? mediaItem.thumbnail_url || mediaItem.media_url
+        : mediaItem.media_url;
+      if (!mediaUrl) {
+        continue;
+      }
+
       try {
-        const fileName = await downloadAsset(mediaUrl, INSTAGRAM_ASSET_DIR, `ig-${index + 1}`);
+        const fileName = await downloadAsset(mediaUrl, INSTAGRAM_ASSET_DIR, `ig-${post.id || index + 1}-${mediaIndex + 1}`);
         images.push(`assets/img/news/instagram/${fileName}`);
       } catch (error) {
-        console.warn(`[warn] failed to download instagram media for post ${post.id}: ${error.message}`);
+        console.warn(`[warn] failed to download Instagram media ${mediaIndex + 1} for post ${post.id}: ${error.message}`);
       }
     }
 
@@ -814,9 +851,32 @@ async function fetchInstagramRecent(existingInstagram = {}) {
     });
   }
 
+  let profileImage = '';
+  if (profile.profile_picture_url) {
+    try {
+      const fileName = await downloadAsset(profile.profile_picture_url, INSTAGRAM_ASSET_DIR, 'profile');
+      profileImage = `assets/img/news/instagram/${fileName}`;
+    } catch (error) {
+      console.warn(`[warn] failed to download Instagram profile image: ${error.message}`);
+    }
+  }
+
+  const retainedProfileImage = profileImage || String(existingInstagram.profileImage || '').trim();
+  const retainedFiles = new Set([
+    '.gitkeep',
+    ...recent.flatMap((post) => post.images || []).map((assetPath) => path.basename(assetPath)),
+    ...(retainedProfileImage ? [path.basename(retainedProfileImage)] : [])
+  ]);
+  const existingFiles = await fs.readdir(INSTAGRAM_ASSET_DIR);
+  await Promise.all(existingFiles
+    .filter((fileName) => !retainedFiles.has(fileName))
+    .map((fileName) => fs.rm(path.join(INSTAGRAM_ASSET_DIR, fileName), { force: true })));
+
   return {
-    handle: String(process.env.INSTAGRAM_HANDLE || existingInstagram.handle || '').trim(),
+    handle: String(process.env.INSTAGRAM_HANDLE || profile.username || existingInstagram.handle || '').trim(),
+    displayName: String(profile.name || existingInstagram.displayName || '').trim(),
     profileUrl: String(process.env.INSTAGRAM_PROFILE_URL || existingInstagram.profileUrl || '').trim(),
+    profileImage: retainedProfileImage,
     recent: sortItems(recent)
   };
 }
@@ -836,10 +896,18 @@ async function main() {
   await loadDotenv('.env.local');
   await loadDotenv('.env');
 
+  const existing = await readJsonIfExists(NEWS_OUTPUT_PATH, {});
+  if (process.argv.includes('--instagram-only')) {
+    const instagram = await fetchInstagramRecent(existing.instagram || {});
+    const payload = { ...existing, instagram };
+    await fs.mkdir(path.dirname(NEWS_OUTPUT_PATH), { recursive: true });
+    await fs.writeFile(NEWS_OUTPUT_PATH, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
+    console.log(`Synced Instagram -> public/data/news.json (${instagram.recent.length} post(s))`);
+    return;
+  }
+
   const notionToken = requireEnv('NOTION_TOKEN');
   const notionDbId = requireEnv('NOTION_NEWS_DB_ID');
-
-  const existing = await readJsonIfExists(NEWS_OUTPUT_PATH, {});
   const pages = await fetchNotionPages({ token: notionToken, databaseId: notionDbId });
 
   const notionSections = await convertNotionPagesToSections({ pages, token: notionToken });

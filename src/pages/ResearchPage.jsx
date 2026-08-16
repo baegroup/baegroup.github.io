@@ -69,13 +69,13 @@ function ResearchAreaRow({ area, index }) {
   const { ref, revealClassName, revealStyle } = useScrollReveal(Math.min(index * 60, 120));
 
   return (
-    <article className={`group border-b border-slate-200 py-6 first:pt-0 md:py-8 ${revealClassName}`} ref={ref} style={revealStyle}>
-      <div className={`grid gap-6 lg:grid-cols-2 lg:items-center lg:gap-8 ${reverse ? 'lg:[&>*:first-child]:order-2' : ''}`}>
-        <figure className="mx-auto w-full max-w-3xl overflow-hidden rounded-lg border border-slate-200 bg-slate-100 lg:max-w-none">
+    <article className={`site-rule-strong border-b py-8 first:pt-0 md:py-10 ${revealClassName}`} ref={ref} style={revealStyle}>
+      <div className={`grid gap-7 lg:grid-cols-2 lg:items-center lg:gap-10 ${reverse ? 'lg:[&>*:first-child]:order-2' : ''}`}>
+        <figure className="mx-auto w-full max-w-3xl overflow-hidden rounded-sm lg:max-w-none">
           {!image.broken ? (
             <img
               alt={area.title}
-              className={`aspect-[16/10] max-h-[380px] w-full transition-transform duration-700 group-hover:scale-[1.012] lg:max-h-none ${
+              className={`media-landscape max-h-[380px] w-full lg:max-h-none ${
                 keepFullImage ? 'object-contain bg-white p-2' : 'object-cover'
               }`}
               decoding="async"
@@ -84,12 +84,12 @@ function ResearchAreaRow({ area, index }) {
               src={image.src}
             />
           ) : (
-            <div className="flex aspect-[16/10] max-h-[380px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Research image placeholder</div>
+            <div className="media-landscape flex max-h-[380px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Research image placeholder</div>
           )}
         </figure>
 
-        <div className="space-y-3">
-          <p className="text-xs font-semibold tracking-[0.08em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(index + 1)}</p>
+        <div className="space-y-4">
+          <p className="site-meta-index">{formatItemNumber(index + 1)}</p>
           <h3 className="page-section-title">{area.title}</h3>
           <p className="home-body-copy max-w-[68ch] text-slate-700">{area.body}</p>
         </div>
@@ -108,18 +108,8 @@ function FundingItem({ item, index }) {
     normalizedName && normalizedName !== name ? `${RESEARCH_FUNDING_IMAGE_DIR}/${normalizedName}` : '',
     `${RESEARCH_FUNDING_IMAGE_DIR}/${fallbackSlug}`
   ]);
-  const dividerClassName = [
-    index > 0 ? 'border-t border-slate-200 sm:border-t-0' : '',
-    index % 2 === 1 ? 'sm:border-l' : '',
-    index >= 2 ? 'sm:border-t' : '',
-    index < 4 ? 'xl:border-t-0' : 'xl:border-t',
-    index % 4 === 0 ? 'xl:border-l-0' : 'xl:border-l'
-  ]
-    .filter(Boolean)
-    .join(' ');
-
   return (
-    <article className={`flex h-full flex-col px-4 py-5 text-center md:px-5 md:py-6 ${dividerClassName}`}>
+    <article className="flex h-full w-1/2 shrink-0 flex-col px-4 py-5 text-center md:px-5 md:py-6 xl:w-1/4">
       <div className="flex min-h-[92px] items-center justify-center">
         {!image.broken ? (
           <img alt={item.name} className="max-h-14 w-auto object-contain" decoding="async" loading="lazy" onError={image.onError} src={image.src} />
@@ -150,23 +140,25 @@ export function ResearchPage({ locale }) {
   const fundingReveal = useScrollReveal(40);
 
   return (
-    <div className="space-y-6 md:space-y-8">
+    <div>
       <PageHero title={content.title} />
 
-      <section className={`rounded-xl border border-slate-200 bg-white px-5 py-6 shadow-soft md:px-7 md:py-7 ${missionReveal.revealClassName}`} ref={missionReveal.ref} style={missionReveal.revealStyle}>
-        <h2 className="page-section-title text-center">{missionTitle}</h2>
-        <p className="home-body-copy mx-auto mt-5 max-w-4xl text-slate-700">{content.description}</p>
+      <section className={`page-content-offset site-rule-strong border-b pb-10 md:pb-12 ${missionReveal.revealClassName}`} ref={missionReveal.ref} style={missionReveal.revealStyle}>
+        <p className="site-meta-index">{formatItemNumber(0)}</p>
+        <h2 className="page-section-title mt-3">{missionTitle}</h2>
+        <p className="site-copy-lead site-reading-measure mt-4">{content.description}</p>
       </section>
 
-      <section className="space-y-4 pt-3 md:space-y-5 md:pt-5">
+      <section className="space-y-4 py-10 md:space-y-5 md:py-12 lg:py-14">
+        <h2 className="sr-only">Research Areas</h2>
         {coreAreas.map((area, index) => (
           <ResearchAreaRow area={area} index={index} key={area.title} />
         ))}
       </section>
 
-      <section className={fundingReveal.revealClassName} ref={fundingReveal.ref} style={fundingReveal.revealStyle}>
+      <section className={`${fundingReveal.revealClassName} pt-10 md:pt-12 lg:pt-14`} ref={fundingReveal.ref} style={fundingReveal.revealStyle}>
         <h2 className="text-center text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">{fundingTitle}</h2>
-        <div className="reveal-stagger mt-6 grid sm:grid-cols-2 xl:grid-cols-4">
+        <div className="reveal-stagger mt-6 flex flex-wrap justify-center gap-y-5">
           {fundingItems.map((item, index) => (
             <FundingItem index={index} item={item} key={`${item.name}-${item.logo || index}`} />
           ))}

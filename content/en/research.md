@@ -7,15 +7,15 @@ Research
 Our Mission
 
 ## description
-The mission of Bae Lab is advancing the frontiers of printing, energy, environment and biomedical research through principles from chemistry, physics, and materials science to address important societal needs. Our research focuses on creating the next-generation structural & functional materials by leveraging our expertise in materials science, additive manufacturing, fluid mechanics, and photonics.
+Bae Lab advances the frontiers of printing, energy, environmental, and biomedical research by combining principles of chemistry, physics, and materials science with additive manufacturing, fluid mechanics, and photonics to create next-generation structural and functional materials for pressing societal needs.
 
 ## areaLabel
 Research Area
 
 ## cards
-- Printing Tech | We are developing novel 3D printing inks and printing methods to address point-of-need fabrication required in various applications. To achieve a desired function, composition, structure, and physical & chemical properties, we design customized printheads and AI-assisted printing system to overcome current physical design constraints in 3D printing technology. We investigate printing various materials including polymers, hydrogels, elastomers, metal oxides, metals, and composites with stimuli-responsive functions and heat & electrical conductive properties. | printing-tech.webp
-- Energy & Environmental Tech | For a sustainable future, we are developing unconventional energy harvesting and carbon capture systems by employing novel combination of functional materials. For real-world applications, we completely design a device from a molecular level of active materials to a integrated macrostructure for their optimal performance. Besides, we also study hydrogel & solvogel with tunable functionalities and properties for next-generation environmental sensor and Li-metal battery applications. | energy-environment-tech.webp
-- Biomedical Tech | We are developing a practical translational device for in-vivo and epidermal point-of-care applications for all ages, personalized by 3D printing method. High performance soft & functional materials are being developed and assembled by advanced 3D printing method for next-generation real-time biosensors, minimally-invasive bioelectronics, and soft robotics with remote control. | biomedical-tech.webp
+- Printing Tech | Our research advances additive manufacturing through the integrated design of functional inks, customized printheads, and AI-assisted printing systems. We engineer material composition, rheology, structure, and processing conditions to overcome manufacturing constraints and enable precise printing of polymers, hydrogels, elastomers, metals, metal oxides, and multifunctional composites. | printing-tech.webp
+- Energy & Environmental Tech | Our research integrates molecular-level materials design with device-scale engineering for energy and environmental technologies. We develop unconventional energy-harvesting and carbon-capture systems and investigate functional hydrogels and solvogels for environmental sensors and lithium-metal batteries. | energy-environment-tech.webp
+- Biomedical Tech | Our research integrates functional soft materials with advanced additive manufacturing to create personalized biomedical devices. We engineer in vivo, epidermal, and point-of-care platforms for real-time biosensing, minimally invasive bioelectronics, and remotely controlled soft robotics. | biomedical-tech.webp
 
 ## methodsTitle
 Research Methodology

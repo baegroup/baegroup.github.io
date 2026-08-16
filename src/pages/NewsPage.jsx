@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { Bookmark, ChevronDown, ChevronLeft, ChevronRight, Heart, Instagram, MessageCircle, Send } from 'lucide-react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
+import { ExternalLinkIcon } from '@/components/site/ExternalLinkIcon';
 import { PageHero } from '@/components/site/PageHero';
 import { PageSectionNav } from '@/components/site/PageSectionNav';
 import { NEWS_CONTENT } from '@/content/site-content';
@@ -23,6 +24,7 @@ const DEFAULT_SECTION_TABS = [
   { id: 'videos', label: 'Video' }
 ];
 const DEFAULT_PAGE_SIZE = 5;
+const LAB_LIFE_PAGE_SIZE = 6;
 const VIDEOS_PAGE_SIZE = 4;
 
 function normalizeInstagramPermalink(value) {
@@ -49,11 +51,6 @@ function normalizeInstagramPermalink(value) {
   } catch {
     return '';
   }
-}
-
-function toInstagramEmbedUrl(value) {
-  const permalink = normalizeInstagramPermalink(value);
-  return permalink ? `${permalink}embed/` : '';
 }
 
 function toTimestamp(value) {
@@ -115,6 +112,10 @@ function MediaImage({ path, title, variant = 'card' }) {
   const image = useImageFallback(path);
 
   if (image.broken) {
+    if (variant === 'instagramAvatar') {
+      return <span className="inline-flex size-8 items-center justify-center rounded-full bg-[var(--brand-burgundy)] text-xs font-semibold text-white">B</span>;
+    }
+
     if (variant === 'thumb') {
       return (
         <div className="flex h-16 w-16 items-center justify-center border border-slate-200 bg-slate-100 text-[10px] font-medium text-slate-500 md:h-[72px] md:w-[72px]">
@@ -123,30 +124,70 @@ function MediaImage({ path, title, variant = 'card' }) {
       );
     }
 
+    if (variant === 'strip') {
+      return (
+        <div className="flex h-[72px] w-24 items-center justify-center rounded-sm bg-slate-100 text-[10px] font-medium text-slate-500 md:h-[82px] md:w-[110px]">
+          Image
+        </div>
+      );
+    }
+
+    if (variant === 'galleryFill') {
+      return (
+        <div className="flex h-full min-h-0 w-full items-center justify-center bg-slate-100 text-[10px] font-medium text-slate-500">
+          Image
+        </div>
+      );
+    }
+
+    if (variant === 'instagram') {
+      return (
+        <div className="flex aspect-square w-full items-center justify-center bg-slate-100 text-xs font-medium text-slate-500">
+          Image
+        </div>
+      );
+    }
+
     if (variant === 'full') {
       return (
-        <div className="flex min-h-52 w-full max-w-3xl items-center justify-center rounded-md border border-slate-200 bg-slate-100 px-3 text-xs font-medium text-slate-500">
+        <div className="flex min-h-52 w-full max-w-3xl items-center justify-center rounded-sm bg-slate-100 px-3 text-xs font-medium text-slate-500">
           Image
         </div>
       );
     }
 
     return (
-      <div className="flex aspect-[4/3] w-full items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-xs font-medium text-slate-500">
+      <div className="flex aspect-[4/3] w-full items-center justify-center rounded-sm bg-slate-100 text-xs font-medium text-slate-500">
         Image
       </div>
     );
   }
 
   if (variant === 'thumb') {
-    return <img alt={title} className="h-16 w-16 object-cover md:h-[72px] md:w-[72px]" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+    return <img alt={title} className="h-16 w-16 rounded-sm object-cover md:h-[72px] md:w-[72px]" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+  }
+
+  if (variant === 'instagramAvatar') {
+    return <img alt={title} className="size-8 rounded-full object-cover" decoding="async" height="32" loading="lazy" onError={image.onError} src={image.src} width="32" />;
+  }
+
+  if (variant === 'strip') {
+    return <img alt={title} className="h-[72px] w-24 rounded-sm object-cover md:h-[82px] md:w-[110px]" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+  }
+
+  if (variant === 'galleryFill') {
+    return <img alt={title} className="h-full min-h-0 w-full object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+  }
+
+  if (variant === 'instagram') {
+    return <img alt={title} className="aspect-square w-full object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
   }
 
   if (variant === 'full') {
     return (
       <img
         alt={title}
-        className="h-auto max-h-[640px] w-full max-w-3xl rounded-md border border-slate-200 bg-white object-contain"
+        className="h-auto max-h-[640px] w-full max-w-3xl rounded-sm bg-white object-contain"
         decoding="async"
         loading="lazy"
         onError={image.onError}
@@ -155,7 +196,159 @@ function MediaImage({ path, title, variant = 'card' }) {
     );
   }
 
-  return <img alt={title} className="aspect-[4/3] w-full rounded-md object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+  return <img alt={title} className="media-news w-full" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+}
+
+function InstagramRail({ displayName, handle, post, postUrl, profileImage, profileUrl }) {
+  const images = post?.images || [];
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const mediaId = useId();
+
+  useEffect(() => {
+    setActiveImageIndex(0);
+  }, [post?.id]);
+
+  if (!post || !images.length) {
+    return null;
+  }
+
+  const imageCount = images.length;
+  const displayHandle = String(handle || '@baelab.khu').trim() || '@baelab.khu';
+  const profileLabel = String(displayName || 'Bae Lab').trim() || 'Bae Lab';
+
+  function showPreviousImage() {
+    setActiveImageIndex((current) => (current - 1 + imageCount) % imageCount);
+  }
+
+  function showNextImage() {
+    setActiveImageIndex((current) => (current + 1) % imageCount);
+  }
+
+  return (
+    <section className="mx-auto w-full max-w-[340px] space-y-3 lg:max-w-[232px]" aria-label="Bae Lab on Instagram">
+      <div className="flex items-center gap-2.5">
+        <a
+          aria-label={`Open ${displayHandle} on Instagram`}
+          className="flex min-w-0 flex-1 items-center gap-2.5 no-underline"
+          href={profileUrl}
+          rel="noreferrer"
+          target="_blank"
+        >
+          <span className="inline-flex rounded-full bg-[linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#4c68d7)] p-0.5">
+            <span className="inline-flex size-9 items-center justify-center rounded-full border-2 border-[var(--brand-page)]">
+              <MediaImage path={profileImage} title={`${profileLabel} Instagram profile`} variant="instagramAvatar" />
+            </span>
+          </span>
+          <span className="min-w-0">
+            <span className="block truncate text-sm font-semibold text-slate-900">{displayHandle.replace(/^@/, '')}</span>
+            <span className="block truncate text-xs text-slate-600">{profileLabel}</span>
+          </span>
+        </a>
+        <a
+          aria-label="Open Bae Lab Instagram profile"
+          className="inline-flex size-6 shrink-0 items-center justify-center rounded-md bg-[linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366)] text-white no-underline"
+          href={profileUrl}
+          rel="noreferrer"
+          target="_blank"
+        >
+          <Instagram aria-hidden="true" className="size-4" strokeWidth={1.8} />
+        </a>
+      </div>
+
+      <div className="relative overflow-hidden rounded-sm bg-slate-100" id={mediaId}>
+        <a className="block" href={postUrl} rel="noreferrer" target="_blank">
+          <MediaImage path={images[activeImageIndex]} title={post.title || 'Bae Lab Instagram post'} variant="instagram" />
+        </a>
+        {imageCount > 1 ? (
+          <>
+            <button aria-controls={mediaId} aria-label="Previous Instagram image" className="site-touch-target absolute left-2 top-1/2 inline-flex size-7 -translate-y-1/2 items-center justify-center rounded-full bg-slate-950/55 text-white transition-colors hover:bg-slate-950/70" onClick={showPreviousImage} type="button">
+              <ChevronLeft aria-hidden="true" className="size-4" strokeWidth={1.8} />
+            </button>
+            <button aria-controls={mediaId} aria-label="Next Instagram image" className="site-touch-target absolute right-2 top-1/2 inline-flex size-7 -translate-y-1/2 items-center justify-center rounded-full bg-slate-950/55 text-white transition-colors hover:bg-slate-950/70" onClick={showNextImage} type="button">
+              <ChevronRight aria-hidden="true" className="size-4" strokeWidth={1.8} />
+            </button>
+          </>
+        ) : null}
+      </div>
+
+      <div className="flex items-center gap-3 text-slate-700" aria-hidden="true">
+        <Heart className="size-[18px]" strokeWidth={1.6} />
+        <MessageCircle className="size-[18px]" strokeWidth={1.6} />
+        <Send className="size-[18px]" strokeWidth={1.6} />
+        <Bookmark className="ml-auto size-[18px]" strokeWidth={1.6} />
+      </div>
+
+      {imageCount > 1 ? (
+        <div className="flex justify-center gap-1.5" aria-label={`${imageCount} images in this Instagram post`}>
+          {Array.from({ length: Math.min(imageCount, 5) }, (_, index) => (
+            <button
+              aria-controls={mediaId}
+              aria-label={`Show Instagram image ${index + 1}`}
+              aria-pressed={activeImageIndex === index}
+              className={`site-touch-target size-1.5 rounded-full ${activeImageIndex === index ? 'bg-[#4c68d7]' : 'bg-slate-300'}`}
+              key={`${post.id}-instagram-dot-${index}`}
+              onClick={() => setActiveImageIndex(index)}
+              type="button"
+            />
+          ))}
+        </div>
+      ) : null}
+
+      {imageCount > 1 ? <p aria-live="polite" className="sr-only">Instagram image {activeImageIndex + 1} of {imageCount}</p> : null}
+
+      <div className="space-y-1">
+        <p className="site-copy-body line-clamp-2">
+          <span className="font-semibold text-slate-900">{displayHandle.replace(/^@/, '')}</span>{' '}
+          {post.summary || post.title}
+        </p>
+        <a className="site-text-link inline-flex items-center text-xs" href={postUrl} rel="noreferrer" target="_blank">View on Instagram<ExternalLinkIcon /></a>
+        {post.date ? <p className="text-xs text-slate-500">{post.date}</p> : null}
+      </div>
+    </section>
+  );
+}
+
+function LabLifeCard({ detailPath, item, number }) {
+  const images = (item.images || []).slice(0, 4);
+  const visibleImages = images.length ? images : [''];
+  const mediaClass = images.length <= 1
+    ? 'grid-cols-1'
+    : images.length === 2
+      ? 'grid-cols-2'
+      : images.length === 3
+        ? 'grid-cols-[1.55fr_1fr] grid-rows-2'
+        : 'grid-cols-2 grid-rows-2';
+
+  return (
+    <article className="min-w-0">
+      <Link
+        aria-label={`View ${item.title}`}
+        className={`grid aspect-[4/3] gap-[3px] overflow-hidden rounded-sm bg-slate-100 ${mediaClass}`}
+        reloadDocument
+        to={detailPath}
+      >
+        {visibleImages.map((path, imageIndex) => (
+          <span
+            className={`block min-h-0 overflow-hidden ${images.length === 3 && imageIndex === 0 ? 'row-span-2' : ''}`}
+            key={`${item.id}-gallery-preview-${imageIndex}`}
+          >
+            <MediaImage path={path} title={`${item.title}${images.length > 1 ? ` ${imageIndex + 1}` : ''}`} variant="galleryFill" />
+          </span>
+        ))}
+      </Link>
+
+      <div className="site-media-caption">
+        <h3 className="site-media-title">
+          <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
+        </h3>
+        <div className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+          <span className="site-meta-index">{formatItemNumber(number)}</span>
+          <span className="site-meta-context">{item.date || '-'}</span>
+          {images.length ? <span className="site-meta-secondary">{images.length} {images.length === 1 ? 'photo' : 'photos'}</span> : null}
+        </div>
+      </div>
+    </article>
+  );
 }
 
 function toYouTubeEmbedUrl(value) {
@@ -198,8 +391,8 @@ function VideoCard({ detailPath, item, number }) {
   const fallbackImage = item.images?.[0] || '';
 
   return (
-    <article className="overflow-hidden rounded-lg border border-slate-200 bg-white">
-      <div className="border-b border-slate-200 bg-slate-100">
+    <article className="min-w-0">
+      <div className="overflow-hidden rounded-sm bg-slate-100">
         {youtubeEmbed ? (
           <iframe
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -215,65 +408,80 @@ function VideoCard({ detailPath, item, number }) {
         )}
       </div>
 
-      <div className="grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 p-4">
-        <span className="pt-0.5 text-xs font-semibold tracking-[0.04em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(number)}</span>
-        <div className="space-y-2">
-          <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date || '-'}</p>
-          <h3 className="text-xl font-semibold leading-snug text-slate-950">
-            <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
-          </h3>
-          {item.summary ? <p className="text-sm leading-relaxed text-slate-600">{item.summary}</p> : null}
-          {primaryVideoUrl ? (
-            <a className="site-text-link inline-flex text-sm" href={primaryVideoUrl} rel="noreferrer" target="_blank">
-              Open video source
-            </a>
-          ) : null}
+      <div className="site-media-caption">
+        <h3 className="text-xl font-semibold leading-snug text-slate-950">
+          <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
+        </h3>
+        <div className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+          <span className="site-meta-index">{formatItemNumber(number)}</span>
+          <span className="site-meta-context">{item.date || '-'}</span>
         </div>
+        {item.summary ? <p className="site-media-description">{item.summary}</p> : null}
+        {primaryVideoUrl ? (
+          <a className="site-text-link mt-2 inline-flex text-sm" href={primaryVideoUrl} rel="noreferrer" target="_blank">
+            View original video<ExternalLinkIcon />
+          </a>
+        ) : null}
       </div>
     </article>
   );
 }
 
-function NewsItemRow({ compactPreview = false, detailPath, item, itemRef, number, onToggle, opened }) {
+function NewsItemRow({ compactPreview = false, detailPath, editorialPreview = false, item, itemRef, number, onToggle, opened }) {
   const youtubeEmbed = toYouTubeEmbedUrl(item.videoUrl || item.url);
   const hasDetailContent = Boolean(item.summary || item.url || item.videoUrl || (item.images || []).length);
   const firstImage = item.images?.[0] || '';
   const toggleLabel = opened ? 'Collapse details' : 'View details';
+  const detailsId = `news-details-${item.id}`;
 
   return (
     <li className="scroll-mt-28" ref={itemRef}>
-      <div className="w-full px-1 py-4 text-left transition-colors hover:bg-white/40 md:px-2 md:py-5">
-        <div className={`grid items-center gap-3 ${compactPreview ? 'grid-cols-[2.125rem_64px_minmax(0,1fr)_auto] md:grid-cols-[2.125rem_72px_minmax(0,1fr)_auto] md:gap-4' : 'grid-cols-[2.125rem_minmax(0,1fr)_auto]'}`}>
-          <span className="text-xs font-semibold tracking-[0.04em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(number)}</span>
-          {compactPreview ? (
-            <div className="flex items-center justify-center">
-              <MediaImage path={firstImage} title={item.title} variant="thumb" />
+      <div className="site-list-row w-full px-1 text-left transition-colors hover:bg-white/40 md:px-2">
+        <div
+          className={`grid ${
+            editorialPreview
+              ? 'grid-cols-[96px_minmax(0,1fr)_auto] items-start gap-x-3 gap-y-2.5 md:grid-cols-[2.125rem_110px_minmax(0,1fr)_auto] md:items-center md:gap-4'
+              : compactPreview
+                ? 'grid-cols-[2.125rem_64px_minmax(0,1fr)_auto] items-center gap-3 md:grid-cols-[2.125rem_72px_minmax(0,1fr)_auto] md:gap-4'
+                : 'grid-cols-[2.125rem_minmax(0,1fr)_auto] items-center gap-3'
+          }`}
+        >
+          <span className={editorialPreview ? 'site-meta-index self-center md:self-auto' : 'site-meta-index'}>{formatItemNumber(number)}</span>
+          {editorialPreview ? <p className="site-meta-context col-start-2 row-start-1 self-center md:hidden">{item.date || '-'}</p> : null}
+          {compactPreview || editorialPreview ? (
+            <div className={editorialPreview ? 'col-start-1 row-start-2 flex items-center justify-center md:col-start-2 md:row-start-1' : 'flex items-center justify-center'}>
+              <MediaImage path={firstImage} title={item.title} variant={editorialPreview ? 'strip' : 'thumb'} />
             </div>
           ) : null}
 
-          <div>
-            <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date || '-'}</p>
-            <p className="mt-1 text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">
+          <div className={editorialPreview ? 'col-span-2 col-start-2 row-start-2 min-w-0 md:col-span-1 md:col-start-3 md:row-start-1' : ''}>
+            {!editorialPreview ? <p className="site-meta-context">{item.date || '-'}</p> : null}
+            <p className="site-balanced-heading mt-1 text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">
               <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
             </p>
+            {editorialPreview && item.summary ? <p className="site-copy-support mt-2 line-clamp-2">{item.summary}</p> : null}
           </div>
 
-          <button
-            aria-expanded={opened}
-            className="inline-flex items-center justify-center text-slate-600 transition-colors hover:text-slate-900"
-            onClick={onToggle}
-            type="button"
-          >
-            <ChevronDown className={`h-4 w-4 transition-transform ${opened ? 'rotate-180' : ''}`} />
-            <span className="sr-only">{toggleLabel}</span>
-          </button>
+          <div className={editorialPreview ? 'col-start-3 row-start-1 flex self-center flex-col items-end gap-3 md:col-start-4 md:row-start-1 md:self-start' : ''}>
+            {editorialPreview ? <p className="site-meta-context hidden whitespace-nowrap md:block">{item.date || '-'}</p> : null}
+            <button
+              aria-controls={detailsId}
+              aria-expanded={opened}
+              className="inline-flex size-11 items-center justify-center text-slate-600 transition-colors hover:text-slate-900 md:size-auto"
+              onClick={onToggle}
+              type="button"
+            >
+              <ChevronDown className={`h-4 w-4 transition-transform ${opened ? 'rotate-180' : ''}`} />
+              <span className="sr-only">{toggleLabel}</span>
+            </button>
+          </div>
         </div>
       </div>
 
       {opened ? (
-        <div className="border-t border-slate-200/80 px-1 pb-5 pt-4 md:px-2">
+        <div className="site-rule-soft border-t px-1 pb-5 pt-4 md:px-2" id={detailsId}>
           <div className="space-y-4">
-            {item.summary ? <p className="text-sm leading-relaxed text-slate-700 md:text-base">{item.summary}</p> : null}
+            {item.summary ? <p className="site-copy-body">{item.summary}</p> : null}
 
             {item.images?.length ? (
               <div className="flex flex-col items-center gap-3">
@@ -285,7 +493,7 @@ function NewsItemRow({ compactPreview = false, detailPath, item, itemRef, number
 
             {item.videoUrl ? (
               youtubeEmbed ? (
-                <div className="overflow-hidden rounded-md border border-slate-200">
+                <div className="overflow-hidden rounded-sm">
                   <iframe
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
@@ -296,14 +504,14 @@ function NewsItemRow({ compactPreview = false, detailPath, item, itemRef, number
                 </div>
               ) : (
                 <a className="site-text-link inline-flex text-sm" href={item.videoUrl} rel="noreferrer" target="_blank">
-                  Open video
+                  Open video<ExternalLinkIcon />
                 </a>
               )
             ) : null}
 
             {item.url ? (
               <a className="site-text-link inline-flex text-sm" href={item.url} rel="noreferrer" target="_blank">
-                Source link
+                View original source<ExternalLinkIcon />
               </a>
             ) : null}
 
@@ -339,7 +547,7 @@ function NewsDetail({ item, section }) {
 
           {item.videoUrl ? (
             youtubeEmbed ? (
-              <div className="overflow-hidden rounded-md border border-slate-200">
+              <div className="overflow-hidden rounded-sm">
                 <iframe
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
@@ -350,18 +558,18 @@ function NewsDetail({ item, section }) {
                 />
               </div>
             ) : (
-              <a className="site-text-link inline-flex text-sm" href={item.videoUrl} rel="noreferrer" target="_blank">Open video</a>
+              <a className="site-text-link inline-flex items-center text-sm" href={item.videoUrl} rel="noreferrer" target="_blank">Open video<ExternalLinkIcon /></a>
             )
           ) : null}
 
           {item.url ? (
-            <a className="site-text-link inline-flex text-sm" href={item.url} rel="noreferrer" target="_blank">Source link</a>
+            <a className="site-text-link inline-flex items-center text-sm" href={item.url} rel="noreferrer" target="_blank">Source link<ExternalLinkIcon /></a>
           ) : null}
         </div>
 
-        <aside className="border-t border-slate-200 pt-4 lg:border-t-0 lg:pt-0">
-          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">Bae Lab News</p>
-          <Link className="site-action-link mt-3 inline-flex" to={newsSectionPath(section)}>Back to {section === 'gallery' ? 'Lab Life' : section === 'videos' ? 'Video' : 'Highlights'}</Link>
+        <aside className="site-rule-strong border-t pt-4 lg:border-t-0 lg:pt-0">
+          <p className="text-xs font-semibold text-slate-500">Bae Lab news</p>
+          <Link className="site-utility-link mt-3 inline-flex" to={newsSectionPath(section)}>Back to {section === 'gallery' ? 'Lab Life' : section === 'videos' ? 'Video' : 'Highlights'}</Link>
         </aside>
       </div>
     </article>
@@ -477,7 +685,11 @@ export function NewsPage({ locale }) {
   }, [activeSection]);
 
   const activeItems = mergedSections[activeSection] || [];
-  const pageSize = activeSection === 'videos' ? VIDEOS_PAGE_SIZE : DEFAULT_PAGE_SIZE;
+  const pageSize = activeSection === 'videos'
+    ? VIDEOS_PAGE_SIZE
+    : activeSection === 'gallery'
+      ? LAB_LIFE_PAGE_SIZE
+      : DEFAULT_PAGE_SIZE;
   const pageCount = Math.max(1, Math.ceil(activeItems.length / pageSize));
   const paginatedItems = useMemo(() => {
     const start = (currentPage - 1) * pageSize;
@@ -509,9 +721,9 @@ export function NewsPage({ locale }) {
   const emptySectionLabel = content.emptySection || 'No items available in this section yet.';
   const updatedAt = feed.updatedAt || content.updatedAt || '';
   const latestInstagramPost = (feed.instagram.recent || []).find((post) => (post.images || []).length) || (feed.instagram.recent || [])[0] || null;
-  const latestInstagramImage = latestInstagramPost?.images?.[0] || '';
   const latestInstagramPermalink = normalizeInstagramPermalink(latestInstagramPost?.url);
-  const latestInstagramEmbedUrl = toInstagramEmbedUrl(latestInstagramPost?.url);
+  const instagramProfileUrl = feed.instagram.profileUrl || 'https://www.instagram.com/baelab.khu/';
+  const latestInstagramPostUrl = latestInstagramPermalink || latestInstagramPost?.url || instagramProfileUrl;
   const contentReveal = useScrollReveal(40);
   const detailItem = itemSlug
     ? activeItems.find((item) => newsItemSlug(item) === itemSlug)
@@ -526,13 +738,13 @@ export function NewsPage({ locale }) {
       <div className="space-y-6">
         <PageHero title="News item not found" />
         <p className="text-base text-slate-700">This news item is no longer available.</p>
-        <Link className="site-action-link" to={newsSectionPath(activeSection)}>Back to News</Link>
+        <Link className="site-utility-link" to={newsSectionPath(activeSection)}>Back to News</Link>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 md:space-y-8">
+    <div>
       <PageHero description={content.description} title={content.title}>
         <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-5 gap-y-2">
           <PageSectionNav
@@ -552,40 +764,26 @@ export function NewsPage({ locale }) {
         </div>
       </PageHero>
 
-      <div className={`grid gap-6 lg:grid-cols-[minmax(0,1fr)_232px] lg:items-start lg:gap-8 xl:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
-        <aside className="order-2 lg:self-start">
+      <div className={`page-content-offset grid gap-6 lg:grid-cols-[minmax(0,1fr)_232px] lg:items-start lg:gap-8 xl:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
+        <aside className="order-2 w-full max-w-sm lg:max-w-none lg:self-start">
           <div className="space-y-4 xl:sticky xl:top-28">
-            {latestInstagramEmbedUrl || latestInstagramImage ? (
-              <section className="space-y-3">
-                {latestInstagramEmbedUrl ? (
-                  <div className="mx-auto w-full max-w-[340px] overflow-hidden rounded-lg border border-slate-200 bg-white lg:h-[401px] lg:max-w-[232px]">
-                    <div className="h-[590px] w-full lg:w-[340px] lg:origin-top-left lg:scale-[0.676]">
-                      <iframe
-                        allowTransparency
-                        className="block h-full w-full"
-                        loading="lazy"
-                        scrolling="no"
-                        src={latestInstagramEmbedUrl}
-                        style={{ border: 0 }}
-                        title={latestInstagramPost?.title || 'Instagram embed'}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <a className="mx-auto block w-full max-w-[340px] overflow-hidden rounded-lg border border-slate-200 bg-white lg:max-w-[232px]" href={latestInstagramPermalink || feed.instagram.profileUrl || '#'} rel="noreferrer" target="_blank">
-                    <MediaImage path={latestInstagramImage} title={latestInstagramPost?.title || 'Instagram'} />
-                  </a>
-                )}
-              </section>
-            ) : null}
+            <InstagramRail
+              displayName={feed.instagram.displayName}
+              handle={feed.instagram.handle}
+              post={latestInstagramPost}
+              postUrl={latestInstagramPostUrl}
+              profileImage={feed.instagram.profileImage}
+              profileUrl={instagramProfileUrl}
+            />
           </div>
         </aside>
 
         <section className="order-1 space-y-3" ref={listTopRef}>
-          {loading ? <p className="rounded-lg border border-dashed border-slate-300 bg-white p-4 text-base text-slate-600">Loading news feed...</p> : null}
-          {!loading && error ? <p className="rounded-lg border border-red-200 bg-red-50 p-4 text-base text-red-700">{error}</p> : null}
+          <h2 className="sr-only">{sections.find((section) => section.id === activeSection)?.label || 'News items'}</h2>
+          {loading ? <div className="content-state-row" role="status"><p className="content-state-label">Loading</p><p className="content-state-message">Loading news feed...</p></div> : null}
+          {!loading && error ? <div className="content-state-row is-error" role="alert"><p className="content-state-label">Error</p><p className="content-state-message">{error}</p></div> : null}
           {!loading && !error && activeItems.length === 0 ? (
-            <p className="rounded-lg border border-dashed border-slate-300 bg-white p-4 text-base text-slate-600">{emptySectionLabel}</p>
+            <div className="content-state-row"><p className="content-state-label">Empty</p><p className="content-state-message">{emptySectionLabel}</p></div>
           ) : null}
 
           {!loading && !error && activeItems.length > 0 ? (
@@ -602,8 +800,41 @@ export function NewsPage({ locale }) {
                     </li>
                   ))}
                 </ol>
+              ) : activeSection === 'labNews' ? (
+                <ol className="site-divide-soft site-rule-strong divide-y border-t">
+                  {paginatedItems.map((item, index) => (
+                    <NewsItemRow
+                      detailPath={newsItemPath(activeSection, item)}
+                      editorialPreview
+                      item={item}
+                      itemRef={(node) => {
+                        if (node) {
+                          itemRefs.current.set(item.id, node);
+                        } else {
+                          itemRefs.current.delete(item.id);
+                        }
+                      }}
+                      key={item.id}
+                      number={activeItems.length - ((currentPage - 1) * pageSize + index)}
+                      onToggle={() => handleToggleItem(item.id)}
+                      opened={expandedId === item.id}
+                    />
+                  ))}
+                </ol>
+              ) : activeSection === 'gallery' ? (
+                <ol className="grid gap-x-5 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
+                  {paginatedItems.map((item, index) => (
+                    <li key={item.id}>
+                      <LabLifeCard
+                        detailPath={newsItemPath(activeSection, item)}
+                        item={item}
+                        number={activeItems.length - ((currentPage - 1) * pageSize + index)}
+                      />
+                    </li>
+                  ))}
+                </ol>
               ) : (
-                <ol className="divide-y divide-slate-200 border-y border-slate-200">
+                <ol className="site-divide-soft site-rule-strong divide-y border-t">
                   {paginatedItems.map((item, index) => (
                     <NewsItemRow
                       compactPreview={activeSection === 'labNews' || activeSection === 'gallery'}
@@ -626,23 +857,45 @@ export function NewsPage({ locale }) {
               )}
 
               {pageCount > 1 ? (
-                <nav aria-label="News pagination" className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                <nav aria-label="News pagination" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 py-1 sm:gap-x-7">
                   {currentPage > 1 ? (
-                    <Link className="page-section-tab no-underline" to={newsSectionPath(activeSection, currentPage - 1)}>Prev</Link>
-                  ) : <span className="page-section-tab opacity-40">Prev</span>}
-                  {Array.from({ length: pageCount }, (_, index) => index + 1).map((page) => (
                     <Link
-                      aria-current={page === currentPage ? 'page' : undefined}
-                      className={`page-section-tab ${page === currentPage ? 'font-semibold text-slate-900' : ''}`}
-                      key={page}
-                      to={newsSectionPath(activeSection, page)}
+                      aria-label="Previous news page"
+                      className="inline-flex size-11 items-center justify-center text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
+                      to={newsSectionPath(activeSection, currentPage - 1)}
                     >
-                      {page}
+                      <ChevronLeft aria-hidden="true" className="size-4" strokeWidth={1.5} />
                     </Link>
-                  ))}
+                  ) : (
+                    <span aria-hidden="true" className="inline-flex size-11 items-center justify-center text-slate-300 sm:size-7">
+                      <ChevronLeft className="size-4" strokeWidth={1.5} />
+                    </span>
+                  )}
+                  <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:gap-x-8">
+                    {Array.from({ length: pageCount }, (_, index) => index + 1).map((page) => (
+                      <Link
+                        aria-current={page === currentPage ? 'page' : undefined}
+                        className={`page-section-tab no-underline ${page === currentPage ? 'font-semibold text-[var(--brand-burgundy)]' : ''}`}
+                        key={page}
+                        to={newsSectionPath(activeSection, page)}
+                      >
+                        {page}
+                      </Link>
+                    ))}
+                  </div>
                   {currentPage < pageCount ? (
-                    <Link className="page-section-tab no-underline" to={newsSectionPath(activeSection, currentPage + 1)}>Next</Link>
-                  ) : <span className="page-section-tab opacity-40">Next</span>}
+                    <Link
+                      aria-label="Next news page"
+                      className="inline-flex size-11 items-center justify-center text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
+                      to={newsSectionPath(activeSection, currentPage + 1)}
+                    >
+                      <ChevronRight aria-hidden="true" className="size-4" strokeWidth={1.5} />
+                    </Link>
+                  ) : (
+                    <span aria-hidden="true" className="inline-flex size-11 items-center justify-center text-slate-300 sm:size-7">
+                      <ChevronRight className="size-4" strokeWidth={1.5} />
+                    </span>
+                  )}
                 </nav>
               ) : null}
             </div>

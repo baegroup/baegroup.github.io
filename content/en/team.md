@@ -10,19 +10,21 @@ People and culture at Bae Lab.
 About Our Lab
 
 ## aboutBody
-We are a multidisciplinary team of undergraduate, graduate, and postdoctoral researchers with expertise in chemical engineering, materials science, fluid mechanics, additive manufacturing, and carbon capture. We pursue a highly innovative and collaborative research environment, and we strongly value the different backgrounds, experiences, skills, and cultures in our team.
+Bae Lab brings together undergraduate, graduate, and postdoctoral researchers from chemical engineering, materials science and engineering, chemistry, polymer science, mechanical and electrical engineering, bioengineering, and computer science. We integrate functional materials design, fluid mechanics, photonics, and process engineering with advanced additive manufacturing to develop energy-harvesting systems, carbon-capture technologies, environmental sensors, and biomedical devices.
+
+We cultivate a rigorous and open research culture where diverse perspectives sharpen scientific judgment, bold ideas withstand constructive challenge, and collaboration turns individual expertise into stronger science.
 
 ## cultureTitle
 The Fearless Lab Culture
 
 ## cultureBody
-We pursue a research environment with high standards and psychological safety for innovation, learning, and growth. To build a creative environment full of new ideas, challenges, and critical thought, Bae Lab cultivates strong psychological safety so that every member feels safe taking risks, giving and receiving criticism, and embracing challenges.
+We pursue high standards in an environment where psychological safety enables intellectual risk-taking. Every member is encouraged to challenge assumptions, explore unconventional ideas, learn from failure, and exchange candid feedback.
 
 ## culturePrinciples
-- Diversity, Inclusion, and Belonging | We are committed to diversity, inclusion, and belonging through equitable and inclusive policies and practices. We recruit diverse students, postdoctoral researchers, and staff to create a welcoming environment where individuals of all identities, backgrounds, and experiences can thrive, build a strong sense of belonging, and pursue excellence.
-- Open Conversation | We strongly encourage open and candid conversation on sensitive, controversial, and difficult issues to address scientific and societal problems. We welcome first-principles reasoning, as well as unfinished thoughts and unconventional questions, because talking through ideas is essential to the creative process.
-- Attitude to Risk and Failure | We believe innovation requires failure on the path to success. We do not hold mistakes against each other when learning from them drives growth, development, and innovation. Through timely feedback and course correction, we maximize research quality, value, and impact with efficient use of time, effort, and cost.
-- Willingness to Help | We become safer, more effective, and more intelligent when we help each other and feel appreciated by colleagues. By helping, interacting, and learning from one another in Bae Lab, we expand our roles as scientists, engineers, and educators. We value collective effort and actively pursue collaborative multidisciplinary research.
+- Diversity, Inclusion, and Belonging | Diverse perspectives strengthen science. We therefore strive to make recruitment, mentorship, collaboration, and everyday lab practices equitable and inclusive, enabling every member to contribute fully, develop a genuine sense of belonging, and pursue excellence.
+- Open Conversation | We engage difficult scientific and societal questions through open, candid, and respectful conversation. First-principles reasoning, unfinished thoughts, and unconventional questions are welcomed—not as signs of uncertainty, but as essential ingredients of discovery.
+- Risk, Failure, and Learning | Innovation requires the freedom to fail intelligently. We treat mistakes as part of learning—not as reasons for blame—while relying on honest reflection, timely feedback, and decisive course correction to protect research quality and make responsible use of time and resources.
+- Mutual Support | Scientific progress is a collective effort. We help one another, share knowledge freely, and recognize each person’s contributions because collaboration makes us safer, more capable, and more effective as scientists, engineers, and educators.
 
 ## professorTitle
 Professor

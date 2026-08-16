@@ -35,11 +35,11 @@ function FeaturedNewsCard({ item }) {
 
   return (
     <Link className="group flex h-full flex-col" reloadDocument to={itemPath(item)}>
-      <div className="h-44 overflow-hidden rounded-md border border-slate-200 bg-slate-100">
+      <div className="aspect-[4/3] overflow-hidden rounded-sm bg-slate-100">
         {!exhausted ? (
           <img
             alt={item.title}
-            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+            className="h-full w-full object-cover object-center transition-transform duration-[320ms] group-hover:scale-[1.01]"
             decoding="async"
             loading="lazy"
             onError={() => setImageIndex((index) => index + 1)}
@@ -49,9 +49,9 @@ function FeaturedNewsCard({ item }) {
           <div className="flex h-full items-center justify-center text-sm font-medium text-slate-500">Featured News Image</div>
         )}
       </div>
-      <div className="flex-1 pt-3">
-        <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date}</p>
-        <h3 className="mt-1.5 text-lg font-semibold leading-snug tracking-tight text-slate-950">{item.title}</h3>
+      <div className="site-media-caption flex-1">
+        <h3 className="site-media-title tracking-tight">{item.title}</h3>
+        <p className="site-meta-context mt-1.5">{item.date}</p>
       </div>
     </Link>
   );
@@ -68,8 +68,8 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
 
   const featuredItems = items.slice(0, 2);
   const listItems = items.slice(2, 6);
-  const sectionTitle = 'Lab News';
-  const listLabel = 'Recent Highlights';
+  const sectionTitle = content.newsTitle || 'Latest Highlights';
+  const listLabel = 'More News';
   const viewAllLabel = 'View All News';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
@@ -87,10 +87,10 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
       </div>
 
       <article>
-        <div className={featuredItems.length && listItems.length ? 'grid lg:grid-cols-[minmax(0,1.16fr)_minmax(0,1fr)]' : 'grid'}>
+        <div className={featuredItems.length && listItems.length ? 'grid gap-8 lg:grid-cols-[minmax(0,1.16fr)_minmax(0,1fr)] lg:gap-10 xl:gap-12' : 'grid'}>
           {featuredItems.length ? (
-            <div className={listItems.length ? 'border-b border-slate-200 pb-6 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-8' : ''}>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.10em] text-[var(--brand-navy)]">Featured</p>
+            <div>
+              <p className="mb-3 text-xs font-semibold text-[var(--brand-navy)]">Featured</p>
               <div className="reveal-stagger grid gap-5 sm:grid-cols-2">
                 {featuredItems.map((item) => (
                   <FeaturedNewsCard item={item} key={`${item.id || item.title}-featured`} />
@@ -100,16 +100,16 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
           ) : null}
 
           {listItems.length ? (
-            <div className={featuredItems.length ? 'pt-6 lg:pl-8 lg:pt-0' : ''}>
+            <div>
               <div className="pb-2">
-                <p className="text-xs font-semibold uppercase tracking-[0.10em] text-[var(--brand-navy)]">{listLabel}</p>
+                <p className="text-xs font-semibold text-[var(--brand-navy)]">{listLabel}</p>
               </div>
-              <ul className="reveal-stagger divide-y divide-slate-200">
+              <ul className="reveal-stagger site-divide-soft site-rule-strong mt-5 divide-y border-t md:mt-6">
                 {listItems.map((item) => (
                   <li className="py-3 first:pt-1 md:py-3.5" key={`${item.id || item.title}-list`}>
                     <Link className="block" reloadDocument to={itemPath(item)}>
-                      <p className="text-xs font-medium text-[var(--brand-navy)]">{item.date}</p>
-                      <p className="mt-1 text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</p>
+                      <p className="site-meta-context">{item.date}</p>
+                      <p className="site-balanced-heading mt-1 text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</p>
                     </Link>
                   </li>
                 ))}

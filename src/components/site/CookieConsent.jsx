@@ -117,8 +117,8 @@ export function CookieConsent({ disabled = false }) {
   return (
     <>
       {showBanner ? (
-        <section aria-label="Cookie notice" className="fixed inset-x-0 bottom-0 z-[90] mx-auto w-full max-w-6xl px-4 pb-4">
-          <div className="rounded-xl border border-slate-200 bg-white/95 p-4 shadow-[0_20px_40px_-24px_rgba(15,23,42,0.45)] backdrop-blur-sm md:p-5">
+        <section aria-label="Cookie notice" className="site-frame fixed inset-x-0 bottom-0 z-[90] pb-4">
+          <div className="surface-floating rounded-lg border border-slate-200 bg-white/95 p-4 backdrop-blur-sm md:p-5">
             <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
               <div>
                 <p className="text-sm font-semibold text-slate-900 md:text-base">Cookie Notice</p>
@@ -130,21 +130,21 @@ export function CookieConsent({ disabled = false }) {
 
               <div className="flex flex-wrap gap-2">
                 <button
-                  className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+                  className="rounded border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                   onClick={acceptEssential}
                   type="button"
                 >
                   Essential Only
                 </button>
                 <button
-                  className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+                  className="rounded border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                   onClick={() => setShowPanel(true)}
                   type="button"
                 >
                   Customize
                 </button>
                 <button
-                  className="rounded-md bg-[var(--brand-burgundy)] px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--brand-burgundy-deep)]"
+                  className="rounded bg-[var(--brand-burgundy)] px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--brand-burgundy-deep)]"
                   onClick={acceptAll}
                   type="button"
                 >
@@ -162,7 +162,7 @@ export function CookieConsent({ disabled = false }) {
           className="fixed bottom-4 right-4 z-[95] w-[calc(100vw-2rem)] max-w-md"
           role="dialog"
         >
-          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_24px_45px_-24px_rgba(15,23,42,0.45)] md:p-5">
+          <div className="surface-floating rounded-lg border border-slate-200 bg-white p-4 md:p-5">
             <div className="mb-3 flex items-start justify-between gap-2">
               <div>
                 <p className="text-base font-semibold text-slate-900" id="cookie-preferences-title">Manage Cookies</p>
@@ -172,7 +172,7 @@ export function CookieConsent({ disabled = false }) {
               </div>
               <button
                 aria-label="Close cookie preferences"
-                className="rounded-md border border-slate-300 px-2 py-1 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-50"
+                className="rounded border border-slate-300 px-2 py-1 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-50"
                 onClick={() => setShowPanel(false)}
                 type="button"
               >
@@ -197,14 +197,14 @@ export function CookieConsent({ disabled = false }) {
 
             <div className="mt-4 flex flex-wrap justify-end gap-2">
               <button
-                className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+                className="rounded border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                 onClick={acceptEssential}
                 type="button"
               >
                 Essential Only
               </button>
               <button
-                className="rounded-md border border-[var(--brand-burgundy)] bg-[var(--brand-burgundy)] px-3 py-2 text-sm font-semibold text-white transition-colors hover:border-[var(--brand-burgundy-deep)] hover:bg-[var(--brand-burgundy-deep)]"
+                className="rounded border border-[var(--brand-burgundy)] bg-[var(--brand-burgundy)] px-3 py-2 text-sm font-semibold text-white transition-colors hover:border-[var(--brand-burgundy-deep)] hover:bg-[var(--brand-burgundy-deep)]"
                 onClick={saveCustom}
                 type="button"
               >

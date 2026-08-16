@@ -107,14 +107,14 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [closeNotice, open]);
 
-  const badgeClassName = `recruitment-notice-badge group fixed bottom-3 right-3 z-[80] flex items-center gap-2.5 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 text-left no-underline shadow-[0_16px_45px_-18px_rgba(2,6,23,0.48)] transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 sm:gap-3 sm:py-2 sm:pl-2 sm:pr-4 ${badgeCompact ? 'is-compact' : ''}`;
+  const badgeClassName = `surface-floating recruitment-notice-badge group fixed bottom-3 right-3 z-[80] flex items-center gap-2.5 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 text-left no-underline transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 sm:gap-3 sm:py-2 sm:pl-2 sm:pr-4 ${badgeCompact ? 'is-compact' : ''}`;
   const badgeContent = (
     <>
       <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--brand-burgundy)] text-white transition-colors group-hover:bg-[var(--brand-burgundy-deep)] sm:h-10 sm:w-10">
         <GraduationCap aria-hidden="true" className="h-5 w-5" />
       </span>
       <span className="recruitment-notice-badge-copy overflow-hidden whitespace-nowrap">
-        <span className="hidden text-[10px] font-semibold uppercase tracking-[0.10em] text-[var(--brand-burgundy)] sm:block">Now Recruiting</span>
+        <span className="hidden text-[10px] font-semibold text-[var(--brand-burgundy)] sm:block">Now recruiting</span>
         <span className="block text-xs font-semibold text-slate-900 sm:mt-0.5 sm:text-sm">Graduate Students</span>
       </span>
     </>
@@ -125,7 +125,7 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
       {open ? (
         <aside
           aria-labelledby="recruitment-notice-title"
-          className="recruitment-notice-card fixed bottom-3 left-3 right-3 z-[85] overflow-hidden rounded-2xl border border-slate-200 bg-white/95 px-5 pb-5 pt-6 shadow-[0_24px_60px_-28px_rgba(2,6,23,0.58)] backdrop-blur-sm sm:bottom-6 sm:left-auto sm:right-6 sm:w-[23rem]"
+          className="surface-floating recruitment-notice-card fixed bottom-3 left-3 right-3 z-[85] overflow-hidden rounded-lg border border-slate-200 bg-white/95 px-5 pb-5 pt-5 backdrop-blur-sm sm:bottom-6 sm:left-auto sm:right-6 sm:w-[21.5rem]"
         >
           <button
             aria-label="Close recruitment notice"
@@ -136,9 +136,9 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
             <X aria-hidden="true" className="h-4 w-4" />
           </button>
 
-          <p className="flex items-center gap-2 pr-9 text-[11px] font-semibold uppercase tracking-[0.10em] text-[var(--brand-burgundy)]">
+          <p className="flex items-center gap-2 pr-9 text-[11px] font-semibold text-[var(--brand-burgundy)]">
             <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[var(--brand-burgundy)]" />
-            {content.recruitmentNoticeEyebrow || 'Now Recruiting'}
+            {content.recruitmentNoticeEyebrow === 'Now Recruiting' ? 'Now recruiting' : content.recruitmentNoticeEyebrow || 'Now recruiting'}
           </p>
           <h2 className="mt-2 pr-8 text-xl font-semibold leading-tight tracking-tight text-slate-950" id="recruitment-notice-title">
             {content.recruitmentNoticeTitle || 'Graduate Students'}
@@ -153,7 +153,7 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
               onClick={closeNotice}
               to={pagePath(locale, 'join')}
             >
-              {content.recruitmentNoticeCta || 'View Details'}
+              {content.recruitmentNoticeCta || 'View Opportunities'}
             </Link>
           </div>
         </aside>

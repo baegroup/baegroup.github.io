@@ -5,49 +5,23 @@ import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { pagePath } from '@/lib/i18n';
 
-const ITALIC_DISCIPLINES =
-  'chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life sciences.';
-
-function renderJoinDescription(description) {
-  const text = String(description || '');
-  const lower = text.toLowerCase();
-  const target = ITALIC_DISCIPLINES.toLowerCase();
-  const start = lower.indexOf(target);
-  if (start === -1) {
-    return text;
-  }
-
-  const end = start + target.length;
-  const before = text.slice(0, start);
-  const emphasis = text.slice(start, end);
-  const after = text.slice(end);
-
-  return (
-    <>
-      {before}
-      <em className="italic">{emphasis}</em>
-      {after}
-    </>
-  );
-}
-
 export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
   const [imageIndex, setImageIndex] = useState(0);
   const joinImages = mediaCandidates(HOME_MEDIA.joinTeam);
   const exhausted = imageIndex >= joinImages.length;
   const primaryLabel = 'View Opportunities';
-  const secondaryLabel = 'Explore Lab Culture';
+  const secondaryLabel = 'About Our Lab';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
   return (
     <section
-      className={`relative grid gap-6 py-1 md:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.9fr)] md:items-center md:gap-10 md:py-2 ${revealClassName}`}
+      className={`home-closing-section relative grid gap-6 md:grid-cols-[minmax(0,1.35fr)_minmax(220px,0.65fr)] md:items-start md:gap-10 ${revealClassName}`}
       ref={ref}
       style={revealStyle}
     >
       <div className="relative z-10">
         <h2 className="home-section-title">{content.joinTitle}</h2>
-        <p className="home-body-copy mt-4 max-w-xl">{renderJoinDescription(content.joinDescription)}</p>
+        <p className="home-body-copy mt-4 max-w-xl">{content.joinDescription}</p>
         <div className="site-action-links mt-5">
           <Link
             className="site-action-link"
@@ -67,14 +41,14 @@ export function HomeJoinSection({ content, locale, revealDelay = 0 }) {
       {!exhausted ? (
         <img
           alt={content.joinTitle}
-          className="relative z-10 mx-auto aspect-[16/10] max-h-[320px] w-full max-w-[36rem] rounded-md border border-slate-200 object-cover md:ml-auto md:mr-0 md:max-h-none md:max-w-[28rem]"
+          className="media-landscape relative z-10 mx-auto max-h-[320px] w-full max-w-[36rem] object-cover md:ml-auto md:mr-0 md:max-h-none md:max-w-[22rem]"
           decoding="async"
           loading="lazy"
           onError={() => setImageIndex((index) => index + 1)}
           src={joinImages[imageIndex]}
         />
       ) : (
-        <div className="relative z-10 mx-auto flex aspect-[16/10] max-h-[320px] w-full max-w-[36rem] items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-sm font-medium text-slate-500 md:ml-auto md:mr-0 md:max-h-none md:max-w-[28rem]">
+        <div className="media-landscape relative z-10 mx-auto flex max-h-[320px] w-full max-w-[36rem] items-center justify-center bg-slate-100 text-sm font-medium text-slate-500 md:ml-auto md:mr-0 md:max-h-none md:max-w-[22rem]">
           Team Image Placeholder
         </div>
       )}

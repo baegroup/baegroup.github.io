@@ -12,7 +12,9 @@ People and culture at the lab.
 About Our Lab
 
 ## aboutBody
-Introduce the team in one concise paragraph.
+Introduce the team's disciplines and research in one concise paragraph.
+
+Describe the team's research culture in a second concise paragraph.
 
 ## cultureTitle
 The Fearless Lab Culture

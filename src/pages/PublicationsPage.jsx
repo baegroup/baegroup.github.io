@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 
+import { ExternalLinkIcon } from '@/components/site/ExternalLinkIcon';
 import { PageHero } from '@/components/site/PageHero';
 import { PageSectionNav } from '@/components/site/PageSectionNav';
 import { ResearchProfileLinks } from '@/components/site/ResearchProfileLinks';
@@ -14,7 +15,6 @@ import { publicationPagePath, publicationPeriodSlug } from '@/lib/seo-paths';
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const COVER_IMAGE_BASE = 'assets/img/publications/covers';
 const SCHOLAR_URL = 'https://scholar.google.com/scholar?q=Jaehyeong+Bae';
-const REPRINT_EMAIL = 'jbae@khu.ac.kr';
 const JOURNAL_DISPLAY_NAMES = {
   'Advanced Energy Materials': 'Adv. Energy Mater.',
   'Advanced Functional Materials': 'Adv. Funct. Mater.',
@@ -106,22 +106,22 @@ function buildMetadataParts(publication) {
   return parts;
 }
 
-function buildActionLinks(publication) {
-  const doiHref = publication?.doi ? `https://doi.org/${publication.doi}` : '';
-  const externalHref = String(publication?.link || publication?.url || '').trim();
-  const links = [];
-
-  if (doiHref) {
-    links.push({ label: 'DOI', href: doiHref });
-  }
-  if (externalHref && externalHref !== doiHref) {
-    links.push({
-      label: /\.pdf(?:$|[?#])/i.test(externalHref) ? 'PDF' : 'Publisher',
-      href: externalHref
-    });
+function PublicationDoiLink({ publication }) {
+  if (!publication?.doi) {
+    return null;
   }
 
-  return links;
+  return (
+    <a
+      className="site-text-link site-touch-target inline-flex shrink-0 items-center gap-1 text-sm"
+      href={`https://doi.org/${publication.doi}`}
+      rel="noreferrer"
+      target="_blank"
+    >
+      DOI
+      <ExternalLinkIcon className="ml-0" />
+    </a>
+  );
 }
 
 function compareChronologicalAsc(a, b) {
@@ -150,34 +150,27 @@ function formatCoverDateLabel(item) {
 
 function PublicationInfoPanel({ updatedAt }) {
   return (
-    <section className="space-y-3 border-b border-slate-200 pb-5 text-[0.8125rem] leading-relaxed text-slate-600">
-        <p>
-          Complete publication list available on{' '}
-          <a className="site-text-link" href={SCHOLAR_URL} rel="noreferrer" target="_blank">
-            Google Scholar
-          </a>
-          .
-        </p>
-        <p>
-          For reprints of publications contact{' '}
-          <a className="site-text-link" href={`mailto:${REPRINT_EMAIL}`}>
-            {REPRINT_EMAIL}
-          </a>
-          .
-        </p>
-        <div className="h-px bg-slate-200" />
-        <p>
-          <span className="font-semibold text-slate-800">Bold</span> indicates Bae Lab authors.
-        </p>
-        <div className="space-y-1">
-          <p>
-            <span className="font-semibold text-slate-800">*</span> Corresponding author
-          </p>
-          <p>
-            <span className="font-semibold text-slate-800">†</span> Co-first author
-          </p>
-        </div>
-        {updatedAt ? <p className="text-slate-600">Last updated {updatedAt}</p> : null}
+    <section className="site-rule-strong space-y-3 border-b pb-5 text-[0.8125rem] leading-relaxed text-slate-600">
+      <p>
+        View the complete publication record on{' '}
+        <a className="site-text-link" href={SCHOLAR_URL} rel="noreferrer" target="_blank">
+          Google Scholar<ExternalLinkIcon />
+        </a>
+        .
+      </p>
+      <p className="flex gap-2">
+        <span className="font-semibold text-slate-800">Bold names</span>
+        <span>Bae Lab authors</span>
+      </p>
+      <p className="flex gap-2">
+        <span className="font-semibold text-slate-800">*</span>
+        <span>Corresponding author</span>
+      </p>
+      <p className="flex gap-2">
+        <span className="font-semibold text-slate-800">†</span>
+        <span>Co-first author</span>
+      </p>
+      {updatedAt ? <p className="text-slate-600">Updated {updatedAt}</p> : null}
     </section>
   );
 }
@@ -188,25 +181,27 @@ function PreprintSection({ items, labAuthorNames, numberOffset = 0, title }) {
   }
 
   return (
-    <section className="min-w-0">
-      <h2 className="border-b border-slate-900 pb-3 text-2xl font-semibold tracking-tight text-slate-950">
+    <section className="min-w-0 md:grid md:grid-cols-[132px_minmax(0,1fr)] md:gap-8">
+      <h2 className="text-2xl font-semibold tracking-tight text-slate-950">
         {title || 'Current Manuscripts'}
       </h2>
       {items.length ? (
-        <ol>
+        <ol className="site-rule-strong mt-4 border-t md:mt-0">
           {items.map((item, itemIndex) => {
             const number = numberOffset + items.length - itemIndex;
             const metadataParts = buildMetadataParts(item);
-            const actionLinks = buildActionLinks(item);
             return (
-              <li className="grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b border-slate-200 py-5" key={item.id}>
-                <span className="pt-1 text-xs font-semibold tracking-[0.04em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(number)}</span>
+              <li className="site-list-row site-rule-soft grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b" key={item.id}>
+                <span className="site-meta-index pt-1">{formatItemNumber(number)}</span>
                 <div className="space-y-2">
-                  <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">
-                    {item.localizedTitle}
-                  </p>
+                  <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                    <p className="site-balanced-heading line-clamp-2 min-w-0 text-lg font-semibold leading-snug text-slate-950 md:line-clamp-none md:text-xl">
+                      {item.localizedTitle}
+                    </p>
+                    <PublicationDoiLink publication={item} />
+                  </div>
 
-                  <p className="text-[0.95rem] leading-relaxed text-slate-700 md:text-base">
+                  <p className="site-copy-body">
                     {(item.authors || []).map((author, index) => {
                       const highlight = isLabAuthor(author, labAuthorNames);
                       return (
@@ -230,18 +225,6 @@ function PreprintSection({ items, labAuthorNames, numberOffset = 0, title }) {
                     </p>
                   ) : null}
 
-                  {actionLinks.length ? (
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-semibold text-[var(--brand-navy)]">
-                      {actionLinks.map((link, index) => (
-                        <span className="inline-flex items-center gap-x-2" key={`${item.id}-preprint-link-${link.label}-${index}`}>
-                          {index > 0 ? <span className="text-slate-400">|</span> : null}
-                          <a href={link.href} rel="noreferrer" target="_blank">
-                            {link.label}
-                          </a>
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
                 </div>
               </li>
             );
@@ -275,14 +258,11 @@ function JournalCoverImage({ broken, eager = false, imageSrc, journalName, onErr
   );
 }
 
-function JournalCoverMeta({ controls, dateLabel, journalName }) {
+function JournalCoverMeta({ dateLabel, journalName }) {
   return (
-    <div className="mt-2 flex items-end justify-between gap-3">
-      <div className="min-w-0">
-        <p className="text-[0.8125rem] font-semibold leading-snug text-slate-900">{formatJournalDisplayName(journalName)}</p>
-        {dateLabel ? <p className="mt-1 text-xs text-slate-600">{dateLabel}</p> : null}
-      </div>
-      {controls}
+    <div className="site-media-caption min-w-0">
+      <p className="min-w-0 text-[0.8125rem] font-semibold leading-snug text-slate-900">{formatJournalDisplayName(journalName)}</p>
+      {dateLabel ? <p className="site-meta-context mt-1.5">{dateLabel}</p> : null}
     </div>
   );
 }
@@ -325,7 +305,7 @@ function JournalCoverCarousel({ items }) {
 
   useEffect(() => {
     setIndex(0);
-    setAutoPlay(true);
+    setAutoPlay(!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }, [total]);
 
   useEffect(() => {
@@ -351,7 +331,7 @@ function JournalCoverCarousel({ items }) {
   }
 
   if (!total) {
-    return <p className="rounded-md border border-dashed border-slate-300 bg-slate-50 p-3 text-sm text-slate-500">No journal covers available.</p>;
+    return <div className="content-state-row"><p className="content-state-label">Empty</p><p className="content-state-message">No journal covers available.</p></div>;
   }
 
   const cover = items[index];
@@ -361,26 +341,29 @@ function JournalCoverCarousel({ items }) {
     <div className="flex shrink-0 items-center gap-0.5">
       <button
         aria-label="Previous journal cover"
-        className="inline-flex h-8 w-7 items-center justify-center bg-transparent p-0 text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/35"
+        className="inline-flex h-11 w-11 items-center justify-center bg-transparent p-0 text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/35 sm:h-8 sm:w-7"
         onClick={goPrev}
         type="button"
       >
-        <ChevronLeft className="h-[1.125rem] w-[1.125rem]" />
+        <ChevronLeft aria-hidden="true" className="h-[1.125rem] w-[1.125rem]" />
       </button>
       <button
         aria-label="Next journal cover"
-        className="inline-flex h-8 w-7 items-center justify-center bg-transparent p-0 text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/35"
+        className="inline-flex h-11 w-11 items-center justify-center bg-transparent p-0 text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/35 sm:h-8 sm:w-7"
         onClick={goNext}
         type="button"
       >
-        <ChevronRight className="h-[1.125rem] w-[1.125rem]" />
+        <ChevronRight aria-hidden="true" className="h-[1.125rem] w-[1.125rem]" />
       </button>
     </div>
   ) : null;
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-slate-900">Journal Covers</h3>
+    <div className="space-y-3">
+      <div className="flex items-center justify-between gap-3">
+        <h3 className="text-lg font-semibold text-slate-900">Journal Covers</h3>
+        {controls}
+      </div>
       <article>
         <div className="grid aspect-[3/4] overflow-hidden">
           {items.map((item, itemIndex) => (
@@ -392,14 +375,14 @@ function JournalCoverCarousel({ items }) {
               key={item.id}
             >
               {item.kind === 'manual' ? (
-                <ManualJournalCoverImage cover={item} eager />
+                <ManualJournalCoverImage cover={item} eager={itemIndex === 0} />
               ) : (
-                <PublicationJournalCoverImage eager publication={item.publication} />
+                <PublicationJournalCoverImage eager={itemIndex === 0} publication={item.publication} />
               )}
             </div>
           ))}
         </div>
-        <JournalCoverMeta controls={controls} dateLabel={dateLabel} journalName={journalName} />
+        <JournalCoverMeta dateLabel={dateLabel} journalName={journalName} />
       </article>
     </div>
   );
@@ -413,59 +396,84 @@ function PublicationPagination({ currentPage, pageGroups, placement, type }) {
   }
 
   return (
-    <nav aria-label={`Publication pagination ${placement}`} className="flex flex-wrap items-center gap-x-5 gap-y-2">
+    <nav
+      aria-label={`Publication pagination ${placement}`}
+      className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 py-1 sm:gap-x-7"
+    >
       {currentPage > 1 ? (
-        <Link className="page-section-tab no-underline" to={publicationPagePath(type, currentPage - 2, pageGroups[currentPage - 2]?.years)}>Prev</Link>
-      ) : <span className="page-section-tab opacity-40">Prev</span>}
-      {pageGroups.map((group, index) => {
-        const page = index + 1;
-        return (
-          <Link
-            aria-current={page === currentPage ? 'page' : undefined}
-            aria-label={`Publications from ${group.label}`}
-            className={`page-section-tab no-underline ${page === currentPage ? 'font-semibold text-slate-900' : ''}`}
-            key={group.label}
-            to={publicationPagePath(type, index, group.years)}
-          >
-            {group.years.length > 1 ? `${group.years[0]}–${group.years[group.years.length - 1]}` : group.years[0]}
-          </Link>
-        );
-      })}
+        <Link
+          aria-label="Previous publication period"
+          className="inline-flex size-11 items-center justify-center text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
+          to={publicationPagePath(type, currentPage - 2, pageGroups[currentPage - 2]?.years)}
+        >
+          <ChevronLeft aria-hidden="true" className="size-4" strokeWidth={1.5} />
+        </Link>
+      ) : (
+        <span aria-hidden="true" className="inline-flex size-11 items-center justify-center text-slate-300 sm:size-7">
+          <ChevronLeft className="size-4" strokeWidth={1.5} />
+        </span>
+      )}
+      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:gap-x-8">
+        {pageGroups.map((group, index) => {
+          const page = index + 1;
+          return (
+            <Link
+              aria-current={page === currentPage ? 'page' : undefined}
+              aria-label={`Publications from ${group.label}`}
+              className={`page-section-tab no-underline ${page === currentPage ? 'font-semibold text-[var(--brand-burgundy)]' : ''}`}
+              key={group.label}
+              to={publicationPagePath(type, index, group.years)}
+            >
+              {group.years.length > 1 ? `${group.years[0]}–${group.years[group.years.length - 1]}` : group.years[0]}
+            </Link>
+          );
+        })}
+      </div>
       {currentPage < pageCount ? (
-        <Link className="page-section-tab no-underline" to={publicationPagePath(type, currentPage, pageGroups[currentPage]?.years)}>Next</Link>
-      ) : <span className="page-section-tab opacity-40">Next</span>}
+        <Link
+          aria-label="Next publication period"
+          className="inline-flex size-11 items-center justify-center text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
+          to={publicationPagePath(type, currentPage, pageGroups[currentPage]?.years)}
+        >
+          <ChevronRight aria-hidden="true" className="size-4" strokeWidth={1.5} />
+        </Link>
+      ) : (
+        <span aria-hidden="true" className="inline-flex size-11 items-center justify-center text-slate-300 sm:size-7">
+          <ChevronRight className="size-4" strokeWidth={1.5} />
+        </span>
+      )}
     </nav>
   );
 }
 
 function PublicationList({ items, numbers, labAuthorNames, years }) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 md:space-y-10">
       {years.map((year) => {
         const yearItems = items.filter((item) => item.year === year);
 
         return (
-        <section key={year}>
-          <div className="border-b border-slate-900 pb-3">
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-950">{year}</h2>
-          </div>
-          <ol>
+        <section className="md:grid md:grid-cols-[132px_minmax(0,1fr)] md:gap-8" key={year}>
+          <h2 className="text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">{year}</h2>
+          <ol className="site-rule-strong mt-4 border-t md:mt-0">
             {yearItems
               .sort((a, b) => (numbers.get(b.id) || 0) - (numbers.get(a.id) || 0))
               .map((pub) => {
                 const number = numbers.get(pub.id) || '-';
                 const metadataParts = buildMetadataParts(pub);
-                const actionLinks = buildActionLinks(pub);
 
                 return (
-                  <li className="grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b border-slate-200 py-5" key={pub.id}>
-                    <span className="pt-1 text-xs font-semibold tracking-[0.04em] text-[var(--brand-burgundy)] tabular-nums">{formatItemNumber(number)}</span>
+                  <li className="site-list-row site-rule-soft grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b" key={pub.id}>
+                    <span className="site-meta-index pt-1">{formatItemNumber(number)}</span>
                     <div className="space-y-2">
-                      <p className="text-lg font-semibold leading-snug text-slate-950 md:text-xl">
-                        {pub.localizedTitle}
-                      </p>
+                      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                        <p className="site-balanced-heading line-clamp-2 min-w-0 text-lg font-semibold leading-snug text-slate-950 md:line-clamp-none md:text-xl">
+                          {pub.localizedTitle}
+                        </p>
+                        <PublicationDoiLink publication={pub} />
+                      </div>
 
-                      <p className="text-[0.95rem] leading-relaxed text-slate-700 md:text-base">
+                      <p className="site-copy-body">
                         {(pub.authors || []).map((author, index) => {
                           const highlight = isLabAuthor(author, labAuthorNames);
                           return (
@@ -489,18 +497,6 @@ function PublicationList({ items, numbers, labAuthorNames, years }) {
                         </p>
                       ) : null}
 
-                      {actionLinks.length ? (
-                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-semibold text-[var(--brand-navy)]">
-                          {actionLinks.map((link, index) => (
-                            <span className="inline-flex items-center gap-x-2" key={`${pub.id}-link-${link.label}-${index}`}>
-                              {index > 0 ? <span className="text-slate-400">|</span> : null}
-                              <a href={link.href} rel="noreferrer" target="_blank">
-                                {link.label}
-                              </a>
-                            </span>
-                          ))}
-                        </div>
-                      ) : null}
                     </div>
                   </li>
                 );
@@ -754,7 +750,7 @@ export function PublicationsPage({ locale }) {
   );
 
   return (
-    <div className="space-y-6 md:space-y-8">
+    <div>
       <Tabs value={filter}>
         <PageHero description={content.description} title={content.title}>
           <PageSectionNav
@@ -762,22 +758,22 @@ export function PublicationsPage({ locale }) {
             ariaLabel="Publication categories"
             items={filters.map((type) => ({
               id: type,
-              label: labels[type],
+              label: type === 'journal' ? 'Papers' : labels[type],
               to: type === 'patent' ? '/publications/patents/' : '/publications/'
             }))}
           />
         </PageHero>
 
-        <TabsContent className="mt-6 md:mt-8" value={filter}>
-          {loading ? <p className="rounded-md border border-dashed border-border p-4 text-base text-slate-600">{content.loading}</p> : null}
-          {!loading && error ? <p className="rounded-md border border-red-200 bg-red-50 p-4 text-base text-red-700">{error}</p> : null}
+        <TabsContent className="page-content-offset" value={filter}>
+          {loading ? <div className="content-state-row" role="status"><p className="content-state-label">Loading</p><p className="content-state-message">{content.loading}</p></div> : null}
+          {!loading && error ? <div className="content-state-row is-error" role="alert"><p className="content-state-label">Error</p><p className="content-state-message">{error}</p></div> : null}
           {!loading && !error && items.length === 0 ? (
-            <p className="rounded-md border border-dashed border-border p-4 text-base text-slate-600">{content.empty}</p>
+            <div className="content-state-row"><p className="content-state-label">Empty</p><p className="content-state-message">{content.empty}</p></div>
           ) : null}
 
           {!loading && !error && items.length > 0 ? (
             <div className="grid min-w-0 grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_232px] lg:items-start lg:gap-8 xl:gap-10">
-              <div className="min-w-0 space-y-4">
+              <div className="min-w-0 space-y-8 md:space-y-10">
                 {showPreprintSection && currentPublicationPage === 1 ? (
                   <PreprintSection
                     labAuthorNames={labAuthorNames}
@@ -802,11 +798,11 @@ export function PublicationsPage({ locale }) {
                 </div>
               </div>
 
-              <aside className="lg:self-start">
+              <aside className="w-full max-w-sm lg:max-w-none lg:self-start">
                 <div className="xl:sticky xl:top-24">
                   <PublicationInfoPanel updatedAt={updatedAt} />
 
-                  <section className="border-b border-slate-200 py-5">
+                  <section className="site-rule-strong border-b py-5">
                     <JournalCoverCarousel items={coverSlides} />
                   </section>
 

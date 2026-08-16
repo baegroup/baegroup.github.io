@@ -20,13 +20,13 @@ export function SiteLayout({ locale, children }) {
   return (
     <div className="min-h-screen bg-[var(--brand-page)]">
       <a
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"
         href="#main-content"
       >
         Skip to content
       </a>
       <SiteHeader locale={locale} />
-      <main className="mx-auto w-full max-w-6xl space-y-4 px-5 py-6 md:py-8" id="main-content">{children}</main>
+      <main className="site-frame space-y-4 py-6 md:py-8" id="main-content">{children}</main>
       <SiteFooter locale={locale} />
       {showRecruitmentNotice ? (
         <RecruitmentNotice autoOpen={normalizedPath === '/'} content={homeContent} locale={locale} />

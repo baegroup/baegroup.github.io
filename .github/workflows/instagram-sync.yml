@@ -1,0 +1,75 @@
+name: Instagram Sync
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: content-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+      INSTAGRAM_HANDLE: '@baelab.khu'
+      INSTAGRAM_PROFILE_URL: 'https://www.instagram.com/baelab.khu/'
+      INSTAGRAM_API_VERSION: 'v25.0'
+      INSTAGRAM_POST_LIMIT: '5'
+    steps:
+      - name: Check Instagram configuration
+        id: instagram_config
+        shell: bash
+        run: |
+          if [[ -n "${INSTAGRAM_ACCESS_TOKEN:-}" && -n "${INSTAGRAM_USER_ID:-}" ]]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Instagram sync is waiting for INSTAGRAM_ACCESS_TOKEN and INSTAGRAM_USER_ID repository secrets."
+          fi
+
+      - name: Checkout
+        if: steps.instagram_config.outputs.enabled == 'true'
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        if: steps.instagram_config.outputs.enabled == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.instagram_config.outputs.enabled == 'true'
+        run: npm ci
+
+      - name: Sync Instagram media
+        if: steps.instagram_config.outputs.enabled == 'true'
+        run: npm run instagram:sync
+
+      - name: Validate synchronized content
+        if: steps.instagram_config.outputs.enabled == 'true'
+        run: npm run check
+
+      - name: Commit and push changes
+        if: steps.instagram_config.outputs.enabled == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add -A public/data/news.json public/assets/img/news/instagram
+
+          if git diff --cached --quiet; then
+            echo "No Instagram changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: sync Instagram feed"
+          git push origin HEAD:main

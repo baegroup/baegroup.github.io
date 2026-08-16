@@ -18,7 +18,7 @@ Explore Research Areas
 View Key Publications
 
 ## newsTitle
-Lab News
+Latest Highlights
 
 ## newsItems
 - 2025.12 | KHU Chemical Engineering Undergraduate Research Award.
@@ -37,7 +37,7 @@ See Research Details
 Join Our Team
 
 ## joinDescription
-Bae Lab welcomes motivated undergraduate researchers and graduate students from diverse backgrounds, including chemical engineering, materials science, polymer chemistry, mechanical engineering, electrical engineering, computer science, and life sciences. Postdoctoral opportunities are available for fellowship applicants.
+Bae Lab welcomes self-motivated undergraduate researchers and prospective graduate students across engineering, physical sciences, computer science, and life sciences. Postdoctoral opportunities are available to candidates applying for external or institutional fellowships.
 
 ## joinCta
 Read More About Joining
@@ -52,4 +52,4 @@ Graduate Students
 M.S. · Ph.D. · Integrated M.S.–Ph.D.
 
 ## recruitmentNoticeCta
-View Details
+View Opportunities

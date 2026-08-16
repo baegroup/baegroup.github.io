@@ -2,26 +2,18 @@
   "updatedAt": "2026-08-16",
   "instagram": {
     "handle": "@baelab.khu",
+    "displayName": "Bae Lab | Additive Manufacturing",
     "profileUrl": "https://www.instagram.com/baelab.khu/",
+    "profileImage": "assets/img/news/instagram/profile.webp",
     "recent": [
       {
-        "id": "ig-2025-12-05-award",
-        "date": "2025-12-05",
-        "title": "KHU Chemical Engineering Research Festival Award",
-        "summary": "Myeong Lee received the top undergraduate research honor.",
+        "id": "instagram-DVm4FGfCeB-",
+        "date": "2026-03-07",
+        "title": "Bae Lab | Additive Manufacturing",
+        "summary": "Bae Lab | Kyung Hee University · 3D Printing × Functional Materials · Energy | Environment | Bio",
         "url": "https://www.instagram.com/p/DVm4FGfCeB-/",
         "images": [
-          "assets/img/news/instagram/ig-2025-12-05-award"
-        ]
-      },
-      {
-        "id": "ig-2025-11-27-icae",
-        "date": "2025-11-27",
-        "title": "Best Poster Award at 8th ICAE",
-        "summary": "Lab update from the 8th International Conference on Advanced Electromaterials.",
-        "url": "https://www.instagram.com/baelab.khu/",
-        "images": [
-          "assets/img/news/instagram/ig-2025-11-27-icae"
+          "assets/img/news/instagram/ig-2026-03-07-baelab.webp"
         ]
       }
     ]

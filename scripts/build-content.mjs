@@ -70,6 +70,18 @@ function readString(source, key) {
   return '';
 }
 
+function readParagraphs(source, key) {
+  const fromFrontmatter = source.data[key];
+  if (Array.isArray(fromFrontmatter)) {
+    return fromFrontmatter.map((item) => normalizeText(item)).filter(Boolean);
+  }
+
+  return String(source.sections[key] || '')
+    .split(/\n\s*\n/)
+    .map((paragraph) => normalizeText(paragraph))
+    .filter(Boolean);
+}
+
 function parseBulletLines(sectionText) {
   return String(sectionText || '')
     .split('\n')
@@ -293,6 +305,7 @@ async function build() {
       description: readString(team, 'description'),
       aboutTitle: readString(team, 'aboutTitle'),
       aboutBody: readString(team, 'aboutBody'),
+      aboutParagraphs: readParagraphs(team, 'aboutBody'),
       cultureTitle: readString(team, 'cultureTitle'),
       cultureBody: readString(team, 'cultureBody'),
       culturePrinciples: readPairItems(team, 'culturePrinciples', 'title', 'body'),
@@ -373,7 +386,7 @@ async function build() {
       leftTitle: readString(contact, 'leftTitle'),
       rightTitle: readString(contact, 'rightTitle'),
       labels: readLabels(contact),
-      office: readString(contact, 'office'),
+      affiliation: readString(contact, 'affiliation'),
       address: readString(contact, 'address'),
       map: readString(contact, 'map'),
       apply: readString(contact, 'apply')
