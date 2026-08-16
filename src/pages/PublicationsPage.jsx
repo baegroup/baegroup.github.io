@@ -182,7 +182,7 @@ function PreprintSection({ items, labAuthorNames, numberOffset = 0, title }) {
 
   return (
     <section className="min-w-0">
-      <h2 className="text-2xl font-semibold tracking-tight text-slate-950">
+      <h2 className="text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">
         {title || 'Current Manuscripts'}
       </h2>
       {items.length ? (

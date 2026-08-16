@@ -146,7 +146,7 @@ export function ResearchPage({ locale }) {
       <section className={`page-content-offset site-rule-strong border-b pb-10 md:pb-12 ${missionReveal.revealClassName}`} ref={missionReveal.ref} style={missionReveal.revealStyle}>
         <p className="site-meta-index">{formatItemNumber(0)}</p>
         <h2 className="page-section-title mt-3">{missionTitle}</h2>
-        <p className="site-copy-lead site-reading-measure mt-4">{content.description}</p>
+        <p className="site-copy-lead mt-4 max-w-4xl md:[text-wrap:balance]">{content.description}</p>
       </section>
 
       <section className="space-y-4 py-10 md:space-y-5 md:py-12 lg:py-14">

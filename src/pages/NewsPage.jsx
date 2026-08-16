@@ -419,7 +419,7 @@ function VideoCard({ detailPath, item, number }) {
           <div className="mt-1.5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
             <span className="site-meta-context">{item.date || '-'}</span>
             {primaryVideoUrl ? (
-              <a className="site-text-link inline-flex whitespace-nowrap text-sm" href={primaryVideoUrl} rel="noreferrer" target="_blank">
+              <a className="site-text-link inline-flex whitespace-nowrap text-xs font-medium" href={primaryVideoUrl} rel="noreferrer" target="_blank">
                 View original video<ExternalLinkIcon />
               </a>
             ) : null}
@@ -466,7 +466,7 @@ function NewsItemRow({ compactPreview = false, detailPath, editorialPreview = fa
             {editorialPreview && item.summary ? <p className="site-copy-support mt-2 line-clamp-2">{item.summary}</p> : null}
           </div>
 
-          <div className={editorialPreview ? 'col-start-4 row-start-1 flex self-start flex-col items-end gap-3 md:col-start-4 md:row-start-1 md:self-start' : ''}>
+          <div className={editorialPreview ? 'col-start-4 row-start-1 flex self-start items-center gap-3 md:col-start-4 md:row-start-1 md:self-start' : ''}>
             {editorialPreview ? <p className="site-meta-context hidden whitespace-nowrap md:block">{item.date || '-'}</p> : null}
             <button
               aria-controls={detailsId}
