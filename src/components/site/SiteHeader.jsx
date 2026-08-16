@@ -111,9 +111,12 @@ export function SiteHeader({ locale }) {
             src={`${import.meta.env.BASE_URL}assets/img/lab-logo.png`}
             width="96"
           />
-          <p className="max-w-[260px] max-md:hidden">
+          <p className="max-w-[8rem] sm:max-w-[11rem] md:max-w-[260px]">
             {taglineLines.map((line) => (
-              <span className="block text-[0.8125rem] font-medium leading-[1.45] tracking-[0.025em] text-slate-600" key={line}>
+              <span
+                className="block text-[0.6875rem] font-medium leading-[1.4] tracking-[0.015em] text-slate-600 md:text-[0.8125rem] md:leading-[1.45] md:tracking-[0.025em]"
+                key={line}
+              >
                 {line}
               </span>
             ))}

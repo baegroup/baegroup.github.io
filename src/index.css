@@ -81,7 +81,7 @@
   }
 
   .media-portrait {
-    @apply aspect-[3/2] rounded-sm sm:aspect-[4/5];
+    @apply aspect-[4/5] rounded-sm;
   }
 
   .media-news {

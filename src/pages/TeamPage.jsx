@@ -507,7 +507,7 @@ function ProfessorShowcase({ professor }) {
   return (
     <article className="space-y-8 md:space-y-10">
       <div className="grid gap-7 lg:grid-cols-[minmax(220px,280px)_minmax(0,1fr)] lg:items-center lg:gap-14">
-        <figure className="media-portrait w-full overflow-hidden">
+        <figure className="media-portrait mx-auto w-full max-w-[260px] overflow-hidden sm:max-w-[280px] lg:mx-0 lg:max-w-none">
           {hasPhoto ? (
             <img
               alt={professor.localizedName}
@@ -712,7 +712,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                       </div>
                     </div>
 
-                    <figure className="mx-auto w-full max-w-2xl overflow-hidden rounded-sm lg:ml-auto lg:mr-0 lg:max-w-[88%]">
+                    <figure className="mx-auto w-full max-w-2xl overflow-hidden rounded-sm md:max-w-xl lg:ml-auto lg:mr-0 lg:max-w-[94%] lg:self-center">
                       {!aboutImage.broken ? (
                         <img
                           alt="Bae Lab group photo"
