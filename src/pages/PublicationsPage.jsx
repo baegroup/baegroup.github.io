@@ -194,7 +194,7 @@ function PreprintSection({ items, labAuthorNames, numberOffset = 0, title }) {
               <li className="site-list-row site-rule-soft grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b" key={item.id}>
                 <span className="site-meta-index pt-1">{formatItemNumber(number)}</span>
                 <div className="space-y-2">
-                  <p className="site-balanced-heading line-clamp-2 min-w-0 text-lg font-semibold leading-snug text-slate-950 md:line-clamp-none md:text-xl">
+                  <p className="line-clamp-2 min-w-0 text-lg font-semibold leading-snug text-slate-950 [text-wrap:pretty] md:line-clamp-none md:text-xl">
                     {item.localizedTitle}
                   </p>
 
@@ -465,7 +465,7 @@ function PublicationList({ items, numbers, labAuthorNames, years }) {
                   <li className="site-list-row site-rule-soft grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b" key={pub.id}>
                     <span className="site-meta-index pt-1">{formatItemNumber(number)}</span>
                     <div className="space-y-2">
-                      <p className="site-balanced-heading line-clamp-2 min-w-0 text-lg font-semibold leading-snug text-slate-950 md:line-clamp-none md:text-xl">
+                      <p className="line-clamp-2 min-w-0 text-lg font-semibold leading-snug text-slate-950 [text-wrap:pretty] md:line-clamp-none md:text-xl">
                         {pub.localizedTitle}
                       </p>
 
