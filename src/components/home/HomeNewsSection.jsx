@@ -23,7 +23,7 @@ function itemPath(item) {
   return newsItemPath(section, item);
 }
 
-function FeaturedNewsCard({ item }) {
+function LeadNewsCard({ item }) {
   const [imageIndex, setImageIndex] = useState(0);
   const imageBase = item.image || HOME_MEDIA.newsFeatured;
   const imageCandidates = mediaCandidates(imageBase);
@@ -46,7 +46,7 @@ function FeaturedNewsCard({ item }) {
             src={imageCandidates[imageIndex]}
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-sm font-medium text-slate-500">Featured News Image</div>
+          <div className="flex h-full items-center justify-center text-sm font-medium text-slate-500">News Image</div>
         )}
       </div>
       <div className="site-media-caption flex-1">
@@ -66,14 +66,13 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
     return String(b.title || '').localeCompare(String(a.title || ''));
   });
 
-  const featuredItems = items.slice(0, 2);
+  const leadItems = items.slice(0, 2);
   const listItems = items.slice(2, 6);
   const sectionTitle = content.newsTitle || 'Latest Highlights';
-  const listLabel = 'More News';
   const viewAllLabel = 'View All News';
   const { ref, revealClassName, revealStyle } = useScrollReveal(revealDelay);
 
-  if (!featuredItems.length && !listItems.length) {
+  if (!leadItems.length && !listItems.length) {
     return null;
   }
 
@@ -87,34 +86,26 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
       </div>
 
       <article>
-        <div className={featuredItems.length && listItems.length ? 'grid gap-8 lg:grid-cols-[minmax(0,1.16fr)_minmax(0,1fr)] lg:gap-10 xl:gap-12' : 'grid'}>
-          {featuredItems.length ? (
-            <div>
-              <p className="mb-3 text-xs font-semibold text-[var(--brand-navy)]">Featured</p>
-              <div className="reveal-stagger grid gap-5 sm:grid-cols-2">
-                {featuredItems.map((item) => (
-                  <FeaturedNewsCard item={item} key={`${item.id || item.title}-featured`} />
-                ))}
-              </div>
+        <div className={leadItems.length && listItems.length ? 'grid gap-8 lg:grid-cols-[minmax(0,1.16fr)_minmax(0,1fr)] lg:gap-10 xl:gap-12' : 'grid'}>
+          {leadItems.length ? (
+            <div className="reveal-stagger grid gap-5 sm:grid-cols-2">
+              {leadItems.map((item) => (
+                <LeadNewsCard item={item} key={`${item.id || item.title}-lead`} />
+              ))}
             </div>
           ) : null}
 
           {listItems.length ? (
-            <div>
-              <div className="pb-2">
-                <p className="text-xs font-semibold text-[var(--brand-navy)]">{listLabel}</p>
-              </div>
-              <ul className="reveal-stagger site-divide-soft site-rule-strong mt-5 divide-y border-t md:mt-6">
-                {listItems.map((item) => (
-                  <li className="py-3 first:pt-1 md:py-3.5" key={`${item.id || item.title}-list`}>
-                    <Link className="block" reloadDocument to={itemPath(item)}>
-                      <p className="site-meta-context">{item.date}</p>
-                      <p className="site-balanced-heading mt-1 text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</p>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ul className="reveal-stagger site-divide-soft site-rule-strong divide-y border-t">
+              {listItems.map((item) => (
+                <li className="py-3 md:py-3.5" key={`${item.id || item.title}-list`}>
+                  <Link className="block" reloadDocument to={itemPath(item)}>
+                    <p className="site-meta-context">{item.date}</p>
+                    <p className="site-balanced-heading mt-1 text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           ) : null}
         </div>
       </article>
