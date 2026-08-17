@@ -19,22 +19,32 @@
     "coverImage": ""
   },
   {
-    "id": "liquid-solar-cell",
+    "id": "2026-ensm-ion-gradient-leveling",
     "year": 2026,
-    "type": "preprint",
-    "title": "Liquid-solar Cell…",
+    "type": "journal",
+    "title": "Ion-gradient leveling through salt-bridge-inspired porous membrane-lithium assembly",
     "authors": [
-      "Myeong Lee†",
-      "Kangyun Lee†",
-      "Jungmok You*",
-      "Jaehyeong Bae*"
+      "Doo-Young Youn",
+      "Jiyoung Lee",
+      "Mingyu Sagong",
+      "Yoonjae Cho",
+      "Haeseong Lim",
+      "Jiwon Seo",
+      "Sungyoon Kim",
+      "Dae-Kwon Boo",
+      "Jun Young Cheong",
+      "Jaehyeong Bae",
+      "Dong-Hwa Seo",
+      "Cafer T. Yavuz",
+      "Ji-Won Jung",
+      "Il-Doo Kim"
     ],
-    "journal": "TBD",
-    "volume": "",
+    "journal": "Energy Storage Materials",
+    "volume": "90",
     "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
+    "pages": "105298",
+    "doi": "10.1016/j.ensm.2026.105298",
+    "link": "https://doi.org/10.1016/j.ensm.2026.105298",
     "coverImage": ""
   },
   {
@@ -58,6 +68,28 @@
     "coverImage": ""
   },
   {
+    "id": "2026-sulfated-lignocellulose-nanofibers-conductive-inks",
+    "year": 2026,
+    "type": "preprint",
+    "title": "Multifunctional Sulfated Lignocellulose Nanofibers for High-Performance PEDOT:PSS Conductive Inks: From Rheological Engineering to Wearable Electronics",
+    "authors": [
+      "Yuri Seo",
+      "Kangyun Lee",
+      "Suji Lee",
+      "Youngho Jeon",
+      "Yoonji Ko",
+      "Jaehyeong Bae*",
+      "Jungmok You*"
+    ],
+    "journal": "TBD",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "",
+    "link": "",
+    "coverImage": ""
+  },
+  {
     "id": "sensor-with-3d-printed",
     "year": 2026,
     "type": "preprint",
@@ -68,6 +100,27 @@
       "Bok Yeop Ahn",
       "Arda Kotikian",
       "Jennifer A. Lewis*"
+    ],
+    "journal": "TBD",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "",
+    "link": "",
+    "coverImage": ""
+  },
+  {
+    "id": "2026-liquid-state-photoacid-solar-energy-harvesting",
+    "year": 2026,
+    "type": "preprint",
+    "title": "Transparent Nanowire Percolation Networks for High-Output Liquid-State Photoacid Solar Energy Harvesting",
+    "authors": [
+      "Myeong Lee",
+      "Kangyun Lee",
+      "Xiaoling Zhu",
+      "Nayeon Kim",
+      "Jungmok You",
+      "Jaehyeong Bae*"
     ],
     "journal": "TBD",
     "volume": "",
