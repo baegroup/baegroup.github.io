@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { PageHero } from '@/components/site/PageHero';
 import { PageSectionNav } from '@/components/site/PageSectionNav';
+import { ResearchProfileLinks } from '@/components/site/ResearchProfileLinks';
 import { TEAM_CONTENT } from '@/content/site-content';
-import { loadTeamProfiles } from '@/lib/data';
+import { loadResearchProfileLinks, loadTeamProfiles } from '@/lib/data';
 import { formatItemNumber } from '@/lib/format';
 import { pagePath } from '@/lib/i18n';
 import { TEAM_SECTION_PATHS } from '@/lib/seo-paths';
@@ -498,7 +499,7 @@ function ProfessorPublications({ title, items }) {
   );
 }
 
-function ProfessorShowcase({ professor }) {
+function ProfessorShowcase({ professor, researchProfileLinks }) {
   const [broken, setBroken] = useState(false);
   const hasPhoto = Boolean(professor.photo) && !broken;
   const copy = PROFESSOR_COPY;
@@ -552,6 +553,7 @@ function ProfessorShowcase({ professor }) {
               </li>
             ) : null}
           </ul>
+          <ResearchProfileLinks links={researchProfileLinks} variant="inline" />
         </div>
       </div>
 
@@ -574,6 +576,7 @@ export function TeamPage({ locale, section = 'identity' }) {
     : [content.aboutBody || content.description].filter(Boolean);
   const [currentGroups, setCurrentGroups] = useState([]);
   const [alumniGroups, setAlumniGroups] = useState([]);
+  const [researchProfileLinks, setResearchProfileLinks] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const activeSection = SUPPORTED_SECTION_IDS.has(section) ? section : 'identity';
@@ -614,6 +617,32 @@ export function TeamPage({ locale, section = 'identity' }) {
       mounted = false;
     };
   }, [locale]);
+
+  useEffect(() => {
+    if (activeSection !== 'professor') {
+      return undefined;
+    }
+
+    let mounted = true;
+
+    async function run() {
+      try {
+        const links = await loadResearchProfileLinks();
+        if (mounted) {
+          setResearchProfileLinks(links);
+        }
+      } catch {
+        if (mounted) {
+          setResearchProfileLinks({});
+        }
+      }
+    }
+
+    run();
+    return () => {
+      mounted = false;
+    };
+  }, [activeSection]);
 
   const jumpNav = useMemo(() => {
     const fallback = DEFAULT_JUMP_NAV;
@@ -765,7 +794,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                 {leadProfessor ? (
                   <div className="space-y-4">
                     <div className="mx-auto w-full max-w-6xl px-1 md:px-2 lg:px-6 xl:px-8">
-                      <ProfessorShowcase professor={leadProfessor} />
+                      <ProfessorShowcase professor={leadProfessor} researchProfileLinks={researchProfileLinks} />
                     </div>
                     {additionalProfessors.length ? (
                       <div className="grid gap-4 lg:grid-cols-2">

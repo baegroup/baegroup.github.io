@@ -12,7 +12,7 @@ Publication records from the previous Bae Lab website were migrated into this li
 Publication List
 
 ## preprintTitle
-Current Manuscripts
+Submitted
 
 ## preprintItems
 

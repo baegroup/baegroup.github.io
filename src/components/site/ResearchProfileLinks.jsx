@@ -7,11 +7,32 @@ const PROFILE_LINKS = [
   { key: 'researchGate', label: 'ResearchGate', icon: 'assets/img/news/profiles/researchgate.svg' }
 ];
 
-export function ResearchProfileLinks({ links = {} }) {
+export function ResearchProfileLinks({ links = {}, variant = 'default' }) {
   const items = PROFILE_LINKS.map((item) => ({ ...item, href: links[item.key] })).filter((item) => item.href);
 
   if (!items.length) {
     return null;
+  }
+
+  if (variant === 'inline') {
+    return (
+      <section aria-label="Research profiles" className="site-rule-soft mt-4 border-t pt-4">
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1.5">
+          <h4 className="text-xs font-semibold text-slate-600">Research Profiles</h4>
+          {items.map((item) => (
+            <a
+              className="site-text-link whitespace-nowrap text-xs font-medium"
+              href={item.href}
+              key={item.key}
+              rel="noreferrer"
+              target="_blank"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </section>
+    );
   }
 
   return (
