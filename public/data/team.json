@@ -14,7 +14,7 @@
     "photo": "assets/img/team/notion/bae-jaehyeong.jpg",
     "startYear": 2023,
     "endYear": null,
-    "joiningGroup": "",
+    "joiningGroup": "2023 Spring",
     "undergraduateSchool": "",
     "undergraduateMajor": "",
     "masterSchool": "",
@@ -31,8 +31,8 @@
     "program": "MS",
     "email": "dlaud619@khu.ac.kr",
     "interests": [
-      "Photo-Chemo-Mechanical Energy Harvesting",
-      "Zn-ion Battery"
+      "Photoacid Energy Harvesting and Sensing",
+      "Zinc-Ion Battery Materials"
     ],
     "photo": "assets/img/team/notion/lee-myeong.jpg",
     "startYear": 2024,
@@ -54,7 +54,7 @@
     "program": "MSPhD",
     "email": "suha0116@khu.ac.kr",
     "interests": [
-      "3D printing for environmental applications"
+      "Direct Ink Writing for Environmental Applications"
     ],
     "photo": "assets/img/team/notion/cho-suha.jpg",
     "startYear": 2024,
@@ -76,7 +76,7 @@
     "program": "PhD",
     "email": "zxl@khu.ac.kr",
     "interests": [
-      "Photo-Chemo-Mechanical Energy harvesting"
+      "Photoacid Energy Harvesting"
     ],
     "photo": "assets/img/team/notion/zhu-xiaoling.jpg",
     "startYear": 2024,
@@ -98,7 +98,7 @@
     "program": "BS",
     "email": "yoonjik24@khu.ac.kr",
     "interests": [
-      "Embedded 3D printing technology for biomedical application"
+      "Embedded 3D Printing for Biomedical Applications"
     ],
     "photo": "assets/img/team/notion/ko-yoonji.jpg",
     "startYear": 2024,
@@ -120,7 +120,8 @@
     "program": "MSPhD",
     "email": "liujiechen@khu.ac.kr",
     "interests": [
-      "Aerogel 3D printing & Printed sensors"
+      "Aerogel 3D Printing",
+      "Liquid Metal 3D Printing"
     ],
     "photo": "assets/img/team/notion/liu-jiechen.jpg",
     "startYear": 2025,
@@ -142,7 +143,8 @@
     "program": "BS",
     "email": "amo0813@khu.ac.kr",
     "interests": [
-      "Photo-Chemo-Mechanical Energy harvesting"
+      "Photoacid Energy Harvesting",
+      "Liquid Metal 3D Printing"
     ],
     "photo": "assets/img/team/notion/kim-nayeon.webp",
     "startYear": 2025,
@@ -184,7 +186,8 @@
     "program": "MSPhD",
     "email": "TBD",
     "interests": [
-      "3D printing"
+      "Direct Ink Writing for Environmental Applications",
+      "AI for Additive Manufacturing"
     ],
     "photo": "assets/img/team/notion/lin-qunbo.png",
     "startYear": 2026,
@@ -206,7 +209,7 @@
     "program": "PhD",
     "email": "TBD",
     "interests": [
-      "3D printing for environmental applications"
+      "Direct Ink Writing for Environmental Applications"
     ],
     "photo": "assets/img/team/notion/tian-ruonan.jpg",
     "startYear": 2026,
