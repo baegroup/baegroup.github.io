@@ -16,12 +16,12 @@ export function ResearchProfileLinks({ links = {}, variant = 'default' }) {
 
   if (variant === 'inline') {
     return (
-      <section aria-label="Research profiles" className="site-rule-soft mt-4 border-t pt-4">
-        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1.5">
-          <h4 className="text-xs font-semibold text-slate-600">Research Profiles</h4>
+      <li className="grid grid-cols-[6rem_minmax(0,1fr)] items-baseline gap-x-3" aria-label="Research profiles">
+        <span className="font-semibold text-slate-700">Profiles:</span>
+        <span className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-0.5">
           {items.map((item) => (
             <a
-              className="site-text-link whitespace-nowrap text-xs font-medium"
+              className="site-text-link whitespace-nowrap text-[0.8125rem] font-medium"
               href={item.href}
               key={item.key}
               rel="noreferrer"
@@ -30,8 +30,8 @@ export function ResearchProfileLinks({ links = {}, variant = 'default' }) {
               {item.label}
             </a>
           ))}
-        </div>
-      </section>
+        </span>
+      </li>
     );
   }
 

@@ -535,25 +535,27 @@ function ProfessorShowcase({ professor, researchProfileLinks }) {
 
           <ul className="site-rule-soft mt-5 space-y-1.5 border-t pt-4 text-[0.9375rem] leading-6 text-slate-700">
             {professor.email ? (
-              <li>
-                <span className="font-semibold">E-mail:</span>{' '}
+              <li className="grid grid-cols-[6rem_minmax(0,1fr)] items-baseline gap-x-3">
+                <span className="font-semibold">E-mail:</span>
                 <a className="site-text-link" href={`mailto:${professor.email}`}>
                   {professor.email}
                 </a>
               </li>
             ) : null}
             {profile?.phone ? (
-              <li>
-                <span className="font-semibold">Phone:</span> {profile.phone}
+              <li className="grid grid-cols-[6rem_minmax(0,1fr)] items-baseline gap-x-3">
+                <span className="font-semibold">Phone:</span>
+                <span>{profile.phone}</span>
               </li>
             ) : null}
             {profile?.fax ? (
-              <li>
-                <span className="font-semibold">Fax:</span> {profile.fax}
+              <li className="grid grid-cols-[6rem_minmax(0,1fr)] items-baseline gap-x-3">
+                <span className="font-semibold">Fax:</span>
+                <span>{profile.fax}</span>
               </li>
             ) : null}
+            <ResearchProfileLinks links={researchProfileLinks} variant="inline" />
           </ul>
-          <ResearchProfileLinks links={researchProfileLinks} variant="inline" />
         </div>
       </div>
 
