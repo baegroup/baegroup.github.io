@@ -22,7 +22,17 @@ concurrency:
 
 jobs:
   deploy:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    # A Notion sync only needs a deployment when it advanced the default branch.
+    # For workflow_run events, github.sha is the latest default-branch commit,
+    # while workflow_run.head_sha is the commit from which the sync started.
+    if: >-
+      ${{
+        github.event_name != 'workflow_run' ||
+        (
+          github.event.workflow_run.conclusion == 'success' &&
+          github.event.workflow_run.head_sha != github.sha
+        )
+      }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
