@@ -183,7 +183,7 @@ function PreprintSection({ items, labAuthorNames, numberOffset = 0, title }) {
   return (
     <section className="min-w-0">
       <h2 className="text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">
-        {title || 'Submitted'}
+        {title || 'Manuscripts in Progress'}
       </h2>
       {items.length ? (
         <ol className="site-rule-strong mt-4 border-t">
@@ -777,7 +777,7 @@ export function PublicationsPage({ locale }) {
                     labAuthorNames={labAuthorNames}
                     items={preprintItems}
                     numberOffset={journalNumbers.size}
-                    title={content.preprintTitle || 'Submitted'}
+                    title={content.preprintTitle || 'Manuscripts in Progress'}
                   />
                 ) : null}
                 <div className="scroll-mt-28 space-y-4">
