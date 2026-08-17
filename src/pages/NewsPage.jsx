@@ -187,7 +187,7 @@ function MediaImage({ path, title, variant = 'card' }) {
     return (
       <img
         alt={title}
-        className="h-auto max-h-[640px] w-full max-w-3xl rounded-sm bg-white object-contain"
+        className="block h-auto max-h-[640px] w-auto max-w-full rounded-sm object-contain"
         decoding="async"
         loading="lazy"
         onError={image.onError}
@@ -225,7 +225,10 @@ function InstagramRail({ displayName, handle, post, postUrl, profileImage, profi
   }
 
   return (
-    <section className="mx-auto w-full max-w-[340px] space-y-3 lg:max-w-[232px]" aria-label="Bae Lab on Instagram">
+    <section
+      className="mx-auto w-full max-w-[360px] space-y-3 rounded-md border border-[#eadde6] bg-[linear-gradient(145deg,#fff8f8_0%,#f7f5ff_100%)] p-4 shadow-[0_12px_30px_rgba(76,31,68,0.06)] lg:max-w-[232px] lg:p-3.5"
+      aria-label="Bae Lab on Instagram"
+    >
       <div className="flex items-center gap-2.5">
         <a
           aria-label={`Open ${displayHandle} on Instagram`}
@@ -235,7 +238,7 @@ function InstagramRail({ displayName, handle, post, postUrl, profileImage, profi
           target="_blank"
         >
           <span className="inline-flex rounded-full bg-[linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#4c68d7)] p-0.5">
-            <span className="inline-flex size-9 items-center justify-center rounded-full border-2 border-[var(--brand-page)]">
+            <span className="inline-flex size-9 items-center justify-center rounded-full border-2 border-white/90">
               <MediaImage path={profileImage} title={`${profileLabel} Instagram profile`} variant="instagramAvatar" />
             </span>
           </span>
@@ -466,7 +469,7 @@ function NewsItemRow({ compactPreview = false, detailPath, editorialPreview = fa
             {editorialPreview && item.summary ? <p className="site-copy-support mt-2 line-clamp-2">{item.summary}</p> : null}
           </div>
 
-          <div className={editorialPreview ? 'col-start-4 row-start-1 flex self-start items-center gap-3 md:col-start-4 md:row-start-1 md:self-start' : ''}>
+          <div className={editorialPreview ? 'col-start-4 row-start-1 flex self-start items-center gap-3 md:col-start-4 md:row-start-1 md:self-center' : ''}>
             {editorialPreview ? <p className="site-meta-context hidden whitespace-nowrap md:block">{item.date || '-'}</p> : null}
             <button
               aria-controls={detailsId}
