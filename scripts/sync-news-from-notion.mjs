@@ -160,6 +160,15 @@ function parseDateValue(value) {
   return Date.UTC(year, month - 1, day);
 }
 
+function normalizeOptionalCount(value) {
+  if (value === '' || value === null || value === undefined) {
+    return null;
+  }
+
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= 0 ? Math.trunc(parsed) : null;
+}
+
 function sortItems(items) {
   return [...items].sort((a, b) => {
     const dateDelta = parseDateValue(b.date) - parseDateValue(a.date);
@@ -770,6 +779,8 @@ async function fetchInstagramRecent(existingInstagram = {}) {
       displayName: String(existingInstagram.displayName || '').trim(),
       profileUrl: String(existingInstagram.profileUrl || process.env.INSTAGRAM_PROFILE_URL || '').trim(),
       profileImage: String(existingInstagram.profileImage || '').trim(),
+      followersCount: normalizeOptionalCount(existingInstagram.followersCount),
+      mediaCount: normalizeOptionalCount(existingInstagram.mediaCount),
       recent: Array.isArray(existingInstagram.recent) ? existingInstagram.recent : []
     };
   }
@@ -777,7 +788,7 @@ async function fetchInstagramRecent(existingInstagram = {}) {
   const limit = Number(process.env.INSTAGRAM_POST_LIMIT || 5);
   const graphBaseUrl = `https://graph.instagram.com/${apiVersion}`;
   const requestHeaders = { Authorization: `Bearer ${accessToken}` };
-  const mediaFields = [
+  const baseMediaFields = [
     'id',
     'caption',
     'media_type',
@@ -786,9 +797,14 @@ async function fetchInstagramRecent(existingInstagram = {}) {
     'permalink',
     'timestamp',
     'children{media_type,media_url,thumbnail_url}'
-  ].join(',');
-  const endpoint = `${graphBaseUrl}/${encodeURIComponent(userId)}/media?fields=${encodeURIComponent(mediaFields)}&limit=${Math.max(1, Math.min(limit, 20))}`;
-  const response = await fetch(endpoint, { headers: requestHeaders });
+  ];
+  const requestedLimit = Math.max(1, Math.min(limit, 20));
+  const mediaEndpoint = (fields) => `${graphBaseUrl}/${encodeURIComponent(userId)}/media?fields=${encodeURIComponent(fields.join(','))}&limit=${requestedLimit}`;
+  let response = await fetch(mediaEndpoint([...baseMediaFields, 'like_count']), { headers: requestHeaders });
+  if (!response.ok && response.status === 400) {
+    console.warn('[warn] Instagram like counts are unavailable; retrying without engagement fields.');
+    response = await fetch(mediaEndpoint(baseMediaFields), { headers: requestHeaders });
+  }
   if (!response.ok) {
     const text = await response.text();
     throw new Error(`Instagram API error (${response.status}): ${text}`);
@@ -799,8 +815,13 @@ async function fetchInstagramRecent(existingInstagram = {}) {
 
   let profile = {};
   try {
-    const profileEndpoint = `${graphBaseUrl}/${encodeURIComponent(userId)}?fields=${encodeURIComponent('username,name,profile_picture_url')}`;
-    const profileResponse = await fetch(profileEndpoint, { headers: requestHeaders });
+    const baseProfileFields = ['username', 'name', 'profile_picture_url'];
+    const profileEndpoint = (fields) => `${graphBaseUrl}/${encodeURIComponent(userId)}?fields=${encodeURIComponent(fields.join(','))}`;
+    let profileResponse = await fetch(profileEndpoint([...baseProfileFields, 'followers_count', 'media_count']), { headers: requestHeaders });
+    if (!profileResponse.ok && profileResponse.status === 400) {
+      console.warn('[warn] Instagram follower counts are unavailable; retrying with basic profile fields.');
+      profileResponse = await fetch(profileEndpoint(baseProfileFields), { headers: requestHeaders });
+    }
     if (profileResponse.ok) {
       profile = await profileResponse.json();
     } else {
@@ -847,6 +868,7 @@ async function fetchInstagramRecent(existingInstagram = {}) {
       summary: caption,
       url: String(post.permalink || '').trim(),
       videoUrl: '',
+      likeCount: normalizeOptionalCount(post.like_count),
       images
     });
   }
@@ -877,6 +899,8 @@ async function fetchInstagramRecent(existingInstagram = {}) {
     displayName: String(profile.name || existingInstagram.displayName || '').trim(),
     profileUrl: String(process.env.INSTAGRAM_PROFILE_URL || existingInstagram.profileUrl || '').trim(),
     profileImage: retainedProfileImage,
+    followersCount: normalizeOptionalCount(profile.followers_count) ?? normalizeOptionalCount(existingInstagram.followersCount),
+    mediaCount: normalizeOptionalCount(profile.media_count) ?? normalizeOptionalCount(existingInstagram.mediaCount),
     recent: sortItems(recent)
   };
 }

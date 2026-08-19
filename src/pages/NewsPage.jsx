@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { Bookmark, ChevronDown, ChevronLeft, ChevronRight, Heart, Instagram, MessageCircle, Send } from 'lucide-react';
+import { Bookmark, ChevronDown, ChevronLeft, ChevronRight, Heart, MessageCircle, Send } from 'lucide-react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
 import { ExternalLinkIcon } from '@/components/site/ExternalLinkIcon';
@@ -69,6 +69,24 @@ function toTimestamp(value) {
   const month = Math.min(12, Math.max(1, Number(parts[1]) || 1));
   const day = Math.min(31, Math.max(1, Number(parts[2]) || 1));
   return Date.UTC(year, month - 1, day);
+}
+
+function formatSocialCount(value, singularLabel) {
+  if (value === '' || value === null || value === undefined) {
+    return '';
+  }
+
+  const count = Number(value);
+  if (!Number.isFinite(count) || count < 0) {
+    return '';
+  }
+
+  const roundedCount = Math.trunc(count);
+  const displayCount = new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: 1,
+    notation: roundedCount >= 10_000 ? 'compact' : 'standard'
+  }).format(roundedCount);
+  return `${displayCount} ${roundedCount === 1 ? singularLabel : `${singularLabel}s`}`;
 }
 
 function hasImageExtension(path) {
@@ -199,7 +217,7 @@ function MediaImage({ path, title, variant = 'card' }) {
   return <img alt={title} className="media-news w-full" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
 }
 
-function InstagramRail({ displayName, handle, post, postUrl, profileImage, profileUrl }) {
+function InstagramRail({ displayName, followersCount, handle, post, postUrl, profileImage, profileUrl }) {
   const images = post?.images || [];
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const mediaId = useId();
@@ -215,6 +233,9 @@ function InstagramRail({ displayName, handle, post, postUrl, profileImage, profi
   const imageCount = images.length;
   const displayHandle = String(handle || '@baelab.khu').trim() || '@baelab.khu';
   const profileLabel = String(displayName || 'Bae Lab').trim() || 'Bae Lab';
+  const followerLabel = formatSocialCount(followersCount, 'follower');
+  const likeLabel = formatSocialCount(post.likeCount, 'like');
+  const caption = String(post.summary || '').trim();
   const instagramActionClass = 'site-touch-target inline-flex size-7 items-center justify-center rounded-md text-slate-700 no-underline transition-colors hover:bg-white/80 hover:text-[#cc2366] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cc2366]';
 
   function showPreviousImage() {
@@ -245,17 +266,17 @@ function InstagramRail({ displayName, handle, post, postUrl, profileImage, profi
           </span>
           <span className="min-w-0">
             <span className="block truncate text-sm font-semibold text-slate-900">{displayHandle.replace(/^@/, '')}</span>
-            <span className="block truncate text-xs text-slate-600">{profileLabel}</span>
+            <span className="block truncate text-xs text-slate-600">{followerLabel || profileLabel}</span>
           </span>
         </a>
         <a
           aria-label="Open Bae Lab Instagram profile"
-          className="inline-flex size-6 shrink-0 items-center justify-center rounded-md bg-[linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366)] text-white no-underline"
+          className="site-touch-target inline-flex shrink-0 items-center rounded-md px-1.5 py-1 text-[0.65rem] font-semibold text-[#b72862] no-underline transition-colors hover:bg-white/80 hover:text-[#8f1749] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cc2366]"
           href={profileUrl}
           rel="noreferrer"
           target="_blank"
         >
-          <Instagram aria-hidden="true" className="size-4" strokeWidth={1.8} />
+          View profile
         </a>
       </div>
 
@@ -274,6 +295,24 @@ function InstagramRail({ displayName, handle, post, postUrl, profileImage, profi
           </>
         ) : null}
       </div>
+
+      {imageCount > 1 ? (
+        <div className="flex justify-center gap-1.5" aria-label={`${imageCount} images in this Instagram post`}>
+          {Array.from({ length: Math.min(imageCount, 5) }, (_, index) => (
+            <button
+              aria-controls={mediaId}
+              aria-label={`Show Instagram image ${index + 1}`}
+              aria-pressed={activeImageIndex === index}
+              className={`site-touch-target size-1.5 rounded-full ${activeImageIndex === index ? 'bg-[#4c68d7]' : 'bg-slate-300'}`}
+              key={`${post.id}-instagram-dot-${index}`}
+              onClick={() => setActiveImageIndex(index)}
+              type="button"
+            />
+          ))}
+        </div>
+      ) : null}
+
+      {imageCount > 1 ? <p aria-live="polite" className="sr-only">Instagram image {activeImageIndex + 1} of {imageCount}</p> : null}
 
       <div className="flex items-center gap-1" aria-label="Instagram post actions">
         <a
@@ -318,31 +357,24 @@ function InstagramRail({ displayName, handle, post, postUrl, profileImage, profi
         </a>
       </div>
 
-      {imageCount > 1 ? (
-        <div className="flex justify-center gap-1.5" aria-label={`${imageCount} images in this Instagram post`}>
-          {Array.from({ length: Math.min(imageCount, 5) }, (_, index) => (
-            <button
-              aria-controls={mediaId}
-              aria-label={`Show Instagram image ${index + 1}`}
-              aria-pressed={activeImageIndex === index}
-              className={`site-touch-target size-1.5 rounded-full ${activeImageIndex === index ? 'bg-[#4c68d7]' : 'bg-slate-300'}`}
-              key={`${post.id}-instagram-dot-${index}`}
-              onClick={() => setActiveImageIndex(index)}
-              type="button"
-            />
-          ))}
-        </div>
+      {likeLabel ? (
+        <a className="inline-flex text-xs font-semibold text-slate-900 no-underline hover:text-[#b72862]" href={postUrl} rel="noreferrer" target="_blank">
+          {likeLabel}
+        </a>
       ) : null}
 
-      {imageCount > 1 ? <p aria-live="polite" className="sr-only">Instagram image {activeImageIndex + 1} of {imageCount}</p> : null}
-
       <div className="space-y-1">
-        <p className="site-copy-body line-clamp-2">
-          <span className="font-semibold text-slate-900">{displayHandle.replace(/^@/, '')}</span>{' '}
-          {post.summary || post.title}
-        </p>
-        <a className="site-text-link inline-flex items-center text-xs" href={postUrl} rel="noreferrer" target="_blank">View on Instagram<ExternalLinkIcon /></a>
-        {post.date ? <p className="text-xs text-slate-500">{post.date}</p> : null}
+        {caption ? (
+          <p className="site-copy-body line-clamp-2">
+            <span className="font-semibold text-slate-900">{displayHandle.replace(/^@/, '')}</span>{' '}
+            {caption}
+          </p>
+        ) : null}
+        <a className="inline-flex text-xs text-slate-500 no-underline hover:text-[#b72862]" href={postUrl} rel="noreferrer" target="_blank">Add a comment…</a>
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+          <a className="site-text-link inline-flex items-center text-xs" href={postUrl} rel="noreferrer" target="_blank">View more on Instagram<ExternalLinkIcon /></a>
+          {post.date ? <time className="text-xs text-slate-500" dateTime={post.date}>{post.date}</time> : null}
+        </div>
       </div>
     </section>
   );
@@ -632,6 +664,7 @@ export function NewsPage({ locale }) {
       videos: []
     },
     instagram: {
+      followersCount: null,
       handle: '',
       profileUrl: '',
       recent: []
@@ -813,6 +846,7 @@ export function NewsPage({ locale }) {
           <div className="mx-auto w-full max-w-sm space-y-4 lg:max-w-none xl:sticky xl:top-28">
             <InstagramRail
               displayName={feed.instagram.displayName}
+              followersCount={feed.instagram.followersCount}
               handle={feed.instagram.handle}
               post={latestInstagramPost}
               postUrl={latestInstagramPostUrl}
