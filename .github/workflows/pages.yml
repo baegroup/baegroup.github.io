@@ -7,6 +7,7 @@ on:
   workflow_run:
     workflows:
       - Daily Notion Sync
+      - Instagram Sync
     types:
       - completed
   workflow_dispatch:
@@ -22,7 +23,7 @@ concurrency:
 
 jobs:
   deploy:
-    # A Notion sync only needs a deployment when it advanced the default branch.
+    # A content sync only needs a deployment when it advanced the default branch.
     # For workflow_run events, github.sha is the latest default-branch commit,
     # while workflow_run.head_sha is the commit from which the sync started.
     if: >-
