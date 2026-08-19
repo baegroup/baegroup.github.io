@@ -275,6 +275,15 @@ function parseNewsDateValue(value) {
   return Date.UTC(year, month - 1, day);
 }
 
+function normalizeOptionalCount(value) {
+  if (value === '' || value === null || value === undefined) {
+    return null;
+  }
+
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= 0 ? Math.trunc(parsed) : null;
+}
+
 function toSlug(value, fallback) {
   const normalized = String(value || '')
     .trim()
@@ -305,6 +314,7 @@ function normalizeNewsItems(items, sectionKey) {
         summary,
         url: String(item?.url || '').trim(),
         videoUrl: String(item?.videoUrl || '').trim(),
+        likeCount: normalizeOptionalCount(item?.likeCount),
         images
       };
     })
@@ -336,6 +346,8 @@ function normalizeInstagram(value) {
     displayName: String(input.displayName || '').trim(),
     profileUrl: String(input.profileUrl || '').trim(),
     profileImage: String(input.profileImage || '').trim(),
+    followersCount: normalizeOptionalCount(input.followersCount),
+    mediaCount: normalizeOptionalCount(input.mediaCount),
     recent: normalizeNewsItems(input.recent, 'gallery').map((item) => ({
       ...item,
       section: 'instagram'
