@@ -248,30 +248,30 @@ function InstagramRail({ displayName, followersCount, handle, post, postUrl, pro
 
   return (
     <section
-      className="mx-auto w-full max-w-[360px] space-y-3 rounded-md border border-[#eadde6] bg-[linear-gradient(145deg,#fff8f8_0%,#f7f5ff_100%)] p-4 shadow-[0_12px_30px_rgba(76,31,68,0.06)] lg:max-w-[232px] lg:p-3.5"
+      className="mx-auto w-full max-w-[360px] space-y-3 rounded-md border border-[#eadde6] bg-[linear-gradient(145deg,#fff8f8_0%,#f7f5ff_100%)] p-4 shadow-[0_12px_30px_rgba(76,31,68,0.06)] lg:max-w-[232px] lg:p-3.5 xl:max-w-[260px]"
       aria-label="Bae Lab on Instagram"
     >
-      <div className="flex items-center gap-2.5">
+      <div className="flex items-center gap-2">
         <a
           aria-label={`Open ${displayHandle} on Instagram`}
-          className="flex min-w-0 flex-1 items-center gap-2.5 no-underline"
+          className="flex min-w-0 flex-1 items-center gap-2 no-underline"
           href={profileUrl}
           rel="noreferrer"
           target="_blank"
         >
           <span className="inline-flex rounded-full bg-[linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#4c68d7)] p-0.5">
-            <span className="inline-flex size-9 items-center justify-center rounded-full border-2 border-white/90">
+            <span className="inline-flex size-8 items-center justify-center rounded-full border-2 border-white/90">
               <MediaImage path={profileImage} title={`${profileLabel} Instagram profile`} variant="instagramAvatar" />
             </span>
           </span>
           <span className="min-w-0">
-            <span className="block truncate text-sm font-semibold text-slate-900">{displayHandle.replace(/^@/, '')}</span>
+            <span className="block truncate text-[0.78rem] font-semibold text-slate-900">{displayHandle.replace(/^@/, '')}</span>
             <span className="block truncate text-xs text-slate-600">{followerLabel || profileLabel}</span>
           </span>
         </a>
         <a
           aria-label="Open Bae Lab Instagram profile"
-          className="site-touch-target inline-flex shrink-0 items-center rounded-md px-1.5 py-1 text-[0.65rem] font-semibold text-[#b72862] no-underline transition-colors hover:bg-white/80 hover:text-[#8f1749] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cc2366]"
+          className="site-touch-target inline-flex shrink-0 items-center rounded-md px-1 py-1 text-[0.6rem] font-semibold text-[#b72862] no-underline transition-colors hover:bg-white/80 hover:text-[#8f1749] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cc2366]"
           href={profileUrl}
           rel="noreferrer"
           target="_blank"
@@ -841,7 +841,7 @@ export function NewsPage({ locale }) {
         </div>
       </PageHero>
 
-      <div className={`page-content-offset grid gap-6 lg:grid-cols-[minmax(0,1fr)_232px] lg:items-start lg:gap-8 xl:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
+      <div className={`page-content-offset grid gap-6 lg:grid-cols-[minmax(0,1fr)_232px] lg:items-start lg:gap-8 xl:grid-cols-[minmax(0,1fr)_260px] xl:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
         <aside className="order-2 w-full lg:self-start">
           <div className="mx-auto w-full max-w-sm space-y-4 lg:max-w-none xl:sticky xl:top-28">
             <InstagramRail
