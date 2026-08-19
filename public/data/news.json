@@ -5,6 +5,8 @@
     "displayName": "Bae Lab | Additive Manufacturing",
     "profileUrl": "https://www.instagram.com/baelab.khu/",
     "profileImage": "assets/img/news/instagram/profile.webp",
+    "followersCount": 2,
+    "mediaCount": 1,
     "recent": [
       {
         "id": "instagram-17938622901014724",
@@ -13,6 +15,7 @@
         "summary": "",
         "url": "https://www.instagram.com/p/DVm4FGfCeB-/",
         "videoUrl": "",
+        "likeCount": 1,
         "images": [
           "assets/img/news/instagram/ig-17938622901014724-1.webp"
         ]
