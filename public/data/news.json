@@ -7,13 +7,14 @@
     "profileImage": "assets/img/news/instagram/profile.webp",
     "recent": [
       {
-        "id": "instagram-DVm4FGfCeB-",
-        "date": "2026-03-07",
-        "title": "Bae Lab | Additive Manufacturing",
-        "summary": "Bae Lab | Kyung Hee University · 3D Printing × Functional Materials · Energy | Environment | Bio",
+        "id": "instagram-17938622901014724",
+        "date": "2026-03-08",
+        "title": "Instagram Post 1",
+        "summary": "",
         "url": "https://www.instagram.com/p/DVm4FGfCeB-/",
+        "videoUrl": "",
         "images": [
-          "assets/img/news/instagram/ig-2026-03-07-baelab.webp"
+          "assets/img/news/instagram/ig-17938622901014724-1.webp"
         ]
       }
     ]
