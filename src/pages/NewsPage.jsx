@@ -215,6 +215,7 @@ function InstagramRail({ displayName, handle, post, postUrl, profileImage, profi
   const imageCount = images.length;
   const displayHandle = String(handle || '@baelab.khu').trim() || '@baelab.khu';
   const profileLabel = String(displayName || 'Bae Lab').trim() || 'Bae Lab';
+  const instagramActionClass = 'site-touch-target inline-flex size-7 items-center justify-center rounded-md text-slate-700 no-underline transition-colors hover:bg-white/80 hover:text-[#cc2366] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cc2366]';
 
   function showPreviousImage() {
     setActiveImageIndex((current) => (current - 1 + imageCount) % imageCount);
@@ -274,11 +275,47 @@ function InstagramRail({ displayName, handle, post, postUrl, profileImage, profi
         ) : null}
       </div>
 
-      <div className="flex items-center gap-3 text-slate-700" aria-hidden="true">
-        <Heart className="size-[18px]" strokeWidth={1.6} />
-        <MessageCircle className="size-[18px]" strokeWidth={1.6} />
-        <Send className="size-[18px]" strokeWidth={1.6} />
-        <Bookmark className="ml-auto size-[18px]" strokeWidth={1.6} />
+      <div className="flex items-center gap-1" aria-label="Instagram post actions">
+        <a
+          aria-label="Open this post on Instagram to like it"
+          className={instagramActionClass}
+          href={postUrl}
+          rel="noreferrer"
+          target="_blank"
+          title="Like on Instagram"
+        >
+          <Heart aria-hidden="true" className="size-[18px]" strokeWidth={1.6} />
+        </a>
+        <a
+          aria-label="Open this post on Instagram to comment"
+          className={instagramActionClass}
+          href={postUrl}
+          rel="noreferrer"
+          target="_blank"
+          title="Comment on Instagram"
+        >
+          <MessageCircle aria-hidden="true" className="size-[18px]" strokeWidth={1.6} />
+        </a>
+        <a
+          aria-label="Open this post on Instagram to share it"
+          className={instagramActionClass}
+          href={postUrl}
+          rel="noreferrer"
+          target="_blank"
+          title="Share on Instagram"
+        >
+          <Send aria-hidden="true" className="size-[18px]" strokeWidth={1.6} />
+        </a>
+        <a
+          aria-label="Open this post on Instagram to save it"
+          className={`${instagramActionClass} ml-auto`}
+          href={postUrl}
+          rel="noreferrer"
+          target="_blank"
+          title="Save on Instagram"
+        >
+          <Bookmark aria-hidden="true" className="size-[18px]" strokeWidth={1.6} />
+        </a>
       </div>
 
       {imageCount > 1 ? (
