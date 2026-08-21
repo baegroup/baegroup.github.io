@@ -83,13 +83,21 @@ function toSlug(value, fallback = 'item') {
   return normalized || fallback;
 }
 
-function normalizeSection(value) {
+const NOTION_NEWS_SECTION_LABELS = {
+  labNews: 'Highlights',
+  gallery: 'Lab Life',
+  videos: 'Video'
+};
+
+function resolveSectionKey(value) {
   const raw = String(value || '')
     .trim()
     .toLowerCase();
   const normalized = raw.split(/[|,/]/).map((part) => part.trim()).find(Boolean) || '';
 
   if (
+    normalized === 'highlight' ||
+    normalized === 'highlights' ||
     normalized === 'labnews' ||
     normalized === 'lab news' ||
     normalized === 'news' ||
@@ -101,6 +109,9 @@ function normalizeSection(value) {
     return 'labNews';
   }
   if (
+    normalized === 'lab life' ||
+    normalized === 'lab-life' ||
+    normalized === 'lablife' ||
     normalized === 'gallery' ||
     normalized === 'photos' ||
     normalized === 'photo' ||
@@ -120,6 +131,14 @@ function normalizeSection(value) {
     normalized.includes('릴스')
   ) {
     return 'videos';
+  }
+  return '';
+}
+
+function normalizeSection(value) {
+  const sectionKey = resolveSectionKey(value);
+  if (sectionKey) {
+    return sectionKey;
   }
   return 'labNews';
 }
@@ -589,6 +608,79 @@ async function notionRequest({ token, endpoint, method = 'GET', body = null }) {
   return response.json();
 }
 
+async function alignNotionNewsSectionLabels({ token, dataSourceId }) {
+  const dataSource = await notionRequest({
+    token,
+    endpoint: `/data_sources/${dataSourceId}`,
+    method: 'GET'
+  });
+  const properties = dataSource?.properties || {};
+  const sectionEntry = Object.entries(properties).find(([name, config]) => {
+    const normalizedName = String(name || '').trim().toLowerCase();
+    return ['select', 'multi_select'].includes(config?.type) && ['section', 'select', 'category', 'type', '섹션', '구분', '카테고리'].includes(normalizedName);
+  });
+
+  if (!sectionEntry) {
+    const available = Object.entries(properties)
+      .map(([name, config]) => `${name}:${config?.type || 'unknown'}`)
+      .join(', ');
+    console.warn(`[warn] No select/multi-select news section property found in data source ${dataSourceId}. Available: ${available}`);
+    return;
+  }
+
+  const [propertyName, propertyConfig] = sectionEntry;
+  const propertyType = propertyConfig.type;
+  const currentOptions = Array.isArray(propertyConfig?.[propertyType]?.options) ? propertyConfig[propertyType].options : [];
+  const desiredOptions = [];
+
+  Object.entries(NOTION_NEWS_SECTION_LABELS).forEach(([sectionKey, label]) => {
+    const candidates = currentOptions.filter((option) => resolveSectionKey(option?.name) === sectionKey);
+    const selected = candidates.find((option) => option?.name === label) || candidates[0];
+    desiredOptions.push({
+      ...(selected?.id ? { id: selected.id } : {}),
+      name: label,
+      ...(selected?.color ? { color: selected.color } : {})
+    });
+  });
+
+  currentOptions
+    .filter((option) => !resolveSectionKey(option?.name))
+    .forEach((option) => {
+      desiredOptions.push({
+        ...(option?.id ? { id: option.id } : {}),
+        name: option.name,
+        ...(option?.color ? { color: option.color } : {})
+      });
+    });
+
+  const currentLabels = currentOptions.map((option) => option?.name || '').filter(Boolean);
+  const desiredLabels = desiredOptions.map((option) => option.name);
+  if (propertyName === 'Section' && JSON.stringify(currentLabels) === JSON.stringify(desiredLabels)) {
+    return;
+  }
+
+  const updatedProperty = {
+    [propertyType]: {
+      options: desiredOptions
+    }
+  };
+  if (propertyName !== 'Section') {
+    updatedProperty.name = 'Section';
+  }
+
+  await notionRequest({
+    token,
+    endpoint: `/data_sources/${dataSourceId}`,
+    method: 'PATCH',
+    body: {
+      properties: {
+        [propertyName]: updatedProperty
+      }
+    }
+  });
+  console.log(`[notion] aligned Section options: ${desiredLabels.join(' | ')}`);
+}
+
 async function resolveNotionDataSourceIds({ token, databaseId }) {
   const preferred = String(process.env.NOTION_NEWS_DATA_SOURCE_ID || '').trim();
   if (preferred) {
@@ -622,6 +714,7 @@ async function fetchNotionPages({ token, databaseId }) {
   const dataSourceIds = await resolveNotionDataSourceIds({ token, databaseId });
 
   for (const dataSourceId of dataSourceIds) {
+    await alignNotionNewsSectionLabels({ token, dataSourceId });
     let cursor = '';
     let sourceCount = 0;
 

@@ -65,7 +65,7 @@ npm run cms:sync:notion
 | Property | Type | Required | Notes |
 |---|---|---:|---|
 | Title | Title | Yes | Item title |
-| Section | Select | Yes | `Lab News` / `Gallery` / `Videos` |
+| Section | Select | Yes | `Highlights` / `Lab Life` / `Video` (same labels as the website) |
 | Date | Date | Yes | Sorting uses latest first |
 | Summary | Rich text | No | Automatically shown in expanded rows and detail pages, and reused for search metadata and RSS |
 | Link | URL | No | External source |

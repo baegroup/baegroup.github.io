@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-20",
+  "updatedAt": "2026-08-21",
   "instagram": {
     "handle": "@baelab.khu",
     "displayName": "Bae Lab | Additive Manufacturing",
@@ -160,6 +160,105 @@
       }
     ],
     "gallery": [
+      {
+        "id": "gallery-3c36760c5a6580289584c617f5ea0b4d-suha-s-graduation-ceremony",
+        "date": "2026-08-19",
+        "title": "Suha’s Graduation Ceremony",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/3c36760c5a6580289584c617f5ea0b4d-1.webp",
+          "assets/img/news/notion/3c36760c5a6580289584c617f5ea0b4d-2.webp",
+          "assets/img/news/notion/3c36760c5a6580289584c617f5ea0b4d-3.webp"
+        ]
+      },
+      {
+        "id": "gallery-3c36760c5a6580fca135d56f573b7f09-octobr-lab-dinner",
+        "date": "2026-08-03",
+        "title": "Octobr lab Dinner",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/3c36760c5a6580fca135d56f573b7f09-1.webp",
+          "assets/img/news/notion/3c36760c5a6580fca135d56f573b7f09-2.webp"
+        ]
+      },
+      {
+        "id": "gallery-3c36760c5a6580e2b252d69a66299bdf-july-lab-dinner",
+        "date": "2026-07-13",
+        "title": "July Lab Dinner",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/3c36760c5a6580e2b252d69a66299bdf-1.webp",
+          "assets/img/news/notion/3c36760c5a6580e2b252d69a66299bdf-2.webp"
+        ]
+      },
+      {
+        "id": "gallery-3c36760c5a6580be9787ce10a35dafa7-congratulations-suha-passed-masters-thesis",
+        "date": "2026-06-14",
+        "title": "Congratulations! Suha Passed Masters Thesis",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/3c36760c5a6580be9787ce10a35dafa7-1.webp",
+          "assets/img/news/notion/3c36760c5a6580be9787ce10a35dafa7-2.webp"
+        ]
+      },
+      {
+        "id": "gallery-31e6760c5a6580ac958ac5ce000a9721-teacher-s-day-2026-may-15th",
+        "date": "2026-05-15",
+        "title": "Teacher’s Day 2026 May 15th",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a6580ac958ac5ce000a9721-1.webp",
+          "assets/img/news/notion/31e6760c5a6580ac958ac5ce000a9721-2.webp",
+          "assets/img/news/notion/31e6760c5a6580ac958ac5ce000a9721-3.webp"
+        ]
+      },
+      {
+        "id": "gallery-3c36760c5a6580aca08bf535e9c9240e-may-lab-dinner",
+        "date": "2026-05-06",
+        "title": "May lab Dinner",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/3c36760c5a6580aca08bf535e9c9240e-1.webp",
+          "assets/img/news/notion/3c36760c5a6580aca08bf535e9c9240e-2.webp"
+        ]
+      },
+      {
+        "id": "gallery-3c16760c5a65806c9f21dd03140fff4e-2026-lab-picnic",
+        "date": "2026-04-07",
+        "title": "2026 Lab Picnic",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/3c16760c5a65806c9f21dd03140fff4e-1.webp",
+          "assets/img/news/notion/3c16760c5a65806c9f21dd03140fff4e-2.webp",
+          "assets/img/news/notion/3c16760c5a65806c9f21dd03140fff4e-3.webp"
+        ]
+      },
+      {
+        "id": "gallery-31e6760c5a65800aa53dca0ae6902fa9-lab-dinner-2026-feb",
+        "date": "2026-02-06",
+        "title": "Lab Dinner 2026 Feb",
+        "summary": "",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/31e6760c5a65800aa53dca0ae6902fa9-1.webp",
+          "assets/img/news/notion/31e6760c5a65800aa53dca0ae6902fa9-2.webp"
+        ]
+      },
       {
         "id": "gallery-31d6760c5a6580b89531e988c86039eb-prof-bae-s-birthday-october-22nd",
         "date": "2025-10-22",
