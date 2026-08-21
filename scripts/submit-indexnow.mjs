@@ -1,8 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const SITE_URL = 'https://www.baelab.khu.ac.kr';
-const HOST = 'www.baelab.khu.ac.kr';
+const SITE_URL = 'https://baelab.khu.ac.kr';
+const HOST = 'baelab.khu.ac.kr';
 const INDEXNOW_KEY = 'b8c8c3711f534ca7a1ac73822002d8a4';
 const INDEXNOW_ENDPOINT = 'https://searchadvisor.naver.com/indexnow';
 

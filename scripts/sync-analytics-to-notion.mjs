@@ -8,7 +8,7 @@ const GOOGLE_SCOPES = [
 const DASHBOARD_TITLE = '웹사이트 방문자 분석';
 const LEGACY_DASHBOARD_TITLES = ['Website Analytics'];
 const GA_REPORT_URL = 'https://analytics.google.com/analytics/web/#/a252415216p346894074/reports/intelligenthome';
-const SEARCH_CONSOLE_URL = 'https://search.google.com/search-console?resource_id=https%3A%2F%2Fwww.baelab.khu.ac.kr%2F';
+const SEARCH_CONSOLE_URL = 'https://search.google.com/search-console?resource_id=https%3A%2F%2Fbaelab.khu.ac.kr%2F';
 
 function requireEnv(name) {
   const value = String(process.env[name] || '').trim();
@@ -597,7 +597,7 @@ async function main() {
   const notionToken = requireEnv('NOTION_TOKEN');
   const notionNewsDatabaseId = requireEnv('NOTION_NEWS_DB_ID');
   const propertyId = requireEnv('GA4_PROPERTY_ID');
-  const searchConsoleSiteUrl = String(process.env.SEARCH_CONSOLE_SITE_URL || 'https://www.baelab.khu.ac.kr/').trim();
+  const searchConsoleSiteUrl = String(process.env.SEARCH_CONSOLE_SITE_URL || 'https://baelab.khu.ac.kr/').trim();
   const credentials = JSON.parse(requireEnv('GA4_SERVICE_ACCOUNT_JSON'));
   const accessToken = await getGoogleAccessToken(credentials);
   const analytics = await collectAnalytics({ accessToken, propertyId, searchConsoleSiteUrl });

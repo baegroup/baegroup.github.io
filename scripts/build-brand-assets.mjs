@@ -23,7 +23,7 @@ const socialBackground = Buffer.from(`
     <text x="94" y="296" fill="#334155" font-family="IBM Plex Sans, Arial, sans-serif" font-size="29" font-weight="500">Functional Materials · Additive Manufacturing</text>
     <text x="94" y="370" fill="#475569" font-family="Noto Sans KR, IBM Plex Sans, Arial, sans-serif" font-size="26" font-weight="500">배재형 교수 연구실</text>
     <text x="94" y="415" fill="#475569" font-family="IBM Plex Sans, Arial, sans-serif" font-size="22">Kyung Hee University · Chemical Engineering</text>
-    <text x="94" y="548" fill="#64748b" font-family="IBM Plex Sans, Arial, sans-serif" font-size="20">www.baelab.khu.ac.kr</text>
+    <text x="94" y="548" fill="#64748b" font-family="IBM Plex Sans, Arial, sans-serif" font-size="20">baelab.khu.ac.kr</text>
   </svg>
 `);
 

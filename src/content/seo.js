@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://www.baelab.khu.ac.kr';
+export const SITE_URL = 'https://baelab.khu.ac.kr';
 export const SITE_NAME = 'Bae Lab | 배재형 교수 연구실';
 export const DEFAULT_SOCIAL_IMAGE = '/assets/img/social/bae-lab-social.jpg';
 export const DEFAULT_SOCIAL_IMAGE_WIDTH = 1200;

@@ -20,7 +20,7 @@ jobs:
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN || secrets.NOTION_INTEGRATION_TOKEN || secrets.NOTION_API_TOKEN }}
       NOTION_NEWS_DB_ID: 31d6760c-5a65-807c-a312-ce5f7978f25d
       GA4_PROPERTY_ID: '346894074'
-      SEARCH_CONSOLE_SITE_URL: https://www.baelab.khu.ac.kr/
+      SEARCH_CONSOLE_SITE_URL: https://baelab.khu.ac.kr/
       GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
     steps:
       - name: Checkout

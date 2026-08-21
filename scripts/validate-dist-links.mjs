@@ -2,7 +2,7 @@ import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 
 const DIST_DIR = path.resolve('dist');
-const SITE_ORIGIN = 'https://www.baelab.khu.ac.kr';
+const SITE_ORIGIN = 'https://baelab.khu.ac.kr';
 const htmlFiles = [];
 
 async function collectHtmlFiles(directory) {
