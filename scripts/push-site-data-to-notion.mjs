@@ -142,21 +142,51 @@ function normalizeDoi(value) {
 }
 
 async function notionRequest({ token, endpoint, method = 'GET', body = null }) {
-  const response = await fetch(`https://api.notion.com/v1${endpoint}`, {
-    method,
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Notion-Version': NOTION_API_VERSION,
-      'Content-Type': 'application/json'
-    },
-    body: body ? JSON.stringify(body) : undefined
-  });
+  const maxAttempts = 5;
+  let lastError = null;
 
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`Notion API error (${response.status}) ${endpoint}: ${text}`);
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      const response = await fetch(`https://api.notion.com/v1${endpoint}`, {
+        method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Notion-Version': NOTION_API_VERSION,
+          'Content-Type': 'application/json'
+        },
+        body: body ? JSON.stringify(body) : undefined
+      });
+
+      if (response.ok) {
+        return response.json();
+      }
+
+      const text = await response.text();
+      lastError = new Error(`Notion API error (${response.status}) ${endpoint}: ${text}`);
+      const retryable = response.status === 429 || response.status >= 500;
+      if (!retryable || attempt === maxAttempts) {
+        throw lastError;
+      }
+
+      const retryAfterSeconds = Number(response.headers.get('retry-after'));
+      const delayMs = Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0
+        ? retryAfterSeconds * 1000
+        : 750 * (2 ** (attempt - 1));
+      console.warn(`[warn] Notion API ${response.status} for ${endpoint}; retrying (${attempt}/${maxAttempts}) in ${delayMs}ms.`);
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+    } catch (error) {
+      lastError = error;
+      const isHttpError = String(error?.message || '').startsWith('Notion API error');
+      if (isHttpError || attempt === maxAttempts) {
+        throw error;
+      }
+      const delayMs = 750 * (2 ** (attempt - 1));
+      console.warn(`[warn] Notion request failed for ${endpoint}; retrying (${attempt}/${maxAttempts}) in ${delayMs}ms.`);
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+    }
   }
-  return response.json();
+
+  throw lastError || new Error(`Notion API request failed: ${endpoint}`);
 }
 
 async function resolveDataSourceId({ token, databaseId, envDataSourceId }) {
@@ -333,20 +363,45 @@ async function fetchAllPages({ token, dataSourceId }) {
   return pages;
 }
 
-async function upsertPages({ token, dataSourceId, uniqueFieldName, items, buildProperties, itemLabel }) {
+function normalizeMatchValue(value) {
+  return String(value || '')
+    .normalize('NFKC')
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLowerCase();
+}
+
+function addPageToIndex(index, value, page) {
+  const key = normalizeMatchValue(value);
+  if (!key) {
+    return;
+  }
+  const pages = index.get(key) || [];
+  pages.push(page);
+  index.set(key, pages);
+}
+
+function oldestPageFirst(a, b) {
+  const aCreated = Date.parse(a?.created_time || '') || Number.MAX_SAFE_INTEGER;
+  const bCreated = Date.parse(b?.created_time || '') || Number.MAX_SAFE_INTEGER;
+  return aCreated - bCreated || String(a?.id || '').localeCompare(String(b?.id || ''));
+}
+
+async function upsertPages({ token, dataSourceId, uniqueFieldName, fallbackFieldName, items, buildProperties, itemLabel }) {
   const pages = await fetchAllPages({ token, dataSourceId });
   const existingByKey = new Map();
+  const existingByFallback = new Map();
 
   pages.forEach((page) => {
-    const key = extractPlainFromPropertyValue(page.properties?.[uniqueFieldName]);
-    if (!key) {
-      return;
+    addPageToIndex(existingByKey, extractPlainFromPropertyValue(page.properties?.[uniqueFieldName]), page);
+    if (fallbackFieldName) {
+      addPageToIndex(existingByFallback, extractPlainFromPropertyValue(page.properties?.[fallbackFieldName]), page);
     }
-    existingByKey.set(key, page);
   });
 
   let created = 0;
   let updated = 0;
+  let trashedDuplicates = 0;
 
   for (const item of items) {
     const key = String(item.key || '').trim();
@@ -355,7 +410,13 @@ async function upsertPages({ token, dataSourceId, uniqueFieldName, items, buildP
     }
 
     const properties = buildProperties(item);
-    const existing = existingByKey.get(key);
+    const fallbackKey = String(item.fallbackKey || '').trim();
+    const candidates = [
+      ...(existingByKey.get(normalizeMatchValue(key)) || []),
+      ...(fallbackKey ? existingByFallback.get(normalizeMatchValue(fallbackKey)) || [] : [])
+    ];
+    const uniqueCandidates = [...new Map(candidates.map((page) => [page.id, page])).values()].sort(oldestPageFirst);
+    const existing = uniqueCandidates[0];
 
     if (existing) {
       await notionRequest({
@@ -365,6 +426,16 @@ async function upsertPages({ token, dataSourceId, uniqueFieldName, items, buildP
         body: { properties }
       });
       updated += 1;
+
+      for (const duplicate of uniqueCandidates.slice(1)) {
+        await notionRequest({
+          token,
+          endpoint: `/pages/${duplicate.id}`,
+          method: 'PATCH',
+          body: { in_trash: true }
+        });
+        trashedDuplicates += 1;
+      }
     } else {
       await notionRequest({
         token,
@@ -379,7 +450,7 @@ async function upsertPages({ token, dataSourceId, uniqueFieldName, items, buildP
     }
   }
 
-  console.log(`[${itemLabel}] upsert complete: created=${created}, updated=${updated}`);
+  console.log(`[${itemLabel}] upsert complete: created=${created}, updated=${updated}, trashedDuplicates=${trashedDuplicates}`);
 }
 
 async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
@@ -436,7 +507,8 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
   const noteProp = pickProperty(propertyMap, ['Note']);
 
   const items = team.map((member) => ({
-    key: member.id,
+    key: idProp ? member.id : member.name,
+    fallbackKey: member.name,
     member
   }));
 
@@ -444,6 +516,7 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
     token,
     dataSourceId,
     uniqueFieldName: idProp || nameProp,
+    fallbackFieldName: nameProp,
     itemLabel: 'team',
     items,
     buildProperties: ({ member }) => {
@@ -551,7 +624,8 @@ async function pushPublications({ token, dataSourceId, siteBaseUrl }) {
   const coverProp = pickProperty(propertyMap, ['Cover']);
 
   const items = publications.map((publication) => ({
-    key: publication.id,
+    key: idProp ? publication.id : publication.title,
+    fallbackKey: publication.title,
     publication
   }));
 
@@ -559,6 +633,7 @@ async function pushPublications({ token, dataSourceId, siteBaseUrl }) {
     token,
     dataSourceId,
     uniqueFieldName: idProp || titleProp,
+    fallbackFieldName: titleProp,
     itemLabel: 'publications',
     items,
     buildProperties: ({ publication }) => {
