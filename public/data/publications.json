@@ -1,9 +1,29 @@
 [
   {
+    "id": "sensor-with-3d-printed",
+    "year": 2026,
+    "type": "preprint",
+    "title": "3D Printed Sensor",
+    "authors": [
+      "Jaehyeong Bae",
+      "Benito Roman-Manso",
+      "Bok Yeop Ahn",
+      "Arda Kotikian",
+      "Jennifer A. Lewis*"
+    ],
+    "journal": "TBD",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "doi": "",
+    "link": "",
+    "coverImage": ""
+  },
+  {
     "id": "3d-printing-for-environmental-application",
     "year": 2026,
     "type": "preprint",
-    "title": "3D printing for environmental application",
+    "title": "3D Printing for Environmental Applications",
     "authors": [
       "Suha Cho",
       "Hyunjun Min",
@@ -103,26 +123,6 @@
       "Yoonji Ko",
       "Jaehyeong Bae*",
       "Jungmok You*"
-    ],
-    "journal": "TBD",
-    "volume": "",
-    "issue": "",
-    "pages": "",
-    "doi": "",
-    "link": "",
-    "coverImage": ""
-  },
-  {
-    "id": "sensor-with-3d-printed",
-    "year": 2026,
-    "type": "preprint",
-    "title": "Sensor with 3D printed …",
-    "authors": [
-      "Jaehyeong Bae",
-      "Benito Roman-Manso",
-      "Bok Yeop Ahn",
-      "Arda Kotikian",
-      "Jennifer A. Lewis*"
     ],
     "journal": "TBD",
     "volume": "",
@@ -304,7 +304,7 @@
       "Dogyeong Jeon",
       "Jiyoung Lee",
       "Junyoung Lee",
-      "wontae Jang",
+      "Wontae Jang",
       "Changhyeon Lee",
       "Youson Kim",
       "Chanhoon Kim",

@@ -15,7 +15,6 @@ const SCROLL_TRIGGER_VIEWPORT_RATIO = 0.35;
 export function RecruitmentNotice({ autoOpen = false, content, locale }) {
   const [open, setOpen] = useState(false);
   const [showBadge, setShowBadge] = useState(false);
-  const [badgeCompact, setBadgeCompact] = useState(false);
 
   useEffect(() => {
     let listeningForScroll = false;
@@ -87,14 +86,11 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
   }, []);
 
   useEffect(() => {
-    if (!showBadge || open) {
-      setBadgeCompact(false);
-      return undefined;
-    }
+    if (!open || !window.matchMedia('(max-width: 639px)').matches) return undefined;
 
-    const timer = window.setTimeout(() => setBadgeCompact(true), 4500);
+    const timer = window.setTimeout(closeNotice, 5000);
     return () => window.clearTimeout(timer);
-  }, [open, showBadge]);
+  }, [closeNotice, open]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -107,7 +103,7 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [closeNotice, open]);
 
-  const badgeClassName = `surface-floating recruitment-notice-badge group fixed bottom-3 right-3 z-[80] flex items-center gap-2.5 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 text-left no-underline transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 sm:gap-3 sm:py-2 sm:pl-2 sm:pr-4 ${badgeCompact ? 'is-compact' : ''}`;
+  const badgeClassName = 'surface-floating recruitment-notice-badge group fixed bottom-3 right-3 z-[80] flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 text-left no-underline transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 sm:gap-3 sm:py-2 sm:pl-2 sm:pr-4';
   const badgeContent = (
     <>
       <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--brand-burgundy)] text-white transition-colors group-hover:bg-[var(--brand-burgundy-deep)] sm:h-10 sm:w-10">
@@ -115,7 +111,8 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
       </span>
       <span className="recruitment-notice-badge-copy overflow-hidden whitespace-nowrap">
         <span className="hidden text-[10px] font-semibold text-[var(--brand-burgundy)] sm:block">Now recruiting</span>
-        <span className="block text-xs font-semibold text-slate-900 sm:mt-0.5 sm:text-sm">Graduate Students</span>
+        <span className="block text-xs font-semibold text-slate-900 sm:hidden">Join</span>
+        <span className="hidden text-sm font-semibold text-slate-900 sm:mt-0.5 sm:block">Graduate Students</span>
       </span>
     </>
   );
@@ -125,7 +122,7 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
       {open ? (
         <aside
           aria-labelledby="recruitment-notice-title"
-          className="surface-floating recruitment-notice-card fixed bottom-3 left-3 right-3 z-[85] overflow-hidden rounded-lg border border-slate-200 bg-white/95 px-5 pb-5 pt-5 backdrop-blur-sm sm:bottom-6 sm:left-auto sm:right-6 sm:w-[21.5rem]"
+          className="surface-floating recruitment-notice-card fixed bottom-3 right-3 z-[85] w-[calc(100vw-2rem)] max-w-[18.5rem] overflow-hidden rounded-lg border border-slate-200 bg-white/95 px-4 pb-4 pt-4 backdrop-blur-sm sm:bottom-6 sm:right-6 sm:w-[21.5rem] sm:max-w-none sm:px-5 sm:pb-5 sm:pt-5"
         >
           <button
             aria-label="Close recruitment notice"
@@ -140,14 +137,14 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
             <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[var(--brand-burgundy)]" />
             {content.recruitmentNoticeEyebrow === 'Now Recruiting' ? 'Now recruiting' : content.recruitmentNoticeEyebrow || 'Now recruiting'}
           </p>
-          <h2 className="mt-2 pr-8 text-xl font-semibold leading-tight tracking-tight text-slate-950" id="recruitment-notice-title">
+          <h2 className="mt-1.5 pr-8 text-lg font-semibold leading-snug tracking-tight text-slate-950 sm:mt-2 sm:text-xl sm:leading-tight" id="recruitment-notice-title">
             {content.recruitmentNoticeTitle || 'Graduate Students'}
           </h2>
-          <p className="mt-1.5 text-sm font-medium leading-relaxed text-slate-600">
+          <p className="mt-1.5 hidden text-sm font-medium leading-relaxed text-slate-600 sm:block">
             {content.recruitmentNoticeDescription || 'M.S. · Ph.D. · Integrated M.S.–Ph.D.'}
           </p>
 
-          <div className="site-action-links mt-4">
+          <div className="site-action-links mt-3 sm:mt-4">
             <Link
               className="site-action-link"
               onClick={closeNotice}

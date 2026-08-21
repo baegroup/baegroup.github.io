@@ -596,19 +596,8 @@
   }
 
   .recruitment-notice-badge-copy {
-    max-width: 7rem;
+    max-width: 3rem;
     opacity: 1;
-    transition: max-width var(--motion-base) var(--motion-ease), opacity var(--motion-fast) ease;
-  }
-
-  .recruitment-notice-badge.is-compact {
-    gap: 0;
-    padding-right: 0.5rem;
-  }
-
-  .recruitment-notice-badge.is-compact .recruitment-notice-badge-copy {
-    max-width: 0;
-    opacity: 0;
   }
 }
 

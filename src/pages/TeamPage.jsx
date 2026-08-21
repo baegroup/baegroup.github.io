@@ -89,7 +89,7 @@ const PROFESSOR_PROFILE_DETAILS = {
       },
       {
         authors:
-          'Jaehyeong Bae, Keonwoo Choi, Hyunsun Song, Do Heung Kim, Doo Young Youn, Su-Ho Cho, Dogyeong Jeon, Jiyoung Lee, Junyoung Lee, wontae Jang, Changhyeon Lee, Youson Kim, Chanhoon Kim, Ji-Won Jung, Sung Gap Im, and Il-Doo Kim',
+          'Jaehyeong Bae, Keonwoo Choi, Hyunsun Song, Do Heung Kim, Doo Young Youn, Su-Ho Cho, Dogyeong Jeon, Jiyoung Lee, Junyoung Lee, Wontae Jang, Changhyeon Lee, Youson Kim, Chanhoon Kim, Ji-Won Jung, Sung Gap Im, and Il-Doo Kim',
         title: 'Reinforcing Native Solid-Electrolyte Interphase Layer via Electrolyte-Swellable Soft-Scaffold for Lithium Metal Anode',
         journalName: 'Advanced Energy Materials',
         details: '2203818, 2023.'
@@ -747,7 +747,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                       {!aboutImage.broken ? (
                         <img
                           alt="Bae Lab group photo"
-                          className="media-landscape w-full object-cover object-bottom"
+                          className="h-auto w-full rounded-sm"
                           decoding="async"
                           loading="lazy"
                           onError={aboutImage.onError}
