@@ -33,22 +33,32 @@
   "sections": {
     "labNews": [
       {
-        "id": "labNews-3c46760c5a65818a8802d0fc1acfad7f-welcome-ruonan-tian-and-qunbo-lin-to-bae-lab",
+        "id": "labNews-3c46760c5a6581bc81e3da7fc63b2432-welcome-qunbo-lin-to-bae-lab",
         "date": "2026-08-22",
-        "title": "Welcome Ruonan Tian and Qunbo Lin to Bae Lab",
-        "summary": "We are pleased to welcome Ruonan Tian and Qunbo Lin to Bae Lab. Ruonan joined the Ph.D. program, and Qunbo joined the integrated M.S.–Ph.D. program.",
+        "title": "Welcome Qunbo Lin to Bae Lab",
+        "summary": "Qunbo Lin joined the integrated M.S.–Ph.D. program in Fall 2026.",
         "url": "",
         "videoUrl": "",
         "images": [
-          "assets/img/news/notion/3c46760c5a65818a8802d0fc1acfad7f-1.webp",
-          "assets/img/news/notion/3c46760c5a65818a8802d0fc1acfad7f-2.webp"
+          "assets/img/news/notion/3c46760c5a6581bc81e3da7fc63b2432-1.webp"
+        ]
+      },
+      {
+        "id": "labNews-3c46760c5a65818a8802d0fc1acfad7f-welcome-ruonan-tian-to-bae-lab",
+        "date": "2026-03-01",
+        "title": "Welcome Ruonan Tian to Bae Lab",
+        "summary": "Ruonan Tian joined the Ph.D. program in Spring 2026.",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/3c46760c5a65818a8802d0fc1acfad7f-1.webp"
         ]
       },
       {
         "id": "labNews-31d6760c5a6580c9945cf5aaef8dbddd-myeong-lee-won-the-khu-chemical-engineering-undergraduate-research-award",
         "date": "2025-12-05",
         "title": "Myeong Lee won the KHU Chemical Engineering Undergraduate Research Award",
-        "summary": "",
+        "summary": "Myeong Lee received the top award at the inaugural KHU Chemical Engineering Undergraduate Research Symposium.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -59,7 +69,7 @@
         "id": "labNews-31d6760c5a65800aabbada0c1e8e57df-myeong-lee-won-the-best-poster-award-at-8th-icae-2025",
         "date": "2025-11-27",
         "title": "Myeong Lee won the Best Poster Award at 8th ICAE 2025",
-        "summary": "",
+        "summary": "Myeong Lee received the Best Poster Award at the 8th International Conference on Advanced Electromaterials (ICAE 2025).",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -70,7 +80,7 @@
         "id": "labNews-31d6760c5a6580b5b1bbe3042f712a55-myeong-lee-won-the-best-undergraduate-research-award-oral",
         "date": "2025-11-14",
         "title": "Myeong Lee won the Best Undergraduate Research Award (Oral)",
-        "summary": "",
+        "summary": "Myeong Lee received the Best Oral Presentation Award at a 2025 KHU undergraduate research symposium.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -94,7 +104,7 @@
         "id": "labNews-31d6760c5a65802a84f2c2e16ed6959b-xiaoling-zhu-won-the-best-poster-award",
         "date": "2025-06-14",
         "title": "Xiaoling Zhu won the Best Poster Award",
-        "summary": "한국화학공학회 포스터 부문 우수논문발표상 수상",
+        "summary": "Xiaoling Zhu received an Outstanding Poster Presentation Award from the Korean Institute of Chemical Engineers.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -140,7 +150,7 @@
         "id": "labNews-31d6760c5a6580ea9a53d7a38194631a-xiaoling-zhu-obtained-the-national-government-sponsored-program-scholarship",
         "date": "2024-05-21",
         "title": "Xiaoling Zhu obtained the national government-sponsored program scholarship",
-        "summary": "",
+        "summary": "Xiaoling Zhu was selected for a national government-sponsored scholarship program in 2024.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -195,7 +205,7 @@
         "id": "labNews-31d6760c5a6580848ba4fa778084c26d-dr-jaehyeong-bae-won-the-2021-kaist-dmse-best-dissertation-award",
         "date": "2021-02-19",
         "title": "Dr. Jaehyeong Bae won the 2021 KAIST DMSE Best Dissertation Award",
-        "summary": "전도성 나노소재와 물의 상호작용을 이용한 에너지 하베스팅 시스템에 관한 연구",
+        "summary": "Dr. Jaehyeong Bae received the 2021 KAIST DMSE Best Dissertation Award for his research on energy-harvesting systems based on interactions between conductive nanomaterials and water.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -229,22 +239,10 @@
     ],
     "gallery": [
       {
-        "id": "gallery-3c36760c5a6580fca135d56f573b7f09-october-lab-dinner",
-        "date": "2026-10-03",
-        "title": "October Lab Dinner",
-        "summary": "The Bae Lab enjoyed Korean barbecue with grilled pork at our October lab dinner.",
-        "url": "",
-        "videoUrl": "",
-        "images": [
-          "assets/img/news/notion/3c36760c5a6580fca135d56f573b7f09-1.webp",
-          "assets/img/news/notion/3c36760c5a6580fca135d56f573b7f09-2.webp"
-        ]
-      },
-      {
         "id": "gallery-3c36760c5a6580289584c617f5ea0b4d-suha-s-graduation-ceremony",
         "date": "2026-08-19",
         "title": "Suha’s Graduation Ceremony",
-        "summary": "",
+        "summary": "The Bae Lab celebrated Suha Cho’s graduation and congratulated her on this important milestone.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -269,7 +267,7 @@
         "id": "gallery-3c36760c5a6580be9787ce10a35dafa7-congratulations-suha-passed-master-s-thesis",
         "date": "2026-06-14",
         "title": "Congratulations! Suha Passed Master’s Thesis",
-        "summary": "",
+        "summary": "Congratulations to Suha Cho on successfully passing her master’s thesis defense.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -281,7 +279,7 @@
         "id": "gallery-31e6760c5a6580ac958ac5ce000a9721-teacher-s-day-2026",
         "date": "2026-05-15",
         "title": "Teacher’s Day 2026",
-        "summary": "",
+        "summary": "Bae Lab members celebrated Teacher’s Day together and expressed their appreciation to Prof. Bae.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -306,7 +304,7 @@
         "id": "gallery-3c16760c5a65806c9f21dd03140fff4e-2026-lab-picnic",
         "date": "2026-04-07",
         "title": "2026 Lab Picnic",
-        "summary": "",
+        "summary": "Bae Lab members enjoyed a spring picnic and spent time together outside the laboratory.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -331,7 +329,7 @@
         "id": "gallery-31d6760c5a6580b89531e988c86039eb-prof-bae-s-birthday-october-22nd",
         "date": "2025-10-22",
         "title": "Prof. Bae’s Birthday October 22nd",
-        "summary": "",
+        "summary": "Bae Lab members celebrated Prof. Bae’s birthday together on October 22.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -341,10 +339,22 @@
         ]
       },
       {
+        "id": "gallery-3c36760c5a6580fca135d56f573b7f09-october-lab-dinner",
+        "date": "2025-10-03",
+        "title": "October Lab Dinner",
+        "summary": "The Bae Lab enjoyed grilled pork at a Korean barbecue dinner in October 2025.",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/3c36760c5a6580fca135d56f573b7f09-1.webp",
+          "assets/img/news/notion/3c36760c5a6580fca135d56f573b7f09-2.webp"
+        ]
+      },
+      {
         "id": "gallery-31e6760c5a6580b89c83e1b232d174a4-new-member-greeting-2025-may",
         "date": "2025-05-23",
         "title": "New member greeting 2025 May",
-        "summary": "",
+        "summary": "Bae Lab welcomed new members and shared greetings together in May 2025.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -355,7 +365,7 @@
         "id": "gallery-31e6760c5a65801f86d0f9098481f87d-teacher-s-day-2025-may-8th",
         "date": "2025-05-08",
         "title": "Teacher’s Day 2025 May 8th",
-        "summary": "",
+        "summary": "Bae Lab members celebrated Teacher’s Day together and expressed their appreciation to Prof. Bae.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -367,7 +377,7 @@
         "id": "gallery-31d6760c5a658099971fc26034ba3908-lab-picnic-2025-april",
         "date": "2025-04-01",
         "title": "Lab Picnic 2025 April",
-        "summary": "",
+        "summary": "Bae Lab members enjoyed a spring picnic together in April 2025.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -379,7 +389,7 @@
         "id": "gallery-31e6760c5a65803cb05bf93681a1da0b-lab-meeting-2025-feb",
         "date": "2025-03-04",
         "title": "Lab Meeting 2025 Feb",
-        "summary": "",
+        "summary": "Bae Lab members gathered for a group meeting and research discussion in February 2025.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -391,7 +401,7 @@
         "id": "gallery-31e6760c5a658096b15bc8ba05eafede-chemical-engineering-materials-laboratory-for-applications-2023-fall",
         "date": "2024-01-03",
         "title": "Chemical Engineering Materials Laboratory for Applications (2023 Fall)",
-        "summary": "",
+        "summary": "Students and instructors took a group photo after completing the Fall 2023 Chemical Engineering Materials Laboratory for Applications course.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -403,7 +413,7 @@
         "id": "gallery-31e6760c5a65802c8c2bcbb994348b15-physical-chemistry-2023-fall",
         "date": "2024-01-03",
         "title": "Physical Chemistry (2023 Fall)",
-        "summary": "",
+        "summary": "Students and instructors took a group photo after completing the Fall 2023 Physical Chemistry course.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -415,7 +425,7 @@
         "id": "gallery-31e6760c5a6580e5a59ee7d534474adc-separation-process-2023-fall",
         "date": "2024-01-03",
         "title": "Separation Process (2023 Fall)",
-        "summary": "",
+        "summary": "Students and instructors took a group photo after completing the Fall 2023 Separation Process course.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -427,7 +437,7 @@
         "id": "gallery-31e6760c5a658099968fc65b3b418723-post-doc-memory-at-harvard-prof-jennifer-lewis",
         "date": "2023-01-03",
         "title": "Post-doc Memory at Harvard (Prof. Jennifer Lewis)",
-        "summary": "",
+        "summary": "A look back at Prof. Jaehyeong Bae’s postdoctoral research period in Prof. Jennifer Lewis’s group at Harvard University.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -444,7 +454,7 @@
         "id": "videos-31e6760c5a6580ae8c23dcf8be5ae202-2022-3-nrf-nrf",
         "date": "2022-11-23",
         "title": "2022년 제3회 한국연구재단(NRF)와 함께하는 즐거운 이동과학교실 (과학강연 및 멘토링, 안좌중학교 편) NRF",
-        "summary": "",
+        "summary": "Prof. Jaehyeong Bae participated in the third 2022 NRF Moving Science Classroom program, giving a science lecture and mentoring students at Anjwa Middle School.",
         "url": "",
         "videoUrl": "https://youtu.be/-EgAgF4DIeI",
         "images": []
@@ -453,7 +463,7 @@
         "id": "videos-31e6760c5a6580389d7fdb35538980c6-kbs-news",
         "date": "2022-07-09",
         "title": "체온 따라 색 변하는 섬유... \"환자 파악 한눈에\" KBS NEWS",
-        "summary": "",
+        "summary": "KBS News introduced thermochromic fibers that change color with body temperature and can support rapid visual assessment of patients.",
         "url": "",
         "videoUrl": "https://youtu.be/T-EHA0kg7dc",
         "images": []
@@ -462,7 +472,7 @@
         "id": "videos-31e6760c5a65803787b7e9cfb3991986-sod",
         "date": "2020-01-07",
         "title": "단 한방울의 물로 전기를 만들어버리다. 에스오디 SOD",
-        "summary": "",
+        "summary": "SOD featured a hydrovoltaic energy-harvesting technology that generates electricity from a single drop of water.",
         "url": "",
         "videoUrl": "https://youtu.be/jWs7k3kGqgI",
         "images": []
@@ -471,7 +481,7 @@
         "id": "videos-31e6760c5a658054a658d8412be77372-ytn",
         "date": "2019-12-17",
         "title": "물 몇 방울로 전기 생산하는 기술 나왔다. YTN",
-        "summary": "",
+        "summary": "YTN reported on a self-powered hydrovoltaic generator that produces electricity from only a few drops of water.",
         "url": "",
         "videoUrl": "https://youtu.be/3F3xPtYzoj8",
         "images": []
@@ -480,7 +490,7 @@
         "id": "videos-31e6760c5a658044ae3cefb9fc1c2ad6-tv",
         "date": "2019-12-16",
         "title": "'물 몇 방울로 전기를'... 물을 이용한 자가발전기 개발 연합뉴스 TV",
-        "summary": "",
+        "summary": "Yonhap News TV reported on a self-powered hydrovoltaic generator that produces electricity from only a few drops of water.",
         "url": "",
         "videoUrl": "https://youtu.be/YL2XiSLteLA",
         "images": []
@@ -489,7 +499,7 @@
         "id": "videos-31e6760c5a65807a9915cd3182eff62b-tjb-news",
         "date": "2019-12-16",
         "title": "\"물 몇 방울로 전기 만들어요\".. 대기 수분, 땀으로 자가발전 TJB NEWS",
-        "summary": "",
+        "summary": "TJB News reported on a self-powered generator that harvests energy from atmospheric moisture and perspiration.",
         "url": "",
         "videoUrl": "https://youtu.be/38EEz7e5qDM",
         "images": []

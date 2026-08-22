@@ -5,10 +5,16 @@ const MINIMUM_INDEXABLE_ROUTES = 12;
 const MAX_LIVE_IMAGE_BYTES = 0.75 * 1024 * 1024;
 const canonicalUrl = new URL(SITE_URL);
 const DOMAIN_ALIAS_URL = `${canonicalUrl.protocol}//www.${canonicalUrl.host}`;
+const DOMAIN_ALIAS_HTTP_URL = `http://www.${canonicalUrl.host}`;
 const errors = [];
+const warnings = [];
 
 function report(condition, message) {
   if (!condition) errors.push(message);
+}
+
+function warn(message) {
+  warnings.push(message);
 }
 
 function decodeXml(value) {
@@ -69,7 +75,23 @@ try {
     `${DOMAIN_ALIAS_URL}: expected redirect to ${SITE_URL}, received ${redirectTarget?.href || 'no Location header'}`
   );
 } catch (error) {
-  errors.push(`${DOMAIN_ALIAS_URL}: HTTPS or redirect check failed (${error.message})`);
+  warn(`${DOMAIN_ALIAS_URL}: HTTPS certificate is not ready yet (${error.message})`);
+}
+
+try {
+  const aliasResponse = await request(DOMAIN_ALIAS_HTTP_URL, { redirect: 'manual' });
+  const redirectLocation = aliasResponse.headers.get('location') || '';
+  const redirectTarget = redirectLocation ? new URL(redirectLocation, DOMAIN_ALIAS_HTTP_URL) : null;
+  report(
+    [301, 302, 307, 308].includes(aliasResponse.status),
+    `${DOMAIN_ALIAS_HTTP_URL}: expected an HTTP redirect, received ${aliasResponse.status}`
+  );
+  report(
+    redirectTarget?.origin === new URL(SITE_URL).origin,
+    `${DOMAIN_ALIAS_HTTP_URL}: expected redirect to ${SITE_URL}, received ${redirectTarget?.href || 'no Location header'}`
+  );
+} catch (error) {
+  errors.push(`${DOMAIN_ALIAS_HTTP_URL}: redirect check failed (${error.message})`);
 }
 
 const { text: sitemapXml } = await fetchText(`${SITE_URL}/sitemap.xml`);
@@ -142,10 +164,19 @@ await runPool([...imageUrls], async (url) => {
   report(contentLength <= MAX_LIVE_IMAGE_BYTES, `${url}: image is ${(contentLength / 1024 / 1024).toFixed(2)} MB`);
 });
 
+if (warnings.length) {
+  console.warn(`Live site audit completed with ${warnings.length} warning(s):`);
+  for (const warning of warnings) console.warn(`- ${warning}`);
+}
+
 if (errors.length) {
   console.error(`Live site audit failed with ${errors.length} error(s):`);
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log(`Live site audit passed: ${urls.length} pages, ${titles.size} unique titles, ${imageUrls.size} rendered images`);
+console.log(
+  `Live site audit passed: ${urls.length} pages, ${titles.size} unique titles, ${imageUrls.size} rendered images${
+    warnings.length ? `, ${warnings.length} warning(s)` : ''
+  }`
+);

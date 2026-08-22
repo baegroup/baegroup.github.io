@@ -44,7 +44,12 @@ const LEGACY_REDIRECTS = [
   { from: '/join-our-team', to: '/join' },
   { from: '/join-our-team-2', to: '/join' },
   { from: '/博士研究生-2', to: '/team/members' },
-  { from: '/news/lab-life/2026-08-03-october-lab-dinner', to: '/news/lab-life/2026-10-03-october-lab-dinner' },
+  { from: '/news/lab-life/2026-08-03-october-lab-dinner', to: '/news/lab-life/2025-10-03-october-lab-dinner' },
+  { from: '/news/lab-life/2026-10-03-october-lab-dinner', to: '/news/lab-life/2025-10-03-october-lab-dinner' },
+  {
+    from: '/news/highlights/2026-08-22-welcome-ruonan-tian-and-qunbo-lin-to-bae-lab',
+    to: '/news'
+  },
   { from: '/news/lab-life/2026-05-15-teacher-s-day-2026-may-15th', to: '/news/lab-life/2026-05-15-teacher-s-day-2026' }
 ];
 

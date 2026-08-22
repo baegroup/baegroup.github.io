@@ -338,15 +338,15 @@ function JournalCoverMeta({ dateLabel, journalName }) {
 }
 
 function PublicationJournalCoverImage({ eager = false, publication }) {
-  const imageBase = publication.coverImage || publication.id;
-  const image = useImageFallback(`${COVER_IMAGE_BASE}/${imageBase}`);
+  const imageBase = String(publication.coverImage || '').trim();
+  const image = useImageFallback(imageBase ? `${COVER_IMAGE_BASE}/${imageBase}` : '');
   const journalName = publication.journal || publication.venue || '';
 
   return (
     <JournalCoverImage
-      broken={image.broken}
+      broken={!imageBase || image.broken}
       eager={eager}
-      imageSrc={image.src}
+      imageSrc={imageBase ? image.src : ''}
       journalName={journalName}
       onError={image.onError}
     />
