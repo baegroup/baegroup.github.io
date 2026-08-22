@@ -23,9 +23,9 @@ function itemPath(item) {
   return newsItemPath(section, item);
 }
 
-function LeadNewsCard({ item }) {
+function LeadNewsImage({ item, path, suffix = '' }) {
   const [imageIndex, setImageIndex] = useState(0);
-  const imageBase = item.image || HOME_MEDIA.newsFeatured;
+  const imageBase = path || HOME_MEDIA.newsFeatured;
   const imageCandidates = mediaCandidates(imageBase);
   const exhausted = imageIndex >= imageCandidates.length;
 
@@ -33,20 +33,35 @@ function LeadNewsCard({ item }) {
     setImageIndex(0);
   }, [imageBase]);
 
+  if (exhausted) {
+    return <div className="flex h-full items-center justify-center text-xs font-medium text-slate-500">Image</div>;
+  }
+
+  return (
+    <img
+      alt={`${item.title}${suffix}`}
+      className="h-full w-full object-cover object-top transition-transform duration-[320ms] group-hover:scale-[1.01]"
+      decoding="async"
+      loading="lazy"
+      onError={() => setImageIndex((index) => index + 1)}
+      src={imageCandidates[imageIndex]}
+    />
+  );
+}
+
+function LeadNewsCard({ item }) {
+  const images = item.images || [];
+  const groupedWelcome = /^Welcome .+ to Bae Lab$/i.test(String(item.title || '').trim()) && images.length > 1;
+
   return (
     <Link className="group flex h-full flex-col" reloadDocument to={itemPath(item)}>
-      <div className="aspect-[4/3] overflow-hidden rounded-sm bg-slate-100">
-        {!exhausted ? (
-          <img
-            alt={item.title}
-            className="h-full w-full object-cover object-center transition-transform duration-[320ms] group-hover:scale-[1.01]"
-            decoding="async"
-            loading="lazy"
-            onError={() => setImageIndex((index) => index + 1)}
-            src={imageCandidates[imageIndex]}
-          />
+      <div className={`aspect-[4/3] overflow-hidden rounded-sm bg-slate-100 ${groupedWelcome ? 'grid grid-cols-2' : ''}`}>
+        {groupedWelcome ? (
+          images.slice(0, 2).map((path, index) => (
+            <LeadNewsImage item={item} key={`${item.id}-lead-image-${index}`} path={path} suffix={` ${index + 1}`} />
+          ))
         ) : (
-          <div className="flex h-full items-center justify-center text-sm font-medium text-slate-500">News Image</div>
+          <LeadNewsImage item={item} path={item.image} />
         )}
       </div>
       <div className="site-media-caption flex-1">

@@ -132,7 +132,7 @@ function MediaImage({ path, title, variant = 'card' }) {
       );
     }
 
-    if (variant === 'galleryFill') {
+    if (variant === 'galleryFill' || variant === 'profileFill') {
       return (
         <div className="flex h-full min-h-0 w-full items-center justify-center bg-slate-100 text-[10px] font-medium text-slate-500">
           Image
@@ -179,6 +179,10 @@ function MediaImage({ path, title, variant = 'card' }) {
     return <img alt={title} className="h-full min-h-0 w-full object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
   }
 
+  if (variant === 'profileFill') {
+    return <img alt={title} className="h-full min-h-0 w-full object-cover object-top" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+  }
+
   if (variant === 'instagram') {
     return <img alt={title} className="aspect-square w-full object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
   }
@@ -214,6 +218,26 @@ function MediaImage({ path, title, variant = 'card' }) {
 
 function isMemberWelcomeItem(item) {
   return /^Welcome .+ to Bae Lab$/i.test(String(item?.title || '').trim()) && (item?.images || []).length > 1;
+}
+
+function NewsThumbnail({ item, variant }) {
+  const images = item?.images || [];
+
+  if (!isMemberWelcomeItem(item)) {
+    return <MediaImage path={images[0] || ''} title={item.title} variant={variant} />;
+  }
+
+  const containerClassName = variant === 'strip'
+    ? 'grid h-[63px] w-[84px] grid-cols-2 overflow-hidden rounded-sm bg-slate-100 md:h-[82px] md:w-[110px]'
+    : 'grid h-16 w-16 grid-cols-2 overflow-hidden rounded-sm border border-slate-200 bg-slate-100 md:h-[72px] md:w-[72px]';
+
+  return (
+    <div className={containerClassName}>
+      {images.slice(0, 2).map((path, index) => (
+        <MediaImage key={`${item.id}-thumbnail-${index}`} path={path} title={`${item.title} ${index + 1}`} variant="profileFill" />
+      ))}
+    </div>
+  );
 }
 
 function InstagramRail({ displayName, handle, post, postUrl, profileImage, profileUrl }) {
@@ -497,7 +521,6 @@ function VideoCard({ detailPath, item, number }) {
 function NewsItemRow({ compactPreview = false, detailPath, editorialPreview = false, item, itemRef, number, onToggle, opened }) {
   const youtubeEmbed = toYouTubeEmbedUrl(item.videoUrl || item.url);
   const hasDetailContent = Boolean(item.summary || item.url || item.videoUrl || (item.images || []).length);
-  const firstImage = item.images?.[0] || '';
   const toggleLabel = opened ? 'Collapse details' : 'View details';
   const detailsId = `news-details-${item.id}`;
 
@@ -516,7 +539,7 @@ function NewsItemRow({ compactPreview = false, detailPath, editorialPreview = fa
           <span className={editorialPreview ? 'site-meta-index pt-1 md:self-auto md:pt-0' : 'site-meta-index'}>{formatItemNumber(number)}</span>
           {compactPreview || editorialPreview ? (
             <div className={editorialPreview ? 'col-start-2 row-start-1 flex items-center justify-center md:col-start-2 md:row-start-1' : 'flex items-center justify-center'}>
-              <MediaImage path={firstImage} title={item.title} variant={editorialPreview ? 'strip' : 'thumb'} />
+              <NewsThumbnail item={item} variant={editorialPreview ? 'strip' : 'thumb'} />
             </div>
           ) : null}
 

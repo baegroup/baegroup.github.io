@@ -400,6 +400,7 @@ export async function loadLatestNewsItems(limit = 6) {
     date: item.date,
     title: item.title,
     body: item.summary || '',
-    image: (item.images || [])[0] || ''
+    image: (item.images || [])[0] || '',
+    images: item.images || []
   }));
 }
