@@ -54,8 +54,9 @@ npm run content:build
 - News: `npm run news:sync:notion`
 - Instagram: `npm run instagram:sync`
 - Team: `npm run team:sync:notion`
-- Publications: `npm run publications:sync:notion`
-- Bootstrap Team/Publications from local JSON into Notion: `npm run notion:push:site-data`
+- Papers, patents, and conference presentations: `npm run publications:sync:notion`
+- Bootstrap Team/Papers/Patents/Conference Presentations from local JSON into Notion: `npm run notion:push:site-data`
+- Create or repair the three publication databases: `npm run notion:setup:publication-dbs`
 - All at once: `npm run cms:sync:notion`
 - Analytics dashboard: `npm run analytics:sync:notion` (daily GitHub Action; requires `GA4_SERVICE_ACCOUNT_JSON`)
 

@@ -1,10 +1,10 @@
-# Notion CMS Setup (News + Team + Publications)
+# Notion CMS Setup (News + Team + Research Outputs)
 
-This website can be operated from Notion by syncing three databases into local JSON:
+This website can be operated from Notion by syncing five databases into local JSON:
 
 - `News` -> `public/data/news.json`
 - `Team` -> `public/data/team.json`
-- `Publications` -> `public/data/publications.json`
+- `Papers` + `Patents` + `Conference Presentations` -> `public/data/publications.json`
 
 ## 1) Required Environment Variables
 
@@ -13,6 +13,8 @@ export NOTION_TOKEN="ntn_xxx"
 export NOTION_NEWS_DB_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 export NOTION_TEAM_DB_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 export NOTION_PUBLICATIONS_DB_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+export NOTION_PATENTS_DB_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+export NOTION_PRESENTATIONS_DB_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
 Optional data source IDs (for databases with multiple data sources):
@@ -21,6 +23,8 @@ Optional data source IDs (for databases with multiple data sources):
 export NOTION_NEWS_DATA_SOURCE_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 export NOTION_TEAM_DATA_SOURCE_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 export NOTION_PUBLICATIONS_DATA_SOURCE_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+export NOTION_PATENTS_DATA_SOURCE_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+export NOTION_PRESENTATIONS_DATA_SOURCE_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
 Optional social links:
@@ -52,7 +56,7 @@ npm run team:sync:notion
 npm run publications:sync:notion
 ```
 
-`notion:push:site-data` uploads current local Team/Publications JSON into Notion (bootstrap/update step).
+`notion:push:site-data` uploads current local Team/Papers/Patents/Conference Presentations JSON into Notion (bootstrap/update step).
 
 Run all at once:
 
@@ -96,7 +100,7 @@ npm run cms:sync:notion
 | Current Affiliation | Rich text | No | Mainly for alumni |
 | Note | Rich text | No | Extra remarks |
 
-## 5) Database Schema: Publications
+## 5) Database Schema: Papers
 
 | Property | Type | Required | Notes |
 |---|---|---:|---|
@@ -104,18 +108,53 @@ npm run cms:sync:notion
 | Title | Title | Yes | Paper title |
 | ID | Rich text | No | Slug-like ID; auto-generated if empty |
 | Year | Number | Yes | Publication year |
-| Type | Select | Yes | `journal` / `patent` (supports `preprint`, `conference`) |
+| Type | Select | Yes | `journal` / `preprint` |
 | Authors | Rich text | Yes | Use `;` or newline between authors |
-| Journal | Rich text | Yes | Journal or patent venue (previous `Venue`) |
+| Journal | Rich text | Yes | Journal name |
 | Volume | Rich text | No | Journal volume |
 | Issue | Rich text | No | Journal issue |
 | Pages | Rich text | No | Page range / article number |
 | DOI | URL | No | Single link field (DOI URL or external paper link) |
 | Cover | Files & media | No | Journal cover image (first file used) |
 
-## 6) Recommended Editing Rule
+## 6) Database Schema: Patents
 
-- Team and Publications should always be edited in Notion first.
+| Property | Type | Required | Notes |
+|---|---|---:|---|
+| Published | Checkbox | No | Unchecked items are hidden |
+| Title | Title | Yes | Patent title |
+| ID | Rich text | No | Stable slug-like ID |
+| Year | Number | No | Temporary grouping fallback until Filing Date is complete |
+| Jurisdiction | Select | Yes | e.g., `United States`, `European Patent Office` |
+| Stage | Select | Yes | `Application` / `Granted` |
+| Legal Status | Select | No | `Pending` / `Active` / `Abandoned` / `Expired` |
+| Application Number | Rich text | No | Application number |
+| Grant/Publication Number | Rich text | No | Grant or publication number |
+| Inventors | Rich text | Yes | Use `;` or newline between inventors |
+| Filing Date | Date | No | Used for the final year grouping once entered |
+| URL | URL | No | Public patent record |
+
+## 7) Database Schema: Conference Presentations
+
+| Property | Type | Required | Notes |
+|---|---|---:|---|
+| Published | Checkbox | No | Unchecked items are hidden |
+| Title | Title | Yes | Presentation title |
+| ID | Rich text | No | Stable slug-like ID |
+| Conference | Rich text | Yes | Full conference name |
+| Date | Date | Yes | Use a date range for multi-day conferences |
+| Presentation Type | Select | Yes | `Poster` / `Oral` / `Invited Talk` |
+| Presenters | Multi-select | Yes | Names shown in bold |
+| Authors | Rich text | Yes | Use `;` or newline between authors |
+| Corresponding Authors | Multi-select | No | Matching names receive `*` automatically |
+| City | Rich text | Yes | Displayed on the website |
+| Country | Select | Yes | Displayed on the website |
+| Award | Rich text | No | Displayed only when present |
+| Note | Rich text | No | Internal note; not shown publicly |
+
+## 8) Recommended Editing Rule
+
+- Team, Papers, Patents, and Conference Presentations should always be edited in Notion first.
 - For News, write a concise one- or two-sentence `Summary`; the next daily sync publishes it automatically.
 - News images are resized to a maximum of 1920 px and converted to WebP during sync.
 - Run `npm run cms:sync:notion` after edits.

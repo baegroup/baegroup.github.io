@@ -23,6 +23,10 @@ jobs:
       NOTION_TEAM_DATA_SOURCE_ID: 31d6760c-5a65-80c3-ace0-000b507b3c1e
       NOTION_PUBLICATIONS_DB_ID: 31d6760c-5a65-80e9-bd96-e303108723ea
       NOTION_PUBLICATIONS_DATA_SOURCE_ID: 31d6760c-5a65-808f-afe3-000b3cdaee84
+      NOTION_PATENTS_DB_ID: 12c02565-a6ac-4b54-b84e-59cb76221632
+      NOTION_PATENTS_DATA_SOURCE_ID: 9d50f22d-3aa2-43d0-a4aa-80c11986aff1
+      NOTION_PRESENTATIONS_DB_ID: 91d9e4a0-1ba2-4056-90f0-9efaf40184ab
+      NOTION_PRESENTATIONS_DATA_SOURCE_ID: a7f5dc6e-6584-48d3-808d-f146054d6b6b
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -45,6 +49,8 @@ jobs:
             NOTION_NEWS_DB_ID
             NOTION_TEAM_DB_ID
             NOTION_PUBLICATIONS_DB_ID
+            NOTION_PATENTS_DB_ID
+            NOTION_PRESENTATIONS_DB_ID
           )
           missing=()
           for key in "${required[@]}"; do

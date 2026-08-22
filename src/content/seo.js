@@ -83,13 +83,19 @@ export const SEO_ROUTES = [
     path: '/publications',
     title: 'Publications | Bae Lab · Kyung Hee University',
     description:
-      'Browse Bae Lab journal articles, current manuscripts, patents, and research profiles in functional materials and additive manufacturing.'
+      'Browse Bae Lab journal articles, current manuscripts, conference presentations, patents, and research profiles in functional materials and additive manufacturing.'
   },
   {
     path: '/publications/patents',
     title: 'Patents | Bae Lab · Kyung Hee University',
     description:
       'Browse patents from Bae Lab covering functional materials, advanced manufacturing, energy, environmental, and biomedical technologies.'
+  },
+  {
+    path: '/publications/conferences',
+    title: 'Conference Presentations | Bae Lab · Kyung Hee University',
+    description:
+      'Browse poster, oral, and invited conference presentations by Bae Lab members in functional materials and additive manufacturing.'
   },
   {
     path: '/news',

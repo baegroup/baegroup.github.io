@@ -19,7 +19,7 @@ const PROGRAM_LABELS = {
 
 const PUB_TYPE_LABELS = {
   all: 'All',
-  conference: 'Conference',
+  conference: 'Conferences',
   journal: 'Journal',
   preprint: 'Preprint',
   patent: 'Patent'

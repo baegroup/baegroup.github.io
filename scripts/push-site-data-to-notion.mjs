@@ -5,7 +5,7 @@ const ROOT = process.cwd();
 const TEAM_JSON_PATH = path.join(ROOT, 'public', 'data', 'team.json');
 const PUBLICATIONS_JSON_PATH = path.join(ROOT, 'public', 'data', 'publications.json');
 const NOTION_API_VERSION = '2025-09-03';
-const DEFAULT_SITE_BASE_URL = 'https://baegroup.github.io';
+const DEFAULT_SITE_BASE_URL = 'https://baelab.khu.ac.kr';
 
 async function loadDotenv(fileName) {
   const filePath = path.join(ROOT, fileName);
@@ -110,6 +110,23 @@ function urlValue(value) {
 
 function checkboxValue(value) {
   return { checkbox: Boolean(value) };
+}
+
+function multiSelectValue(values = []) {
+  return {
+    multi_select: [...new Set(values.map((value) => String(value || '').trim()).filter(Boolean))]
+      .map((name) => ({ name }))
+  };
+}
+
+function dateValue(start, end = '') {
+  const normalizedStart = String(start || '').trim();
+  const normalizedEnd = String(end || '').trim();
+  return {
+    date: normalizedStart
+      ? { start: normalizedStart, end: normalizedEnd || null }
+      : null
+  };
 }
 
 function filesExternalValue(url) {
@@ -253,6 +270,18 @@ async function ensureProperties({ token, dataSourceId, specs }) {
     }
     if (spec.type === 'number') {
       toAdd[spec.name] = { number: { format: 'number' } };
+      return;
+    }
+    if (spec.type === 'multi_select') {
+      toAdd[spec.name] = {
+        multi_select: {
+          options: (spec.options || []).map((name) => ({ name }))
+        }
+      };
+      return;
+    }
+    if (spec.type === 'date') {
+      toAdd[spec.name] = { date: {} };
     }
   });
 
@@ -583,7 +612,8 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
 }
 
 async function pushPublications({ token, dataSourceId, siteBaseUrl }) {
-  const publications = await readJson(PUBLICATIONS_JSON_PATH);
+  const publications = (await readJson(PUBLICATIONS_JSON_PATH))
+    .filter((publication) => publication.type === 'journal' || publication.type === 'preprint');
   let dataSource = await ensureProperties({
     token,
     dataSourceId,
@@ -592,7 +622,7 @@ async function pushPublications({ token, dataSourceId, siteBaseUrl }) {
       { name: 'Title', type: 'title' },
       { name: 'ID', type: 'rich_text' },
       { name: 'Year', type: 'rich_text' },
-      { name: 'Type', type: 'select', options: ['journal', 'patent', 'preprint', 'conference'] },
+      { name: 'Type', type: 'select', options: ['journal', 'preprint'] },
       { name: 'Author', type: 'rich_text' },
       { name: 'Journal', type: 'rich_text' },
       { name: 'Volume', type: 'rich_text' },
@@ -634,7 +664,7 @@ async function pushPublications({ token, dataSourceId, siteBaseUrl }) {
     dataSourceId,
     uniqueFieldName: idProp || titleProp,
     fallbackFieldName: titleProp,
-    itemLabel: 'publications',
+    itemLabel: 'papers',
     items,
     buildProperties: ({ publication }) => {
       const properties = {};
@@ -684,6 +714,136 @@ async function pushPublications({ token, dataSourceId, siteBaseUrl }) {
   });
 }
 
+async function pushPatents({ token, dataSourceId }) {
+  const patents = (await readJson(PUBLICATIONS_JSON_PATH)).filter((item) => item.type === 'patent');
+  const dataSource = await ensureProperties({
+    token,
+    dataSourceId,
+    specs: [
+      { name: 'Published', type: 'checkbox' },
+      { name: 'Title', type: 'title' },
+      { name: 'ID', type: 'rich_text' },
+      { name: 'Year', type: 'number' },
+      { name: 'Jurisdiction', type: 'select' },
+      { name: 'Stage', type: 'select', options: ['Application', 'Granted'] },
+      { name: 'Legal Status', type: 'select', options: ['Pending', 'Active', 'Abandoned', 'Expired'] },
+      { name: 'Application Number', type: 'rich_text' },
+      { name: 'Grant/Publication Number', type: 'rich_text' },
+      { name: 'Inventors', type: 'rich_text' },
+      { name: 'Filing Date', type: 'date' },
+      { name: 'URL', type: 'url' }
+    ]
+  });
+  const propertyMap = propertyByNameMap(dataSource);
+  const publishedProp = pickProperty(propertyMap, ['Published']);
+  const titleProp = pickProperty(propertyMap, ['Title']);
+  const idProp = pickProperty(propertyMap, ['ID']);
+  const yearProp = pickProperty(propertyMap, ['Year']);
+  const jurisdictionProp = pickProperty(propertyMap, ['Jurisdiction']);
+  const stageProp = pickProperty(propertyMap, ['Stage']);
+  const legalStatusProp = pickProperty(propertyMap, ['Legal Status']);
+  const applicationNumberProp = pickProperty(propertyMap, ['Application Number']);
+  const publicationNumberProp = pickProperty(propertyMap, ['Grant/Publication Number']);
+  const inventorsProp = pickProperty(propertyMap, ['Inventors']);
+  const filingDateProp = pickProperty(propertyMap, ['Filing Date']);
+  const urlProp = pickProperty(propertyMap, ['URL']);
+
+  await upsertPages({
+    token,
+    dataSourceId,
+    uniqueFieldName: idProp || titleProp,
+    fallbackFieldName: titleProp,
+    itemLabel: 'patents',
+    items: patents.map((patent) => ({ key: patent.id, fallbackKey: patent.title, patent })),
+    buildProperties: ({ patent }) => {
+      const properties = {};
+      if (publishedProp) properties[publishedProp] = checkboxValue(true);
+      if (titleProp) properties[titleProp] = titleValue(patent.title);
+      if (idProp) properties[idProp] = richTextValue(patent.id);
+      if (yearProp) properties[yearProp] = numberValue(Number(patent.year));
+      if (jurisdictionProp) properties[jurisdictionProp] = selectValue(patent.jurisdiction);
+      if (stageProp) properties[stageProp] = selectValue(patent.stage);
+      if (legalStatusProp) properties[legalStatusProp] = selectValue(patent.legalStatus);
+      if (applicationNumberProp) properties[applicationNumberProp] = richTextValue(patent.applicationNumber);
+      if (publicationNumberProp) properties[publicationNumberProp] = richTextValue(patent.publicationNumber);
+      if (inventorsProp) properties[inventorsProp] = richTextValue((patent.authors || []).join('; '));
+      if (filingDateProp) properties[filingDateProp] = dateValue(patent.filingDate);
+      if (urlProp) properties[urlProp] = urlValue(patent.link);
+      return properties;
+    }
+  });
+}
+
+async function pushConferencePresentations({ token, dataSourceId }) {
+  const presentations = (await readJson(PUBLICATIONS_JSON_PATH)).filter((item) => item.type === 'conference');
+  const dataSource = await ensureProperties({
+    token,
+    dataSourceId,
+    specs: [
+      { name: 'Published', type: 'checkbox' },
+      { name: 'Title', type: 'title' },
+      { name: 'ID', type: 'rich_text' },
+      { name: 'Conference', type: 'rich_text' },
+      { name: 'Date', type: 'date' },
+      { name: 'Presentation Type', type: 'select', options: ['Poster', 'Oral', 'Invited Talk'] },
+      { name: 'Presenters', type: 'multi_select' },
+      { name: 'Authors', type: 'rich_text' },
+      { name: 'Corresponding Authors', type: 'multi_select' },
+      { name: 'City', type: 'rich_text' },
+      { name: 'Country', type: 'select' },
+      { name: 'Award', type: 'rich_text' },
+      { name: 'Note', type: 'rich_text' }
+    ]
+  });
+  const propertyMap = propertyByNameMap(dataSource);
+  const property = (...names) => pickProperty(propertyMap, names);
+  const fields = {
+    published: property('Published'),
+    title: property('Title'),
+    id: property('ID'),
+    conference: property('Conference'),
+    date: property('Date'),
+    type: property('Presentation Type'),
+    presenters: property('Presenters'),
+    authors: property('Authors'),
+    corresponding: property('Corresponding Authors'),
+    city: property('City'),
+    country: property('Country'),
+    award: property('Award'),
+    note: property('Note')
+  };
+
+  await upsertPages({
+    token,
+    dataSourceId,
+    uniqueFieldName: fields.id || fields.title,
+    fallbackFieldName: fields.title,
+    itemLabel: 'conference presentations',
+    items: presentations.map((presentation) => ({
+      key: presentation.id,
+      fallbackKey: presentation.title,
+      presentation
+    })),
+    buildProperties: ({ presentation }) => {
+      const properties = {};
+      if (fields.published) properties[fields.published] = checkboxValue(true);
+      if (fields.title) properties[fields.title] = titleValue(presentation.title);
+      if (fields.id) properties[fields.id] = richTextValue(presentation.id);
+      if (fields.conference) properties[fields.conference] = richTextValue(presentation.conference);
+      if (fields.date) properties[fields.date] = dateValue(presentation.dateStart, presentation.dateEnd);
+      if (fields.type) properties[fields.type] = selectValue(presentation.presentationType);
+      if (fields.presenters) properties[fields.presenters] = multiSelectValue(presentation.presenters);
+      if (fields.authors) properties[fields.authors] = richTextValue((presentation.authors || []).join('; '));
+      if (fields.corresponding) properties[fields.corresponding] = multiSelectValue(presentation.correspondingAuthors);
+      if (fields.city) properties[fields.city] = richTextValue(presentation.city);
+      if (fields.country) properties[fields.country] = selectValue(presentation.country);
+      if (fields.award) properties[fields.award] = richTextValue(presentation.award);
+      if (fields.note) properties[fields.note] = richTextValue(presentation.note);
+      return properties;
+    }
+  });
+}
+
 async function main() {
   await loadDotenv('.env.local');
   await loadDotenv('.env');
@@ -693,6 +853,8 @@ async function main() {
 
   const teamDatabaseId = requireEnv('NOTION_TEAM_DB_ID');
   const publicationsDatabaseId = requireEnv('NOTION_PUBLICATIONS_DB_ID');
+  const patentsDatabaseId = requireEnv('NOTION_PATENTS_DB_ID');
+  const presentationsDatabaseId = requireEnv('NOTION_PRESENTATIONS_DB_ID');
 
   const teamDataSourceId = await resolveDataSourceId({
     token,
@@ -703,6 +865,16 @@ async function main() {
     token,
     databaseId: publicationsDatabaseId,
     envDataSourceId: String(process.env.NOTION_PUBLICATIONS_DATA_SOURCE_ID || '').trim()
+  });
+  const patentsDataSourceId = await resolveDataSourceId({
+    token,
+    databaseId: patentsDatabaseId,
+    envDataSourceId: String(process.env.NOTION_PATENTS_DATA_SOURCE_ID || '').trim()
+  });
+  const presentationsDataSourceId = await resolveDataSourceId({
+    token,
+    databaseId: presentationsDatabaseId,
+    envDataSourceId: String(process.env.NOTION_PRESENTATIONS_DATA_SOURCE_ID || '').trim()
   });
 
   await pushTeam({
@@ -717,7 +889,10 @@ async function main() {
     siteBaseUrl
   });
 
-  console.log('Notion Team/Publications databases updated from current website JSON.');
+  await pushPatents({ token, dataSourceId: patentsDataSourceId });
+  await pushConferencePresentations({ token, dataSourceId: presentationsDataSourceId });
+
+  console.log('Notion Team, Papers, Patents, and Conference Presentations databases updated from current website JSON.');
 }
 
 main().catch((error) => {

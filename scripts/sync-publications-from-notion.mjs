@@ -164,6 +164,16 @@ function propertyToFiles(property) {
     .filter(Boolean);
 }
 
+function propertyToDateRange(property) {
+  if (!property || property.type !== 'date' || !property.date?.start) {
+    return { start: '', end: '' };
+  }
+  return {
+    start: String(property.date.start || '').trim(),
+    end: String(property.date.end || '').trim()
+  };
+}
+
 function parseNameList(value) {
   const text = String(value || '').trim();
   if (!text) {
@@ -334,7 +344,7 @@ function normalizeType(value) {
   return 'journal';
 }
 
-async function convertPagesToPublications({ pages }) {
+async function convertPagesToPapers({ pages }) {
   await fs.mkdir(COVERS_ASSET_DIR, { recursive: true });
 
   const publications = [];
@@ -358,6 +368,9 @@ async function convertPagesToPublications({ pages }) {
       Number(String(propertyToText(findProperty(properties, ['Date', 'Published Date', '게재일'])).slice(0, 4))) ||
       new Date().getFullYear();
     const type = normalizeType(propertyToText(findProperty(properties, ['Type', 'Category', '구분'])));
+    if (type !== 'journal' && type !== 'preprint') {
+      continue;
+    }
     const authors = parseNameList(propertyToText(findProperty(properties, ['Authors', 'Author', 'Author List', '저자'])));
     const journal = propertyToText(findProperty(properties, ['Journal', 'Venue', '학술지']));
     const volume = propertyToText(findProperty(properties, ['Volume', 'Vol', '권']));
@@ -407,22 +420,149 @@ async function convertPagesToPublications({ pages }) {
   return publications;
 }
 
+function convertPagesToPatents({ pages }) {
+  const patents = [];
+
+  for (const page of pages) {
+    const properties = page.properties || {};
+    const publishedProp = findProperty(properties, ['Published', 'Visible', 'Show', '게시', '공개'], 'checkbox');
+    if (!propertyToBool(publishedProp, true)) continue;
+
+    const title = propertyToText(findProperty(properties, ['Title', 'Name', '특허명', '제목'], 'title'));
+    if (!title) continue;
+
+    const idRaw = propertyToText(findProperty(properties, ['ID', 'Slug', '식별자']));
+    const filingDate = propertyToDateRange(findProperty(properties, ['Filing Date', 'Application Date', '출원일'], 'date')).start;
+    const year = Number(filingDate.slice(0, 4))
+      || propertyToNumber(findProperty(properties, ['Year', '연도']))
+      || new Date().getFullYear();
+    const jurisdiction = propertyToText(findProperty(properties, ['Jurisdiction', 'Country', '국가']));
+    const stage = propertyToText(findProperty(properties, ['Stage', 'Type', '출원/등록']));
+    const legalStatus = propertyToText(findProperty(properties, ['Legal Status', 'Status', '상태']));
+    const applicationNumber = propertyToText(findProperty(properties, ['Application Number', 'Application No.', '출원번호']));
+    const publicationNumber = propertyToText(findProperty(properties, ['Grant/Publication Number', 'Grant Number', 'Publication Number', '등록번호', '공개번호']));
+    const authors = parseNameList(propertyToText(findProperty(properties, ['Inventors', 'Authors', '발명자'])));
+    const link = propertyToText(findProperty(properties, ['URL', 'Link', 'Record'], 'url'))
+      || propertyToText(findProperty(properties, ['URL', 'Link', 'Record']));
+
+    patents.push({
+      id: toSlug(idRaw || title),
+      year,
+      type: 'patent',
+      title,
+      authors,
+      jurisdiction,
+      stage,
+      legalStatus,
+      applicationNumber,
+      publicationNumber,
+      filingDate,
+      journal: jurisdiction,
+      volume: applicationNumber || publicationNumber,
+      issue: '',
+      pages: '',
+      doi: '',
+      link,
+      coverImage: ''
+    });
+  }
+
+  return patents;
+}
+
+function convertPagesToConferences({ pages }) {
+  const conferences = [];
+
+  for (const page of pages) {
+    const properties = page.properties || {};
+    const publishedProp = findProperty(properties, ['Published', 'Visible', 'Show', '게시', '공개'], 'checkbox');
+    if (!propertyToBool(publishedProp, true)) continue;
+
+    const title = propertyToText(findProperty(properties, ['Title', 'Name', '발표명', '제목'], 'title'));
+    if (!title) continue;
+
+    const idRaw = propertyToText(findProperty(properties, ['ID', 'Slug', '식별자']));
+    const dateRange = propertyToDateRange(findProperty(properties, ['Date', 'Conference Date', '발표일'], 'date'));
+    const year = Number(dateRange.start.slice(0, 4)) || new Date().getFullYear();
+
+    conferences.push({
+      id: toSlug(idRaw || title),
+      year,
+      type: 'conference',
+      title,
+      authors: parseNameList(propertyToText(findProperty(properties, ['Authors', 'Author List', '저자']))),
+      presenters: parseNameList(propertyToText(findProperty(properties, ['Presenters', 'Presenter', '발표자']))),
+      correspondingAuthors: parseNameList(propertyToText(findProperty(properties, ['Corresponding Authors', 'Corresponding Author', '교신저자']))),
+      conference: propertyToText(findProperty(properties, ['Conference', 'Conference Name', '학회명'])),
+      presentationType: propertyToText(findProperty(properties, ['Presentation Type', 'Type', '발표유형'])),
+      dateStart: dateRange.start,
+      dateEnd: dateRange.end,
+      city: propertyToText(findProperty(properties, ['City', '도시'])),
+      country: propertyToText(findProperty(properties, ['Country', '국가'])),
+      award: propertyToText(findProperty(properties, ['Award', '수상'])),
+      note: propertyToText(findProperty(properties, ['Note', 'Notes', '메모'])),
+      journal: '',
+      volume: '',
+      issue: '',
+      pages: '',
+      doi: '',
+      link: '',
+      coverImage: ''
+    });
+  }
+
+  return conferences;
+}
+
 async function main() {
   await loadDotenv('.env.local');
   await loadDotenv('.env');
 
   const notionToken = requireEnv('NOTION_TOKEN');
-  const notionDbId = requireEnv('NOTION_PUBLICATIONS_DB_ID');
-  const pages = await fetchNotionPages({
-    token: notionToken,
-    databaseId: notionDbId,
-    dataSourceEnvKey: 'NOTION_PUBLICATIONS_DATA_SOURCE_ID'
+  const papersDbId = requireEnv('NOTION_PUBLICATIONS_DB_ID');
+  const patentsDbId = requireEnv('NOTION_PATENTS_DB_ID');
+  const presentationsDbId = requireEnv('NOTION_PRESENTATIONS_DB_ID');
+
+  const [paperPages, patentPages, presentationPages] = await Promise.all([
+    fetchNotionPages({
+      token: notionToken,
+      databaseId: papersDbId,
+      dataSourceEnvKey: 'NOTION_PUBLICATIONS_DATA_SOURCE_ID'
+    }),
+    fetchNotionPages({
+      token: notionToken,
+      databaseId: patentsDbId,
+      dataSourceEnvKey: 'NOTION_PATENTS_DATA_SOURCE_ID'
+    }),
+    fetchNotionPages({
+      token: notionToken,
+      databaseId: presentationsDbId,
+      dataSourceEnvKey: 'NOTION_PRESENTATIONS_DATA_SOURCE_ID'
+    })
+  ]);
+
+  const papers = await convertPagesToPapers({ pages: paperPages });
+  const patents = convertPagesToPatents({ pages: patentPages });
+  const conferences = convertPagesToConferences({ pages: presentationPages });
+  const publications = [...papers, ...patents, ...conferences].sort((a, b) => {
+    const yearDelta = (b.year || 0) - (a.year || 0);
+    if (yearDelta !== 0) return yearDelta;
+    const dateDelta = String(b.dateStart || b.filingDate || '').localeCompare(String(a.dateStart || a.filingDate || ''));
+    if (dateDelta !== 0) return dateDelta;
+    return String(a.title || '').localeCompare(String(b.title || ''));
   });
 
-  const publications = await convertPagesToPublications({ pages });
   await fs.writeFile(PUBLICATIONS_OUTPUT_PATH, `${JSON.stringify(publications, null, 2)}\n`, 'utf8');
-  console.log(`Synced publications from Notion -> public/data/publications.json (${publications.length} records)`);
+  console.log(
+    `Synced publication records from Notion -> public/data/publications.json (${papers.length} papers, ${patents.length} patents, ${conferences.length} conferences)`
+  );
 }
+
+/*
+  The three Notion tables intentionally compile into one public JSON file so the
+  existing website cache and numbering logic stay lightweight. Notion remains
+  the editorial source of truth for each record type.
+*/
 
 main().catch((error) => {
   console.error(error);

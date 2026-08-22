@@ -10,6 +10,7 @@
     "news:sync:notion": "node scripts/sync-news-from-notion.mjs",
     "team:sync:notion": "node scripts/sync-team-from-notion.mjs",
     "publications:sync:notion": "node scripts/sync-publications-from-notion.mjs",
+    "notion:setup:publication-dbs": "node scripts/setup-notion-publication-databases.mjs",
     "notion:push:site-data": "node scripts/push-site-data-to-notion.mjs",
     "analytics:sync:notion": "node scripts/sync-analytics-to-notion.mjs",
     "cms:sync:notion": "npm run news:sync:notion && npm run team:sync:notion && npm run publications:sync:notion",

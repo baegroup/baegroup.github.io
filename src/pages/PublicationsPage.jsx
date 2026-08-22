@@ -62,6 +62,12 @@ function isLabAuthor(author, labNames) {
   });
 }
 
+function isNamedAuthor(author, names = []) {
+  const normalized = normalizeAuthorName(author).toLowerCase();
+  if (!normalized) return false;
+  return names.some((name) => normalizeAuthorName(name).toLowerCase() === normalized);
+}
+
 function normalizeJournalKey(value) {
   return String(value || '')
     .toLowerCase()
@@ -106,6 +112,52 @@ function buildMetadataParts(publication) {
   return parts;
 }
 
+function parseIsoDate(value) {
+  const match = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return null;
+  return {
+    year: Number(match[1]),
+    month: Number(match[2]),
+    day: Number(match[3])
+  };
+}
+
+function monthName(month) {
+  return new Intl.DateTimeFormat('en-US', { month: 'short', timeZone: 'UTC' }).format(
+    new Date(Date.UTC(2020, Math.max(0, Number(month) - 1), 1))
+  );
+}
+
+function formatDateRange(startValue, endValue = '') {
+  const start = parseIsoDate(startValue);
+  const end = parseIsoDate(endValue) || start;
+  if (!start) return '';
+  if (start.year === end.year && start.month === end.month && start.day === end.day) {
+    return `${monthName(start.month)} ${start.day}, ${start.year}`;
+  }
+  if (start.year === end.year && start.month === end.month) {
+    return `${monthName(start.month)} ${start.day}–${end.day}, ${start.year}`;
+  }
+  if (start.year === end.year) {
+    return `${monthName(start.month)} ${start.day}–${monthName(end.month)} ${end.day}, ${start.year}`;
+  }
+  return `${monthName(start.month)} ${start.day}, ${start.year}–${monthName(end.month)} ${end.day}, ${end.year}`;
+}
+
+function MetadataRow({ parts }) {
+  if (!parts.length) return null;
+  return (
+    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-600">
+      {parts.map((part, index) => (
+        <span className="inline-flex items-center gap-x-2" key={part.key}>
+          {index > 0 ? <span className="text-slate-400">·</span> : null}
+          <span className={part.italic ? 'italic text-slate-700' : ''}>{part.value}</span>
+        </span>
+      ))}
+    </div>
+  );
+}
+
 function PublicationDoiLink({ publication }) {
   if (!publication?.doi) {
     return null;
@@ -129,6 +181,12 @@ function compareChronologicalAsc(a, b) {
   if (yearDelta !== 0) {
     return yearDelta;
   }
+  const aDate = String(a?.dateStart || a?.filingDate || '');
+  const bDate = String(b?.dateStart || b?.filingDate || '');
+  if (aDate || bDate) {
+    const dateDelta = aDate.localeCompare(bDate);
+    if (dateDelta !== 0) return dateDelta;
+  }
   const titleDelta = String(a?.localizedTitle || a?.title || '').localeCompare(String(b?.localizedTitle || b?.title || ''));
   if (titleDelta !== 0) {
     return titleDelta;
@@ -148,28 +206,41 @@ function formatCoverDateLabel(item) {
   return '';
 }
 
-function PublicationInfoPanel({ updatedAt }) {
+function PublicationInfoPanel({ type = 'journal', updatedAt }) {
+  const isConference = type === 'conference';
+  const isPatent = type === 'patent';
+
   return (
     <section className="site-rule-strong space-y-3 border-b pb-5 text-[0.8125rem] leading-relaxed text-slate-600">
-      <p>
-        View the complete publication record on{' '}
-        <a className="site-text-link" href={SCHOLAR_URL} rel="noreferrer" target="_blank">
-          Google Scholar<ExternalLinkIcon />
-        </a>
-        .
-      </p>
+      {isPatent ? (
+        <p>Follow each patent title to view its publicly available application or registration record on Google Patents.</p>
+      ) : isConference ? (
+        <p>Conference presentations by Bae Lab members.</p>
+      ) : (
+        <p>
+          View the complete publication record on{' '}
+          <a className="site-text-link" href={SCHOLAR_URL} rel="noreferrer" target="_blank">
+            Google Scholar<ExternalLinkIcon />
+          </a>
+          .
+        </p>
+      )}
       <p className="flex gap-2">
         <span className="font-semibold text-slate-800">Bold names</span>
-        <span>Bae Lab authors</span>
+        <span>{isConference ? 'Presenting authors' : isPatent ? 'Bae Lab inventors' : 'Bae Lab authors'}</span>
       </p>
-      <p className="flex gap-2">
-        <span className="font-semibold text-slate-800">*</span>
-        <span>Corresponding author</span>
-      </p>
-      <p className="flex gap-2">
-        <span className="font-semibold text-slate-800">†</span>
-        <span>Co-first author</span>
-      </p>
+      {!isPatent ? (
+        <p className="flex gap-2">
+          <span className="font-semibold text-slate-800">*</span>
+          <span>Corresponding author</span>
+        </p>
+      ) : null}
+      {type === 'journal' ? (
+        <p className="flex gap-2">
+          <span className="font-semibold text-slate-800">†</span>
+          <span>Co-first author</span>
+        </p>
+      ) : null}
       {updatedAt ? <p className="text-slate-600">Updated {updatedAt}</p> : null}
     </section>
   );
@@ -507,11 +578,146 @@ function PublicationList({ items, numbers, labAuthorNames, years }) {
   );
 }
 
+function ConferenceList({ items, numbers, years }) {
+  return (
+    <div className="space-y-8 md:space-y-10">
+      {years.map((year) => {
+        const yearItems = items
+          .filter((item) => item.year === year)
+          .sort((a, b) => (numbers.get(b.id) || 0) - (numbers.get(a.id) || 0));
+
+        return (
+          <section key={year}>
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">{year}</h2>
+            <ol className="site-rule-strong mt-4 border-t">
+              {yearItems.map((item) => {
+                const presenters = item.presenters || [];
+                const correspondingAuthors = item.correspondingAuthors || [];
+                const location = [item.city, item.country].filter(Boolean).join(', ');
+                const date = formatDateRange(item.dateStart, item.dateEnd);
+                const metadata = [
+                  item.conference ? { key: 'conference', value: item.conference, italic: true } : null,
+                  location ? { key: 'location', value: location } : null,
+                  date ? { key: 'date', value: date } : null
+                ].filter(Boolean);
+
+                return (
+                  <li className="site-list-row site-rule-soft grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b" key={item.id}>
+                    <span className="site-meta-index pt-[1.7rem]">{formatItemNumber(numbers.get(item.id) || '-')}</span>
+                    <div className="min-w-0 space-y-2">
+                      {item.presentationType ? (
+                        <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-slate-500">
+                          {item.presentationType}
+                        </p>
+                      ) : null}
+                      <p className="min-w-0 text-lg font-semibold leading-snug text-slate-950 [text-wrap:pretty] md:text-xl">
+                        {item.localizedTitle}
+                      </p>
+                      <p className="site-copy-body">
+                        {(item.authors || []).map((author, index) => {
+                          const presenter = isNamedAuthor(author, presenters);
+                          const corresponding = isNamedAuthor(author, correspondingAuthors);
+                          return (
+                            <span key={`${item.id}-conference-author-${author}-${index}`}>
+                              <span className={presenter ? 'font-semibold text-slate-900' : ''}>
+                                {normalizeAuthorName(author)}{corresponding ? '*' : ''}
+                              </span>
+                              {index < item.authors.length - 1 ? ', ' : ''}
+                            </span>
+                          );
+                        })}
+                        {item.authors?.length ? '.' : null}
+                      </p>
+                      <MetadataRow parts={metadata} />
+                      {item.award ? <p className="text-sm font-semibold text-[var(--brand-burgundy)]">{item.award}</p> : null}
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        );
+      })}
+    </div>
+  );
+}
+
+function PatentList({ items, numbers, labAuthorNames, years }) {
+  return (
+    <div className="space-y-8 md:space-y-10">
+      {years.map((year) => {
+        const yearItems = items
+          .filter((item) => item.year === year)
+          .sort((a, b) => (numbers.get(b.id) || 0) - (numbers.get(a.id) || 0));
+
+        return (
+          <section key={year}>
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--brand-burgundy)]">{year}</h2>
+            <ol className="site-rule-strong mt-4 border-t">
+              {yearItems.map((item) => {
+                const status = [item.stage, item.legalStatus].filter(Boolean).join(' · ');
+                const recordNumber = item.stage === 'Granted'
+                  ? item.publicationNumber || item.applicationNumber
+                  : item.applicationNumber || item.publicationNumber;
+                const filingDate = formatDateRange(item.filingDate);
+                const metadata = [
+                  item.jurisdiction ? { key: 'jurisdiction', value: item.jurisdiction } : null,
+                  recordNumber ? { key: 'recordNumber', value: recordNumber } : null,
+                  filingDate ? { key: 'filingDate', value: `Filed ${filingDate}` } : null
+                ].filter(Boolean);
+                const hasKicker = Boolean(status);
+
+                return (
+                  <li className="site-list-row site-rule-soft grid grid-cols-[2.125rem_minmax(0,1fr)] gap-3 border-b" key={item.id}>
+                    <span className={`site-meta-index ${hasKicker ? 'pt-[1.7rem]' : 'pt-1'}`}>
+                      {formatItemNumber(numbers.get(item.id) || '-')}
+                    </span>
+                    <div className="min-w-0 space-y-2">
+                      {status ? (
+                        <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-slate-500">{status}</p>
+                      ) : null}
+                      <p className="min-w-0 text-lg font-semibold leading-snug text-slate-950 [text-wrap:pretty] md:text-xl">
+                        {item.link ? (
+                          <a className="transition-colors hover:text-[var(--brand-burgundy)]" href={item.link} rel="noreferrer" target="_blank">
+                            {item.localizedTitle}<ExternalLinkIcon className="ml-1 inline-block align-baseline" />
+                          </a>
+                        ) : item.localizedTitle}
+                      </p>
+                      <p className="site-copy-body">
+                        {(item.authors || []).map((author, index) => {
+                          const highlight = isLabAuthor(author, labAuthorNames);
+                          return (
+                            <span key={`${item.id}-inventor-${author}-${index}`}>
+                              <span className={highlight ? 'font-semibold text-slate-900' : ''}>{author}</span>
+                              {index < item.authors.length - 1 ? ', ' : ''}
+                            </span>
+                          );
+                        })}
+                        {item.authors?.length ? '.' : null}
+                      </p>
+                      <MetadataRow parts={metadata} />
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        );
+      })}
+    </div>
+  );
+}
+
 export function PublicationsPage({ locale }) {
   const { periodSlug = '', typeSlug = '' } = useParams();
   const content = PUBLICATIONS_CONTENT[locale] || PUBLICATIONS_CONTENT.en;
   const labels = publicationTypeLabels(locale);
-  const filter = typeSlug === 'patent' || typeSlug === 'patents' ? 'patent' : 'journal';
+  const normalizedTypeSlug = String(typeSlug || '').toLowerCase();
+  const filter = normalizedTypeSlug === 'patent' || normalizedTypeSlug === 'patents'
+    ? 'patent'
+    : ['conference', 'conferences', 'presentation', 'presentations'].includes(normalizedTypeSlug)
+      ? 'conference'
+      : 'journal';
   const [items, setItems] = useState([]);
   const [allItems, setAllItems] = useState([]);
   const [coverManifest, setCoverManifest] = useState([]);
@@ -652,10 +858,10 @@ export function PublicationsPage({ locale }) {
     };
   }, []);
 
-  const filters = useMemo(() => ['journal', 'patent'], []);
+  const filters = useMemo(() => ['journal', 'conference', 'patent'], []);
 
   const numbersByType = useMemo(() => {
-    const types = ['journal', 'patent', 'preprint'];
+    const types = ['journal', 'conference', 'patent', 'preprint'];
     const buckets = new Map();
 
     types.forEach((type) => {
@@ -757,7 +963,11 @@ export function PublicationsPage({ locale }) {
             items={filters.map((type) => ({
               id: type,
               label: type === 'journal' ? 'Papers' : labels[type],
-              to: type === 'patent' ? '/publications/patents/' : '/publications/'
+              to: type === 'patent'
+                ? '/publications/patents/'
+                : type === 'conference'
+                  ? '/publications/conferences/'
+                  : '/publications/'
             }))}
           />
         </PageHero>
@@ -765,11 +975,7 @@ export function PublicationsPage({ locale }) {
         <TabsContent className="page-content-offset" value={filter}>
           {loading ? <div className="content-state-row" role="status"><p className="content-state-label">Loading</p><p className="content-state-message">{content.loading}</p></div> : null}
           {!loading && error ? <div className="content-state-row is-error" role="alert"><p className="content-state-label">Error</p><p className="content-state-message">{error}</p></div> : null}
-          {!loading && !error && items.length === 0 ? (
-            <div className="content-state-row"><p className="content-state-label">Empty</p><p className="content-state-message">{content.empty}</p></div>
-          ) : null}
-
-          {!loading && !error && items.length > 0 ? (
+          {!loading && !error ? (
             <div className="grid min-w-0 grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_232px] lg:items-start lg:gap-8 xl:gap-10">
               <div className="min-w-0 space-y-8 md:space-y-10">
                 {showPreprintSection && currentPublicationPage === 1 ? (
@@ -781,12 +987,34 @@ export function PublicationsPage({ locale }) {
                   />
                 ) : null}
                 <div className="scroll-mt-28 space-y-4">
-                  <PublicationList
-                    items={paginatedPublicationItems}
-                    labAuthorNames={labAuthorNames}
-                    numbers={activeNumbers}
-                    years={activePublicationPage?.years || []}
-                  />
+                  {items.length === 0 ? (
+                    <div className="content-state-row">
+                      <p className="content-state-label">Empty</p>
+                      <p className="content-state-message">
+                        {filter === 'conference' ? 'Conference presentations will appear here as they are added.' : content.empty}
+                      </p>
+                    </div>
+                  ) : filter === 'conference' ? (
+                    <ConferenceList
+                      items={paginatedPublicationItems}
+                      numbers={activeNumbers}
+                      years={activePublicationPage?.years || []}
+                    />
+                  ) : filter === 'patent' ? (
+                    <PatentList
+                      items={paginatedPublicationItems}
+                      labAuthorNames={labAuthorNames}
+                      numbers={activeNumbers}
+                      years={activePublicationPage?.years || []}
+                    />
+                  ) : (
+                    <PublicationList
+                      items={paginatedPublicationItems}
+                      labAuthorNames={labAuthorNames}
+                      numbers={activeNumbers}
+                      years={activePublicationPage?.years || []}
+                    />
+                  )}
                   <PublicationPagination
                     currentPage={currentPublicationPage}
                     pageGroups={publicationPageGroups}
@@ -798,7 +1026,7 @@ export function PublicationsPage({ locale }) {
 
               <aside className="w-full lg:self-start">
                 <div className="xl:sticky xl:top-24">
-                  <PublicationInfoPanel updatedAt={updatedAt} />
+                  <PublicationInfoPanel type={filter} updatedAt={updatedAt} />
 
                   <section className="site-rule-strong border-b py-5">
                     <div className="mx-auto w-full max-w-sm lg:max-w-none">

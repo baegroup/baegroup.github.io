@@ -4,7 +4,7 @@
 Research Publications
 
 ## description
-Publication records from the previous Bae Lab website were migrated into this list. Entries are maintained in JSON and rendered automatically in IEEE-style format.
+Peer-reviewed papers, current manuscripts, conference presentations, and patents from Bae Lab.
 
 ## sectionTitle
 Publication List

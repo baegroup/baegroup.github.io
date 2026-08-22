@@ -55,6 +55,7 @@ const ROUTE_SOURCE_FILES = {
   '/team/alumni': ['src/pages/TeamPage.jsx', 'public/data/team.json'],
   '/research': ['src/pages/ResearchPage.jsx', 'content/en/research.md'],
   '/publications': ['src/pages/PublicationsPage.jsx', 'public/data/publications.json'],
+  '/publications/conferences': ['src/pages/PublicationsPage.jsx', 'public/data/publications.json'],
   '/publications/patents': ['src/pages/PublicationsPage.jsx', 'public/data/publications.json'],
   '/news': ['src/pages/NewsPage.jsx', 'public/data/news.json'],
   '/join': ['src/pages/JoinPage.jsx', 'content/en/join.md'],
@@ -215,21 +216,22 @@ function schemaAuthor(value) {
 
 function publicationSchema(item) {
   const isPatent = item.type === 'patent';
+  const isConference = item.type === 'conference';
   const isCurrentManuscript = item.type === 'preprint';
   const doi = String(item.doi || '').trim();
   const link = String(item.link || '').trim();
   const journal = String(item.journal || '').trim();
 
   return {
-    '@type': isPatent ? 'CreativeWork' : 'ScholarlyArticle',
+    '@type': isPatent || isConference ? 'CreativeWork' : 'ScholarlyArticle',
     name: item.title,
     author: (item.authors || [])
       .map(normalizeSchemaAuthorName)
       .filter(Boolean)
       .map(schemaAuthor),
-    datePublished: item.year ? String(item.year) : undefined,
+    datePublished: item.dateStart || item.filingDate || (item.year ? String(item.year) : undefined),
     creativeWorkStatus: isCurrentManuscript ? 'In preparation' : undefined,
-    genre: isPatent ? 'Patent' : isCurrentManuscript ? 'Current manuscript' : 'Journal article',
+    genre: isPatent ? 'Patent' : isConference ? 'Conference presentation' : isCurrentManuscript ? 'Current manuscript' : 'Journal article',
     isPartOf: journal && journal !== 'TBD'
       ? { '@type': 'Periodical', name: journal }
       : undefined,
@@ -245,7 +247,7 @@ function publicationSchema(item) {
 
 function buildPublicationRoutes(publications) {
   const routes = [];
-  for (const type of ['journal', 'patent']) {
+  for (const type of ['journal', 'conference', 'patent']) {
     const years = [...new Set(
       publications
         .filter((item) => item?.type === type && item?.year)
@@ -256,7 +258,12 @@ function buildPublicationRoutes(publications) {
       const group = years.slice(index, index + 3);
       const label = group.length > 1 ? `${group[0]}–${group[group.length - 1]}` : String(group[0]);
       const pageIndex = index / 3;
-      const baseRoute = SEO_ROUTES.find((route) => route.path === (type === 'patent' ? '/publications/patents' : '/publications'));
+      const basePath = type === 'patent'
+        ? '/publications/patents'
+        : type === 'conference'
+          ? '/publications/conferences'
+          : '/publications';
+      const baseRoute = SEO_ROUTES.find((route) => route.path === basePath);
       const listedItems = publications.filter((item) => item?.type === type && group.includes(Number(item.year)));
       if (type === 'journal' && pageIndex === 0) {
         listedItems.unshift(...publications.filter((item) => item?.type === 'preprint'));
@@ -265,14 +272,14 @@ function buildPublicationRoutes(publications) {
         path: publicationPagePath(type, pageIndex, group),
         title: pageIndex === 0
           ? baseRoute.title
-          : `${label} ${type === 'patent' ? 'Patents' : 'Journal Articles'} | Bae Lab`,
+          : `${label} ${type === 'patent' ? 'Patents' : type === 'conference' ? 'Conference Presentations' : 'Journal Articles'} | Bae Lab`,
         description: pageIndex === 0
           ? baseRoute.description
-          : `Browse Bae Lab ${type === 'patent' ? 'patents' : 'peer-reviewed journal articles'} published in ${label}, with links to available records and publishers.`,
+          : `Browse Bae Lab ${type === 'patent' ? 'patents' : type === 'conference' ? 'conference presentations' : 'peer-reviewed journal articles'} from ${label}.`,
         language: 'en',
         lastmod: gitLastModified(['public/data/publications.json']),
         schemaType: 'CollectionPage',
-        itemListName: `${type === 'patent' ? 'Bae Lab patents' : 'Bae Lab publications'} · ${label}`,
+        itemListName: `${type === 'patent' ? 'Bae Lab patents' : type === 'conference' ? 'Bae Lab conference presentations' : 'Bae Lab publications'} · ${label}`,
         itemListElements: listedItems.map(publicationSchema)
       });
     }

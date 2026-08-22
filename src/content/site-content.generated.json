@@ -203,7 +203,7 @@
   "PUBLICATIONS_CONTENT": {
     "en": {
       "title": "Research Publications",
-      "description": "Publication records from the previous Bae Lab website were migrated into this list. Entries are maintained in JSON and rendered automatically in IEEE-style format.",
+      "description": "Peer-reviewed papers, current manuscripts, conference presentations, and patents from Bae Lab.",
       "sectionTitle": "Publication List",
       "preprintTitle": "Manuscripts in Progress",
       "preprintItems": [],

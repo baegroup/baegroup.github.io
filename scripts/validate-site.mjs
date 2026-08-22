@@ -126,6 +126,7 @@ const requiredSeoPaths = [
   '/team/alumni',
   '/research',
   '/publications',
+  '/publications/conferences',
   '/publications/patents',
   '/news',
   '/join',

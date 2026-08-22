@@ -84,7 +84,7 @@ function classifyConnectionSignal(anchor) {
     if (RESEARCH_PROFILE_HOSTS.includes(url.hostname)) {
       return 'research_profile_interest';
     }
-    if (url.hostname === 'doi.org') {
+    if (url.hostname === 'doi.org' || url.hostname === 'patents.google.com') {
       return 'publication_interest';
     }
   } catch {

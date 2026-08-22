@@ -62,7 +62,7 @@ export function publicationPeriodSlug(years = []) {
 }
 
 export function publicationPagePath(type, pageIndex, years = []) {
-  const normalizedType = type === 'patent' ? 'patents' : 'journals';
+  const normalizedType = type === 'patent' ? 'patents' : type === 'conference' ? 'conferences' : 'journals';
   const normalizedIndex = Math.max(0, Number(pageIndex) || 0);
 
   if (normalizedType === 'journals' && normalizedIndex === 0) {
@@ -70,6 +70,9 @@ export function publicationPagePath(type, pageIndex, years = []) {
   }
   if (normalizedType === 'patents' && normalizedIndex === 0) {
     return '/publications/patents/';
+  }
+  if (normalizedType === 'conferences' && normalizedIndex === 0) {
+    return '/publications/conferences/';
   }
 
   const period = publicationPeriodSlug(years);
