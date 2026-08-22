@@ -196,7 +196,24 @@ function MediaImage({ path, title, variant = 'card' }) {
     );
   }
 
+  if (variant === 'profile') {
+    return (
+      <img
+        alt={title}
+        className="aspect-[4/5] w-full rounded-sm object-cover object-top"
+        decoding="async"
+        loading="lazy"
+        onError={image.onError}
+        src={image.src}
+      />
+    );
+  }
+
   return <img alt={title} className="media-news w-full" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+}
+
+function isMemberWelcomeItem(item) {
+  return /^Welcome .+ to Bae Lab$/i.test(String(item?.title || '').trim()) && (item?.images || []).length > 1;
 }
 
 function InstagramRail({ displayName, handle, post, postUrl, profileImage, profileUrl }) {
@@ -534,9 +551,9 @@ function NewsItemRow({ compactPreview = false, detailPath, editorialPreview = fa
             {item.summary ? <p className="site-copy-body">{item.summary}</p> : null}
 
             {item.images?.length ? (
-              <div className="flex flex-col items-center gap-3">
+              <div className={isMemberWelcomeItem(item) ? 'grid max-w-2xl grid-cols-2 gap-3' : 'flex flex-col items-center gap-3'}>
                 {item.images.map((path, index) => (
-                  <MediaImage key={`${item.id}-image-${index}`} path={path} title={item.title} variant="full" />
+                  <MediaImage key={`${item.id}-image-${index}`} path={path} title={item.title} variant={isMemberWelcomeItem(item) ? 'profile' : 'full'} />
                 ))}
               </div>
             ) : null}
@@ -588,9 +605,9 @@ function NewsDetail({ item, section }) {
           ) : null}
 
           {item.images?.length ? (
-            <div className="flex flex-col items-center gap-5">
+            <div className={isMemberWelcomeItem(item) ? 'grid max-w-2xl grid-cols-2 gap-4' : 'flex flex-col items-center gap-5'}>
               {item.images.map((path, index) => (
-                <MediaImage key={`${item.id}-detail-image-${index}`} path={path} title={item.title} variant="full" />
+                <MediaImage key={`${item.id}-detail-image-${index}`} path={path} title={item.title} variant={isMemberWelcomeItem(item) ? 'profile' : 'full'} />
               ))}
             </div>
           ) : null}

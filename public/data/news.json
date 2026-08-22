@@ -33,6 +33,18 @@
   "sections": {
     "labNews": [
       {
+        "id": "labNews-3c46760c5a65818a8802d0fc1acfad7f-welcome-ruonan-tian-and-qunbo-lin-to-bae-lab",
+        "date": "2026-08-22",
+        "title": "Welcome Ruonan Tian and Qunbo Lin to Bae Lab",
+        "summary": "We are pleased to welcome Ruonan Tian and Qunbo Lin to Bae Lab. Ruonan joined the Ph.D. program, and Qunbo joined the integrated M.S.–Ph.D. program.",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/3c46760c5a65818a8802d0fc1acfad7f-1.webp",
+          "assets/img/news/notion/3c46760c5a65818a8802d0fc1acfad7f-2.webp"
+        ]
+      },
+      {
         "id": "labNews-31d6760c5a6580c9945cf5aaef8dbddd-myeong-lee-won-the-khu-chemical-engineering-undergraduate-research-award",
         "date": "2025-12-05",
         "title": "Myeong Lee won the KHU Chemical Engineering Undergraduate Research Award",
@@ -164,7 +176,7 @@
         "id": "gallery-3c36760c5a6580fca135d56f573b7f09-october-lab-dinner",
         "date": "2026-10-03",
         "title": "October Lab Dinner",
-        "summary": "",
+        "summary": "The Bae Lab enjoyed Korean barbecue with grilled pork at our October lab dinner.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -189,7 +201,7 @@
         "id": "gallery-3c36760c5a6580e2b252d69a66299bdf-july-lab-dinner",
         "date": "2026-07-13",
         "title": "July Lab Dinner",
-        "summary": "",
+        "summary": "The Bae Lab enjoyed Korean barbecue with grilled beef at our July lab dinner.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -226,7 +238,7 @@
         "id": "gallery-3c36760c5a6580aca08bf535e9c9240e-may-lab-dinner",
         "date": "2026-05-06",
         "title": "May Lab Dinner",
-        "summary": "",
+        "summary": "The Bae Lab gathered for Chinese hot pot with shared dishes at our May lab dinner.",
         "url": "",
         "videoUrl": "",
         "images": [
@@ -251,7 +263,7 @@
         "id": "gallery-31e6760c5a65800aa53dca0ae6902fa9-lab-dinner-2026-feb",
         "date": "2026-02-06",
         "title": "Lab Dinner 2026 Feb",
-        "summary": "",
+        "summary": "The Bae Lab enjoyed gopchang, Korean-style grilled beef intestines, at our February lab dinner.",
         "url": "",
         "videoUrl": "",
         "images": [
