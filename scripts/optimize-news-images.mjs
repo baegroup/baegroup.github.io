@@ -7,8 +7,8 @@ const ROOT = process.cwd();
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const NEWS_PATH = path.join(PUBLIC_DIR, 'data', 'news.json');
 const IMAGE_PATTERN = /\.(?:jpe?g|png)$/i;
-const MAX_DIMENSION = 1920;
-const WEBP_QUALITY = 82;
+const MAX_DIMENSION = 1600;
+const WEBP_QUALITY = 80;
 
 function localImagePath(value) {
   const normalized = String(value || '').trim().replace(/^\/+/, '');

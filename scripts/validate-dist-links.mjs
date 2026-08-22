@@ -35,11 +35,20 @@ function localTarget(pathname) {
 await collectHtmlFiles(DIST_DIR);
 
 const missingLinks = [];
+const metadataErrors = [];
 let internalLinkCount = 0;
 
 for (const sourcePath of htmlFiles) {
   const html = await readFile(sourcePath, 'utf8');
-  const sourceRoute = `/${path.relative(DIST_DIR, path.dirname(sourcePath)).replaceAll(path.sep, '/')}/`;
+  const relativeDirectory = path.relative(DIST_DIR, path.dirname(sourcePath)).replaceAll(path.sep, '/');
+  const sourceRoute = relativeDirectory ? `/${relativeDirectory}/` : '/';
+  const hreflangValues = [...html.matchAll(/<link\b(?=[^>]*\brel=["']alternate["'])(?=[^>]*\bhreflang=["']([^"']+)["'])[^>]*>/gi)]
+    .map((match) => match[1]);
+  const expectedHreflangCount = sourceRoute === '/' || sourceRoute === '/ko/' ? 3 : 0;
+
+  if (hreflangValues.length !== expectedHreflangCount || new Set(hreflangValues).size !== hreflangValues.length) {
+    metadataErrors.push({ sourceRoute, hreflangValues, expectedHreflangCount });
+  }
 
   for (const match of html.matchAll(/\shref=["']([^"']+)["']/gi)) {
     const href = match[1].trim();
@@ -62,6 +71,14 @@ for (const sourcePath of htmlFiles) {
       missingLinks.push({ sourceRoute, href, reason: 'target not found' });
     }
   }
+}
+
+if (metadataErrors.length) {
+  console.error(`Invalid hreflang metadata: ${metadataErrors.length}`);
+  for (const item of metadataErrors.slice(0, 30)) {
+    console.error(`- ${item.sourceRoute}: expected ${item.expectedHreflangCount} unique tags, found ${item.hreflangValues.join(', ') || 'none'}`);
+  }
+  process.exit(1);
 }
 
 if (missingLinks.length) {

@@ -525,9 +525,9 @@ function ProfessorShowcase({ professor, researchProfileLinks }) {
 
         <div className="flex h-full flex-col justify-center">
           <p className="text-xs font-semibold leading-[1.125rem] text-[var(--brand-burgundy)]">{copy.sectionLead}</p>
-          <h3 className="mt-2 text-[2rem] font-semibold leading-[1.08] tracking-tight text-slate-950 md:text-4xl">
+          <h1 className="mt-2 text-[2rem] font-semibold leading-[1.08] tracking-tight text-slate-950 md:text-4xl">
             Prof. {professor.localizedName}
-          </h3>
+          </h1>
           <div className="mt-4 space-y-1 text-[0.9375rem] font-medium leading-6">
             <p className="text-slate-700">{copy.department}</p>
             <p className="text-slate-600">{copy.institution}</p>
@@ -715,7 +715,7 @@ export function TeamPage({ locale, section = 'identity' }) {
 
   return (
     <>
-      <PageHero description={content.description} title={content.title || 'Team'}>
+      <PageHero description={content.description} title={content.title || 'Team'} titleAs={activeSection === 'professor' ? 'div' : 'h1'}>
         <PageSectionNav
           activeId={activeSection}
           ariaLabel="Team section navigation"

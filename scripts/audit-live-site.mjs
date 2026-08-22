@@ -2,8 +2,9 @@ import { SITE_URL } from '../src/content/seo.js';
 
 const REQUEST_TIMEOUT_MS = 20_000;
 const MINIMUM_INDEXABLE_ROUTES = 12;
-const MAX_LIVE_IMAGE_BYTES = 1.25 * 1024 * 1024;
-const DOMAIN_ALIAS_URL = SITE_URL.replace('://www.', '://');
+const MAX_LIVE_IMAGE_BYTES = 0.75 * 1024 * 1024;
+const canonicalUrl = new URL(SITE_URL);
+const DOMAIN_ALIAS_URL = `${canonicalUrl.protocol}//www.${canonicalUrl.host}`;
 const errors = [];
 
 function report(condition, message) {

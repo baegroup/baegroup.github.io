@@ -89,7 +89,15 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
     if (!open || !window.matchMedia('(max-width: 639px)').matches) return undefined;
 
     const timer = window.setTimeout(closeNotice, 5000);
-    return () => window.clearTimeout(timer);
+    function handleMobileScroll() {
+      closeNotice();
+    }
+
+    window.addEventListener('scroll', handleMobileScroll, { once: true, passive: true });
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('scroll', handleMobileScroll);
+    };
   }, [closeNotice, open]);
 
   useEffect(() => {

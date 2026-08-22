@@ -6,7 +6,7 @@ import { getStructuredDataForPath, RESEARCH_TOPICS, SEO_ROUTES, SITE_URL } from 
 
 const ROOT = process.cwd();
 const PUBLIC_DIR = path.join(ROOT, 'public');
-const MAX_PUBLIC_ASSET_BYTES = 750 * 1024;
+const MAX_PUBLIC_ASSET_BYTES = 600 * 1024;
 const errors = [];
 
 function report(condition, message) {
@@ -198,7 +198,7 @@ report(indexNowKeyFile.trim() === indexNowKey, 'SEO: IndexNow verification key f
 for (const filePath of await listFiles(path.join(PUBLIC_DIR, 'assets'))) {
   const stats = await fs.stat(filePath);
   if (stats.size > MAX_PUBLIC_ASSET_BYTES) {
-    errors.push(`assets: ${path.relative(ROOT, filePath)} is ${(stats.size / 1024 / 1024).toFixed(2)} MB (limit: 750 KB)`);
+    errors.push(`assets: ${path.relative(ROOT, filePath)} is ${(stats.size / 1024 / 1024).toFixed(2)} MB (limit: 600 KB)`);
   }
 }
 

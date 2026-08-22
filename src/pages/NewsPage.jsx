@@ -71,24 +71,6 @@ function toTimestamp(value) {
   return Date.UTC(year, month - 1, day);
 }
 
-function formatSocialCount(value, singularLabel) {
-  if (value === '' || value === null || value === undefined) {
-    return '';
-  }
-
-  const count = Number(value);
-  if (!Number.isFinite(count) || count < 0) {
-    return '';
-  }
-
-  const roundedCount = Math.trunc(count);
-  const displayCount = new Intl.NumberFormat('en-US', {
-    maximumFractionDigits: 1,
-    notation: roundedCount >= 10_000 ? 'compact' : 'standard'
-  }).format(roundedCount);
-  return `${displayCount} ${roundedCount === 1 ? singularLabel : `${singularLabel}s`}`;
-}
-
 function hasImageExtension(path) {
   return /\.[a-z0-9]{3,4}($|\?)/i.test(String(path || '').trim());
 }
@@ -217,7 +199,7 @@ function MediaImage({ path, title, variant = 'card' }) {
   return <img alt={title} className="media-news w-full" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
 }
 
-function InstagramRail({ displayName, followersCount, handle, post, postUrl, profileImage, profileUrl }) {
+function InstagramRail({ displayName, handle, post, postUrl, profileImage, profileUrl }) {
   const images = post?.images || [];
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const mediaId = useId();
@@ -233,8 +215,6 @@ function InstagramRail({ displayName, followersCount, handle, post, postUrl, pro
   const imageCount = images.length;
   const displayHandle = String(handle || '@baelab.khu').trim() || '@baelab.khu';
   const profileLabel = String(displayName || 'Bae Lab').trim() || 'Bae Lab';
-  const followerLabel = formatSocialCount(followersCount, 'follower');
-  const likeLabel = formatSocialCount(post.likeCount, 'like');
   const caption = String(post.summary || '').trim();
   const instagramActionClass = 'site-touch-target inline-flex size-7 items-center justify-center rounded-md text-slate-700 no-underline transition-colors hover:bg-white/80 hover:text-[#cc2366] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cc2366]';
 
@@ -266,7 +246,7 @@ function InstagramRail({ displayName, followersCount, handle, post, postUrl, pro
           </span>
           <span className="min-w-0">
             <span className="block truncate text-[0.78rem] font-semibold text-slate-900">{displayHandle.replace(/^@/, '')}</span>
-            <span className="block truncate text-xs text-slate-600">{followerLabel || profileLabel}</span>
+            <span className="block truncate text-xs text-slate-600">{profileLabel}</span>
           </span>
         </a>
         <a
@@ -356,12 +336,6 @@ function InstagramRail({ displayName, followersCount, handle, post, postUrl, pro
           <Bookmark aria-hidden="true" className="size-[18px]" strokeWidth={1.6} />
         </a>
       </div>
-
-      {likeLabel ? (
-        <a className="inline-flex text-xs font-semibold text-slate-900 no-underline hover:text-[#b72862]" href={postUrl} rel="noreferrer" target="_blank">
-          {likeLabel}
-        </a>
-      ) : null}
 
       <div className="space-y-1">
         {caption ? (
@@ -846,7 +820,6 @@ export function NewsPage({ locale }) {
           <div className="mx-auto w-full max-w-sm space-y-4 lg:max-w-none xl:sticky xl:top-28">
             <InstagramRail
               displayName={feed.instagram.displayName}
-              followersCount={feed.instagram.followersCount}
               handle={feed.instagram.handle}
               post={latestInstagramPost}
               postUrl={latestInstagramPostUrl}

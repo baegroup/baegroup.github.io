@@ -13,6 +13,7 @@ const CHROME_TIMEOUT_MS = 10000;
 const META_START = '<!-- route-meta:start -->';
 const META_END = '<!-- route-meta:end -->';
 const META_PATTERN = new RegExp(`${META_START}[\\s\\S]*?${META_END}`);
+const HREFLANG_LINK_PATTERN = /<link\b(?=[^>]*\brel=["']alternate["'])(?=[^>]*\bhreflang=["'][^"']+["'])[^>]*>/gi;
 
 function findChrome() {
   const candidates = [
@@ -212,6 +213,7 @@ try {
     if (!routeMetadata || !META_PATTERN.test(html)) {
       throw new Error(`Route metadata could not be preserved for ${route}`);
     }
+    html = html.replace(HREFLANG_LINK_PATTERN, '');
     html = html.replace(META_PATTERN, routeMetadata);
     assertRendered(route, html);
     await writeFile(outputPath, `${html}\n`, 'utf8');

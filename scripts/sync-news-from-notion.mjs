@@ -10,8 +10,8 @@ const INSTAGRAM_ASSET_DIR = path.join(ROOT, 'public', 'assets', 'img', 'news', '
 const NOTION_API_VERSION = '2025-09-03';
 const SECTION_KEYS = ['labNews', 'gallery', 'videos'];
 const URL_PATTERN = /https?:\/\/[^\s<>"')\]}]+/gi;
-const NEWS_IMAGE_MAX_DIMENSION = 1920;
-const NEWS_IMAGE_WEBP_QUALITY = 82;
+const NEWS_IMAGE_MAX_DIMENSION = 1600;
+const NEWS_IMAGE_WEBP_QUALITY = 80;
 const KNOWN_NEWS_CORRECTIONS = {
   '31d6760c5a6580c9945cf5aaef8dbddd': {
     title: 'Myeong Lee won the KHU Chemical Engineering Undergraduate Research Award'
