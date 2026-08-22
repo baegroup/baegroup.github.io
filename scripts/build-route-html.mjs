@@ -26,9 +26,27 @@ const NEWS_PAGE_SIZE = 5;
 const VIDEO_PAGE_SIZE = 4;
 
 const LEGACY_REDIRECTS = [
+  // Previous English WordPress routes.
+  { from: '/jaehyeong-bae', to: '/team/jaehyeong-bae' },
+  { from: '/postdoctoral-researchers', to: '/team/staff' },
+  { from: '/ph-d-graduate-students', to: '/team/members' },
+  { from: '/join-our-team-2', to: '/team/members' },
+  { from: '/alumni', to: '/team/alumni' },
+  { from: '/research-highlights', to: '/news' },
+  { from: '/lab-news', to: '/news' },
+  { from: '/gallery', to: '/news/lab-life' },
+  { from: '/videos', to: '/news/video' },
+  {
+    from: '/lab-meeting-lunch-with-lab-members-2025-feburary',
+    to: '/news/lab-life/2025-03-04-lab-meeting-2025-feb'
+  },
+  { from: '/news-2', to: '/publications' },
+  { from: '/join-our-team', to: '/join' },
+  { from: '/博士研究生-2', to: '/team/members' },
+
+  // Previous Korean WordPress routes.
   { from: '/kr', to: '/ko' },
   { from: '/kr/배재형-교수', to: '/team/jaehyeong-bae' },
-  { from: '/jaehyeong-bae', to: '/team/jaehyeong-bae' },
   { from: '/kr/구성원', to: '/team/members' },
   { from: '/kr/박사-후-연구원', to: '/team/staff' },
   { from: '/kr/박사과정', to: '/team/members' },
@@ -36,14 +54,34 @@ const LEGACY_REDIRECTS = [
   { from: '/kr/연구실-졸업생', to: '/team/alumni' },
   { from: '/kr/join-our-team-2-2-2-2', to: '/team' },
   { from: '/kr/연구', to: '/research' },
-  { from: '/news-2', to: '/publications' },
-  { from: '/lab-news', to: '/news' },
+  { from: '/kr/연구-하이라이트', to: '/news' },
+  { from: '/kr/연구실-뉴스', to: '/news' },
+  { from: '/kr/갤러리', to: '/news/lab-life' },
+  { from: '/kr/비디오', to: '/news/video' },
   { from: '/kr/dr-jaehyeong-bae-won-the-best-poster-award-at-5th-international-conference-on-advanced-electromaterials-icae-2019-배재형-박사-icae-2019-best-poster-award-2', to: '/news' },
   { from: '/kr/대학원생-모집', to: '/join' },
   { from: '/kr/연락처', to: '/contact' },
-  { from: '/join-our-team', to: '/join' },
-  { from: '/join-our-team-2', to: '/join' },
-  { from: '/博士研究生-2', to: '/team/members' },
+
+  // Previous Chinese WordPress routes. The current site is English-first,
+  // with a single Korean guidance page, so these map to relevant English pages.
+  { from: '/cn', to: '/' },
+  { from: '/cn/裴宰亨', to: '/team/jaehyeong-bae' },
+  { from: '/cn/课题组成员', to: '/team' },
+  { from: '/cn/博士后研究员', to: '/team/staff' },
+  { from: '/cn/博士研究生', to: '/team/members' },
+  { from: '/cn/join-our-team-2-2-2', to: '/team/members' },
+  { from: '/cn/毕业生', to: '/team/alumni' },
+  { from: '/cn/研究', to: '/research' },
+  { from: '/cn/研究亮点', to: '/news' },
+  { from: '/cn/课题组消息', to: '/news' },
+  { from: '/cn/照片', to: '/news/lab-life' },
+  { from: '/cn/视频', to: '/news/video' },
+  { from: '/cn/发表论文', to: '/publications' },
+  { from: '/cn/news-2', to: '/publications' },
+  { from: '/cn/招生招聘', to: '/join' },
+  { from: '/cn/联系方式', to: '/contact' },
+
+  // Previous routes from the current static site.
   { from: '/news/lab-life/2026-08-03-october-lab-dinner', to: '/news/lab-life/2025-10-03-october-lab-dinner' },
   { from: '/news/lab-life/2026-10-03-october-lab-dinner', to: '/news/lab-life/2025-10-03-october-lab-dinner' },
   {
@@ -333,9 +371,10 @@ function renderLegacyRedirect({ from, to }) {
   const targetUrl = absoluteSiteUrl(to);
   const safeTargetUrl = escapeHtml(targetUrl);
   const safeSourcePath = escapeHtml(from);
+  const language = from === '/cn' || from.startsWith('/cn/') ? 'zh-CN' : from === '/kr' || from.startsWith('/kr/') ? 'ko' : 'en';
 
   return `<!doctype html>
-<html lang="ko">
+<html lang="${language}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
