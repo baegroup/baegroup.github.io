@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { Bookmark, ChevronDown, ChevronLeft, ChevronRight, Heart, MessageCircle, Send } from 'lucide-react';
+import { Bookmark, ChevronDown, ChevronLeft, ChevronRight, Heart, MessageCircle, Play, Send } from 'lucide-react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
 import { ExternalLinkIcon } from '@/components/site/ExternalLinkIcon';
@@ -440,14 +440,14 @@ function LabLifeCard({ detailPath, item, number }) {
   );
 }
 
-function toYouTubeEmbedUrl(value) {
+function toYouTubeVideoId(value) {
   const raw = String(value || '').trim();
   if (!raw) {
     return '';
   }
 
   if (raw.includes('youtube.com/embed/')) {
-    return raw;
+    return raw.split('/embed/')[1]?.split(/[?#]/)[0] || '';
   }
 
   try {
@@ -456,22 +456,83 @@ function toYouTubeEmbedUrl(value) {
 
     if (host.includes('youtu.be')) {
       const id = parsed.pathname.replace(/^\/+/, '').trim();
-      return id ? `https://www.youtube.com/embed/${id}` : '';
+      return id;
     }
 
     if (host.includes('youtube.com')) {
       if (parsed.pathname.startsWith('/shorts/')) {
         const id = parsed.pathname.replace('/shorts/', '').replace(/\/+$/, '').trim();
-        return id ? `https://www.youtube.com/embed/${id}` : '';
+        return id;
       }
-      const id = parsed.searchParams.get('v');
-      return id ? `https://www.youtube.com/embed/${id}` : '';
+      return parsed.searchParams.get('v') || '';
     }
   } catch {
     return '';
   }
 
   return '';
+}
+
+function toYouTubeEmbedUrl(value) {
+  const videoId = toYouTubeVideoId(value);
+  return videoId ? `https://www.youtube-nocookie.com/embed/${videoId}` : '';
+}
+
+function YouTubePreview({ title, videoUrl }) {
+  const [activated, setActivated] = useState(false);
+  const [thumbnailFailed, setThumbnailFailed] = useState(false);
+  const videoId = toYouTubeVideoId(videoUrl);
+  const embedUrl = toYouTubeEmbedUrl(videoUrl);
+  const thumbnailUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : '';
+
+  useEffect(() => {
+    setActivated(false);
+    setThumbnailFailed(false);
+  }, [videoUrl]);
+
+  if (!embedUrl) {
+    return null;
+  }
+
+  if (activated) {
+    return (
+      <iframe
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        className="aspect-video w-full"
+        loading="lazy"
+        referrerPolicy="strict-origin-when-cross-origin"
+        src={`${embedUrl}?autoplay=1&rel=0`}
+        title={`${title} video`}
+      />
+    );
+  }
+
+  return (
+    <button
+      aria-label={`Play ${title}`}
+      className="group relative block aspect-video w-full overflow-hidden bg-slate-900 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2"
+      onClick={() => setActivated(true)}
+      type="button"
+    >
+      {!thumbnailFailed ? (
+        <img
+          alt=""
+          className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.015] group-hover:brightness-95"
+          decoding="async"
+          loading="lazy"
+          onError={() => setThumbnailFailed(true)}
+          src={thumbnailUrl}
+        />
+      ) : (
+        <span aria-hidden="true" className="block h-full w-full bg-gradient-to-br from-slate-700 to-slate-950" />
+      )}
+      <span aria-hidden="true" className="absolute inset-0 bg-black/10 transition-colors group-hover:bg-black/20" />
+      <span aria-hidden="true" className="absolute left-1/2 top-1/2 inline-flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-[var(--brand-burgundy)] shadow-lg transition-transform group-hover:scale-105">
+        <Play className="ml-0.5 size-6 fill-current" strokeWidth={1.5} />
+      </span>
+    </button>
+  );
 }
 
 function VideoCard({ detailPath, item, number }) {
@@ -483,13 +544,7 @@ function VideoCard({ detailPath, item, number }) {
     <article className="min-w-0">
       <div className="overflow-hidden rounded-sm bg-slate-100">
         {youtubeEmbed ? (
-          <iframe
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            className="aspect-video w-full"
-            src={youtubeEmbed}
-            title={`${item.title} video`}
-          />
+          <YouTubePreview title={item.title} videoUrl={primaryVideoUrl} />
         ) : fallbackImage ? (
           <MediaImage path={fallbackImage} title={item.title} />
         ) : (
@@ -584,13 +639,7 @@ function NewsItemRow({ compactPreview = false, detailPath, editorialPreview = fa
             {item.videoUrl ? (
               youtubeEmbed ? (
                 <div className="overflow-hidden rounded-sm">
-                  <iframe
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="aspect-video w-full"
-                    src={youtubeEmbed}
-                    title={`${item.title} video`}
-                  />
+                  <YouTubePreview title={item.title} videoUrl={item.videoUrl} />
                 </div>
               ) : (
                 <a className="site-text-link inline-flex text-sm" href={item.videoUrl} rel="noreferrer" target="_blank">
@@ -638,14 +687,7 @@ function NewsDetail({ item, section }) {
           {item.videoUrl ? (
             youtubeEmbed ? (
               <div className="overflow-hidden rounded-sm">
-                <iframe
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="aspect-video w-full"
-                  loading="lazy"
-                  src={youtubeEmbed}
-                  title={`${item.title} video`}
-                />
+                <YouTubePreview title={item.title} videoUrl={item.videoUrl} />
               </div>
             ) : (
               <a className="site-text-link inline-flex items-center text-sm" href={item.videoUrl} rel="noreferrer" target="_blank">Open video<ExternalLinkIcon /></a>

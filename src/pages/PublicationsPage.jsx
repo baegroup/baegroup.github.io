@@ -14,7 +14,7 @@ import { publicationPagePath, publicationPeriodSlug } from '@/lib/seo-paths';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const COVER_IMAGE_BASE = 'assets/img/publications/covers';
-const SCHOLAR_URL = 'https://scholar.google.com/scholar?q=Jaehyeong+Bae';
+const SCHOLAR_URL = 'https://scholar.google.com/citations?user=F4hhc78AAAAJ&hl=en';
 const JOURNAL_DISPLAY_NAMES = {
   'Advanced Energy Materials': 'Adv. Energy Mater.',
   'Advanced Functional Materials': 'Adv. Funct. Mater.',
@@ -206,7 +206,7 @@ function formatCoverDateLabel(item) {
   return '';
 }
 
-function PublicationInfoPanel({ type = 'journal', updatedAt }) {
+function PublicationInfoPanel({ scholarUrl = SCHOLAR_URL, type = 'journal', updatedAt }) {
   const isConference = type === 'conference';
   const isPatent = type === 'patent';
 
@@ -219,7 +219,7 @@ function PublicationInfoPanel({ type = 'journal', updatedAt }) {
       ) : (
         <p>
           View the complete publication record on{' '}
-          <a className="site-text-link" href={SCHOLAR_URL} rel="noreferrer" target="_blank">
+          <a className="site-text-link" href={scholarUrl} rel="noreferrer" target="_blank">
             Google Scholar<ExternalLinkIcon />
           </a>
           .
@@ -1026,7 +1026,11 @@ export function PublicationsPage({ locale }) {
 
               <aside className="w-full lg:self-start">
                 <div className="xl:sticky xl:top-24">
-                  <PublicationInfoPanel type={filter} updatedAt={updatedAt} />
+                  <PublicationInfoPanel
+                    scholarUrl={researchProfileLinks.googleScholar || SCHOLAR_URL}
+                    type={filter}
+                    updatedAt={updatedAt}
+                  />
 
                   <section className="site-rule-strong border-b py-5">
                     <div className="mx-auto w-full max-w-sm lg:max-w-none">

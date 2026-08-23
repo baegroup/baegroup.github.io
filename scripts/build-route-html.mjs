@@ -88,7 +88,8 @@ const LEGACY_REDIRECTS = [
     from: '/news/highlights/2026-08-22-welcome-ruonan-tian-and-qunbo-lin-to-bae-lab',
     to: '/news'
   },
-  { from: '/news/lab-life/2026-05-15-teacher-s-day-2026-may-15th', to: '/news/lab-life/2026-05-15-teacher-s-day-2026' }
+  { from: '/news/lab-life/2026-05-15-teacher-s-day-2026-may-15th', to: '/news/lab-life/2026-05-15-teacher-s-day-2026' },
+  { from: '/news/lab-life/2025-05-08-teacher-s-day-2025-may-8th', to: '/news/lab-life/2025-05-08-teacher-s-day-2025' }
 ];
 
 const ROUTE_SOURCE_FILES = {
