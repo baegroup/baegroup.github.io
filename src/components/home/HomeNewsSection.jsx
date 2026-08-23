@@ -115,8 +115,8 @@ export function HomeNewsSection({ content, locale, revealDelay = 0 }) {
               {listItems.map((item) => (
                 <li className="py-3 md:py-3.5" key={`${item.id || item.title}-list`}>
                   <Link className="block" reloadDocument to={itemPath(item)}>
-                    <p className="site-meta-context">{item.date}</p>
-                    <p className="site-balanced-heading mt-1 text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</p>
+                    <h3 className="site-balanced-heading text-base font-semibold leading-snug text-slate-900 md:text-[1.02rem]">{item.title}</h3>
+                    <p className="site-meta-context mt-1.5">{item.date}</p>
                   </Link>
                 </li>
               ))}
