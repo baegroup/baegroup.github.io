@@ -5,6 +5,7 @@ import { HOME_RESEARCH_CARD_COPY } from '@/content/home-research-copy';
 import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { pagePath } from '@/lib/i18n';
+import { responsiveImageProps } from '@/lib/responsive-images';
 
 function ResearchAreaCard({ card, imagePath }) {
   const [imageIndex, setImageIndex] = useState(0);
@@ -15,6 +16,7 @@ function ResearchAreaCard({ card, imagePath }) {
     <article className="group mx-auto grid w-full max-w-[36rem] content-start md:max-w-none">
       {!exhausted ? (
         <img
+          {...responsiveImageProps(imageCandidates[imageIndex], '(max-width: 639px) calc(100vw - 32px), (max-width: 1279px) calc((100vw - 60px) / 2), 368px')}
           alt={card.title}
           className="media-landscape max-h-[320px] w-full object-cover transition-[filter] duration-[320ms] group-hover:brightness-[1.015] md:max-h-none"
           decoding="async"
@@ -23,7 +25,7 @@ function ResearchAreaCard({ card, imagePath }) {
           src={imageCandidates[imageIndex]}
         />
       ) : (
-        <div className="media-landscape flex max-h-[320px] w-full items-center justify-center bg-slate-100 text-sm font-medium text-slate-500 md:max-h-none">
+        <div className="media-landscape flex max-h-[320px] w-full items-center justify-center bg-slate-100 text-sm font-medium text-slate-600 md:max-h-none">
           Image Placeholder
         </div>
       )}

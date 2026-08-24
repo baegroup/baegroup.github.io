@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { GraduationCap, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -15,6 +15,7 @@ const SCROLL_TRIGGER_VIEWPORT_RATIO = 0.35;
 export function RecruitmentNotice({ autoOpen = false, content, locale }) {
   const [open, setOpen] = useState(false);
   const [showBadge, setShowBadge] = useState(false);
+  const noticeRef = useRef(null);
 
   useEffect(() => {
     let listeningForScroll = false;
@@ -88,9 +89,13 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
   useEffect(() => {
     if (!open || !window.matchMedia('(max-width: 639px)').matches) return undefined;
 
-    const timer = window.setTimeout(closeNotice, 5000);
+    function closeIfFocusIsOutside() {
+      if (!noticeRef.current?.contains(document.activeElement)) closeNotice();
+    }
+
+    const timer = window.setTimeout(closeIfFocusIsOutside, 5000);
     function handleMobileScroll() {
-      closeNotice();
+      closeIfFocusIsOutside();
     }
 
     window.addEventListener('scroll', handleMobileScroll, { once: true, passive: true });
@@ -107,8 +112,16 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
       if (event.key === 'Escape') closeNotice();
     }
 
+    function handleFocusIn(event) {
+      if (!noticeRef.current?.contains(event.target)) closeNotice();
+    }
+
     document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener('focusin', handleFocusIn);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('focusin', handleFocusIn);
+    };
   }, [closeNotice, open]);
 
   const badgeClassName = 'surface-floating recruitment-notice-badge group fixed bottom-3 right-3 z-[80] flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 text-left no-underline transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 sm:gap-3 sm:py-2 sm:pl-2 sm:pr-4';
@@ -129,12 +142,15 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
     <>
       {open ? (
         <aside
+          aria-describedby="recruitment-notice-description"
           aria-labelledby="recruitment-notice-title"
+          aria-live="polite"
           className="surface-floating recruitment-notice-card fixed bottom-3 right-3 z-[85] w-[calc(100vw-2rem)] max-w-[18.5rem] overflow-hidden rounded-lg border border-slate-200 bg-white/95 px-4 pb-4 pt-4 backdrop-blur-sm sm:bottom-6 sm:right-6 sm:w-[21.5rem] sm:max-w-none sm:px-5 sm:pb-5 sm:pt-5"
+          ref={noticeRef}
         >
           <button
             aria-label="Close recruitment notice"
-            className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2"
+            className="absolute right-2 top-2 inline-flex h-11 w-11 items-center justify-center rounded-full text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 sm:right-3 sm:top-3 sm:h-8 sm:w-8"
             onClick={closeNotice}
             type="button"
           >
@@ -148,7 +164,7 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
           <h2 className="mt-1.5 pr-8 text-lg font-semibold leading-snug tracking-tight text-slate-950 sm:mt-2 sm:text-xl sm:leading-tight" id="recruitment-notice-title">
             {content.recruitmentNoticeTitle || 'Graduate Students'}
           </h2>
-          <p className="mt-1.5 hidden text-sm font-medium leading-relaxed text-slate-600 sm:block">
+          <p className="sr-only mt-1.5 text-sm font-medium leading-relaxed text-slate-600 sm:not-sr-only sm:block" id="recruitment-notice-description">
             {content.recruitmentNoticeDescription || 'M.S. · Ph.D. · Integrated M.S.–Ph.D.'}
           </p>
 

@@ -10,6 +10,7 @@ import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { PUBLICATIONS_CONTENT } from '@/content/site-content';
 import { loadPublicationCovers, loadPublications, loadResearchProfileLinks, publicationTypeLabels } from '@/lib/data';
 import { formatItemNumber } from '@/lib/format';
+import { responsiveImageProps } from '@/lib/responsive-images';
 import { publicationPagePath, publicationPeriodSlug } from '@/lib/seo-paths';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
@@ -312,6 +313,7 @@ function JournalCoverImage({ broken, eager = false, imageSrc, journalName, onErr
     <div className="flex h-full w-full items-center justify-center">
       {!broken ? (
         <img
+          {...responsiveImageProps(imageSrc, '232px')}
           alt={`${journalName} cover`}
           className="h-full w-full object-contain"
           decoding="async"
@@ -320,7 +322,7 @@ function JournalCoverImage({ broken, eager = false, imageSrc, journalName, onErr
           src={imageSrc}
         />
       ) : (
-        <div className="flex h-full w-full items-center justify-center border border-dashed border-slate-300 px-3 text-center text-xs font-medium text-slate-500">
+        <div className="flex h-full w-full items-center justify-center border border-dashed border-slate-300 px-3 text-center text-xs font-medium text-slate-600">
           Cover
         </div>
       )}
@@ -473,7 +475,7 @@ function PublicationPagination({ currentPage, pageGroups, placement, type }) {
       {currentPage > 1 ? (
         <Link
           aria-label="Previous publication period"
-          className="inline-flex size-11 items-center justify-center text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
+          className="inline-flex size-11 items-center justify-center text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
           to={publicationPagePath(type, currentPage - 2, pageGroups[currentPage - 2]?.years)}
         >
           <ChevronLeft aria-hidden="true" className="size-4" strokeWidth={1.5} />
@@ -502,7 +504,7 @@ function PublicationPagination({ currentPage, pageGroups, placement, type }) {
       {currentPage < pageCount ? (
         <Link
           aria-label="Next publication period"
-          className="inline-flex size-11 items-center justify-center text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
+          className="inline-flex size-11 items-center justify-center text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
           to={publicationPagePath(type, currentPage, pageGroups[currentPage]?.years)}
         >
           <ChevronRight aria-hidden="true" className="size-4" strokeWidth={1.5} />
@@ -606,7 +608,7 @@ function ConferenceList({ items, numbers, years }) {
                     <span className="site-meta-index pt-[1.7rem]">{formatItemNumber(numbers.get(item.id) || '-')}</span>
                     <div className="min-w-0 space-y-2">
                       {item.presentationType ? (
-                        <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-slate-500">
+                        <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-slate-600">
                           {item.presentationType}
                         </p>
                       ) : null}
@@ -674,7 +676,7 @@ function PatentList({ items, numbers, labAuthorNames, years }) {
                     </span>
                     <div className="min-w-0 space-y-2">
                       {status ? (
-                        <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-slate-500">{status}</p>
+                        <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-slate-600">{status}</p>
                       ) : null}
                       <p className="min-w-0 text-lg font-semibold leading-snug text-slate-950 [text-wrap:pretty] md:text-xl">
                         {item.link ? (
@@ -989,9 +991,11 @@ export function PublicationsPage({ locale }) {
                 <div className="scroll-mt-28 space-y-4">
                   {items.length === 0 ? (
                     <div className="content-state-row">
-                      <p className="content-state-label">Empty</p>
+                      <p className="content-state-label">{filter === 'conference' ? 'In preparation' : 'Empty'}</p>
                       <p className="content-state-message">
-                        {filter === 'conference' ? 'Conference presentations will appear here as they are added.' : content.empty}
+                        {filter === 'conference'
+                          ? 'Verified conference presentation records will be published here as they are added.'
+                          : content.empty}
                       </p>
                     </div>
                   ) : filter === 'conference' ? (

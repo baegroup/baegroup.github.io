@@ -6,11 +6,13 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { BRAND, NAV_ITEMS } from '@/content/site-content';
 import { pagePath } from '@/lib/i18n';
+import { responsiveImageProps } from '@/lib/responsive-images';
 
 export function SiteHeader({ locale }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef(null);
+  const menuButtonRef = useRef(null);
   const brand = BRAND[locale] || BRAND.en || {};
   const tagline = (brand.tagline || '').trim() || 'Additive Manufacturing of Functional Materials';
   const taglineMatch = tagline.match(/^(Additive Manufacturing)\s+(of Functional Materials)$/i);
@@ -20,7 +22,7 @@ export function SiteHeader({ locale }) {
   const universityUrl = 'https://www.khu.ac.kr';
   const departmentUrl = 'https://chemeng.khu.ac.kr';
   const topLinkBaseClass =
-    'inline-flex items-center rounded px-1.5 py-0.5 no-underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40';
+    'inline-flex min-h-6 items-center rounded px-1.5 py-0.5 no-underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40';
   const navItems = useMemo(() => NAV_ITEMS[locale] || NAV_ITEMS.en || [], [locale]);
 
   useEffect(() => {
@@ -54,6 +56,7 @@ export function SiteHeader({ locale }) {
     function handleKeyDown(event) {
       if (event.key === 'Escape') {
         setOpen(false);
+        window.requestAnimationFrame(() => menuButtonRef.current?.focus());
       }
     }
 
@@ -104,6 +107,7 @@ export function SiteHeader({ locale }) {
           to={pagePath('')}
         >
           <img
+            {...responsiveImageProps(`${import.meta.env.BASE_URL}assets/img/lab-logo.png`, '96px')}
             alt="Bae Lab logo"
             className="site-header-logo h-[4.5rem] w-[4.5rem] object-contain md:h-20 md:w-20"
             decoding="async"
@@ -130,6 +134,7 @@ export function SiteHeader({ locale }) {
             aria-expanded={open}
             className="h-11 w-11 rounded border-[#ded8d2] text-slate-700 hover:bg-[#f1ede8] md:hidden"
             onClick={() => setOpen((value) => !value)}
+            ref={menuButtonRef}
             size="icon"
             type="button"
             variant="outline"

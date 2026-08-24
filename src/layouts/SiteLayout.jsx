@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { RecruitmentNotice } from '@/components/home/RecruitmentNotice';
@@ -9,6 +10,7 @@ import { HOME_CONTENT } from '@/content/site-content';
 const RECRUITMENT_NOTICE_PREFIXES = ['/', '/team', '/research', '/publications', '/news'];
 
 export function SiteLayout({ locale, children }) {
+  const [cookiePreferencesRequest, setCookiePreferencesRequest] = useState(0);
   const { pathname } = useLocation();
   const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
   const prerendering = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('prerender');
@@ -26,12 +28,15 @@ export function SiteLayout({ locale, children }) {
         Skip to content
       </a>
       <SiteHeader locale={locale} />
-      <main className="site-frame space-y-4 py-6 md:py-8" id="main-content">{children}</main>
-      <SiteFooter locale={locale} />
+      <main className="site-frame space-y-4 py-6 md:py-8" id="main-content" tabIndex={-1}>{children}</main>
+      <SiteFooter
+        locale={locale}
+        onOpenCookiePreferences={() => setCookiePreferencesRequest((request) => request + 1)}
+      />
       {showRecruitmentNotice ? (
         <RecruitmentNotice autoOpen={normalizedPath === '/'} content={homeContent} locale={locale} />
       ) : null}
-      <CookieConsent disabled={prerendering} />
+      <CookieConsent disabled={prerendering} openRequest={cookiePreferencesRequest} />
     </div>
   );
 }

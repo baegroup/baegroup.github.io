@@ -8,6 +8,7 @@ import { TEAM_CONTENT } from '@/content/site-content';
 import { loadResearchProfileLinks, loadTeamProfiles } from '@/lib/data';
 import { formatItemNumber } from '@/lib/format';
 import { pagePath } from '@/lib/i18n';
+import { responsiveImageProps } from '@/lib/responsive-images';
 import { TEAM_SECTION_PATHS } from '@/lib/seo-paths';
 
 const DEFAULT_JUMP_NAV = [
@@ -248,6 +249,7 @@ function MemberCard({ member, open = false, prominent = false, showRoleBadge = f
             <div className="aspect-[4/5] overflow-hidden rounded-sm bg-slate-100">
               {hasPhoto ? (
                 <img
+                  {...responsiveImageProps(`${import.meta.env.BASE_URL}${member.photo}`, '140px')}
                   alt={member.localizedName}
                   className="h-full w-full object-cover"
                   decoding="async"
@@ -305,6 +307,7 @@ function MemberCard({ member, open = false, prominent = false, showRoleBadge = f
           <div className="media-portrait overflow-hidden bg-slate-100">
           {hasPhoto ? (
             <img
+              {...responsiveImageProps(`${import.meta.env.BASE_URL}${member.photo}`, open ? '(max-width: 639px) 92px, 110px' : '(max-width: 767px) 180px, 180px')}
               alt={member.localizedName}
               className="h-full w-full object-cover"
               decoding="async"
@@ -341,7 +344,7 @@ function MemberCard({ member, open = false, prominent = false, showRoleBadge = f
               <button
                 aria-controls={detailId}
                 aria-expanded={expanded}
-                className="group inline-flex items-center gap-1.5 text-left text-xs font-semibold text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/30 focus-visible:ring-offset-2"
+                className="group inline-flex min-h-11 items-center gap-1.5 text-left text-xs font-semibold text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)]/30 focus-visible:ring-offset-2"
                 onClick={() => setExpanded((prev) => !prev)}
                 type="button"
               >
@@ -511,6 +514,7 @@ function ProfessorShowcase({ professor, researchProfileLinks }) {
         <figure className="media-portrait mx-auto w-full max-w-[260px] overflow-hidden sm:max-w-[280px] lg:mx-0 lg:max-w-none">
           {hasPhoto ? (
             <img
+              {...responsiveImageProps(`${import.meta.env.BASE_URL}${professor.photo}`, '(max-width: 1023px) 280px, 280px')}
               alt={professor.localizedName}
               className="h-full w-full object-cover object-top"
               decoding="async"
@@ -746,6 +750,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                     <figure className="mx-auto w-full max-w-2xl overflow-hidden rounded-sm md:max-w-xl lg:ml-auto lg:mr-0 lg:max-w-[94%] lg:self-center">
                       {!aboutImage.broken ? (
                         <img
+                          {...responsiveImageProps(aboutImage.src, '(max-width: 1023px) min(100vw - 32px, 672px), 420px')}
                           alt="Bae Lab group photo"
                           className="h-auto w-full rounded-sm"
                           decoding="async"
@@ -754,7 +759,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                           src={aboutImage.src}
                         />
                       ) : (
-                        <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Lab group photo placeholder</div>
+                        <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-600 lg:max-h-none">Lab group photo placeholder</div>
                       )}
                     </figure>
                   </div>
@@ -769,6 +774,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                       <figure className="mx-auto w-full max-w-sm lg:ml-auto lg:mr-0 lg:max-w-[77%]">
                         {!cultureImage.broken ? (
                           <img
+                            {...responsiveImageProps(cultureImage.src, '(max-width: 1023px) min(100vw - 32px, 384px), 330px')}
                             alt="The Fearless Organization matrix"
                             className="media-document max-h-[230px] md:max-h-[250px]"
                             decoding="async"
@@ -777,7 +783,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                             src={cultureImage.src}
                           />
                         ) : (
-                          <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Culture image placeholder</div>
+                          <div className="flex min-h-[220px] max-h-[360px] items-center justify-center px-4 text-center text-sm text-slate-600 lg:max-h-none">Culture image placeholder</div>
                         )}
                         <figcaption className="site-copy-caption site-media-caption text-left">
                           The Fearless Organization · Amy C. Edmondson

@@ -4,6 +4,7 @@ import { PageHero } from '@/components/site/PageHero';
 import { RESEARCH_CONTENT } from '@/content/site-content';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { formatItemNumber } from '@/lib/format';
+import { responsiveImageProps } from '@/lib/responsive-images';
 
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
 const RESEARCH_AREA_IMAGE_DIR = 'assets/img/research/areas';
@@ -74,6 +75,7 @@ function ResearchAreaRow({ area, index }) {
         <figure className="mx-auto w-full max-w-3xl overflow-hidden rounded-sm lg:max-w-none">
           {!image.broken ? (
             <img
+              {...responsiveImageProps(image.src, '(max-width: 1023px) min(100vw - 32px, 768px), 552px')}
               alt={area.title}
               className={`media-landscape max-h-[380px] w-full lg:max-h-none ${
                 keepFullImage ? 'object-contain bg-white p-2' : 'object-cover'
@@ -84,7 +86,7 @@ function ResearchAreaRow({ area, index }) {
               src={image.src}
             />
           ) : (
-            <div className="media-landscape flex max-h-[380px] items-center justify-center px-4 text-center text-sm text-slate-500 lg:max-h-none">Research image placeholder</div>
+            <div className="media-landscape flex max-h-[380px] items-center justify-center px-4 text-center text-sm text-slate-600 lg:max-h-none">Research image placeholder</div>
           )}
         </figure>
 
@@ -112,9 +114,9 @@ function FundingItem({ item, index }) {
     <article className="flex h-full w-1/2 shrink-0 flex-col px-4 py-5 text-center md:px-5 md:py-6 xl:w-1/4">
       <div className="flex min-h-[92px] items-center justify-center">
         {!image.broken ? (
-          <img alt={item.name} className="max-h-14 w-auto object-contain" decoding="async" loading="lazy" onError={image.onError} src={image.src} />
+          <img {...responsiveImageProps(image.src, '220px')} alt={item.name} className="max-h-14 w-auto object-contain" decoding="async" loading="lazy" onError={image.onError} src={image.src} />
         ) : (
-          <div className="text-xs font-medium text-slate-500">Funding logo</div>
+          <div className="text-xs font-medium text-slate-600">Funding logo</div>
         )}
       </div>
       <div className="mt-3 flex min-h-[4rem] flex-1 items-center justify-center">

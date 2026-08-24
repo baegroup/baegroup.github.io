@@ -88,7 +88,7 @@ report(/\/author\/record\//.test(news.piLinks?.webOfScience || ''), 'profiles: W
 
 for (const item of newsItems) {
   report(isValidIsoDate(item.date), `news: invalid date for "${item.id}"`);
-  report(typeof item.summary === 'string', `news: summary must be a string for "${item.id}"`);
+  report(typeof item.summary === 'string' && item.summary.trim().length > 0, `news: summary is missing for "${item.id}"`);
   report(Array.isArray(item.images), `news: images must be an array for "${item.id}"`);
   for (const image of item.images || []) await validatePublicFile(image, `news item "${item.id}"`);
 }
@@ -209,3 +209,7 @@ if (errors.length) {
 }
 
 console.log(`Site validation passed: ${team.length} team members, ${publications.length} publications, ${newsItems.length} news items, ${SEO_ROUTES.length} SEO routes`);
+const conferenceCount = publications.filter((item) => item.type === 'conference').length;
+const patentsAwaitingDates = publications.filter((item) => item.type === 'patent' && !String(item.filingDate || '').trim()).length;
+const emailsAwaitingIssue = team.filter((member) => /^(tbd|n\/?a|none|-+)$/i.test(String(member.email || '').trim())).length;
+console.log(`Content readiness: ${conferenceCount} conference record(s); ${patentsAwaitingDates} patent filing date(s) and ${emailsAwaitingIssue} member email(s) awaiting verified source data`);

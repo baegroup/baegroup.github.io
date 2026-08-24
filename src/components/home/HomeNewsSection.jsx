@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { HOME_MEDIA, mediaCandidates } from '@/content/home-media';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { pagePath } from '@/lib/i18n';
+import { responsiveImageProps } from '@/lib/responsive-images';
 import { newsItemPath } from '@/lib/seo-paths';
 
 function parseNewsDate(value) {
@@ -34,11 +35,12 @@ function LeadNewsImage({ item, path, suffix = '' }) {
   }, [imageBase]);
 
   if (exhausted) {
-    return <div className="flex h-full items-center justify-center text-xs font-medium text-slate-500">Image</div>;
+    return <div className="flex h-full items-center justify-center text-xs font-medium text-slate-600">Image</div>;
   }
 
   return (
     <img
+      {...responsiveImageProps(imageCandidates[imageIndex], '(max-width: 639px) calc(100vw - 32px), (max-width: 1023px) calc((100vw - 52px) / 2), 330px')}
       alt={`${item.title}${suffix}`}
       className="h-full w-full object-cover object-top transition-transform duration-[320ms] group-hover:scale-[1.01]"
       decoding="async"

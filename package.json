@@ -4,7 +4,8 @@
   "version": "0.2.0",
   "type": "module",
   "scripts": {
-    "content:build": "node scripts/build-content.mjs && node scripts/build-publication-covers.mjs && node scripts/build-brand-assets.mjs",
+    "content:build": "node scripts/build-content.mjs && node scripts/build-publication-covers.mjs && node scripts/build-brand-assets.mjs && node scripts/build-responsive-images.mjs",
+    "images:responsive": "node scripts/build-responsive-images.mjs",
     "images:optimize:news": "node scripts/optimize-news-images.mjs",
     "instagram:sync": "node scripts/sync-news-from-notion.mjs --instagram-only",
     "news:sync:notion": "node scripts/sync-news-from-notion.mjs",

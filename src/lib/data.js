@@ -14,7 +14,7 @@ const PROGRAM_LABELS = {
   MSPhD: 'Integrated M.S. & Ph.D.',
   MS: 'M.S. Student',
   BS: 'B.S. Student',
-  Staff: 'Staff'
+  Staff: 'Administrative Staff'
 };
 
 const PUB_TYPE_LABELS = {

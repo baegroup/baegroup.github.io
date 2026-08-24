@@ -50,6 +50,10 @@
     @apply min-h-screen;
   }
 
+  html {
+    scroll-padding-top: 9rem;
+  }
+
   body {
     @apply bg-background font-sans text-foreground antialiased;
   }
@@ -64,6 +68,8 @@
   :where(a, button, input, select, textarea, [tabindex]:not([tabindex='-1'])):focus-visible {
     outline: 2px solid var(--brand-navy);
     outline-offset: 3px;
+    scroll-margin-block-end: 7rem;
+    scroll-margin-block-start: 9rem;
   }
 
   ::selection {
@@ -131,7 +137,7 @@
   .site-action-link {
     color: var(--brand-burgundy-deep);
     text-decoration-color: color-mix(in srgb, var(--brand-burgundy) 48%, transparent);
-    @apply text-sm font-semibold underline decoration-1 underline-offset-4;
+    @apply inline-flex min-h-11 items-center text-sm font-semibold underline decoration-1 underline-offset-4;
     transition: color var(--motion-fast) ease, text-decoration-color var(--motion-fast) ease;
   }
 
@@ -225,7 +231,7 @@
   }
 
   .site-copy-caption {
-    @apply text-xs font-normal leading-relaxed text-slate-500;
+    @apply text-xs font-normal leading-relaxed text-slate-600;
   }
 
   .site-media-caption {
@@ -303,7 +309,7 @@
   }
 
   .page-section-tab {
-    @apply relative bg-transparent p-0 font-sans text-sm font-normal leading-5 text-slate-600;
+    @apply relative inline-flex min-h-8 items-center bg-transparent px-1 py-0 font-sans text-sm font-normal leading-5 text-slate-600;
     transition: color var(--motion-fast) ease;
   }
 
@@ -587,7 +593,7 @@
   }
 
   .page-section-tab {
-    @apply shrink-0 whitespace-nowrap;
+    @apply min-h-11 shrink-0 whitespace-nowrap;
     scroll-snap-align: start;
   }
 

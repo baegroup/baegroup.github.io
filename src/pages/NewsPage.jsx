@@ -9,6 +9,7 @@ import { NEWS_CONTENT } from '@/content/site-content';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { loadNewsFeed } from '@/lib/data';
 import { formatItemNumber } from '@/lib/format';
+import { responsiveImageProps } from '@/lib/responsive-images';
 import {
   NEWS_SLUG_SECTIONS,
   newsItemPath,
@@ -110,6 +111,18 @@ function useImageFallback(assetPath) {
 
 function MediaImage({ path, title, variant = 'card' }) {
   const image = useImageFallback(path);
+  const sizes = {
+    card: '(max-width: 767px) calc(100vw - 32px), 520px',
+    full: '(max-width: 767px) calc(100vw - 32px), 768px',
+    galleryFill: '(max-width: 639px) calc(100vw - 32px), 384px',
+    instagram: '(max-width: 639px) calc(100vw - 32px), 384px',
+    instagramAvatar: '32px',
+    profile: '(max-width: 767px) min(72vw, 280px), 280px',
+    profileFill: '(max-width: 639px) calc((100vw - 36px) / 2), 260px',
+    strip: '(max-width: 767px) 84px, 110px',
+    thumb: '(max-width: 767px) 64px, 72px'
+  }[variant] || '(max-width: 767px) calc(100vw - 32px), 520px';
+  const responsiveProps = responsiveImageProps(image.src, sizes);
 
   if (image.broken) {
     if (variant === 'instagramAvatar') {
@@ -118,7 +131,7 @@ function MediaImage({ path, title, variant = 'card' }) {
 
     if (variant === 'thumb') {
       return (
-        <div className="flex h-16 w-16 items-center justify-center border border-slate-200 bg-slate-100 text-[10px] font-medium text-slate-500 md:h-[72px] md:w-[72px]">
+        <div className="flex h-16 w-16 items-center justify-center border border-slate-200 bg-slate-100 text-[10px] font-medium text-slate-600 md:h-[72px] md:w-[72px]">
           Image
         </div>
       );
@@ -126,7 +139,7 @@ function MediaImage({ path, title, variant = 'card' }) {
 
     if (variant === 'strip') {
       return (
-        <div className="flex h-[63px] w-[84px] items-center justify-center rounded-sm bg-slate-100 text-[10px] font-medium text-slate-500 md:h-[82px] md:w-[110px]">
+        <div className="flex h-[63px] w-[84px] items-center justify-center rounded-sm bg-slate-100 text-[10px] font-medium text-slate-600 md:h-[82px] md:w-[110px]">
           Image
         </div>
       );
@@ -134,7 +147,7 @@ function MediaImage({ path, title, variant = 'card' }) {
 
     if (variant === 'galleryFill' || variant === 'profileFill') {
       return (
-        <div className="flex h-full min-h-0 w-full items-center justify-center bg-slate-100 text-[10px] font-medium text-slate-500">
+        <div className="flex h-full min-h-0 w-full items-center justify-center bg-slate-100 text-[10px] font-medium text-slate-600">
           Image
         </div>
       );
@@ -142,7 +155,7 @@ function MediaImage({ path, title, variant = 'card' }) {
 
     if (variant === 'instagram') {
       return (
-        <div className="flex aspect-square w-full items-center justify-center bg-slate-100 text-xs font-medium text-slate-500">
+        <div className="flex aspect-square w-full items-center justify-center bg-slate-100 text-xs font-medium text-slate-600">
           Image
         </div>
       );
@@ -150,46 +163,47 @@ function MediaImage({ path, title, variant = 'card' }) {
 
     if (variant === 'full') {
       return (
-        <div className="flex min-h-52 w-full max-w-3xl items-center justify-center rounded-sm bg-slate-100 px-3 text-xs font-medium text-slate-500">
+        <div className="flex min-h-52 w-full max-w-3xl items-center justify-center rounded-sm bg-slate-100 px-3 text-xs font-medium text-slate-600">
           Image
         </div>
       );
     }
 
     return (
-      <div className="flex aspect-[4/3] w-full items-center justify-center rounded-sm bg-slate-100 text-xs font-medium text-slate-500">
+      <div className="flex aspect-[4/3] w-full items-center justify-center rounded-sm bg-slate-100 text-xs font-medium text-slate-600">
         Image
       </div>
     );
   }
 
   if (variant === 'thumb') {
-    return <img alt={title} className="h-16 w-16 rounded-sm object-cover md:h-[72px] md:w-[72px]" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+    return <img {...responsiveProps} alt={title} className="h-16 w-16 rounded-sm object-cover md:h-[72px] md:w-[72px]" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
   }
 
   if (variant === 'instagramAvatar') {
-    return <img alt={title} className="size-8 rounded-full object-cover" decoding="async" height="32" loading="lazy" onError={image.onError} src={image.src} width="32" />;
+    return <img {...responsiveProps} alt={title} className="size-8 rounded-full object-cover" decoding="async" height="32" loading="lazy" onError={image.onError} src={image.src} width="32" />;
   }
 
   if (variant === 'strip') {
-    return <img alt={title} className="h-[63px] w-[84px] rounded-sm object-cover md:h-[82px] md:w-[110px]" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+    return <img {...responsiveProps} alt={title} className="h-[63px] w-[84px] rounded-sm object-cover md:h-[82px] md:w-[110px]" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
   }
 
   if (variant === 'galleryFill') {
-    return <img alt={title} className="h-full min-h-0 w-full object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+    return <img {...responsiveProps} alt={title} className="h-full min-h-0 w-full object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
   }
 
   if (variant === 'profileFill') {
-    return <img alt={title} className="h-full min-h-0 w-full object-cover object-top" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+    return <img {...responsiveProps} alt={title} className="h-full min-h-0 w-full object-cover object-top" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
   }
 
   if (variant === 'instagram') {
-    return <img alt={title} className="aspect-square w-full object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+    return <img {...responsiveProps} alt={title} className="aspect-square w-full object-cover" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
   }
 
   if (variant === 'full') {
     return (
       <img
+        {...responsiveProps}
         alt={title}
         className="block h-auto max-h-[640px] w-auto max-w-full rounded-sm object-contain"
         decoding="async"
@@ -203,6 +217,7 @@ function MediaImage({ path, title, variant = 'card' }) {
   if (variant === 'profile') {
     return (
       <img
+        {...responsiveProps}
         alt={title}
         className="aspect-[4/5] w-full rounded-sm object-cover object-top"
         decoding="async"
@@ -213,7 +228,7 @@ function MediaImage({ path, title, variant = 'card' }) {
     );
   }
 
-  return <img alt={title} className="media-news w-full" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
+  return <img {...responsiveProps} alt={title} className="media-news w-full" decoding="async" loading="lazy" onError={image.onError} src={image.src} />;
 }
 
 function isMemberWelcomeItem(item) {
@@ -385,10 +400,10 @@ function InstagramRail({ displayName, handle, post, postUrl, profileImage, profi
             {caption}
           </p>
         ) : null}
-        <a className="inline-flex text-xs text-slate-500 no-underline hover:text-[#b72862]" href={postUrl} rel="noreferrer" target="_blank">Add a comment…</a>
+        <a className="inline-flex text-xs text-slate-600 no-underline hover:text-[#b72862]" href={postUrl} rel="noreferrer" target="_blank">Add a comment…</a>
         <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
           <a className="site-text-link inline-flex items-center text-xs" href={postUrl} rel="noreferrer" target="_blank">View more on Instagram<ExternalLinkIcon /></a>
-          {post.date ? <time className="text-xs text-slate-500" dateTime={post.date}>{post.date}</time> : null}
+          {post.date ? <time className="text-xs text-slate-600" dateTime={post.date}>{post.date}</time> : null}
         </div>
       </div>
     </section>
@@ -548,7 +563,7 @@ function VideoCard({ detailPath, item, number }) {
         ) : fallbackImage ? (
           <MediaImage path={fallbackImage} title={item.title} />
         ) : (
-          <div className="flex aspect-video w-full items-center justify-center px-4 text-center text-sm text-slate-500">Video preview not available.</div>
+          <div className="flex aspect-video w-full items-center justify-center px-4 text-center text-sm text-slate-600">Video preview not available.</div>
         )}
       </div>
 
@@ -700,7 +715,7 @@ function NewsDetail({ item, section }) {
         </div>
 
         <aside className="site-rule-strong border-t pt-4 lg:border-t-0 lg:pt-0">
-          <p className="text-xs font-semibold text-slate-500">Bae Lab news</p>
+          <p className="text-xs font-semibold text-slate-600">Bae Lab news</p>
           <Link className="site-utility-link mt-3 inline-flex" to={newsSectionPath(section)}>Back to {section === 'gallery' ? 'Lab Life' : section === 'videos' ? 'Video' : 'Highlights'}</Link>
         </aside>
       </div>
@@ -897,8 +912,8 @@ export function NewsPage({ locale }) {
         </div>
       </PageHero>
 
-      <div className={`page-content-offset grid gap-6 lg:grid-cols-[minmax(0,1fr)_232px] lg:items-start lg:gap-8 xl:grid-cols-[minmax(0,1fr)_260px] xl:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
-        <aside className="order-2 w-full lg:self-start">
+      <div className={`page-content-offset grid min-w-0 grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_232px] lg:items-start lg:gap-8 xl:grid-cols-[minmax(0,1fr)_260px] xl:gap-10 ${contentReveal.revealClassName}`} ref={contentReveal.ref} style={contentReveal.revealStyle}>
+        <aside className="order-2 min-w-0 w-full lg:self-start">
           <div className="mx-auto w-full max-w-sm space-y-4 lg:max-w-none xl:sticky xl:top-28">
             <InstagramRail
               displayName={feed.instagram.displayName}
@@ -911,7 +926,7 @@ export function NewsPage({ locale }) {
           </div>
         </aside>
 
-        <section className="order-1 space-y-3" ref={listTopRef}>
+        <section className="order-1 min-w-0 space-y-3" ref={listTopRef}>
           <h2 className="sr-only">{sections.find((section) => section.id === activeSection)?.label || 'News items'}</h2>
           {loading ? <div className="content-state-row" role="status"><p className="content-state-label">Loading</p><p className="content-state-message">Loading news feed...</p></div> : null}
           {!loading && error ? <div className="content-state-row is-error" role="alert"><p className="content-state-label">Error</p><p className="content-state-message">{error}</p></div> : null}
@@ -994,7 +1009,7 @@ export function NewsPage({ locale }) {
                   {currentPage > 1 ? (
                     <Link
                       aria-label="Previous news page"
-                      className="inline-flex size-11 items-center justify-center text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
+                      className="inline-flex size-11 items-center justify-center text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
                       to={newsSectionPath(activeSection, currentPage - 1)}
                     >
                       <ChevronLeft aria-hidden="true" className="size-4" strokeWidth={1.5} />
@@ -1019,7 +1034,7 @@ export function NewsPage({ locale }) {
                   {currentPage < pageCount ? (
                     <Link
                       aria-label="Next news page"
-                      className="inline-flex size-11 items-center justify-center text-slate-500 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
+                      className="inline-flex size-11 items-center justify-center text-slate-600 transition-colors hover:text-[var(--brand-burgundy)] sm:size-7"
                       to={newsSectionPath(activeSection, currentPage + 1)}
                     >
                       <ChevronRight aria-hidden="true" className="size-4" strokeWidth={1.5} />

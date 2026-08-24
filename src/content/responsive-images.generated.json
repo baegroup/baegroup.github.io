@@ -1,0 +1,1491 @@
+{
+  "assets/img/home/join/team.webp": {
+    "height": 800,
+    "sources": [
+      {
+        "path": "assets/img/responsive/home/join/team-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/home/join/team-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/home/join/team-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1200
+  },
+  "assets/img/home/news/featured.jpg": {
+    "height": 2013,
+    "sources": [
+      {
+        "path": "assets/img/responsive/home/news/featured-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/home/news/featured-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/home/news/featured-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 2013
+  },
+  "assets/img/home/research/area-1.webp": {
+    "height": 800,
+    "sources": [
+      {
+        "path": "assets/img/responsive/home/research/area-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/home/research/area-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/home/research/area-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1200
+  },
+  "assets/img/home/research/area-2.webp": {
+    "height": 492,
+    "sources": [
+      {
+        "path": "assets/img/responsive/home/research/area-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/home/research/area-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/home/research/area-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1026
+  },
+  "assets/img/home/research/area-3.webp": {
+    "height": 531,
+    "sources": [
+      {
+        "path": "assets/img/responsive/home/research/area-3-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/home/research/area-3-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/home/research/area-3-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1200
+  },
+  "assets/img/lab-logo.png": {
+    "height": 2013,
+    "sources": [
+      {
+        "path": "assets/img/responsive/lab-logo-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/lab-logo-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/lab-logo-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 2013
+  },
+  "assets/img/news/instagram/ig-17938622901014724-1.webp": {
+    "height": 1440,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/instagram/ig-17938622901014724-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/instagram/ig-17938622901014724-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/instagram/ig-17938622901014724-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1440
+  },
+  "assets/img/news/instagram/profile.webp": {
+    "height": 206,
+    "sources": [],
+    "width": 206
+  },
+  "assets/img/news/notion/31d6760c5a65800aabbada0c1e8e57df-1.webp": {
+    "height": 922,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a65800aabbada0c1e8e57df-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a65800aabbada0c1e8e57df-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a65800aabbada0c1e8e57df-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1354
+  },
+  "assets/img/news/notion/31d6760c5a658027bd8cd74c58899fcb-1.webp": {
+    "height": 703,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a658027bd8cd74c58899fcb-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a658027bd8cd74c58899fcb-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a658027bd8cd74c58899fcb-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1000
+  },
+  "assets/img/news/notion/31d6760c5a65802a84f2c2e16ed6959b-1.webp": {
+    "height": 1600,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a65802a84f2c2e16ed6959b-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a65802a84f2c2e16ed6959b-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a65802a84f2c2e16ed6959b-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1119
+  },
+  "assets/img/news/notion/31d6760c5a65802a84f2c2e16ed6959b-2.webp": {
+    "height": 1600,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a65802a84f2c2e16ed6959b-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a65802a84f2c2e16ed6959b-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a65802a84f2c2e16ed6959b-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1200
+  },
+  "assets/img/news/notion/31d6760c5a6580629bf1d9707360a879-1.webp": {
+    "height": 1600,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580629bf1d9707360a879-1-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 622
+  },
+  "assets/img/news/notion/31d6760c5a6580848ba4fa778084c26d-1.webp": {
+    "height": 724,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580848ba4fa778084c26d-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580848ba4fa778084c26d-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580848ba4fa778084c26d-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1000
+  },
+  "assets/img/news/notion/31d6760c5a6580848ba4fa778084c26d-2.webp": {
+    "height": 666,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580848ba4fa778084c26d-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580848ba4fa778084c26d-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580848ba4fa778084c26d-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1000
+  },
+  "assets/img/news/notion/31d6760c5a6580848ba4fa778084c26d-3.webp": {
+    "height": 666,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580848ba4fa778084c26d-3-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580848ba4fa778084c26d-3-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580848ba4fa778084c26d-3-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1000
+  },
+  "assets/img/news/notion/31d6760c5a658099971fc26034ba3908-1.webp": {
+    "height": 576,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a658099971fc26034ba3908-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a658099971fc26034ba3908-1-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 768
+  },
+  "assets/img/news/notion/31d6760c5a658099971fc26034ba3908-2.webp": {
+    "height": 576,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a658099971fc26034ba3908-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a658099971fc26034ba3908-2-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 768
+  },
+  "assets/img/news/notion/31d6760c5a65809ba933fff0c2b58c51-1.webp": {
+    "height": 548,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a65809ba933fff0c2b58c51-1-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 389
+  },
+  "assets/img/news/notion/31d6760c5a6580b5b1bbe3042f712a55-1.webp": {
+    "height": 1600,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b5b1bbe3042f712a55-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b5b1bbe3042f712a55-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b5b1bbe3042f712a55-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1151
+  },
+  "assets/img/news/notion/31d6760c5a6580b5b1bbe3042f712a55-2.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b5b1bbe3042f712a55-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b5b1bbe3042f712a55-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b5b1bbe3042f712a55-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/31d6760c5a6580b5b1bbe3042f712a55-3.webp": {
+    "height": 1152,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b5b1bbe3042f712a55-3-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b5b1bbe3042f712a55-3-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b5b1bbe3042f712a55-3-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1536
+  },
+  "assets/img/news/notion/31d6760c5a6580b89531e988c86039eb-1.webp": {
+    "height": 1000,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b89531e988c86039eb-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b89531e988c86039eb-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b89531e988c86039eb-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1011
+  },
+  "assets/img/news/notion/31d6760c5a6580b89531e988c86039eb-2.webp": {
+    "height": 768,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b89531e988c86039eb-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b89531e988c86039eb-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b89531e988c86039eb-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1024
+  },
+  "assets/img/news/notion/31d6760c5a6580b89531e988c86039eb-3.webp": {
+    "height": 768,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b89531e988c86039eb-3-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b89531e988c86039eb-3-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580b89531e988c86039eb-3-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1024
+  },
+  "assets/img/news/notion/31d6760c5a6580bc849cc0236e3c7f81-1.webp": {
+    "height": 1600,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580bc849cc0236e3c7f81-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580bc849cc0236e3c7f81-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580bc849cc0236e3c7f81-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1219
+  },
+  "assets/img/news/notion/31d6760c5a6580c9945cf5aaef8dbddd-1.webp": {
+    "height": 1600,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580c9945cf5aaef8dbddd-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580c9945cf5aaef8dbddd-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580c9945cf5aaef8dbddd-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1172
+  },
+  "assets/img/news/notion/31d6760c5a6580dea0b6c6ac01fd5886-1.webp": {
+    "height": 1600,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580dea0b6c6ac01fd5886-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580dea0b6c6ac01fd5886-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580dea0b6c6ac01fd5886-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1220
+  },
+  "assets/img/news/notion/31d6760c5a6580ea9a53d7a38194631a-1.webp": {
+    "height": 609,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31d6760c5a6580ea9a53d7a38194631a-1-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 548
+  },
+  "assets/img/news/notion/31e6760c5a65800aa53dca0ae6902fa9-1.webp": {
+    "height": 1080,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65800aa53dca0ae6902fa9-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65800aa53dca0ae6902fa9-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65800aa53dca0ae6902fa9-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1440
+  },
+  "assets/img/news/notion/31e6760c5a65800aa53dca0ae6902fa9-2.webp": {
+    "height": 1600,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65800aa53dca0ae6902fa9-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65800aa53dca0ae6902fa9-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65800aa53dca0ae6902fa9-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1067
+  },
+  "assets/img/news/notion/31e6760c5a65801f86d0f9098481f87d-1.webp": {
+    "height": 576,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65801f86d0f9098481f87d-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65801f86d0f9098481f87d-1-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 768
+  },
+  "assets/img/news/notion/31e6760c5a65801f86d0f9098481f87d-2.webp": {
+    "height": 1024,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65801f86d0f9098481f87d-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65801f86d0f9098481f87d-2-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 768
+  },
+  "assets/img/news/notion/31e6760c5a65802c8c2bcbb994348b15-1.webp": {
+    "height": 1152,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65802c8c2bcbb994348b15-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65802c8c2bcbb994348b15-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65802c8c2bcbb994348b15-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1536
+  },
+  "assets/img/news/notion/31e6760c5a65802c8c2bcbb994348b15-2.webp": {
+    "height": 1152,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65802c8c2bcbb994348b15-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65802c8c2bcbb994348b15-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65802c8c2bcbb994348b15-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1536
+  },
+  "assets/img/news/notion/31e6760c5a65803cb05bf93681a1da0b-1.webp": {
+    "height": 576,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65803cb05bf93681a1da0b-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65803cb05bf93681a1da0b-1-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 768
+  },
+  "assets/img/news/notion/31e6760c5a65803cb05bf93681a1da0b-2.webp": {
+    "height": 576,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65803cb05bf93681a1da0b-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a65803cb05bf93681a1da0b-2-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 768
+  },
+  "assets/img/news/notion/31e6760c5a658096b15bc8ba05eafede-1.webp": {
+    "height": 1152,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658096b15bc8ba05eafede-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658096b15bc8ba05eafede-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658096b15bc8ba05eafede-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1536
+  },
+  "assets/img/news/notion/31e6760c5a658096b15bc8ba05eafede-2.webp": {
+    "height": 1152,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658096b15bc8ba05eafede-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658096b15bc8ba05eafede-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658096b15bc8ba05eafede-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1536
+  },
+  "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-1.webp": {
+    "height": 961,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1280
+  },
+  "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-2.webp": {
+    "height": 1024,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1536
+  },
+  "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-3.webp": {
+    "height": 1080,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-3-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-3-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-3-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1440
+  },
+  "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-4.webp": {
+    "height": 1080,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-4-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-4-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-4-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1440
+  },
+  "assets/img/news/notion/31e6760c5a658099968fc65b3b418723-5.webp": {
+    "height": 960,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-5-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-5-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a658099968fc65b3b418723-5-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1280
+  },
+  "assets/img/news/notion/31e6760c5a6580ac958ac5ce000a9721-1.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580ac958ac5ce000a9721-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580ac958ac5ce000a9721-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580ac958ac5ce000a9721-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/31e6760c5a6580ac958ac5ce000a9721-2.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580ac958ac5ce000a9721-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580ac958ac5ce000a9721-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580ac958ac5ce000a9721-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/31e6760c5a6580ac958ac5ce000a9721-3.webp": {
+    "height": 1600,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580ac958ac5ce000a9721-3-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580ac958ac5ce000a9721-3-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580ac958ac5ce000a9721-3-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1411
+  },
+  "assets/img/news/notion/31e6760c5a6580b89c83e1b232d174a4-1.webp": {
+    "height": 614,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580b89c83e1b232d174a4-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580b89c83e1b232d174a4-1-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 768
+  },
+  "assets/img/news/notion/31e6760c5a6580e5a59ee7d534474adc-1.webp": {
+    "height": 1152,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580e5a59ee7d534474adc-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580e5a59ee7d534474adc-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580e5a59ee7d534474adc-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1536
+  },
+  "assets/img/news/notion/31e6760c5a6580e5a59ee7d534474adc-2.webp": {
+    "height": 1152,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580e5a59ee7d534474adc-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580e5a59ee7d534474adc-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/31e6760c5a6580e5a59ee7d534474adc-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1536
+  },
+  "assets/img/news/notion/3c16760c5a65806c9f21dd03140fff4e-1.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c16760c5a65806c9f21dd03140fff4e-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c16760c5a65806c9f21dd03140fff4e-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c16760c5a65806c9f21dd03140fff4e-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c16760c5a65806c9f21dd03140fff4e-2.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c16760c5a65806c9f21dd03140fff4e-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c16760c5a65806c9f21dd03140fff4e-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c16760c5a65806c9f21dd03140fff4e-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c16760c5a65806c9f21dd03140fff4e-3.webp": {
+    "height": 1600,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c16760c5a65806c9f21dd03140fff4e-3-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c16760c5a65806c9f21dd03140fff4e-3-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c16760c5a65806c9f21dd03140fff4e-3-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1200
+  },
+  "assets/img/news/notion/3c36760c5a6580289584c617f5ea0b4d-1.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c36760c5a6580289584c617f5ea0b4d-2.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c36760c5a6580289584c617f5ea0b4d-3.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-3-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-3-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-3-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c36760c5a6580aca08bf535e9c9240e-1.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580aca08bf535e9c9240e-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580aca08bf535e9c9240e-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580aca08bf535e9c9240e-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c36760c5a6580aca08bf535e9c9240e-2.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580aca08bf535e9c9240e-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580aca08bf535e9c9240e-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580aca08bf535e9c9240e-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c36760c5a6580be9787ce10a35dafa7-1.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580be9787ce10a35dafa7-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580be9787ce10a35dafa7-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580be9787ce10a35dafa7-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c36760c5a6580be9787ce10a35dafa7-2.webp": {
+    "height": 1600,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580be9787ce10a35dafa7-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580be9787ce10a35dafa7-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580be9787ce10a35dafa7-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1067
+  },
+  "assets/img/news/notion/3c36760c5a6580e2b252d69a66299bdf-1.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580e2b252d69a66299bdf-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580e2b252d69a66299bdf-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580e2b252d69a66299bdf-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c36760c5a6580e2b252d69a66299bdf-2.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580e2b252d69a66299bdf-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580e2b252d69a66299bdf-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580e2b252d69a66299bdf-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c36760c5a6580fca135d56f573b7f09-1.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580fca135d56f573b7f09-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580fca135d56f573b7f09-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580fca135d56f573b7f09-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c36760c5a6580fca135d56f573b7f09-2.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580fca135d56f573b7f09-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580fca135d56f573b7f09-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c36760c5a6580fca135d56f573b7f09-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/3c46760c5a65814eb222d63492e32386-1.webp": {
+    "height": 1024,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c46760c5a65814eb222d63492e32386-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c46760c5a65814eb222d63492e32386-1-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 835
+  },
+  "assets/img/news/notion/3c46760c5a65818a8802d0fc1acfad7f-1.webp": {
+    "height": 900,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c46760c5a65818a8802d0fc1acfad7f-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c46760c5a65818a8802d0fc1acfad7f-1-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 659
+  },
+  "assets/img/news/notion/3c46760c5a658193b599f5aadcde8c4a-1.webp": {
+    "height": 508,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c46760c5a658193b599f5aadcde8c4a-1-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 390
+  },
+  "assets/img/news/notion/3c46760c5a658193b599f5aadcde8c4a-2.webp": {
+    "height": 1024,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c46760c5a658193b599f5aadcde8c4a-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c46760c5a658193b599f5aadcde8c4a-2-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 796
+  },
+  "assets/img/news/notion/3c46760c5a6581baa42ee635c23efe63-1.webp": {
+    "height": 1024,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c46760c5a6581baa42ee635c23efe63-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c46760c5a6581baa42ee635c23efe63-1-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 768
+  },
+  "assets/img/news/notion/3c46760c5a6581bc81e3da7fc63b2432-1.webp": {
+    "height": 277,
+    "sources": [],
+    "width": 277
+  },
+  "assets/img/news/notion/3c46760c5a6581dd8be4c531d06716bd-1.webp": {
+    "height": 300,
+    "sources": [],
+    "width": 197
+  },
+  "assets/img/news/notion/3c46760c5a6581e48a4bf8be73f012bc-1.webp": {
+    "height": 1024,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/3c46760c5a6581e48a4bf8be73f012bc-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/3c46760c5a6581e48a4bf8be73f012bc-1-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 796
+  },
+  "assets/img/publications/covers/ACS Nano_January_2024.webp": {
+    "height": 797,
+    "sources": [
+      {
+        "path": "assets/img/responsive/publications/covers/ACS Nano_January_2024-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 600
+  },
+  "assets/img/publications/covers/Advanced Energy Materials_April_2023.webp": {
+    "height": 787,
+    "sources": [
+      {
+        "path": "assets/img/responsive/publications/covers/Advanced Energy Materials_April_2023-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 600
+  },
+  "assets/img/publications/covers/Advanced Functional Materials_June_2022.webp": {
+    "height": 787,
+    "sources": [
+      {
+        "path": "assets/img/responsive/publications/covers/Advanced Functional Materials_June_2022-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 600
+  },
+  "assets/img/publications/covers/Advanced Materials_June_2022.webp": {
+    "height": 787,
+    "sources": [
+      {
+        "path": "assets/img/responsive/publications/covers/Advanced Materials_June_2022-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 600
+  },
+  "assets/img/publications/covers/Energy & Environmental Science_February_2020.webp": {
+    "height": 789,
+    "sources": [
+      {
+        "path": "assets/img/responsive/publications/covers/Energy & Environmental Science_February_2020-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 600
+  },
+  "assets/img/publications/covers/Energy & Environmental Science_January_2022.webp": {
+    "height": 786,
+    "sources": [
+      {
+        "path": "assets/img/responsive/publications/covers/Energy & Environmental Science_January_2022-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 600
+  },
+  "assets/img/research/areas/biomedical-tech.webp": {
+    "height": 531,
+    "sources": [
+      {
+        "path": "assets/img/responsive/research/areas/biomedical-tech-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/research/areas/biomedical-tech-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/research/areas/biomedical-tech-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1200
+  },
+  "assets/img/research/areas/energy-environment-tech.webp": {
+    "height": 492,
+    "sources": [
+      {
+        "path": "assets/img/responsive/research/areas/energy-environment-tech-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/research/areas/energy-environment-tech-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/research/areas/energy-environment-tech-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1026
+  },
+  "assets/img/research/areas/printing-tech.webp": {
+    "height": 800,
+    "sources": [
+      {
+        "path": "assets/img/responsive/research/areas/printing-tech-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/research/areas/printing-tech-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/research/areas/printing-tech-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1200
+  },
+  "assets/img/research/funding/BrainKorea21 Four.png": {
+    "height": 99,
+    "sources": [
+      {
+        "path": "assets/img/responsive/research/funding/BrainKorea21 Four-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 416
+  },
+  "assets/img/research/funding/Department of Chemical Engineering Kyung Hee University.png": {
+    "height": 336,
+    "sources": [
+      {
+        "path": "assets/img/responsive/research/funding/Department of Chemical Engineering Kyung Hee University-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/research/funding/Department of Chemical Engineering Kyung Hee University-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/research/funding/Department of Chemical Engineering Kyung Hee University-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 2028
+  },
+  "assets/img/research/funding/Gyeonggido Business & Science Accelerator.png": {
+    "height": 49,
+    "sources": [],
+    "width": 139
+  },
+  "assets/img/research/funding/Ministry of SMEs and Startups.webp": {
+    "height": 170,
+    "sources": [
+      {
+        "path": "assets/img/responsive/research/funding/Ministry of SMEs and Startups-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 600
+  },
+  "assets/img/research/funding/National Research Foundation of Korea.png": {
+    "height": 63,
+    "sources": [],
+    "width": 202
+  },
+  "assets/img/team/culture/fearless-organization.webp": {
+    "height": 1077,
+    "sources": [
+      {
+        "path": "assets/img/responsive/team/culture/fearless-organization-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/team/culture/fearless-organization-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/team/culture/fearless-organization-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 2048
+  },
+  "assets/img/team/group/group-photo.webp": {
+    "height": 1536,
+    "sources": [
+      {
+        "path": "assets/img/responsive/team/group/group-photo-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/team/group/group-photo-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/team/group/group-photo-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 2048
+  },
+  "assets/img/team/notion/bae-jaehyeong.jpg": {
+    "height": 1024,
+    "sources": [
+      {
+        "path": "assets/img/responsive/team/notion/bae-jaehyeong-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/team/notion/bae-jaehyeong-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 768
+  },
+  "assets/img/team/notion/cho-suha.jpg": {
+    "height": 508,
+    "sources": [
+      {
+        "path": "assets/img/responsive/team/notion/cho-suha-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 390
+  },
+  "assets/img/team/notion/kim-myeongjae.jpg": {
+    "height": 531,
+    "sources": [
+      {
+        "path": "assets/img/responsive/team/notion/kim-myeongjae-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 413
+  },
+  "assets/img/team/notion/kim-nayeon.webp": {
+    "height": 1024,
+    "sources": [
+      {
+        "path": "assets/img/responsive/team/notion/kim-nayeon-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/team/notion/kim-nayeon-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 768
+  },
+  "assets/img/team/notion/ko-yoonji.jpg": {
+    "height": 1024,
+    "sources": [
+      {
+        "path": "assets/img/responsive/team/notion/ko-yoonji-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/team/notion/ko-yoonji-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 835
+  },
+  "assets/img/team/notion/lee-myeong.jpg": {
+    "height": 1024,
+    "sources": [
+      {
+        "path": "assets/img/responsive/team/notion/lee-myeong-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/team/notion/lee-myeong-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 796
+  },
+  "assets/img/team/notion/lin-qunbo.png": {
+    "height": 277,
+    "sources": [],
+    "width": 277
+  },
+  "assets/img/team/notion/liu-jiechen.jpg": {
+    "height": 300,
+    "sources": [],
+    "width": 197
+  },
+  "assets/img/team/notion/tian-ruonan.jpg": {
+    "height": 900,
+    "sources": [
+      {
+        "path": "assets/img/responsive/team/notion/tian-ruonan-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/team/notion/tian-ruonan-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 659
+  },
+  "assets/img/team/notion/zhu-xiaoling.jpg": {
+    "height": 1024,
+    "sources": [
+      {
+        "path": "assets/img/responsive/team/notion/zhu-xiaoling-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/team/notion/zhu-xiaoling-w640.webp",
+        "width": 640
+      }
+    ],
+    "width": 796
+  }
+}
