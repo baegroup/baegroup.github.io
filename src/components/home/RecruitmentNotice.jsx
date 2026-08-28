@@ -124,15 +124,14 @@ export function RecruitmentNotice({ autoOpen = false, content, locale }) {
     };
   }, [closeNotice, open]);
 
-  const badgeClassName = 'surface-floating recruitment-notice-badge group fixed bottom-3 right-3 z-[80] flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 text-left no-underline transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 sm:gap-3 sm:py-2 sm:pl-2 sm:pr-4';
+  const badgeClassName = 'surface-floating recruitment-notice-badge group fixed bottom-3 right-3 z-[80] flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white p-1 text-left no-underline transition-transform hover:-translate-y-0.5 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-navy)] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 sm:h-auto sm:w-auto sm:gap-3 sm:py-2 sm:pl-2 sm:pr-4';
   const badgeContent = (
     <>
       <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--brand-burgundy)] text-white transition-colors group-hover:bg-[var(--brand-burgundy-deep)] sm:h-10 sm:w-10">
         <GraduationCap aria-hidden="true" className="h-5 w-5" />
       </span>
-      <span className="recruitment-notice-badge-copy overflow-hidden whitespace-nowrap">
+      <span className="recruitment-notice-badge-copy hidden overflow-hidden whitespace-nowrap sm:block">
         <span className="hidden text-[10px] font-semibold text-[var(--brand-burgundy)] sm:block">Now recruiting</span>
-        <span className="block text-xs font-semibold text-slate-900 sm:hidden">Join</span>
         <span className="hidden text-sm font-semibold text-slate-900 sm:mt-0.5 sm:block">Graduate Students</span>
       </span>
     </>

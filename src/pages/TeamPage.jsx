@@ -414,7 +414,7 @@ function ProfessorTimeline({ title, items }) {
 
   return (
     <section className="site-rule-strong border-t pt-7 md:pt-8">
-      <h3 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h3>
+      <h2 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h2>
       <ul className="site-divide-soft site-rule-strong mt-6 divide-y border-b">
         {items.map((item) => (
           <li className="site-list-row grid gap-1 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-6" key={`${item.year}-${item.text}`}>
@@ -434,7 +434,7 @@ function ProfessorResearchOverview({ title, paragraphs }) {
 
   return (
     <section className="site-rule-strong border-t pt-7 md:pt-8">
-      <h3 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h3>
+      <h2 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h2>
       <div className="site-copy-body site-reading-measure mt-5 space-y-4">
         {paragraphs.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
@@ -471,7 +471,7 @@ function ProfessorPublications({ title, items }) {
 
   return (
     <section className="site-rule-strong border-t pt-7 md:pt-8">
-      <h3 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h3>
+      <h2 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h2>
       <div className="mt-6">
         <ul className="site-divide-soft site-rule-strong divide-y border-b">
           {items.map((item, index) => (
@@ -480,7 +480,7 @@ function ProfessorPublications({ title, items }) {
                 {formatItemNumber(index + 1)}
               </span>
               <div>
-                <h4 className="text-base font-semibold leading-snug text-slate-950 md:text-lg">{item.title}</h4>
+                <h3 className="text-base font-semibold leading-snug text-slate-950 md:text-lg">{item.title}</h3>
                 <p className="site-copy-support mt-2">
                   <HighlightPIName authors={item.authors} piName="Jaehyeong Bae" />
                 </p>
@@ -797,8 +797,7 @@ export function TeamPage({ locale, section = 'identity' }) {
             ) : null}
 
             {activeSection === 'professor' ? (
-              <section>
-                <h2 className="sr-only">{content.professorTitle || 'Professor'}</h2>
+              <div>
                 {leadProfessor ? (
                   <div className="space-y-4">
                     <div className="mx-auto w-full max-w-6xl px-1 md:px-2 lg:px-6 xl:px-8">
@@ -815,7 +814,7 @@ export function TeamPage({ locale, section = 'identity' }) {
                 ) : (
                   <SectionState content={content} error={error} loading={loading} />
                 )}
-              </section>
+              </div>
             ) : null}
 
             {activeSection === 'current' ? (

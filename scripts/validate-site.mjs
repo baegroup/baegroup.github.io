@@ -39,6 +39,17 @@ function hasFileExtension(value) {
   return /\.[a-z0-9]{2,5}$/i.test(String(value || '').trim());
 }
 
+function isSingleHttpUrl(value) {
+  const raw = String(value || '').trim();
+  if (!raw || (raw.match(/https?:\/\//gi) || []).length !== 1) return false;
+  try {
+    const parsed = new URL(raw);
+    return ['http:', 'https:'].includes(parsed.protocol);
+  } catch {
+    return false;
+  }
+}
+
 async function validatePublicFile(assetPath, label) {
   const normalized = String(assetPath || '').replace(/^\/+/, '');
   if (!normalized || /^https?:\/\//i.test(normalized) || !hasFileExtension(normalized)) return;
@@ -90,6 +101,8 @@ for (const item of newsItems) {
   report(isValidIsoDate(item.date), `news: invalid date for "${item.id}"`);
   report(typeof item.summary === 'string' && item.summary.trim().length > 0, `news: summary is missing for "${item.id}"`);
   report(Array.isArray(item.images), `news: images must be an array for "${item.id}"`);
+  if (item.url) report(isSingleHttpUrl(item.url), `news: source must be one valid URL for "${item.id}"`);
+  if (item.videoUrl) report(isSingleHttpUrl(item.videoUrl), `news: video must be one valid URL for "${item.id}"`);
   for (const image of item.images || []) await validatePublicFile(image, `news item "${item.id}"`);
 }
 for (const member of team) await validatePublicFile(member.photo, `team member "${member.id}"`);

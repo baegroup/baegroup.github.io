@@ -342,8 +342,11 @@ function propertyToUrls(property) {
   if (property.type === 'url') {
     const raw = String(property.url || '').trim();
     const splitUrls = extractUrlsFromText(raw);
+    if (splitUrls.length) {
+      return splitUrls;
+    }
     const normalized = normalizeUrl(raw);
-    return [...new Set([normalized, ...splitUrls].filter(Boolean))];
+    return normalized ? [normalized] : [];
   }
 
   if (property.type === 'rich_text' || property.type === 'title') {

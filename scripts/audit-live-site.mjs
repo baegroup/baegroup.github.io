@@ -79,16 +79,27 @@ try {
 }
 
 try {
-  const aliasResponse = await request(DOMAIN_ALIAS_HTTP_URL, { redirect: 'manual' });
-  const redirectLocation = aliasResponse.headers.get('location') || '';
-  const redirectTarget = redirectLocation ? new URL(redirectLocation, DOMAIN_ALIAS_HTTP_URL) : null;
+  const firstResponse = await request(DOMAIN_ALIAS_HTTP_URL, { redirect: 'manual' });
+  const firstLocation = firstResponse.headers.get('location') || '';
+  const firstTarget = firstLocation ? new URL(firstLocation, DOMAIN_ALIAS_HTTP_URL) : null;
   report(
-    [301, 302, 307, 308].includes(aliasResponse.status),
-    `${DOMAIN_ALIAS_HTTP_URL}: expected an HTTP redirect, received ${aliasResponse.status}`
+    [301, 302, 307, 308].includes(firstResponse.status),
+    `${DOMAIN_ALIAS_HTTP_URL}: expected an HTTP redirect, received ${firstResponse.status}`
   );
   report(
-    redirectTarget?.origin === new URL(SITE_URL).origin,
-    `${DOMAIN_ALIAS_HTTP_URL}: expected redirect to ${SITE_URL}, received ${redirectTarget?.href || 'no Location header'}`
+    firstTarget?.protocol === 'https:',
+    `${DOMAIN_ALIAS_HTTP_URL}: expected the first redirect to enable HTTPS, received ${firstTarget?.href || 'no Location header'}`
+  );
+
+  // The Cloudflare alias intentionally redirects HTTP → HTTPS on www first,
+  // then www → the canonical hostname. Validate the completed chain rather
+  // than treating that secure intermediate hop as a failure.
+  const finalResponse = await request(DOMAIN_ALIAS_HTTP_URL);
+  const finalTarget = new URL(finalResponse.url);
+  report(finalResponse.ok, `${DOMAIN_ALIAS_HTTP_URL}: final response was HTTP ${finalResponse.status}`);
+  report(
+    finalTarget.origin === canonicalUrl.origin,
+    `${DOMAIN_ALIAS_HTTP_URL}: expected the redirect chain to end at ${SITE_URL}, received ${finalTarget.href}`
   );
 } catch (error) {
   errors.push(`${DOMAIN_ALIAS_HTTP_URL}: redirect check failed (${error.message})`);

@@ -601,10 +601,6 @@
     transition: border-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease, gap var(--motion-base) var(--motion-ease), padding var(--motion-base) var(--motion-ease), transform var(--motion-fast) ease;
   }
 
-  .recruitment-notice-badge-copy {
-    max-width: 3rem;
-    opacity: 1;
-  }
 }
 
 @keyframes recruitment-dialog-in {

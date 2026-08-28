@@ -26,6 +26,12 @@ function ScrollToTop() {
   return null;
 }
 
+function RouteRenderMarker() {
+  const { pathname } = useLocation();
+  const normalizedPath = pathname.replace(/\/+$/, '') || '/';
+  return <span aria-hidden="true" data-rendered-route={normalizedPath} hidden />;
+}
+
 function LegacyLocaleRedirect() {
   const { pathname } = useLocation();
   const segments = pathname.split('/').filter(Boolean);
@@ -70,6 +76,7 @@ export default function App() {
       <SiteMetadata />
       <SiteAnalytics />
       <ScrollToTop />
+      <RouteRenderMarker />
       <Routes>
         <Route element={<LegacyLocaleRedirect />} path="en/*" />
         <Route element={<SiteRoutes />} path="*" />

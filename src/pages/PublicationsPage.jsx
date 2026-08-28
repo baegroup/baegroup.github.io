@@ -433,7 +433,7 @@ function JournalCoverCarousel({ items }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-3">
-        <h3 className="text-lg font-semibold text-slate-900">Journal Covers</h3>
+        <h2 className="text-lg font-semibold text-slate-900">Journal Covers</h2>
         {controls}
       </div>
       <article>

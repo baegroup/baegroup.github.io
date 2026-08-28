@@ -415,6 +415,7 @@ function buildDashboardBlocks({
   searchSummary,
   searchQueries,
   searchPages,
+  searchConsoleAvailable,
   updatedAt
 }) {
   const current = summary.rows?.[0] || {};
@@ -442,7 +443,27 @@ function buildDashboardBlocks({
   const topCountry = translateCountry(topLabel(countries));
   const topChannel = translateChannel(topLabel(channels));
   const topPage = topLabel(pages);
-  const topQuery = String(searchQueries.rows?.[0]?.keys?.[0] || '아직 검색어 데이터가 없습니다');
+  const topQuery = searchConsoleAvailable
+    ? String(searchQueries.rows?.[0]?.keys?.[0] || '아직 검색어 데이터가 없습니다')
+    : 'Search Console 권한 확인 필요';
+  const searchMetricSummary = searchConsoleAvailable
+    ? `Google 검색(확정 28일)  클릭 ${compactNumber(searchTotals.clicks)}회 · 노출 ${compactNumber(searchTotals.impressions)}회 · 평균 ${Number(searchTotals.position || 0).toFixed(1)}위`
+    : 'Google 검색  Search Console 권한 확인 필요';
+  const searchDetailBlocks = searchConsoleAvailable
+    ? [
+        paragraph(`최근 확정 28일 · 클릭 ${compactNumber(searchTotals.clicks)}회 · 노출 ${compactNumber(searchTotals.impressions)}회 · 클릭률 ${percentage(searchTotals.ctr)} · 평균 ${Number(searchTotals.position || 0).toFixed(1)}위`),
+        heading('검색어 상위 5개', 3),
+        ...topRows(searchQueries).map((row) => bulletedItem(
+          `${String(row.keys?.[0] || '검색어 없음')} · 클릭 ${compactNumber(row.clicks)} · 노출 ${compactNumber(row.impressions)} · ${Number(row.position || 0).toFixed(1)}위`
+        )),
+        heading('검색 유입 페이지 상위 5개', 3),
+        ...topRows(searchPages).map((row) => bulletedItem(
+          `${String(row.keys?.[0] || '페이지 없음')} · 클릭 ${compactNumber(row.clicks)} · 노출 ${compactNumber(row.impressions)} · ${Number(row.position || 0).toFixed(1)}위`
+        ))
+      ]
+    : [callout('GA4 데이터는 정상 갱신되었습니다. Search Console 서비스 계정에 사이트 권한을 추가하면 검색 데이터도 자동으로 표시됩니다.', {
+        emoji: '⚠️', color: 'yellow_background'
+      })];
 
   return [
     callout(`업데이트: ${updatedAt} · 최근 7일 기준 · Analytics에 동의한 방문자의 집계 데이터만 포함합니다.`, {
@@ -463,7 +484,7 @@ function buildDashboardBlocks({
         callout(`이용량  방문 ${compactNumber(currentMetrics[2])}회 · 페이지 조회 ${compactNumber(currentMetrics[3])}회`, {
           emoji: '📈', color: 'green_background'
         }),
-        callout(`Google 검색(확정 28일)  클릭 ${compactNumber(searchTotals.clicks)}회 · 노출 ${compactNumber(searchTotals.impressions)}회 · 평균 ${Number(searchTotals.position || 0).toFixed(1)}위`, {
+        callout(searchMetricSummary, {
           emoji: '🔎', color: 'purple_background'
         })
       ]
@@ -496,17 +517,7 @@ function buildDashboardBlocks({
       heading('외부 연구 링크 상위 5개', 3),
       ...reportList(outboundLinks, (row) => `${dimensionValue(row, 0)} · 클릭 ${compactNumber(metricValue(row, 0))}회`)
     ]),
-    toggleBlock('Google 검색 상세', [
-      paragraph(`최근 확정 28일 · 클릭 ${compactNumber(searchTotals.clicks)}회 · 노출 ${compactNumber(searchTotals.impressions)}회 · 클릭률 ${percentage(searchTotals.ctr)} · 평균 ${Number(searchTotals.position || 0).toFixed(1)}위`),
-      heading('검색어 상위 5개', 3),
-      ...topRows(searchQueries).map((row) => bulletedItem(
-        `${String(row.keys?.[0] || '검색어 없음')} · 클릭 ${compactNumber(row.clicks)} · 노출 ${compactNumber(row.impressions)} · ${Number(row.position || 0).toFixed(1)}위`
-      )),
-      heading('검색 유입 페이지 상위 5개', 3),
-      ...topRows(searchPages).map((row) => bulletedItem(
-        `${String(row.keys?.[0] || '페이지 없음')} · 클릭 ${compactNumber(row.clicks)} · 노출 ${compactNumber(row.impressions)} · ${Number(row.position || 0).toFixed(1)}위`
-      ))
-    ]),
+    toggleBlock('Google 검색 상세', searchDetailBlocks),
     divider(),
     heading('원본 데이터', 2),
     paragraph('더 자세한 분석이 필요한 경우 아래 원본 서비스에서 확인할 수 있습니다.'),
@@ -526,7 +537,7 @@ async function collectAnalytics({ accessToken, propertyId, searchConsoleSiteUrl 
 
   const [
     summary, previousSummary, countries, returning, channels, sources, landingPages,
-    pages, outboundLinks, connectionSignals, searchSummary, searchQueries, searchPages
+    pages, outboundLinks, connectionSignals
   ] = await Promise.all([
     report({ dateRanges: [baseDate], metrics: summaryMetrics }),
     report({ dateRanges: [{ startDate: '14daysAgo', endDate: '8daysAgo' }], metrics: summaryMetrics }),
@@ -581,15 +592,31 @@ async function collectAnalytics({ accessToken, propertyId, searchConsoleSiteUrl 
         }
       },
       limit
-    }),
-    runSearchConsoleReport({ accessToken, siteUrl: searchConsoleSiteUrl, dimensions: [] }),
-    runSearchConsoleReport({ accessToken, siteUrl: searchConsoleSiteUrl, dimensions: ['query'] }),
-    runSearchConsoleReport({ accessToken, siteUrl: searchConsoleSiteUrl, dimensions: ['page'] })
+    })
   ]);
+
+  let searchSummary = { rows: [] };
+  let searchQueries = { rows: [] };
+  let searchPages = { rows: [] };
+  let searchConsoleAvailable = true;
+
+  try {
+    [searchSummary, searchQueries, searchPages] = await Promise.all([
+      runSearchConsoleReport({ accessToken, siteUrl: searchConsoleSiteUrl, dimensions: [] }),
+      runSearchConsoleReport({ accessToken, siteUrl: searchConsoleSiteUrl, dimensions: ['query'] }),
+      runSearchConsoleReport({ accessToken, siteUrl: searchConsoleSiteUrl, dimensions: ['page'] })
+    ]);
+  } catch (error) {
+    searchConsoleAvailable = false;
+    const message = String(error?.message || error).replace(/[\r\n]+/g, ' ');
+    console.warn(`::warning title=Search Console data unavailable::${message}`);
+    console.warn('[analytics-sync] Continuing with GA4 data; grant the service account Search Console access to restore search metrics.');
+  }
 
   return {
     summary, previousSummary, countries, returning, channels, sources, landingPages,
-    pages, outboundLinks, connectionSignals, searchSummary, searchQueries, searchPages
+    pages, outboundLinks, connectionSignals, searchSummary, searchQueries, searchPages,
+    searchConsoleAvailable
   };
 }
 

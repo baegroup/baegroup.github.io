@@ -37,7 +37,7 @@ export function ResearchProfileLinks({ links = {}, variant = 'default' }) {
 
   return (
     <section aria-label="Research profiles" className="space-y-4">
-      <h3 className="text-lg font-semibold text-slate-900">Research Profiles</h3>
+      <h2 className="text-lg font-semibold text-slate-900">Research Profiles</h2>
       <div className="grid grid-cols-2 gap-x-4">
         {items.map((item) => (
           <a

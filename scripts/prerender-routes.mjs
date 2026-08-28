@@ -71,6 +71,11 @@ function assertRendered(route, html) {
   if (!html.includes('<div id="root">') || /<div id="root"><\/div>/.test(html)) {
     throw new Error(`Prerendered HTML is empty for ${route}`);
   }
+  const expectedPath = route.replace(/\/+$/, '') || '/';
+  const renderedRoute = html.match(/data-rendered-route="([^"]+)"/)?.[1] || '';
+  if (renderedRoute !== expectedPath) {
+    throw new Error(`Prerendered route mismatch for ${route}: rendered ${renderedRoute || 'no route marker'}`);
+  }
   const pendingLabels = ['Loading news feed...', 'Loading publications...', 'Loading team profiles...'];
   const pending = pendingLabels.find((label) => html.includes(label));
   if (pending) {
@@ -149,10 +154,13 @@ async function renderRoute(debugPort, route) {
       const result = await command('Runtime.evaluate', {
         expression: `(() => {
           const root = document.getElementById('root');
+          const currentPath = window.location.pathname.replace(/\\/+$/, '') || '/';
+          const renderedRoute = document.querySelector('[data-rendered-route]')?.getAttribute('data-rendered-route');
           return {
             html: document.documentElement.outerHTML,
             ready: document.readyState === 'complete'
               && Boolean(root?.firstElementChild)
+              && renderedRoute === currentPath
               && !document.querySelector('[data-prerender-pending="true"]')
               && !document.body.innerText.includes('Loading news feed...')
               && !document.body.innerText.includes('Loading publications...')

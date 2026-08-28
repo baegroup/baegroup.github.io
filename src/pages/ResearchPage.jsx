@@ -111,7 +111,7 @@ function FundingItem({ item, index }) {
     `${RESEARCH_FUNDING_IMAGE_DIR}/${fallbackSlug}`
   ]);
   return (
-    <article className="flex h-full w-1/2 shrink-0 flex-col px-4 py-5 text-center md:px-5 md:py-6 xl:w-1/4">
+    <article className="flex h-full w-1/2 shrink-0 flex-col px-4 py-5 text-center md:w-1/3 md:px-5 md:py-6 xl:w-1/5">
       <div className="flex min-h-[92px] items-center justify-center">
         {!image.broken ? (
           <img {...responsiveImageProps(image.src, '220px')} alt={item.name} className="max-h-14 w-auto object-contain" decoding="async" loading="lazy" onError={image.onError} src={image.src} />
