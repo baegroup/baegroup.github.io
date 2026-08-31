@@ -1,5 +1,5 @@
 export const SITE_URL = 'https://baelab.khu.ac.kr';
-export const SITE_NAME = 'Bae Lab | 배재형 교수 연구실';
+export const SITE_NAME = 'Bae Lab at Kyung Hee University';
 export const DEFAULT_SOCIAL_IMAGE = '/assets/img/social/bae-lab-social.jpg';
 export const DEFAULT_SOCIAL_IMAGE_WIDTH = 1200;
 export const DEFAULT_SOCIAL_IMAGE_HEIGHT = 630;
@@ -39,7 +39,7 @@ export const KOREAN_RESEARCH_TOPICS = [
 export const SEO_ROUTES = [
   {
     path: '/',
-    title: 'Bae Lab | 배재형 교수 연구실 · 경희대학교',
+    title: 'Bae Lab at Kyung Hee University | 배재형 교수 연구실',
     description:
       '경희대학교 화학공학과 배재형 교수 연구실(Bae Lab)은 기능성 소재와 첨단 적층제조를 기반으로 에너지·환경·바이오 응용을 연구합니다.'
   },
@@ -180,8 +180,8 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
   const organization = {
     '@type': 'ResearchOrganization',
     '@id': organizationId,
-    name: 'Bae Lab',
-    alternateName: ['배재형 교수 연구실', '배랩', 'Additive Manufacturing of Functional Materials Lab', 'Functional Materials Additive Manufacturing Lab'],
+    name: 'Bae Lab at Kyung Hee University',
+    alternateName: ['Bae Lab', 'Bae Lab KHU', '배재형 교수 연구실', '배랩', 'Additive Manufacturing of Functional Materials Lab', 'Functional Materials Additive Manufacturing Lab'],
     description:
       'Bae Lab integrates materials design and process engineering to transform complex functional materials into precise and scalable manufacturing technologies.',
     url: `${SITE_URL}/`,
@@ -285,8 +285,8 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
       '@type': 'WebSite',
       '@id': websiteId,
       url: `${SITE_URL}/`,
-      name: 'Bae Lab',
-      alternateName: '배재형 교수 연구실',
+      name: 'Bae Lab at Kyung Hee University',
+      alternateName: ['Bae Lab KHU', '배재형 교수 연구실', 'Bae Lab'],
       publisher: { '@id': organizationId },
       inLanguage: ['ko', 'en']
     },

@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { HOME_MEDIA } from '../src/content/home-media.js';
-import { getStructuredDataForPath, RESEARCH_TOPICS, SEO_ROUTES, SITE_URL } from '../src/content/seo.js';
+import { getStructuredDataForPath, RESEARCH_TOPICS, SEO_ROUTES, SITE_NAME, SITE_URL } from '../src/content/seo.js';
 
 const ROOT = process.cwd();
 const PUBLIC_DIR = path.join(ROOT, 'public');
@@ -167,9 +167,17 @@ report(
 
 const homeStructuredData = getStructuredDataForPath('/');
 const homeGraph = homeStructuredData['@graph'] || [];
+const websiteEntity = homeGraph.find((item) => item['@type'] === 'WebSite');
 const researchOrganization = homeGraph.find((item) => item['@type'] === 'ResearchOrganization');
 const professorEntity = homeGraph.find((item) => item['@type'] === 'Person');
 const departmentEntity = homeGraph.find((item) => item['@id'] === 'https://chemeng.khu.ac.kr/#organization');
+report(
+  SITE_NAME === 'Bae Lab at Kyung Hee University'
+    && websiteEntity?.name === SITE_NAME
+    && websiteEntity?.alternateName?.includes('Bae Lab KHU')
+    && websiteEntity?.alternateName?.includes('배재형 교수 연구실'),
+  'SEO: the preferred and alternate site names must remain consistent'
+);
 report(Boolean(researchOrganization?.description), 'GEO: research organization description is missing');
 report(Boolean(researchOrganization?.address?.postalCode), 'GEO: research organization address is incomplete');
 report(
