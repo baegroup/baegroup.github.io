@@ -13,15 +13,12 @@ import { TEAM_SECTION_PATHS } from '@/lib/seo-paths';
 
 const DEFAULT_JUMP_NAV = [
   { id: 'identity', label: 'About Our Lab' },
-  { id: 'professor', label: 'Professor' },
-  { id: 'current', label: 'Current Students' },
-  { id: 'staff', label: 'Staff' },
+  { id: 'professor', label: 'Principal Investigator' },
+  { id: 'current', label: 'Current Members' },
   { id: 'alumni', label: 'Alumni' }
 ];
 
-const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'staff', 'alumni']);
-const PRIMARY_STUDENT_ROLES = new Set(['Graduate', 'Undergraduate']);
-const STAFF_SECTION_ROLES = new Set(['Staff', 'Researcher']);
+const SUPPORTED_SECTION_IDS = new Set(['identity', 'professor', 'current', 'alumni']);
 const TERM_SORT_ORDER = { spring: 0, summer: 1, fall: 2, winter: 3 };
 const GRAD_PROGRAM_ORDER = { MSPhD: 0, PhD: 1, MS: 2 };
 const IMAGE_EXTENSIONS = ['webp', 'png', 'jpg', 'jpeg'];
@@ -30,6 +27,9 @@ const FEARLESS_IMAGE_BASE = 'assets/img/team/culture/fearless-organization';
 const MEMBER_FIELD_LABELS = {
   course: 'Course',
   joining: 'Lab Tenure',
+  positionStart: 'Current position since',
+  previousPosition: 'Previous position',
+  graduationYear: 'Graduation year',
   undergraduateSchool: 'Undergraduate school',
   undergraduateMajor: 'Undergraduate major',
   masterSchool: 'Master degree school',
@@ -138,7 +138,7 @@ function useImageFallback(basePath) {
 function parseJoiningRank(member) {
   const fallbackYear = Number.isFinite(member.startYear) ? member.startYear : Number.MAX_SAFE_INTEGER;
   const raw = String(member.joiningGroup || '').trim();
-  const match = raw.match(/(20\d{2})(?:\D+)?(Spring|Summer|Fall|Winter)?/i);
+  const match = raw.match(/(20\d{2})(?:\s+|-)?(Spring|Summer|Fall|Winter)?/i);
   if (!match) {
     return { year: fallbackYear, term: 99 };
   }
@@ -146,6 +146,26 @@ function parseJoiningRank(member) {
   const year = Number(match[1]);
   const term = match[2] ? TERM_SORT_ORDER[String(match[2]).toLowerCase()] ?? 99 : 99;
   return { year, term };
+}
+
+function formatJoiningGroup(value) {
+  const raw = String(value || '').trim();
+  const match = raw.match(/^(20\d{2})\s*(Spring|Summer|Fall|Winter)$/i);
+  if (!match) {
+    return raw;
+  }
+  const term = `${match[2][0].toUpperCase()}${match[2].slice(1).toLowerCase()}`;
+  return `${term} ${match[1]}`;
+}
+
+function formatMemberPeriod(startYear, endYear) {
+  if (!startYear && !endYear) {
+    return '';
+  }
+  if (startYear && endYear && startYear === endYear) {
+    return String(startYear);
+  }
+  return `${startYear || '?'}–${endYear || 'Present'}`;
 }
 
 function compareMembersByJoinThenProgram(a, b, role) {
@@ -219,22 +239,27 @@ function MemberCard({ member, open = false, prominent = false, showRoleBadge = f
   const [expanded, setExpanded] = useState(false);
   const hasPhoto = Boolean(member.photo) && !broken;
   const isAlumni = member.status === 'alumni' || member.role === 'Alumni';
-  const period = `${member.startYear || '-'} - ${member.endYear || 'Present'}`;
+  const period = formatMemberPeriod(member.startYear, member.endYear);
   const labels = MEMBER_FIELD_LABELS;
-  const joinValue = member.joiningGroup || period;
+  const joinValue = isAlumni ? period : formatJoiningGroup(member.joiningGroup) || String(member.startYear || '');
   const courseValue = member.programLabel || member.roleLabel;
   const researchValue = member.localizedInterests?.filter(Boolean).join(', ') || '';
   const currentLine = member.currentAffiliation ? `Current: ${member.currentAffiliation}` : '';
   const summaryLeadLine = isAlumni ? currentLine : researchValue;
   const rawEmailValue = String(member.email || '').trim();
   const emailValue = /^(tbd|n\/?a|none|-+)$/i.test(rawEmailValue) ? '' : rawEmailValue;
-  const joinedLine = joinValue ? (/^joined\b/i.test(joinValue) ? joinValue : `Joined ${joinValue}`) : '';
+  const joinedLine = joinValue ? (isAlumni ? `Bae Lab · ${joinValue}` : `Bae Lab since ${joinValue}`) : '';
+  const previousPositionLine = member.previousPosition
+    ? `Formerly ${member.previousPosition}${member.previousPeriod ? ` (${member.previousPeriod})` : ''}`
+    : '';
   const koreanLine = member.koreanProficiency ? `Korean proficiency: ${member.koreanProficiency}` : '';
   const detailRows = [
     { key: 'undergraduateSchool', label: labels.undergraduateSchool, value: member.undergraduateSchool, type: 'text' },
     { key: 'undergraduateMajor', label: labels.undergraduateMajor, value: member.undergraduateMajor, type: 'text' },
     { key: 'masterSchool', label: labels.masterSchool, value: member.masterSchool, type: 'text' },
     { key: 'masterMajor', label: labels.masterMajor, value: member.masterMajor, type: 'text' },
+    { key: 'graduationYear', label: labels.graduationYear, value: member.graduationYear, type: 'text' },
+    { key: 'positionStart', label: labels.positionStart, value: member.positionStart, type: 'text' },
     { key: 'research', label: labels.research, value: isAlumni ? researchValue : '', type: 'text' },
     { key: 'current', label: labels.current, value: isAlumni ? '' : member.currentAffiliation, type: 'text' },
     { key: 'note', label: labels.note, value: member.note, type: 'text' }
@@ -272,10 +297,13 @@ function MemberCard({ member, open = false, prominent = false, showRoleBadge = f
 
             <div className="space-y-2">
               <MemberDetailRow label={labels.joining} value={joinValue} />
+              <MemberDetailRow label={labels.positionStart} value={member.positionStart} />
+              <MemberDetailRow label={labels.previousPosition} value={previousPositionLine.replace(/^Formerly\s+/, '')} />
               <MemberDetailRow label={labels.undergraduateSchool} value={member.undergraduateSchool} />
               <MemberDetailRow label={labels.undergraduateMajor} value={member.undergraduateMajor} />
               <MemberDetailRow label={labels.masterSchool} value={member.masterSchool} />
               <MemberDetailRow label={labels.masterMajor} value={member.masterMajor} />
+              <MemberDetailRow label={labels.graduationYear} value={member.graduationYear} />
               <MemberDetailRow label={labels.research} value={researchValue} />
               <MemberDetailRow label={labels.korean} value={member.koreanProficiency} />
               <MemberDetailRow label={labels.current} value={member.currentAffiliation} />
@@ -332,6 +360,7 @@ function MemberCard({ member, open = false, prominent = false, showRoleBadge = f
           {koreanLine ? <p className="site-copy-support">{koreanLine}</p> : null}
           <div className="space-y-1 text-sm leading-relaxed text-slate-700 md:text-[0.95rem]">
             {joinedLine ? <p>{joinedLine}</p> : null}
+            {previousPositionLine ? <p>{previousPositionLine}</p> : null}
             {emailValue ? (
               <a className="site-text-link break-all" href={`mailto:${emailValue}`}>
                 {emailValue}
@@ -674,20 +703,10 @@ export function TeamPage({ locale, section = 'identity' }) {
   const leadProfessor = professorMembers[0] || null;
   const additionalProfessors = professorMembers.slice(1);
 
-  const currentStudentGroups = useMemo(
+  const currentMemberGroups = useMemo(
     () =>
       currentGroups
-        .filter((group) => PRIMARY_STUDENT_ROLES.has(group.role))
-        .map((group) => ({
-          ...group,
-          members: [...group.members].sort((a, b) => compareMembersByJoinThenProgram(a, b, group.role))
-        })),
-    [currentGroups]
-  );
-  const staffGroups = useMemo(
-    () =>
-      currentGroups
-        .filter((group) => group.role !== 'PI' && group.role !== 'Alumni' && !PRIMARY_STUDENT_ROLES.has(group.role))
+        .filter((group) => group.role !== 'PI' && group.role !== 'Alumni')
         .map((group) => ({
           ...group,
           members: [...group.members].sort((a, b) => compareMembersByJoinThenProgram(a, b, group.role))
@@ -819,10 +838,10 @@ export function TeamPage({ locale, section = 'identity' }) {
 
             {activeSection === 'current' ? (
               <section>
-                <h2 className="sr-only">{content.currentStudentsTitle || 'Current Students'}</h2>
-                {currentStudentGroups.length > 0 ? (
+                <h2 className="sr-only">{content.currentMembersTitle || 'Current Members'}</h2>
+                {currentMemberGroups.length > 0 ? (
                   <div className="space-y-6">
-                    {currentStudentGroups.map((group, index) => (
+                    {currentMemberGroups.map((group, index) => (
                       <section className="space-y-3" key={group.role}>
                         <h3 className="text-lg font-semibold text-slate-900">
                           {group.label}
@@ -830,48 +849,10 @@ export function TeamPage({ locale, section = 'identity' }) {
                         </h3>
                         <div className="grid gap-4 md:grid-cols-2">
                           {group.members.map((member) => (
-                            <MemberCard
-                              key={member.id}
-                              member={member}
-                              open
-                              showRoleBadge={!PRIMARY_STUDENT_ROLES.has(group.role)}
-                            />
+                            <MemberCard key={member.id} member={member} open />
                           ))}
                         </div>
-                        {index < currentStudentGroups.length - 1 ? <div className="site-fill-soft h-px" /> : null}
-                      </section>
-                    ))}
-                  </div>
-                ) : (
-                  <SectionState content={content} error={error} loading={loading} />
-                )}
-              </section>
-            ) : null}
-
-            {activeSection === 'staff' ? (
-              <section>
-                <h2 className="sr-only">{content.staffTitle || 'Staff'}</h2>
-                {staffGroups.length > 0 ? (
-                  <div className="space-y-6">
-                    {staffGroups.map((group, index) => (
-                      <section className="space-y-3" key={group.role}>
-                        {staffGroups.length > 1 ? (
-                          <h3 className="text-lg font-semibold text-slate-900">
-                            {group.label}
-                            <span className="ml-2 text-base font-medium text-slate-600">({group.members.length})</span>
-                          </h3>
-                        ) : null}
-                        <div className="grid gap-4 md:grid-cols-2">
-                          {group.members.map((member) => (
-                            <MemberCard
-                              key={member.id}
-                              member={member}
-                              open
-                              showRoleBadge={staffGroups.length > 1 || !STAFF_SECTION_ROLES.has(group.role)}
-                            />
-                          ))}
-                        </div>
-                        {index < staffGroups.length - 1 ? <div className="site-fill-soft h-px" /> : null}
+                        {index < currentMemberGroups.length - 1 ? <div className="site-fill-soft h-px" /> : null}
                       </section>
                     ))}
                   </div>

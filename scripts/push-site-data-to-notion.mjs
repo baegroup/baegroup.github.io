@@ -491,13 +491,35 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
       { name: 'Published', type: 'checkbox' },
       { name: 'Name', type: 'title' },
       { name: 'ID', type: 'rich_text' },
-      { name: 'Role', type: 'select', options: ['PI', 'Researcher', 'Staff', 'Graduate', 'Undergraduate', 'Alumni'] },
+      { name: 'Role Group', type: 'select', options: ['PI', 'Researcher', 'Graduate', 'Undergraduate', 'Staff'] },
+      { name: 'Status', type: 'select', options: ['Current', 'Alumni'] },
+      {
+        name: 'Position',
+        type: 'select',
+        options: [
+          'Principal Investigator',
+          'Postdoctoral Researcher',
+          'Post-M.S. Researcher',
+          'Researcher',
+          'Visiting Researcher',
+          'Ph.D. Student',
+          'Integrated M.S.–Ph.D. Student',
+          'M.S. Student',
+          'Undergraduate Researcher',
+          'Research Intern',
+          'Administrative Staff'
+        ]
+      },
       { name: 'Program', type: 'select', options: ['PhD', 'MSPhD', 'MS', 'BS', 'Staff'] },
       { name: 'E-mail', type: 'rich_text' },
       { name: 'Photo', type: 'files' },
       { name: 'Start Year', type: 'number' },
       { name: 'End Year', type: 'number' },
       { name: 'Start Year & Semester', type: 'rich_text' },
+      { name: 'Position Start', type: 'rich_text' },
+      { name: 'Previous Position', type: 'rich_text' },
+      { name: 'Previous Period', type: 'rich_text' },
+      { name: 'Graduation Year', type: 'number' },
       { name: 'Undergraduate School', type: 'rich_text' },
       { name: 'Undergraduate Major', type: 'rich_text' },
       { name: 'Master School', type: 'rich_text' },
@@ -512,20 +534,26 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
   dataSource = await removePropertiesByName({
     token,
     dataSourceId,
-    names: ['Status', 'Course Label', 'Email Display', 'Website']
+    names: ['Course Label', 'Email Display', 'Website']
   });
 
   const propertyMap = propertyByNameMap(dataSource);
   const publishedProp = pickProperty(propertyMap, ['Published', 'Publish']);
   const nameProp = pickProperty(propertyMap, ['Name']);
   const idProp = pickProperty(propertyMap, ['ID']);
-  const roleProp = pickProperty(propertyMap, ['Role']);
+  const roleProp = pickProperty(propertyMap, ['Role Group', 'Role']);
+  const statusProp = pickProperty(propertyMap, ['Status']);
+  const positionProp = pickProperty(propertyMap, ['Position']);
   const programProp = pickProperty(propertyMap, ['Program']);
   const emailProp = pickProperty(propertyMap, ['E-mail', 'Email']);
   const photoProp = pickProperty(propertyMap, ['Photo']);
   const startYearProp = pickProperty(propertyMap, ['Start Year']);
   const endYearProp = pickProperty(propertyMap, ['End Year']);
   const joinTermProp = pickProperty(propertyMap, ['Start Year & Semester', 'Joining Group']);
+  const positionStartProp = pickProperty(propertyMap, ['Position Start']);
+  const previousPositionProp = pickProperty(propertyMap, ['Previous Position']);
+  const previousPeriodProp = pickProperty(propertyMap, ['Previous Period']);
+  const graduationYearProp = pickProperty(propertyMap, ['Graduation Year']);
   const ugSchoolProp = pickProperty(propertyMap, ['Undergraduate School']);
   const ugMajorProp = pickProperty(propertyMap, ['Undergraduate Major']);
   const msSchoolProp = pickProperty(propertyMap, ['Master School']);
@@ -559,6 +587,12 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
       if (roleProp) {
         properties[roleProp] = selectValue(member.role);
       }
+      if (statusProp) {
+        properties[statusProp] = selectValue(member.status === 'alumni' ? 'Alumni' : 'Current');
+      }
+      if (positionProp) {
+        properties[positionProp] = selectValue(member.position || '');
+      }
       if (programProp) {
         properties[programProp] = selectValue(member.program);
       }
@@ -578,6 +612,18 @@ async function pushTeam({ token, dataSourceId, siteBaseUrl }) {
       }
       if (joinTermProp) {
         properties[joinTermProp] = richTextValue(member.joiningGroup || '');
+      }
+      if (positionStartProp) {
+        properties[positionStartProp] = richTextValue(member.positionStart || '');
+      }
+      if (previousPositionProp) {
+        properties[previousPositionProp] = richTextValue(member.previousPosition || '');
+      }
+      if (previousPeriodProp) {
+        properties[previousPeriodProp] = richTextValue(member.previousPeriod || '');
+      }
+      if (graduationYearProp) {
+        properties[graduationYearProp] = numberValue(Number.isFinite(member.graduationYear) ? member.graduationYear : null);
       }
       if (ugSchoolProp) {
         properties[ugSchoolProp] = richTextValue(member.undergraduateSchool || '');

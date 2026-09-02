@@ -29,22 +29,18 @@ Summarize your culture in one concise paragraph.
 - Willingness to Help | One-paragraph explanation.
 
 ## professorTitle
-Professor
+Principal Investigator
 
-## currentStudentsTitle
-Current Students
-
-## staffTitle
-Staff
+## currentMembersTitle
+Current Members
 
 ## alumniTitle
 Alumni
 
 ## jumpNav
 - identity | About Our Lab
-- professor | Professor
-- current | Current Students
-- staff | Staff
+- professor | Principal Investigator
+- current | Current Members
 - alumni | Alumni
 
 ## joinCta

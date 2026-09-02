@@ -57,15 +57,9 @@ export const SEO_ROUTES = [
   },
   {
     path: '/team/members',
-    title: 'Lab Members | Bae Lab · Kyung Hee University',
+    title: 'Current Members | Bae Lab · Kyung Hee University',
     description:
-      'Meet the graduate and undergraduate researchers working across functional materials and additive manufacturing at Bae Lab.'
-  },
-  {
-    path: '/team/staff',
-    title: 'Researchers and Staff | Bae Lab · Kyung Hee University',
-    description:
-      'Meet the researchers and staff supporting multidisciplinary research and laboratory operations at Bae Lab.'
+      'Meet the researchers, graduate and undergraduate students, and administrative staff of Bae Lab at Kyung Hee University.'
   },
   {
     path: '/team/alumni',

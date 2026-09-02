@@ -98,9 +98,8 @@
           "body": "Scientific progress is a collective effort. We help one another, share knowledge freely, and recognize each person’s contributions because collaboration makes us safer, more capable, and more effective as scientists, engineers, and educators."
         }
       ],
-      "professorTitle": "Professor",
-      "currentStudentsTitle": "Current Students",
-      "staffTitle": "Staff",
+      "professorTitle": "Principal Investigator",
+      "currentMembersTitle": "Current Members",
       "alumniTitle": "Alumni",
       "jumpNav": [
         {
@@ -109,15 +108,11 @@
         },
         {
           "id": "professor",
-          "label": "Professor"
+          "label": "Principal Investigator"
         },
         {
           "id": "current",
-          "label": "Current Students"
-        },
-        {
-          "id": "staff",
-          "label": "Staff"
+          "label": "Current Members"
         },
         {
           "id": "alumni",

@@ -27,22 +27,18 @@ We pursue high standards in an environment where psychological safety enables in
 - Mutual Support | Scientific progress is a collective effort. We help one another, share knowledge freely, and recognize each person’s contributions because collaboration makes us safer, more capable, and more effective as scientists, engineers, and educators.
 
 ## professorTitle
-Professor
+Principal Investigator
 
-## currentStudentsTitle
-Current Students
-
-## staffTitle
-Staff
+## currentMembersTitle
+Current Members
 
 ## alumniTitle
 Alumni
 
 ## jumpNav
 - identity | About Our Lab
-- professor | Professor
-- current | Current Students
-- staff | Staff
+- professor | Principal Investigator
+- current | Current Members
 - alumni | Alumni
 
 ## joinCta

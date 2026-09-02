@@ -49,7 +49,7 @@ function SiteRoutes() {
         <Route element={<TeamPage locale={locale} />} path="team" />
         <Route element={<TeamPage locale={locale} section="professor" />} path="team/jaehyeong-bae" />
         <Route element={<TeamPage locale={locale} section="current" />} path="team/members" />
-        <Route element={<TeamPage locale={locale} section="staff" />} path="team/staff" />
+        <Route element={<Navigate replace to="/team/members/" />} path="team/staff" />
         <Route element={<TeamPage locale={locale} section="alumni" />} path="team/alumni" />
         <Route element={<Navigate replace to="/team/" />} path="members" />
         <Route element={<ResearchPage locale={locale} />} path="research" />

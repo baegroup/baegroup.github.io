@@ -1,11 +1,11 @@
-const ROLE_ORDER = ['PI', 'Researcher', 'Staff', 'Graduate', 'Undergraduate', 'Alumni'];
+const ROLE_ORDER = ['PI', 'Researcher', 'Graduate', 'Undergraduate', 'Staff', 'Alumni'];
 
 const ROLE_LABELS = {
   PI: 'Principal Investigator',
   Researcher: 'Researchers',
-  Staff: 'Staff',
+  Staff: 'Administrative Staff',
   Graduate: 'Graduate Students',
-  Undergraduate: 'Undergraduate Students',
+  Undergraduate: 'Undergraduate Researchers',
   Alumni: 'Alumni'
 };
 
@@ -138,7 +138,7 @@ export async function loadTeamProfiles(locale, status = 'current') {
         role,
         roleLabel,
         localizedInterests: localizeList(member.interests, locale),
-        programLabel: PROGRAM_LABELS[member.program] || member.program || '',
+        programLabel: member.position || PROGRAM_LABELS[member.program] || member.program || '',
         initials: getInitials(localizedName)
       };
     });

@@ -135,7 +135,6 @@ const requiredSeoPaths = [
   '/team',
   '/team/jaehyeong-bae',
   '/team/members',
-  '/team/staff',
   '/team/alumni',
   '/research',
   '/publications',

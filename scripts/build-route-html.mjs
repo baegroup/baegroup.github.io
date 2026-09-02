@@ -28,7 +28,7 @@ const VIDEO_PAGE_SIZE = 4;
 const LEGACY_REDIRECTS = [
   // Previous English WordPress routes.
   { from: '/jaehyeong-bae', to: '/team/jaehyeong-bae' },
-  { from: '/postdoctoral-researchers', to: '/team/staff' },
+  { from: '/postdoctoral-researchers', to: '/team/members' },
   { from: '/ph-d-graduate-students', to: '/team/members' },
   { from: '/join-our-team-2', to: '/team/members' },
   { from: '/alumni', to: '/team/alumni' },
@@ -48,7 +48,7 @@ const LEGACY_REDIRECTS = [
   { from: '/kr', to: '/ko' },
   { from: '/kr/배재형-교수', to: '/team/jaehyeong-bae' },
   { from: '/kr/구성원', to: '/team/members' },
-  { from: '/kr/박사-후-연구원', to: '/team/staff' },
+  { from: '/kr/박사-후-연구원', to: '/team/members' },
   { from: '/kr/박사과정', to: '/team/members' },
   { from: '/kr/석사과정-학부연구생', to: '/team/members' },
   { from: '/kr/연구실-졸업생', to: '/team/alumni' },
@@ -67,7 +67,7 @@ const LEGACY_REDIRECTS = [
   { from: '/cn', to: '/' },
   { from: '/cn/裴宰亨', to: '/team/jaehyeong-bae' },
   { from: '/cn/课题组成员', to: '/team' },
-  { from: '/cn/博士后研究员', to: '/team/staff' },
+  { from: '/cn/博士后研究员', to: '/team/members' },
   { from: '/cn/博士研究生', to: '/team/members' },
   { from: '/cn/join-our-team-2-2-2', to: '/team/members' },
   { from: '/cn/毕业生', to: '/team/alumni' },
@@ -89,7 +89,8 @@ const LEGACY_REDIRECTS = [
     to: '/news'
   },
   { from: '/news/lab-life/2026-05-15-teacher-s-day-2026-may-15th', to: '/news/lab-life/2026-05-15-teacher-s-day-2026' },
-  { from: '/news/lab-life/2025-05-08-teacher-s-day-2025-may-8th', to: '/news/lab-life/2025-05-08-teacher-s-day-2025' }
+  { from: '/news/lab-life/2025-05-08-teacher-s-day-2025-may-8th', to: '/news/lab-life/2025-05-08-teacher-s-day-2025' },
+  { from: '/team/staff', to: '/team/members' }
 ];
 
 const ROUTE_SOURCE_FILES = {
@@ -97,7 +98,6 @@ const ROUTE_SOURCE_FILES = {
   '/team': ['src/pages/TeamPage.jsx', 'content/en/team.md', 'public/data/team.json'],
   '/team/jaehyeong-bae': ['src/pages/TeamPage.jsx', 'public/data/team.json'],
   '/team/members': ['src/pages/TeamPage.jsx', 'public/data/team.json'],
-  '/team/staff': ['src/pages/TeamPage.jsx', 'public/data/team.json'],
   '/team/alumni': ['src/pages/TeamPage.jsx', 'public/data/team.json'],
   '/research': ['src/pages/ResearchPage.jsx', 'content/en/research.md'],
   '/publications': ['src/pages/PublicationsPage.jsx', 'public/data/publications.json'],

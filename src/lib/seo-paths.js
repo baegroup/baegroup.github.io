@@ -2,7 +2,6 @@ export const TEAM_SECTION_PATHS = {
   identity: '/team/',
   professor: '/team/jaehyeong-bae/',
   current: '/team/members/',
-  staff: '/team/staff/',
   alumni: '/team/alumni/'
 };
 

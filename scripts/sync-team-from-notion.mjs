@@ -290,7 +290,7 @@ function normalizeRole(value) {
   if (raw.includes('pi') || raw.includes('professor')) {
     return 'PI';
   }
-  if (raw.includes('staff')) {
+  if (raw.includes('staff') || raw.includes('administration')) {
     return 'Staff';
   }
   if (raw.includes('researcher') || raw.includes('postdoc')) {
@@ -356,9 +356,10 @@ async function convertPagesToTeam({ pages }) {
 
     const idRaw = propertyToText(findProperty(properties, ['ID', 'Slug', 'Handle', '식별자']));
     const id = toSlug(idRaw || name);
-    let role = normalizeRole(propertyToText(findProperty(properties, ['Role', 'Track', '구분', '직책'])));
+    let role = normalizeRole(propertyToText(findProperty(properties, ['Role Group', 'Role', 'Track', '구분', '직책'])));
     const statusText = propertyToText(findProperty(properties, ['Status', 'Membership Status', '상태']));
     const program = normalizeProgram(propertyToText(findProperty(properties, ['Program', 'Degree', '학위과정'])));
+    const position = propertyToText(findProperty(properties, ['Position', 'Current Position', '현재 직위']));
     if (program === 'Staff' && role !== 'PI' && role !== 'Alumni') {
       role = 'Staff';
     }
@@ -367,6 +368,10 @@ async function convertPagesToTeam({ pages }) {
     const startYear = propertyToNumber(findProperty(properties, ['Start Year', 'StartYear', 'Start Year & Semester', '입실연도', 'Start']));
     const endYear = propertyToNumber(findProperty(properties, ['End Year', 'EndYear', '졸업연도', 'End']));
     const joiningGroup = propertyToText(findProperty(properties, ['Joining Group', 'Join Term', 'Start Year & Semester', '입실시기']));
+    const positionStart = propertyToText(findProperty(properties, ['Position Start', 'Current Position Start', '현재 직위 시작']));
+    const previousPosition = propertyToText(findProperty(properties, ['Previous Position', 'Former Position', '이전 직위']));
+    const previousPeriod = propertyToText(findProperty(properties, ['Previous Period', 'Former Period', '이전 기간']));
+    const graduationYear = propertyToNumber(findProperty(properties, ['Graduation Year', '졸업연도']));
     const undergraduateSchool = propertyToText(findProperty(properties, ['Undergraduate School', '학사 학교']));
     const undergraduateMajor = propertyToText(findProperty(properties, ['Undergraduate Major', '학사 전공']));
     const masterSchool = propertyToText(findProperty(properties, ['Master School', '석사 학교']));
@@ -394,12 +399,17 @@ async function convertPagesToTeam({ pages }) {
       role,
       status,
       program,
+      position,
       email,
       interests,
       photo,
       startYear,
       endYear,
       joiningGroup,
+      positionStart,
+      previousPosition,
+      previousPeriod,
+      graduationYear,
       undergraduateSchool,
       undergraduateMajor,
       masterSchool,
