@@ -72,7 +72,7 @@
     "en": {
       "title": "Team",
       "description": "People and culture at Bae Lab.",
-      "aboutTitle": "About Our Lab",
+      "aboutTitle": "About Bae Lab",
       "aboutBody": "Bae Lab brings together undergraduate, graduate, and postdoctoral researchers from chemical engineering, materials science and engineering, chemistry, polymer science, mechanical and electrical engineering, bioengineering, and computer science. We integrate functional materials design, fluid mechanics, photonics, and process engineering with advanced additive manufacturing to develop energy-harvesting systems, carbon-capture technologies, environmental sensors, and biomedical devices. We cultivate a rigorous and open research culture where diverse perspectives sharpen scientific judgment, bold ideas withstand constructive challenge, and collaboration turns individual expertise into stronger science.",
       "aboutParagraphs": [
         "Bae Lab brings together undergraduate, graduate, and postdoctoral researchers from chemical engineering, materials science and engineering, chemistry, polymer science, mechanical and electrical engineering, bioengineering, and computer science. We integrate functional materials design, fluid mechanics, photonics, and process engineering with advanced additive manufacturing to develop energy-harvesting systems, carbon-capture technologies, environmental sensors, and biomedical devices.",
@@ -104,7 +104,7 @@
       "jumpNav": [
         {
           "id": "identity",
-          "label": "About Our Lab"
+          "label": "Lab Overview"
         },
         {
           "id": "professor",

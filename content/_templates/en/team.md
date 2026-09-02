@@ -9,7 +9,7 @@ Team
 People and culture at the lab.
 
 ## aboutTitle
-About Our Lab
+About Bae Lab
 
 ## aboutBody
 Introduce the team's disciplines and research in one concise paragraph.
@@ -38,7 +38,7 @@ Current Members
 Alumni
 
 ## jumpNav
-- identity | About Our Lab
+- identity | Lab Overview
 - professor | Principal Investigator
 - current | Current Members
 - alumni | Alumni

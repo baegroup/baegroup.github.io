@@ -12,7 +12,7 @@ import { responsiveImageProps } from '@/lib/responsive-images';
 import { TEAM_SECTION_PATHS } from '@/lib/seo-paths';
 
 const DEFAULT_JUMP_NAV = [
-  { id: 'identity', label: 'About Our Lab' },
+  { id: 'identity', label: 'Lab Overview' },
   { id: 'professor', label: 'Principal Investigator' },
   { id: 'current', label: 'Current Members' },
   { id: 'alumni', label: 'Alumni' }
@@ -28,7 +28,7 @@ const MEMBER_FIELD_LABELS = {
   course: 'Course',
   joining: 'Lab Tenure',
   positionStart: 'Current position since',
-  previousPosition: 'Previous position',
+  previousPosition: 'Previous role',
   graduationYear: 'Graduation year',
   undergraduateSchool: 'Undergraduate school',
   undergraduateMajor: 'Undergraduate major',
@@ -248,10 +248,11 @@ function MemberCard({ member, open = false, prominent = false, showRoleBadge = f
   const summaryLeadLine = isAlumni ? currentLine : researchValue;
   const rawEmailValue = String(member.email || '').trim();
   const emailValue = /^(tbd|n\/?a|none|-+)$/i.test(rawEmailValue) ? '' : rawEmailValue;
-  const joinedLine = joinValue ? (isAlumni ? `Bae Lab · ${joinValue}` : `Bae Lab since ${joinValue}`) : '';
-  const previousPositionLine = member.previousPosition
-    ? `Formerly ${member.previousPosition}${member.previousPeriod ? ` (${member.previousPeriod})` : ''}`
+  const joinedLine = joinValue ? (isAlumni ? `Bae Lab · ${joinValue}` : `Joined · ${joinValue}`) : '';
+  const previousPositionValue = member.previousPosition
+    ? `${member.previousPosition}${member.previousPeriod ? ` (${member.previousPeriod})` : ''}`
     : '';
+  const previousPositionLine = previousPositionValue ? `Previous role · ${previousPositionValue}` : '';
   const koreanLine = member.koreanProficiency ? `Korean proficiency: ${member.koreanProficiency}` : '';
   const detailRows = [
     { key: 'undergraduateSchool', label: labels.undergraduateSchool, value: member.undergraduateSchool, type: 'text' },
@@ -298,7 +299,7 @@ function MemberCard({ member, open = false, prominent = false, showRoleBadge = f
             <div className="space-y-2">
               <MemberDetailRow label={labels.joining} value={joinValue} />
               <MemberDetailRow label={labels.positionStart} value={member.positionStart} />
-              <MemberDetailRow label={labels.previousPosition} value={previousPositionLine.replace(/^Formerly\s+/, '')} />
+              <MemberDetailRow label={labels.previousPosition} value={previousPositionValue} />
               <MemberDetailRow label={labels.undergraduateSchool} value={member.undergraduateSchool} />
               <MemberDetailRow label={labels.undergraduateMajor} value={member.undergraduateMajor} />
               <MemberDetailRow label={labels.masterSchool} value={member.masterSchool} />
@@ -605,7 +606,7 @@ function ProfessorShowcase({ professor, researchProfileLinks }) {
 
 export function TeamPage({ locale, section = 'identity' }) {
   const content = TEAM_CONTENT[locale] || TEAM_CONTENT.en;
-  const identityCopy = { aboutHeading: content.aboutTitle || 'About Our Lab' };
+  const identityCopy = { aboutHeading: content.aboutTitle || 'About Bae Lab' };
   const aboutParagraphs = Array.isArray(content.aboutParagraphs) && content.aboutParagraphs.length
     ? content.aboutParagraphs
     : [content.aboutBody || content.description].filter(Boolean);

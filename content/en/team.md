@@ -7,7 +7,7 @@ Team
 People and culture at Bae Lab.
 
 ## aboutTitle
-About Our Lab
+About Bae Lab
 
 ## aboutBody
 Bae Lab brings together undergraduate, graduate, and postdoctoral researchers from chemical engineering, materials science and engineering, chemistry, polymer science, mechanical and electrical engineering, bioengineering, and computer science. We integrate functional materials design, fluid mechanics, photonics, and process engineering with advanced additive manufacturing to develop energy-harvesting systems, carbon-capture technologies, environmental sensors, and biomedical devices.
@@ -36,7 +36,7 @@ Current Members
 Alumni
 
 ## jumpNav
-- identity | About Our Lab
+- identity | Lab Overview
 - professor | Principal Investigator
 - current | Current Members
 - alumni | Alumni
