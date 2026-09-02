@@ -168,6 +168,14 @@ function formatMemberPeriod(startYear, endYear) {
   return `${startYear || '?'}–${endYear || 'Present'}`;
 }
 
+function indefiniteArticle(value) {
+  const raw = String(value || '').trim();
+  if (/^[aeiou]/i.test(raw) || /^[AEFHILMNORSX](?:\.|$)/.test(raw)) {
+    return 'an';
+  }
+  return 'a';
+}
+
 function compareMembersByJoinThenProgram(a, b, role) {
   const joinA = parseJoiningRank(a);
   const joinB = parseJoiningRank(b);
@@ -250,9 +258,11 @@ function MemberCard({ member, open = false, prominent = false, showRoleBadge = f
   const emailValue = /^(tbd|n\/?a|none|-+)$/i.test(rawEmailValue) ? '' : rawEmailValue;
   const joinedLine = joinValue ? (isAlumni ? `Bae Lab · ${joinValue}` : `Joined · ${joinValue}`) : '';
   const previousPositionValue = member.previousPosition
-    ? `${member.previousPosition}${member.previousPeriod ? ` (${member.previousPeriod})` : ''}`
+    ? `${member.previousPosition}${member.previousPeriod ? ` · ${member.previousPeriod}` : ''}`
     : '';
-  const previousPositionLine = previousPositionValue ? `Previous role · ${previousPositionValue}` : '';
+  const previousPositionLine = previousPositionValue
+    ? `Previously ${indefiniteArticle(member.previousPosition)} ${previousPositionValue}`
+    : '';
   const koreanLine = member.koreanProficiency ? `Korean proficiency: ${member.koreanProficiency}` : '';
   const detailRows = [
     { key: 'undergraduateSchool', label: labels.undergraduateSchool, value: member.undergraduateSchool, type: 'text' },
