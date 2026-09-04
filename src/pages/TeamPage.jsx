@@ -46,7 +46,7 @@ const PROFESSOR_COPY = {
   institution: 'Kyung Hee University',
   researchTitle: 'Research Overview',
   educationTitle: 'Education',
-  appointmentsTitle: 'Academic Appointments',
+  appointmentsTitle: 'Appointments & Service',
   honorsTitle: 'Honors & Awards',
   publicationsTitle: 'Selected Publications'
 };
@@ -64,6 +64,12 @@ const PROFESSOR_PROFILE_DETAILS = {
       { year: '2013', text: 'B.S. in Chemical Engineering, Tsinghua University, China' }
     ],
     appointments: [
+      {
+        year: '2026–Present',
+        text: 'Editorial Board Member,',
+        linkLabel: 'Functional Thin Films and Energy Materials',
+        href: 'https://ftfemjournal.com/index.php/ftfem/about/editorialTeam'
+      },
       { year: '2023.03–Present', text: 'Assistant Professor, Department of Chemical Engineering, Kyung Hee University' },
       { year: '2022.04–2022.10', text: 'Postdoctoral Fellow, Harvard University (Prof. Jennifer A. Lewis)' },
       { year: '2021.06–2022.11', text: 'Postdoctoral Fellow, Harvard University (Prof. Jennifer A. Lewis)' },
@@ -457,9 +463,19 @@ function ProfessorTimeline({ title, items }) {
       <h2 className="text-xl font-semibold tracking-tight text-slate-950 md:text-2xl">{title}</h2>
       <ul className="site-divide-soft site-rule-strong mt-6 divide-y border-b">
         {items.map((item) => (
-          <li className="site-list-row grid gap-1 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-6" key={`${item.year}-${item.text}`}>
+          <li className="site-list-row grid gap-1 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-6" key={`${item.year}-${item.text}-${item.linkLabel || ''}`}>
             <span className="whitespace-nowrap text-sm font-semibold text-[var(--brand-burgundy)] tabular-nums md:text-base">{item.year}</span>
-            <span className="site-copy-body">{item.text}</span>
+            <span className="site-copy-body">
+              {item.text}
+              {item.href && item.linkLabel ? (
+                <>
+                  {' '}
+                  <a className="site-text-link" href={item.href} rel="noreferrer" target="_blank">
+                    <em>{item.linkLabel}</em>
+                  </a>
+                </>
+              ) : null}
+            </span>
           </li>
         ))}
       </ul>
