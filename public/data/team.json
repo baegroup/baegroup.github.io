@@ -218,34 +218,6 @@
     "currentAffiliation": ""
   },
   {
-    "id": "lin-qunbo",
-    "name": "Qunbo Lin",
-    "role": "Graduate",
-    "status": "current",
-    "program": "MSPhD",
-    "position": "Integrated M.S.–Ph.D. Student",
-    "email": "linqunbo@khu.ac.kr",
-    "interests": [
-      "Direct Ink Writing for Environmental Applications",
-      "AI for Additive Manufacturing"
-    ],
-    "photo": "assets/img/team/notion/lin-qunbo.png",
-    "startYear": 2026,
-    "endYear": null,
-    "joiningGroup": "2026 Fall",
-    "positionStart": "",
-    "previousPosition": "",
-    "previousPeriod": "",
-    "graduationYear": null,
-    "undergraduateSchool": "Shaanxi University of Science & Technology",
-    "undergraduateMajor": "Paper & Leather Engineering",
-    "masterSchool": "",
-    "masterMajor": "",
-    "koreanProficiency": "TOPIK Level 6",
-    "note": "",
-    "currentAffiliation": ""
-  },
-  {
     "id": "tian-ruonan",
     "name": "Ruonan Tian",
     "role": "Graduate",

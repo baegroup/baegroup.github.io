@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14",
+  "updatedAt": "2026-09-15",
   "instagram": {
     "handle": "@baelab.khu",
     "displayName": "Bae Lab | Additive Manufacturing",
@@ -32,17 +32,6 @@
   },
   "sections": {
     "labNews": [
-      {
-        "id": "labNews-3c46760c5a6581bc81e3da7fc63b2432-welcome-qunbo-lin-to-bae-lab",
-        "date": "2026-08-22",
-        "title": "Welcome Qunbo Lin to Bae Lab",
-        "summary": "Qunbo Lin joined the integrated M.S.–Ph.D. program in Fall 2026.",
-        "url": "",
-        "videoUrl": "",
-        "images": [
-          "assets/img/news/notion/3c46760c5a6581bc81e3da7fc63b2432-1.webp"
-        ]
-      },
       {
         "id": "labNews-3c46760c5a65818a8802d0fc1acfad7f-welcome-ruonan-tian-to-bae-lab",
         "date": "2026-03-01",
