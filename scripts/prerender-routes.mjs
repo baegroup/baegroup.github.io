@@ -68,6 +68,9 @@ function routeOutputPath(route) {
 }
 
 function assertRendered(route, html) {
+  if (!/^<!doctype html>/i.test(html)) {
+    throw new Error(`Prerendered HTML is missing its doctype for ${route}`);
+  }
   if (!html.includes('<div id="root">') || /<div id="root"><\/div>/.test(html)) {
     throw new Error(`Prerendered HTML is empty for ${route}`);
   }
@@ -218,6 +221,9 @@ try {
     const routeTemplate = await readFile(outputPath, 'utf8');
     const routeMetadata = routeTemplate.match(META_PATTERN)?.[0];
     let html = (await renderRoute(debugPort, route)).trim();
+    if (!/^<!doctype html>/i.test(html)) {
+      html = `<!doctype html>\n${html}`;
+    }
     if (!routeMetadata || !META_PATTERN.test(html)) {
       throw new Error(`Route metadata could not be preserved for ${route}`);
     }

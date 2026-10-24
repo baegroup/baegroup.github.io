@@ -170,6 +170,8 @@ const websiteEntity = homeGraph.find((item) => item['@type'] === 'WebSite');
 const researchOrganization = homeGraph.find((item) => item['@type'] === 'ResearchOrganization');
 const professorEntity = homeGraph.find((item) => item['@type'] === 'Person');
 const departmentEntity = homeGraph.find((item) => item['@id'] === 'https://chemeng.khu.ac.kr/#organization');
+const professorGraph = getStructuredDataForPath('/team/jaehyeong-bae')['@graph'] || [];
+const professorBreadcrumb = professorGraph.find((item) => item['@type'] === 'BreadcrumbList');
 report(
   SITE_NAME === 'Bae Lab at Kyung Hee University'
     && websiteEntity?.name === SITE_NAME
@@ -192,6 +194,12 @@ report(
     && professorEntity?.sameAs?.some((url) => url.includes('scholar.google.com/'))
     && professorEntity?.sameAs?.some((url) => url.includes('chemeng.khu.ac.kr/')),
   'GEO: professor entity must link to ORCID, Google Scholar, and the official department profile'
+);
+report(
+  professorBreadcrumb?.itemListElement?.length === 3
+    && professorBreadcrumb.itemListElement[0]?.name === 'Home'
+    && professorBreadcrumb.itemListElement[1]?.name === 'Team',
+  'GEO: nested pages must provide a valid breadcrumb entity hierarchy'
 );
 
 const contentSources = await Promise.all([

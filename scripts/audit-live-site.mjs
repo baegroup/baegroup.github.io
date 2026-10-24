@@ -1,4 +1,4 @@
-import { SITE_URL } from '../src/content/seo.js';
+import { SITE_NAME, SITE_URL } from '../src/content/seo.js';
 
 const REQUEST_TIMEOUT_MS = 20_000;
 const MINIMUM_INDEXABLE_ROUTES = 12;
@@ -124,6 +124,7 @@ await runPool(urls, async (url) => {
   const description = matchAll(html, /<meta\s+name="description"\s+content="([^"]*)"\s*\/?\s*>/gi)[0] || '';
   const jsonLd = matchAll(html, /<script\s+id="site-structured-data"\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi)[0] || '';
 
+  report(/^<!doctype html>/i.test(html), `${url}: HTML doctype is missing`);
   report(canonical.length === 1, `${url}: expected one canonical link, found ${canonical.length}`);
   report(canonical[0] === url, `${url}: canonical is ${canonical[0] || 'missing'}`);
   report(h1Count === 1, `${url}: expected one H1, found ${h1Count}`);
@@ -140,6 +141,13 @@ await runPool(urls, async (url) => {
   try {
     const parsedStructuredData = JSON.parse(jsonLd);
     if (url === `${SITE_URL}/`) homeStructuredData = parsedStructuredData;
+    if (url !== `${SITE_URL}/`) {
+      const graph = parsedStructuredData?.['@graph'] || [];
+      report(
+        graph.some((item) => item?.['@type'] === 'BreadcrumbList'),
+        `${url}: BreadcrumbList structured data is missing`
+      );
+    }
   } catch {
     report(false, `${url}: structured data is missing or invalid JSON`);
   }
@@ -167,6 +175,12 @@ report((professorEntity?.sameAs || []).some((url) => url.includes('orcid.org/'))
 const { text: rssText } = await fetchText(`${SITE_URL}/rss.xml`);
 report(/<rss\b/i.test(rssText), 'RSS: root element is missing');
 report((rssText.match(/<item>/gi) || []).length > 0, 'RSS: no news items found');
+report(/<language>en-US<\/language>/i.test(rssText), 'RSS: language metadata does not match the English feed');
+
+const { text: llmsText } = await fetchText(`${SITE_URL}/llms.txt`);
+report(llmsText.startsWith(`# ${SITE_NAME}`), 'llms.txt: preferred site identity is missing');
+report(llmsText.includes(`${SITE_URL}/research/`), 'llms.txt: primary research page is missing');
+report(llmsText.includes(`${SITE_URL}/sitemap.xml`), 'llms.txt: sitemap discovery link is missing');
 
 await runPool([...imageUrls], async (url) => {
   const response = await request(url, { method: 'HEAD' });

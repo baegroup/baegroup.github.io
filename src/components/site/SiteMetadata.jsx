@@ -42,6 +42,18 @@ export function SiteMetadata() {
     document.title = metadata.title;
     setMeta('meta[name="description"]', 'name', 'description', metadata.description);
     setMeta('meta[property="og:type"]', 'property', 'og:type', 'website');
+    setMeta('meta[property="og:locale"]', 'property', 'og:locale', normalizedPath === '/ko' ? 'ko_KR' : 'en_US');
+    const openGraphAlternate = document.head.querySelector('meta[property="og:locale:alternate"]');
+    if (normalizedPath === '/' || normalizedPath === '/ko') {
+      setMeta(
+        'meta[property="og:locale:alternate"]',
+        'property',
+        'og:locale:alternate',
+        normalizedPath === '/ko' ? 'en_US' : 'ko_KR'
+      );
+    } else {
+      openGraphAlternate?.remove();
+    }
     setMeta('meta[property="og:site_name"]', 'property', 'og:site_name', SITE_NAME);
     setMeta('meta[property="og:title"]', 'property', 'og:title', metadata.title);
     setMeta('meta[property="og:description"]', 'property', 'og:description', metadata.description);

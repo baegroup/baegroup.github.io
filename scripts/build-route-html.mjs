@@ -340,6 +340,13 @@ function renderMetadata(route) {
   const socialImageUrl = escapeHtml(route.image || `${SITE_URL}${DEFAULT_SOCIAL_IMAGE}`);
   const imageAlt = escapeHtml(route.imageAlt || 'Bae Lab research at Kyung Hee University');
   const structuredData = JSON.stringify(getStructuredDataForPath(route.path, route)).replace(/</g, '\\u003c');
+  const openGraphLocale = route.language === 'ko' ? 'ko_KR' : 'en_US';
+  const alternateOpenGraphLocale = route.path === '/' || route.path === '/ko'
+    ? `\n    <meta property="og:locale:alternate" content="${route.path === '/ko' ? 'en_US' : 'ko_KR'}" />`
+    : '';
+  const articleMetadata = route.schemaType === 'NewsArticle'
+    ? `${route.datePublished ? `\n    <meta property="article:published_time" content="${escapeHtml(route.datePublished)}" />` : ''}${route.dateModified ? `\n    <meta property="article:modified_time" content="${escapeHtml(route.dateModified)}" />` : ''}${route.articleSection ? `\n    <meta property="article:section" content="${escapeHtml(route.articleSection)}" />` : ''}`
+    : '';
   const defaultImageDimensions = route.image
     ? ''
     : `\n    <meta property="og:image:width" content="${DEFAULT_SOCIAL_IMAGE_WIDTH}" />\n    <meta property="og:image:height" content="${DEFAULT_SOCIAL_IMAGE_HEIGHT}" />`;
@@ -351,14 +358,16 @@ function renderMetadata(route) {
     <meta name="seo-route" content="${escapeHtml(route.path)}" />
     <title>${title}</title>
     <meta name="description" content="${description}" />
+    <meta name="author" content="${escapeHtml(SITE_NAME)}" />
     <link rel="canonical" href="${canonicalUrl}" />${languageAlternates}
     <meta property="og:type" content="${route.schemaType === 'NewsArticle' ? 'article' : 'website'}" />
     <meta property="og:site_name" content="${escapeHtml(SITE_NAME)}" />
+    <meta property="og:locale" content="${openGraphLocale}" />${alternateOpenGraphLocale}
     <meta property="og:title" content="${title}" />
     <meta property="og:description" content="${description}" />
     <meta property="og:url" content="${canonicalUrl}" />
     <meta property="og:image" content="${socialImageUrl}" />${defaultImageDimensions}
-    <meta property="og:image:alt" content="${imageAlt}" />
+    <meta property="og:image:alt" content="${imageAlt}" />${articleMetadata}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${title}" />
     <meta name="twitter:description" content="${description}" />
@@ -434,10 +443,11 @@ for (const redirect of LEGACY_REDIRECTS) {
 }
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${routes.map((route) => {
   const lastmod = route.lastmod ? `<lastmod>${escapeHtml(route.lastmod)}</lastmod>` : '';
-  return `  <url><loc>${escapeHtml(absoluteSiteUrl(route.path))}</loc>${lastmod}</url>`;
+  const image = route.image ? `<image:image><image:loc>${escapeHtml(route.image)}</image:loc></image:image>` : '';
+  return `  <url><loc>${escapeHtml(absoluteSiteUrl(route.path))}</loc>${lastmod}${image}</url>`;
 }).join('\n')}
 </urlset>\n`;
 
@@ -447,15 +457,35 @@ const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <channel>
   <title>${escapeHtml(SITE_NAME)} News</title>
   <link>${SITE_URL}/news/</link>
-  <description>경희대학교 화학공학과 배재형 교수 연구실의 연구 성과, 수상, 학회 활동 및 연구실 소식입니다.</description>
-  <language>ko-KR</language>
+  <description>Research highlights, awards, conference activities, and laboratory updates from Bae Lab at Kyung Hee University.</description>
+  <language>en-US</language>
   <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />
 ${rssItems.join('\n')}
 </channel>
 </rss>\n`;
 
+const llms = `# ${SITE_NAME}
+
+> ${SEO_ROUTES.find((route) => route.path === '/')?.description || ''}
+
+Official website: ${SITE_URL}/
+Principal investigator: Prof. Jaehyeong Bae
+Affiliation: Department of Chemical Engineering, Kyung Hee University
+
+## Primary pages
+
+${SEO_ROUTES.filter((route) => !['/', '/privacy'].includes(route.path)).map((route) => `- [${route.title.split('|')[0].trim()}](${absoluteSiteUrl(route.path)}): ${route.description}`).join('\n')}
+
+## Machine-readable resources
+
+- [Sitemap](${SITE_URL}/sitemap.xml)
+- [News RSS](${SITE_URL}/rss.xml)
+- [Robots policy](${SITE_URL}/robots.txt)
+`;
+
 await writeFile(path.join(DIST_DIR, 'sitemap.xml'), sitemap);
 await writeFile(path.join(DIST_DIR, 'rss.xml'), rss);
+await writeFile(path.join(DIST_DIR, 'llms.txt'), llms);
 await writeFile(
   path.join(DIST_DIR, 'robots.txt'),
   `User-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
@@ -465,4 +495,4 @@ await writeFile(
   `${JSON.stringify(routes.map((route) => route.path), null, 2)}\n`
 );
 
-console.log(`Generated route HTML: ${routes.length} indexable pages, ${LEGACY_REDIRECTS.length} legacy redirects, sitemap.xml, rss.xml, robots.txt`);
+console.log(`Generated route HTML: ${routes.length} indexable pages, ${LEGACY_REDIRECTS.length} legacy redirects, sitemap.xml, rss.xml, robots.txt, llms.txt`);
