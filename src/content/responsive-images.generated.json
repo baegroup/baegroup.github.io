@@ -107,6 +107,16 @@
     ],
     "width": 2013
   },
+  "assets/img/news/chemical-engineering-journal-advances.png": {
+    "height": 768,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/chemical-engineering-journal-advances-w320.webp",
+        "width": 320
+      }
+    ],
+    "width": 569
+  },
   "assets/img/news/instagram/ig-17938622901014724-1.webp": {
     "height": 1440,
     "sources": [

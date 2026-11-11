@@ -45,6 +45,8 @@ DB schema and environment variables:
 
 - `NOTION_CMS_SETUP.md`
 
+Repository-managed news entries can be stored in `content/news-local.json`, keyed by section (`labNews`, `gallery`, or `videos`). These entries are merged into the news output on Notion sync; local entries take precedence for matching IDs. Keep their images outside the auto-generated `news/notion/` folder.
+
 ## 3) Funding Logo Upload Rule
 
 Funding logo files should be placed in:

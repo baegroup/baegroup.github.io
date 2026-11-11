@@ -1031,7 +1031,15 @@ async function main() {
   const pages = await fetchNotionPages({ token: notionToken, databaseId: notionDbId });
 
   const notionSections = await convertNotionPagesToSections({ pages, token: notionToken });
-  const sections = notionSections;
+  const localSections = await readJsonIfExists(path.join(ROOT, 'content', 'news-local.json'), {});
+  const sections = Object.fromEntries(SECTION_KEYS.map((key) => {
+    const localItems = localSections[key] || [];
+    const localIds = new Set(localItems.map((item) => item.id));
+    return [key, sortItems([
+      ...localItems,
+      ...(notionSections[key] || []).filter((item) => !localIds.has(item.id))
+    ])];
+  }));
 
   const instagram = await fetchInstagramRecent(existing.instagram || {});
   const piLinks = resolvePiLinks(existing.piLinks || {});

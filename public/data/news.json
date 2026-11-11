@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-03",
+  "updatedAt": "2026-11-11",
   "instagram": {
     "handle": "@baelab.khu",
     "displayName": "Bae Lab | Additive Manufacturing",
@@ -32,6 +32,17 @@
   },
   "sections": {
     "labNews": [
+      {
+        "id": "local-ceja-early-career-editorial-board-2026",
+        "date": "2026-11-11",
+        "title": "Prof. Bae selected for the Early Career Editorial Board of Chemical Engineering Journal Advances",
+        "summary": "Prof. Jaehyeong Bae has been selected as a member of the Early Career Editorial Board of Chemical Engineering Journal Advances. His term will begin on December 1, 2026.",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/chemical-engineering-journal-advances.png"
+        ]
+      },
       {
         "id": "labNews-3c46760c5a6581bc81e3da7fc63b2432-welcome-qunbo-lin-to-bae-lab",
         "date": "2026-08-22",

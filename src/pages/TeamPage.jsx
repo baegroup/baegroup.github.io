@@ -65,6 +65,10 @@ const PROFESSOR_PROFILE_DETAILS = {
     ],
     appointments: [
       {
+        year: '2026.12–',
+        text: 'Early Career Editorial Board Member, Chemical Engineering Journal Advances'
+      },
+      {
         year: '2026–Present',
         text: 'Editorial Board Member, Functional Thin Films and Energy Materials'
       },
