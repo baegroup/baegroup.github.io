@@ -102,7 +102,6 @@ export function SiteHeader({ locale }) {
 
       <div className="site-header-main site-frame flex min-h-[5.5rem] items-center justify-between md:min-h-24">
         <Link
-          aria-label="Bae Lab home"
           className="flex items-center gap-3 no-underline"
           to={pagePath('')}
         >

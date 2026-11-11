@@ -36,6 +36,7 @@ await collectHtmlFiles(DIST_DIR);
 
 const missingLinks = [];
 const metadataErrors = [];
+const documentErrors = [];
 let internalLinkCount = 0;
 
 for (const sourcePath of htmlFiles) {
@@ -45,6 +46,10 @@ for (const sourcePath of htmlFiles) {
   const hreflangValues = [...html.matchAll(/<link\b(?=[^>]*\brel=["']alternate["'])(?=[^>]*\bhreflang=["']([^"']+)["'])[^>]*>/gi)]
     .map((match) => match[1]);
   const expectedHreflangCount = sourceRoute === '/' || sourceRoute === '/ko/' ? 3 : 0;
+
+  if (!/^<!doctype html>/i.test(html)) {
+    documentErrors.push({ sourceRoute, reason: 'missing HTML doctype' });
+  }
 
   if (hreflangValues.length !== expectedHreflangCount || new Set(hreflangValues).size !== hreflangValues.length) {
     metadataErrors.push({ sourceRoute, hreflangValues, expectedHreflangCount });
@@ -77,6 +82,22 @@ if (metadataErrors.length) {
   console.error(`Invalid hreflang metadata: ${metadataErrors.length}`);
   for (const item of metadataErrors.slice(0, 30)) {
     console.error(`- ${item.sourceRoute}: expected ${item.expectedHreflangCount} unique tags, found ${item.hreflangValues.join(', ') || 'none'}`);
+  }
+  process.exit(1);
+}
+
+for (const requiredFile of ['sitemap.xml', 'rss.xml', 'robots.txt', 'llms.txt']) {
+  try {
+    await stat(path.join(DIST_DIR, requiredFile));
+  } catch {
+    documentErrors.push({ sourceRoute: '/', reason: `missing ${requiredFile}` });
+  }
+}
+
+if (documentErrors.length) {
+  console.error(`Invalid generated documents: ${documentErrors.length}`);
+  for (const item of documentErrors.slice(0, 30)) {
+    console.error(`- ${item.sourceRoute}: ${item.reason}`);
   }
   process.exit(1);
 }

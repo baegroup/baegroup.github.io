@@ -136,9 +136,9 @@
     "width": 1440
   },
   "assets/img/news/instagram/profile.webp": {
-    "height": 206,
+    "height": 240,
     "sources": [],
-    "width": 206
+    "width": 240
   },
   "assets/img/news/notion/31d6760c5a65800aabbada0c1e8e57df-1.webp": {
     "height": 922,
@@ -917,7 +917,7 @@
     "width": 1600
   },
   "assets/img/news/notion/3c36760c5a6580289584c617f5ea0b4d-2.webp": {
-    "height": 1200,
+    "height": 1600,
     "sources": [
       {
         "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-2-w320.webp",
@@ -932,25 +932,7 @@
         "width": 960
       }
     ],
-    "width": 1600
-  },
-  "assets/img/news/notion/3c36760c5a6580289584c617f5ea0b4d-3.webp": {
-    "height": 1200,
-    "sources": [
-      {
-        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-3-w320.webp",
-        "width": 320
-      },
-      {
-        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-3-w640.webp",
-        "width": 640
-      },
-      {
-        "path": "assets/img/responsive/news/notion/3c36760c5a6580289584c617f5ea0b4d-3-w960.webp",
-        "width": 960
-      }
-    ],
-    "width": 1600
+    "width": 1200
   },
   "assets/img/news/notion/3c36760c5a6580aca08bf535e9c9240e-1.webp": {
     "height": 1200,
@@ -1162,11 +1144,6 @@
     ],
     "width": 768
   },
-  "assets/img/news/notion/3c46760c5a6581bc81e3da7fc63b2432-1.webp": {
-    "height": 277,
-    "sources": [],
-    "width": 277
-  },
   "assets/img/news/notion/3c46760c5a6581dd8be4c531d06716bd-1.webp": {
     "height": 300,
     "sources": [],
@@ -1185,6 +1162,60 @@
       }
     ],
     "width": 796
+  },
+  "assets/img/news/notion/4076760c5a65806faf42d7304603697c-1.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/4076760c5a65806faf42d7304603697c-1-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/4076760c5a65806faf42d7304603697c-1-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/4076760c5a65806faf42d7304603697c-1-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/4076760c5a65806faf42d7304603697c-2.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/4076760c5a65806faf42d7304603697c-2-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/4076760c5a65806faf42d7304603697c-2-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/4076760c5a65806faf42d7304603697c-2-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
+  },
+  "assets/img/news/notion/4076760c5a65806faf42d7304603697c-3.webp": {
+    "height": 1200,
+    "sources": [
+      {
+        "path": "assets/img/responsive/news/notion/4076760c5a65806faf42d7304603697c-3-w320.webp",
+        "width": 320
+      },
+      {
+        "path": "assets/img/responsive/news/notion/4076760c5a65806faf42d7304603697c-3-w640.webp",
+        "width": 640
+      },
+      {
+        "path": "assets/img/responsive/news/notion/4076760c5a65806faf42d7304603697c-3-w960.webp",
+        "width": 960
+      }
+    ],
+    "width": 1600
   },
   "assets/img/publications/covers/ACS Nano_January_2024.webp": {
     "height": 797,
@@ -1459,11 +1490,6 @@
       }
     ],
     "width": 796
-  },
-  "assets/img/team/notion/lin-qunbo.png": {
-    "height": 277,
-    "sources": [],
-    "width": 277
   },
   "assets/img/team/notion/liu-jiechen.jpg": {
     "height": 300,

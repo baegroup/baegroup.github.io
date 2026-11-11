@@ -1,18 +1,19 @@
-import { useLayoutEffect } from 'react';
+import { lazy, Suspense, useLayoutEffect } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { SiteLayout } from '@/layouts/SiteLayout';
 import { SiteMetadata } from '@/components/site/SiteMetadata';
 import { SiteAnalytics } from '@/components/site/SiteAnalytics';
 import { HomePage } from '@/pages/HomePage';
-import { TeamPage } from '@/pages/TeamPage';
-import { NewsPage } from '@/pages/NewsPage';
-import { PublicationsPage } from '@/pages/PublicationsPage';
-import { ResearchPage } from '@/pages/ResearchPage';
-import { ContactPage } from '@/pages/ContactPage';
-import { JoinPage } from '@/pages/JoinPage';
-import { KoreanLandingPage } from '@/pages/KoreanLandingPage';
-import { PrivacyPage } from '@/pages/PrivacyPage';
+
+const TeamPage = lazy(() => import('@/pages/TeamPage').then((module) => ({ default: module.TeamPage })));
+const NewsPage = lazy(() => import('@/pages/NewsPage').then((module) => ({ default: module.NewsPage })));
+const PublicationsPage = lazy(() => import('@/pages/PublicationsPage').then((module) => ({ default: module.PublicationsPage })));
+const ResearchPage = lazy(() => import('@/pages/ResearchPage').then((module) => ({ default: module.ResearchPage })));
+const ContactPage = lazy(() => import('@/pages/ContactPage').then((module) => ({ default: module.ContactPage })));
+const JoinPage = lazy(() => import('@/pages/JoinPage').then((module) => ({ default: module.JoinPage })));
+const KoreanLandingPage = lazy(() => import('@/pages/KoreanLandingPage').then((module) => ({ default: module.KoreanLandingPage })));
+const PrivacyPage = lazy(() => import('@/pages/PrivacyPage').then((module) => ({ default: module.PrivacyPage })));
 
 const DEFAULT_LOCALE = 'en';
 
@@ -44,28 +45,30 @@ function SiteRoutes() {
 
   return (
     <SiteLayout locale={locale}>
-      <Routes>
-        <Route element={<HomePage locale={locale} />} index />
-        <Route element={<TeamPage locale={locale} />} path="team" />
-        <Route element={<TeamPage locale={locale} section="professor" />} path="team/jaehyeong-bae" />
-        <Route element={<TeamPage locale={locale} section="current" />} path="team/members" />
-        <Route element={<Navigate replace to="/team/members/" />} path="team/staff" />
-        <Route element={<TeamPage locale={locale} section="alumni" />} path="team/alumni" />
-        <Route element={<Navigate replace to="/team/" />} path="members" />
-        <Route element={<ResearchPage locale={locale} />} path="research" />
-        <Route element={<PublicationsPage locale={locale} />} path="publications" />
-        <Route element={<PublicationsPage locale={locale} />} path="publications/:typeSlug" />
-        <Route element={<PublicationsPage locale={locale} />} path="publications/:typeSlug/:periodSlug" />
-        <Route element={<NewsPage locale={locale} />} path="news" />
-        <Route element={<NewsPage locale={locale} />} path="news/:sectionSlug" />
-        <Route element={<NewsPage locale={locale} />} path="news/:sectionSlug/page/:pageNumber" />
-        <Route element={<NewsPage locale={locale} />} path="news/:sectionSlug/:itemSlug" />
-        <Route element={<KoreanLandingPage />} path="ko" />
-        <Route element={<JoinPage locale={locale} />} path="join" />
-        <Route element={<ContactPage locale={locale} />} path="contact" />
-        <Route element={<PrivacyPage />} path="privacy" />
-        <Route element={<Navigate replace to="/" />} path="*" />
-      </Routes>
+      <Suspense fallback={<span aria-hidden="true" data-prerender-pending="true" hidden />}>
+        <Routes>
+          <Route element={<HomePage locale={locale} />} index />
+          <Route element={<TeamPage locale={locale} />} path="team" />
+          <Route element={<TeamPage locale={locale} section="professor" />} path="team/jaehyeong-bae" />
+          <Route element={<TeamPage locale={locale} section="current" />} path="team/members" />
+          <Route element={<Navigate replace to="/team/members/" />} path="team/staff" />
+          <Route element={<TeamPage locale={locale} section="alumni" />} path="team/alumni" />
+          <Route element={<Navigate replace to="/team/" />} path="members" />
+          <Route element={<ResearchPage locale={locale} />} path="research" />
+          <Route element={<PublicationsPage locale={locale} />} path="publications" />
+          <Route element={<PublicationsPage locale={locale} />} path="publications/:typeSlug" />
+          <Route element={<PublicationsPage locale={locale} />} path="publications/:typeSlug/:periodSlug" />
+          <Route element={<NewsPage locale={locale} />} path="news" />
+          <Route element={<NewsPage locale={locale} />} path="news/:sectionSlug" />
+          <Route element={<NewsPage locale={locale} />} path="news/:sectionSlug/page/:pageNumber" />
+          <Route element={<NewsPage locale={locale} />} path="news/:sectionSlug/:itemSlug" />
+          <Route element={<KoreanLandingPage />} path="ko" />
+          <Route element={<JoinPage locale={locale} />} path="join" />
+          <Route element={<ContactPage locale={locale} />} path="contact" />
+          <Route element={<PrivacyPage />} path="privacy" />
+          <Route element={<Navigate replace to="/" />} path="*" />
+        </Routes>
+      </Suspense>
     </SiteLayout>
   );
 }

@@ -144,6 +144,41 @@ export function absoluteSiteUrl(path = '/') {
   return `${SITE_URL}${normalized}`;
 }
 
+const BREADCRUMB_PARENT_LABELS = {
+  team: 'Team',
+  research: 'Research',
+  publications: 'Publications',
+  news: 'News',
+  join: 'Join Our Team',
+  contact: 'Contact',
+  privacy: 'Privacy and Analytics',
+  ko: '한국어 안내'
+};
+
+function breadcrumbName(metadata) {
+  return String(metadata.articleTitle || metadata.title || SITE_NAME)
+    .split('|')[0]
+    .trim();
+}
+
+function buildBreadcrumbs(path, metadata) {
+  if (path === '/') return [];
+  const topLevel = path.split('/').filter(Boolean)[0];
+  const trail = [
+    { name: 'Home', item: `${SITE_URL}/` }
+  ];
+
+  if (path !== `/${topLevel}` && BREADCRUMB_PARENT_LABELS[topLevel]) {
+    trail.push({
+      name: BREADCRUMB_PARENT_LABELS[topLevel],
+      item: absoluteSiteUrl(`/${topLevel}`)
+    });
+  }
+
+  trail.push({ name: breadcrumbName(metadata), item: absoluteSiteUrl(path) });
+  return trail;
+}
+
 export function getStructuredDataForPath(pathname = '/', metadataOverride = null) {
   const metadata = metadataOverride || getSeoForPath(pathname);
   const path = normalizeSeoPath(metadata.path || pathname);
@@ -254,6 +289,9 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
     about: isProfessorPage ? { '@id': personId } : { '@id': organizationId },
     inLanguage: isKoreanPage ? 'ko' : 'en'
   };
+  if (metadata.lastmod) {
+    webPage.dateModified = metadata.lastmod;
+  }
   const primaryImageId = `${pageUrl}#primaryimage`;
   const primaryImageUrl = metadata.image || `${SITE_URL}${DEFAULT_SOCIAL_IMAGE}`;
   const primaryImage = {
@@ -291,6 +329,22 @@ export function getStructuredDataForPath(pathname = '/', metadataOverride = null
     organization,
     person
   ];
+
+  const breadcrumbs = buildBreadcrumbs(path, metadata);
+  if (breadcrumbs.length) {
+    const breadcrumbId = `${pageUrl}#breadcrumb`;
+    graph.push({
+      '@type': 'BreadcrumbList',
+      '@id': breadcrumbId,
+      itemListElement: breadcrumbs.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: item.item
+      }))
+    });
+    webPage.breadcrumb = { '@id': breadcrumbId };
+  }
 
   if (Array.isArray(metadata.itemListElements) && metadata.itemListElements.length) {
     const itemListId = `${pageUrl}#item-list`;
