@@ -347,6 +347,7 @@ function normalizeType(value) {
 async function convertPagesToPapers({ pages }) {
   await fs.mkdir(COVERS_ASSET_DIR, { recursive: true });
 
+  const corrections = JSON.parse(await fs.readFile(path.join(ROOT, 'content', 'publication-corrections.json'), 'utf8'));
   const publications = [];
 
   for (const page of pages) {
@@ -405,7 +406,8 @@ async function convertPagesToPapers({ pages }) {
       pages: pagesText,
       doi,
       link,
-      coverImage
+      coverImage,
+      ...(corrections[id] || {})
     });
   }
 
