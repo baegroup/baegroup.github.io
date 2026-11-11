@@ -65,12 +65,24 @@ const PROFESSOR_PROFILE_DETAILS = {
     ],
     appointments: [
       {
-        year: '2026.12–',
+        year: '2026.12–Present',
         text: 'Early Career Editorial Board Member, Chemical Engineering Journal Advances'
       },
       {
         year: '2026–Present',
         text: 'Editorial Board Member, Functional Thin Films and Energy Materials'
+      },
+      {
+        year: '2026–Present',
+        text: 'Editorial Board Member, Polymer Science and Technology, The Polymer Society of Korea'
+      },
+      {
+        year: '2026',
+        text: 'Editorial Committee Member, 50th Anniversary Commemorative History, The Polymer Society of Korea (IUPAC-PSK50)'
+      },
+      {
+        year: '2025–Present',
+        text: 'Secretary for International Affairs, Polymer Division, The Korean Institute of Chemical Engineers'
       },
       { year: '2023.03–Present', text: 'Assistant Professor, Department of Chemical Engineering, Kyung Hee University' },
       { year: '2022.04–2022.10', text: 'Postdoctoral Fellow, Harvard University (Prof. Jennifer A. Lewis)' },
