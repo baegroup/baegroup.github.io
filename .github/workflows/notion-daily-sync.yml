@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '30 15 * * *' # Every day 00:30 KST (UTC+9)
   workflow_dispatch:
+    inputs:
+      update_publication_corrections:
+        description: 'Apply verified publication corrections to Notion before syncing'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -68,6 +73,10 @@ jobs:
           if [[ "${NOTION_TOKEN}" != ntn_* ]]; then
             echo "::warning::NOTION_TOKEN does not start with 'ntn_'. Check whether an old token was configured."
           fi
+
+      - name: Update verified publication metadata in Notion
+        if: github.event_name == 'workflow_dispatch' && inputs.update_publication_corrections
+        run: node scripts/update-notion-publication-corrections.mjs
 
       - name: Sync CMS from Notion
         run: npm run cms:sync:notion
