@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-12",
+  "updatedAt": "2026-11-13",
   "instagram": {
     "handle": "@baelab.khu",
     "displayName": "Bae Lab | Additive Manufacturing",
@@ -32,6 +32,23 @@
   },
   "sections": {
     "labNews": [
+      {
+        "id": "labNews-4176760c5a6580bd8b14ef146a0bc6cb-entry",
+        "date": "2026-11-13",
+        "title": "융합과 혁신 : 학부연구생 학술제 대상, 최우수상 (김나연,고윤지)",
+        "summary": "융합 과 혁신 : 학부 연구생 학술제에서 김나연 학부연구생과 고윤지 학부연구생이 대상과 최우수상을 수상했습니다. 축하합니다!",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/4176760c5a6580bd8b14ef146a0bc6cb-1.webp",
+          "assets/img/news/notion/4176760c5a6580bd8b14ef146a0bc6cb-2.webp",
+          "assets/img/news/notion/4176760c5a6580bd8b14ef146a0bc6cb-3.webp",
+          "assets/img/news/notion/4176760c5a6580bd8b14ef146a0bc6cb-4.webp",
+          "assets/img/news/notion/4176760c5a6580bd8b14ef146a0bc6cb-5.webp",
+          "assets/img/news/notion/4176760c5a6580bd8b14ef146a0bc6cb-6.webp",
+          "assets/img/news/notion/4176760c5a6580bd8b14ef146a0bc6cb-7.webp"
+        ]
+      },
       {
         "id": "local-ceja-early-career-editorial-board-2026",
         "date": "2026-11-11",
@@ -251,9 +268,24 @@
     ],
     "gallery": [
       {
-        "id": "gallery-4076760c5a65806faf42d7304603697c-suha-s-graduation-ceremony-1",
+        "id": "gallery-4176760c5a658022b89bcc4f4d6ec5d6-iupac-psk50-conference-busan-bexco",
+        "date": "2026-09-28",
+        "title": "IUPAC-PSK50 Conference (Busan, BEXCO)",
+        "summary": "부산 벡스코로 고분자 공학회 IUPAC_PSK50 학회를 다녀왔습니다.",
+        "url": "",
+        "videoUrl": "",
+        "images": [
+          "assets/img/news/notion/4176760c5a658022b89bcc4f4d6ec5d6-1.webp",
+          "assets/img/news/notion/4176760c5a658022b89bcc4f4d6ec5d6-2.webp",
+          "assets/img/news/notion/4176760c5a658022b89bcc4f4d6ec5d6-3.webp",
+          "assets/img/news/notion/4176760c5a658022b89bcc4f4d6ec5d6-4.webp",
+          "assets/img/news/notion/4176760c5a658022b89bcc4f4d6ec5d6-5.webp"
+        ]
+      },
+      {
+        "id": "gallery-4076760c5a65806faf42d7304603697c-suha-s-graduation-ceremony",
         "date": "2026-08-19",
-        "title": "Suha’s Graduation Ceremony (1)",
+        "title": "Suha’s Graduation Ceremony",
         "summary": "The Bae Lab celebrated Suha Cho’s graduation and congratulated her on this important milestone.",
         "url": "",
         "videoUrl": "",
