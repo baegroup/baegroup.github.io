@@ -215,6 +215,12 @@
     text-wrap: balance;
   }
 
+  .site-news-title {
+    text-wrap: wrap;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
   .site-copy-lead {
     @apply text-base font-medium leading-relaxed text-slate-700 md:text-lg;
     text-wrap: pretty;

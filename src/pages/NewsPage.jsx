@@ -615,7 +615,7 @@ function NewsItemRow({ compactPreview = false, detailPath, editorialPreview = fa
 
           <div className={editorialPreview ? 'col-start-3 row-start-1 min-w-0 md:col-span-1 md:col-start-3 md:row-start-1' : ''}>
             {!editorialPreview ? <p className="site-meta-context">{item.date || '-'}</p> : null}
-            <p className="site-balanced-heading mt-1 text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">
+            <p className="site-news-title mt-1 text-base font-semibold leading-snug text-slate-950 md:text-[1.02rem]">
               <Link className="no-underline hover:text-[var(--brand-burgundy)]" reloadDocument to={detailPath}>{item.title}</Link>
             </p>
             {editorialPreview ? <p className="site-meta-context mt-1.5 md:hidden">{item.date || '-'}</p> : null}
