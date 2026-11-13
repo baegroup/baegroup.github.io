@@ -3,6 +3,7 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
+import { waitForChrome } from './lib/wait-for-chrome.mjs';
 
 const ROOT = process.cwd();
 const DIST_DIR = path.join(ROOT, 'dist');
@@ -99,22 +100,6 @@ function findAvailablePort() {
   });
 }
 
-async function waitForChrome(debugPort, chromeProcess) {
-  for (let attempt = 0; attempt < 60; attempt += 1) {
-    if (chromeProcess.exitCode !== null) {
-      throw new Error(`Chrome exited before prerendering (code ${chromeProcess.exitCode}).`);
-    }
-    try {
-      const response = await fetch(`http://${HOST}:${debugPort}/json/version`);
-      if (response.ok) return;
-    } catch {
-      // Chrome may still be starting.
-    }
-    await new Promise((resolve) => setTimeout(resolve, 250));
-  }
-  throw new Error('Timed out while waiting for headless Chrome.');
-}
-
 async function renderRoute(debugPort, route) {
   const separator = route.includes('?') ? '&' : '?';
   const url = `${BASE_URL}${route}${separator}prerender=1`;
@@ -205,7 +190,16 @@ const chromeProcess = spawn(chrome, [
   `--remote-debugging-port=${debugPort}`,
   `--user-data-dir=${chromeProfile}`,
   'about:blank'
-], { stdio: 'ignore' });
+], { stdio: ['ignore', 'ignore', 'pipe'] });
+let chromeError = '';
+chromeProcess.stderr.on('data', (chunk) => {
+  chromeError = (chromeError + chunk.toString()).slice(-8000);
+});
+// Attach the readiness listener immediately so spawn errors cannot go unhandled.
+const chromeReady = waitForChrome(`http://${HOST}:${debugPort}/json/version`, chromeProcess, {
+  diagnostics: () => chromeError.trim()
+});
+chromeReady.catch(() => {});
 
 let previewError = '';
 preview.stderr.on('data', (chunk) => {
@@ -214,7 +208,7 @@ preview.stderr.on('data', (chunk) => {
 
 try {
   await waitForServer(preview);
-  await waitForChrome(debugPort, chromeProcess);
+  await chromeReady;
 
   for (const [routeIndex, route] of routes.entries()) {
     const outputPath = routeOutputPath(route);
