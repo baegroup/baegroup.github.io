@@ -30,6 +30,31 @@ Before deploying a connection change, run **Daily Notion Sync** on the change br
 with `dry_run` enabled. This fetches content and validates assets without publishing.
 After merging, run the normal sync and analytics workflows and verify the Pages deployment.
 
+## Publish from Notion
+
+The **홈페이지 반영** button at the top of the Bae Lab management page sets
+`요청 시간` to the time the button is clicked in the single-row **홈페이지 반영 현황** database.
+`Daily Notion Sync` checks for unclaimed requests every five minutes and retains its
+daily 00:30 KST full sync. GitHub schedules may be delayed; the button is a queued
+request, not an immediate webhook. No GitHub credential is stored in Notion.
+
+The visible `진행 상태` formula reports pending requests immediately. The workflow
+claims the observed timestamp, then records syncing, deployment queued, deploying,
+and completion/failure. A request made while another run is working remains pending
+for the next run. Only a successful Pages deployment updates `마지막 반영 시간` and
+`반영 커밋`; failures retain the previous success time. `실행 기록` links to the run.
+Even unchanged content is deployed when requested so completion refers to a real
+successful deployment. Branch runs and `dry_run` do not claim requests or deploy.
+
+Status page: `420f3566-2a74-814c-8918-dce8210364f2`.
+Status data source: `420f3566-2a74-812c-a474-000b9d15b3f6`.
+The existing `Bae Lab Website Sync` integration inherits access from the management page.
+
+If status is `실패`, inspect the linked run, fix the error, and click the button again.
+If it remains pending, check that Actions schedules are enabled (GitHub may disable
+scheduled workflows in a public repository after 60 days without repository activity).
+The Actions `Run workflow` option remains available for immediate manual execution.
+
 ## 1) Required Environment Variables
 
 ```bash
