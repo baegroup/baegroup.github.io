@@ -41,7 +41,7 @@ jobs:
       }}
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment_retry.outputs.page_url || steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
@@ -83,6 +83,18 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v5
+
+      # Artifact metadata can briefly be unavailable immediately after upload.
+      # Retry the same immutable artifact once; a second failure still fails the job.
+      - name: Wait before retrying Pages deployment
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 15
+
+      - name: Retry GitHub Pages deployment
+        id: deployment_retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v5
 
       - name: Record successful deployment
@@ -93,7 +105,7 @@ jobs:
           node scripts/notion-publish-status.mjs success
 
       - name: Report deployment failure
-        if: (failure() || cancelled()) && steps.deployment.outcome != 'success' && inputs.report_notion_status == true
+        if: (failure() || cancelled()) && steps.deployment.outcome != 'success' && steps.deployment_retry.outcome != 'success' && inputs.report_notion_status == true
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_AEROLITH_TOKEN }}
         run: node scripts/notion-publish-status.mjs failure
