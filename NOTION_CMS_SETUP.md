@@ -49,6 +49,8 @@ successful deployment. Branch runs and `dry_run` do not claim requests or deploy
 Status page: `420f3566-2a74-814c-8918-dce8210364f2`.
 Status data source: `420f3566-2a74-812c-a474-000b9d15b3f6`.
 The existing `Bae Lab Website Sync` integration inherits access from the management page.
+Other successful Pages deployments also update the actual last deployment time,
+without completing or replacing an in-progress Notion request.
 
 If status is `실패`, inspect the linked run, fix the error, and click the button again.
 If it remains pending, check that Actions schedules are enabled (GitHub may disable

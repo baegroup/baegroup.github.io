@@ -86,7 +86,6 @@ jobs:
         uses: actions/deploy-pages@v5
 
       - name: Record successful deployment
-        if: inputs.report_notion_status == true
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_AEROLITH_TOKEN }}
         run: |

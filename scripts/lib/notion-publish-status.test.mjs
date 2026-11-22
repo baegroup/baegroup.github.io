@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { claimProperties, hasPendingRequest, statusProperties } from '../notion-publish-status.mjs';
+import { claimProperties, deploymentProperties, hasPendingRequest, statusProperties } from '../notion-publish-status.mjs';
 
 const page = (requested, claimed, run = '123') => ({ properties: {
   '요청 시간': { date: requested ? { start: requested } : null },
@@ -32,5 +32,12 @@ test('only the owning successful deployment updates completion time', () => {
   const properties = statusProperties(page(before, before), '123', '완료', after, 'abc');
   assert.equal(properties['마지막 반영 시간'].date.start, after);
   assert.equal(properties['반영 커밋'].rich_text[0].text.content, 'abc');
+  assert.equal('요청 시간' in properties, false);
+});
+test('unrelated successful deployment updates actual success time without completing a pending request', () => {
+  const properties = deploymentProperties(page(after, before, 'current-sync'), 'other-deploy', after, 'abc');
+  assert.equal(properties['마지막 반영 시간'].date.start, after);
+  assert.equal('진행 단계' in properties, false);
+  assert.equal('실행 ID' in properties, false);
   assert.equal('요청 시간' in properties, false);
 });
