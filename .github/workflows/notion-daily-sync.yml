@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '30 15 * * *' # Every day 00:30 KST (UTC+9)
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Validate sync without publishing content changes
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -16,17 +21,17 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     env:
-      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN || secrets.NOTION_INTEGRATION_TOKEN || secrets.NOTION_API_TOKEN }}
-      NOTION_NEWS_DB_ID: 31d6760c-5a65-807c-a312-ce5f7978f25d
-      NOTION_NEWS_DATA_SOURCE_ID: 31d6760c-5a65-80fe-818c-000b11144ed4
-      NOTION_TEAM_DB_ID: 31d6760c-5a65-8089-9ff1-cc9f157dd346
-      NOTION_TEAM_DATA_SOURCE_ID: 31d6760c-5a65-80c3-ace0-000b507b3c1e
-      NOTION_PUBLICATIONS_DB_ID: 31d6760c-5a65-80e9-bd96-e303108723ea
-      NOTION_PUBLICATIONS_DATA_SOURCE_ID: 31d6760c-5a65-808f-afe3-000b3cdaee84
-      NOTION_PATENTS_DB_ID: 12c02565-a6ac-4b54-b84e-59cb76221632
-      NOTION_PATENTS_DATA_SOURCE_ID: 9d50f22d-3aa2-43d0-a4aa-80c11986aff1
-      NOTION_PRESENTATIONS_DB_ID: 91d9e4a0-1ba2-4056-90f0-9efaf40184ab
-      NOTION_PRESENTATIONS_DATA_SOURCE_ID: a7f5dc6e-6584-48d3-808d-f146054d6b6b
+      NOTION_TOKEN: ${{ secrets.NOTION_AEROLITH_TOKEN }}
+      NOTION_NEWS_DB_ID: d42f3566-2a74-82c5-a3aa-81daf4063b28
+      NOTION_NEWS_DATA_SOURCE_ID: ae1f3566-2a74-8315-a78b-87e11ccf2ba7
+      NOTION_TEAM_DB_ID: d7cf3566-2a74-8361-84b0-81c69d1f920d
+      NOTION_TEAM_DATA_SOURCE_ID: 2bbf3566-2a74-8238-a1fa-07877290178c
+      NOTION_PUBLICATIONS_DB_ID: 53cf3566-2a74-8285-958f-819dc956eeca
+      NOTION_PUBLICATIONS_DATA_SOURCE_ID: 5ebf3566-2a74-82ae-a97c-878fc2f49c7a
+      NOTION_PATENTS_DB_ID: b18f3566-2a74-834c-b65c-81c24f701f38
+      NOTION_PATENTS_DATA_SOURCE_ID: eb7f3566-2a74-83c8-9296-078877ab519a
+      NOTION_PRESENTATIONS_DB_ID: d2cf3566-2a74-83df-b67b-01ffd706d286
+      NOTION_PRESENTATIONS_DATA_SOURCE_ID: 38af3566-2a74-829c-887d-074446651454
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -61,7 +66,7 @@ jobs:
 
           if (( ${#missing[@]} > 0 )); then
             echo "::error::Missing required configuration: ${missing[*]}"
-            echo "::error::Set repository secret NOTION_TOKEN (or NOTION_INTEGRATION_TOKEN / NOTION_API_TOKEN)."
+            echo "::error::Set repository secret NOTION_AEROLITH_TOKEN with access to the Bae Lab Website CMS in Aerolith3d."
             exit 1
           fi
 
@@ -76,6 +81,7 @@ jobs:
         run: npm run check
 
       - name: Commit and push changes
+        if: github.ref == 'refs/heads/main' && inputs.dry_run != true
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"

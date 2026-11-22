@@ -6,6 +6,30 @@ This website can be operated from Notion by syncing five databases into local JS
 - `Team` -> `public/data/team.json`
 - `Papers` + `Patents` + `Conference Presentations` -> `public/data/publications.json`
 
+## Aerolith3d connection
+
+The migrated CMS lives under **Private → Bae Lab 홈페이지 관리 → Website CMS** in the
+Aerolith3d workspace, separately from Aerolith business documents.
+
+- CMS: https://app.notion.com/p/03cf35662a74826ab8a101df9f41fe55
+- Analytics: https://app.notion.com/p/5faf35662a7482bc9384015c67872049
+- Both GitHub Actions workflows use the repository secret `NOTION_AEROLITH_TOKEN`,
+  exposed to the scripts as `NOTION_TOKEN`. The original `NOTION_TOKEN` secret is
+  retained for rollback and is not a fallback for the migrated databases.
+- Grant the API connection access to the copied **Website CMS** page and its
+  descendants, with read/update/insert content capabilities. It does not need
+  access to the other Aerolith business pages.
+- Database and data source IDs are pinned in `notion-daily-sync.yml`; the News
+  database also contains an empty data source, so its data source ID is required.
+- `NOTION_ANALYTICS_PAGE_ID` pins the copied dashboard. The analytics script checks
+  that it belongs to the same CMS page as News before updating its content.
+- `scripts/lib/notion-news-page-ids.mjs` preserves the original public identity of
+  all 43 copied news items, keeping existing URLs, corrections, and image filenames.
+
+Before deploying a connection change, run **Daily Notion Sync** on the change branch
+with `dry_run` enabled. This fetches content and validates assets without publishing.
+After merging, run the normal sync and analytics workflows and verify the Pages deployment.
+
 ## 1) Required Environment Variables
 
 ```bash

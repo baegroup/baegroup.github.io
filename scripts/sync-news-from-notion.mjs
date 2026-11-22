@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { encodeNewsImage } from './lib/news-image.mjs';
+import { stableNewsPageId } from './lib/notion-news-page-ids.mjs';
 
 const ROOT = process.cwd();
 const NEWS_OUTPUT_PATH = path.join(ROOT, 'public', 'data', 'news.json');
@@ -789,7 +790,7 @@ async function convertNotionPagesToSections({ pages, token }) {
 
     // Keep verified corrections stable until the corresponding Notion records
     // are updated. Page IDs make the correction independent of title typos.
-    const pageToken = String(page.id || '').replace(/-/g, '') || toSlug(sourceTitle, 'item');
+    const pageToken = stableNewsPageId(page.id) || toSlug(sourceTitle, 'item');
     const correction = KNOWN_NEWS_CORRECTIONS[pageToken] || {};
     const title = correction.title || sourceTitle;
 

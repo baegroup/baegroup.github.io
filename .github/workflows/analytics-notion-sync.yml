@@ -17,8 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN || secrets.NOTION_INTEGRATION_TOKEN || secrets.NOTION_API_TOKEN }}
-      NOTION_NEWS_DB_ID: 31d6760c-5a65-807c-a312-ce5f7978f25d
+      NOTION_TOKEN: ${{ secrets.NOTION_AEROLITH_TOKEN }}
+      NOTION_NEWS_DB_ID: d42f3566-2a74-82c5-a3aa-81daf4063b28
+      NOTION_ANALYTICS_PAGE_ID: 5faf3566-2a74-82bc-9384-015c67872049
       GA4_PROPERTY_ID: '346894074'
       SEARCH_CONSOLE_SITE_URL: https://baelab.khu.ac.kr/
       GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
@@ -35,7 +36,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          required=(NOTION_TOKEN NOTION_NEWS_DB_ID GA4_PROPERTY_ID GA4_SERVICE_ACCOUNT_JSON)
+          required=(NOTION_TOKEN NOTION_NEWS_DB_ID NOTION_ANALYTICS_PAGE_ID GA4_PROPERTY_ID GA4_SERVICE_ACCOUNT_JSON)
           missing=()
           for key in "${required[@]}"; do
             if [[ -z "${!key:-}" ]]; then

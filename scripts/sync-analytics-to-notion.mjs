@@ -1,4 +1,5 @@
 import { createSign } from 'node:crypto';
+import { pathToFileURL } from 'node:url';
 
 const NOTION_API_VERSION = '2025-09-03';
 const GOOGLE_SCOPES = [
@@ -139,14 +140,22 @@ function getPageTitle(page) {
   return '';
 }
 
-async function findOrCreateDashboard({ token, parentDatabaseId }) {
+export async function findOrCreateDashboard({ token, parentDatabaseId, dashboardPageId }) {
   const parentDatabase = await notionRequest({
     token,
     endpoint: `/databases/${parentDatabaseId}`
   });
   const parentPageId = parentDatabase.parent?.page_id;
   if (!parentPageId) {
-    throw new Error('The existing Notion CMS database is not nested under a page. Set NOTION_ANALYTICS_PARENT_PAGE_ID explicitly.');
+    throw new Error('The Notion CMS database must be nested under the Website CMS page.');
+  }
+
+  if (dashboardPageId) {
+    const dashboard = await notionRequest({ token, endpoint: `/pages/${dashboardPageId}` });
+    if (dashboard.archived || dashboard.in_trash || dashboard.parent?.page_id !== parentPageId) {
+      throw new Error('The configured analytics dashboard must be an active child of the Website CMS page.');
+    }
+    return dashboard;
   }
 
   const dashboardTitles = [DASHBOARD_TITLE, ...LEGACY_DASHBOARD_TITLES];
@@ -623,12 +632,13 @@ async function collectAnalytics({ accessToken, propertyId, searchConsoleSiteUrl 
 async function main() {
   const notionToken = requireEnv('NOTION_TOKEN');
   const notionNewsDatabaseId = requireEnv('NOTION_NEWS_DB_ID');
+  const dashboardPageId = String(process.env.NOTION_ANALYTICS_PAGE_ID || '').trim();
   const propertyId = requireEnv('GA4_PROPERTY_ID');
   const searchConsoleSiteUrl = String(process.env.SEARCH_CONSOLE_SITE_URL || 'https://baelab.khu.ac.kr/').trim();
   const credentials = JSON.parse(requireEnv('GA4_SERVICE_ACCOUNT_JSON'));
   const accessToken = await getGoogleAccessToken(credentials);
   const analytics = await collectAnalytics({ accessToken, propertyId, searchConsoleSiteUrl });
-  const dashboard = await findOrCreateDashboard({ token: notionToken, parentDatabaseId: notionNewsDatabaseId });
+  const dashboard = await findOrCreateDashboard({ token: notionToken, parentDatabaseId: notionNewsDatabaseId, dashboardPageId });
   const updatedAt = new Intl.DateTimeFormat('ko-KR', {
     timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit',
     hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
@@ -638,7 +648,9 @@ async function main() {
   console.log(`Analytics dashboard updated: ${dashboard.url}`);
 }
 
-main().catch((error) => {
-  console.error(`[analytics-sync] ${error.message}`);
-  process.exitCode = 1;
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
+    console.error(`[analytics-sync] ${error.message}`);
+    process.exitCode = 1;
+  });
+}
