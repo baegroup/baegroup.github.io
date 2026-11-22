@@ -6,11 +6,15 @@ on:
       - main
   workflow_run:
     workflows:
-      - Daily Notion Sync
       - Instagram Sync
     types:
       - completed
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      report_notion_status:
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -19,7 +23,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -39,11 +43,20 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     env:
       VITE_GA_MEASUREMENT_ID: ${{ vars.VITE_GA_MEASUREMENT_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Mark deployment started
+        if: inputs.report_notion_status == true
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_AEROLITH_TOKEN }}
+        run: node scripts/notion-publish-status.mjs deploying
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
@@ -71,6 +84,20 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+      - name: Record successful deployment
+        if: inputs.report_notion_status == true
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_AEROLITH_TOKEN }}
+        run: |
+          export DEPLOYED_SHA="$(git rev-parse HEAD)"
+          node scripts/notion-publish-status.mjs success
+
+      - name: Report deployment failure
+        if: (failure() || cancelled()) && steps.deployment.outcome != 'success' && inputs.report_notion_status == true
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_AEROLITH_TOKEN }}
+        run: node scripts/notion-publish-status.mjs failure
 
       - name: Notify Naver IndexNow
         run: npm run seo:indexnow

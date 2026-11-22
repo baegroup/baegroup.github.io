@@ -3,6 +3,7 @@ name: Daily Notion Sync
 on:
   schedule:
     - cron: '30 15 * * *' # Every day 00:30 KST (UTC+9)
+    - cron: '2-57/5 * * * *' # Check Notion button requests; GitHub may delay scheduled runs.
   workflow_dispatch:
     inputs:
       dry_run:
@@ -12,6 +13,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: content-sync
@@ -20,6 +23,11 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    outputs:
+      publish: ${{ steps.request.outputs.claimed }}
     env:
       NOTION_TOKEN: ${{ secrets.NOTION_AEROLITH_TOKEN }}
       NOTION_NEWS_DB_ID: d42f3566-2a74-82c5-a3aa-81daf4063b28
@@ -36,16 +44,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
+      - name: Check and claim publish request
+        id: request
+        env:
+          FORCE_SYNC: ${{ github.event_name != 'schedule' || github.event.schedule == '30 15 * * *' }}
+          DRY_RUN: ${{ inputs.dry_run == true || github.ref != 'refs/heads/main' }}
+        run: node scripts/notion-publish-status.mjs claim
+
       - name: Setup Node.js
+        if: steps.request.outputs.should_run == 'true'
         uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
 
       - name: Install dependencies
+        if: steps.request.outputs.should_run == 'true'
         run: npm ci
 
       - name: Validate Notion configuration
+        if: steps.request.outputs.should_run == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -75,13 +93,15 @@ jobs:
           fi
 
       - name: Sync CMS from Notion
+        if: steps.request.outputs.should_run == 'true'
         run: npm run cms:sync:notion
 
       - name: Validate synced content and assets
+        if: steps.request.outputs.should_run == 'true'
         run: npm run check
 
       - name: Commit and push changes
-        if: github.ref == 'refs/heads/main' && inputs.dry_run != true
+        if: steps.request.outputs.claimed == 'true'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -96,3 +116,19 @@ jobs:
 
           git commit -m "chore: daily notion sync"
           git push origin HEAD:main
+
+      - name: Mark deployment queued
+        if: steps.request.outputs.claimed == 'true'
+        run: node scripts/notion-publish-status.mjs waiting
+
+      - name: Report sync failure
+        if: (failure() || cancelled()) && steps.request.outputs.claimed == 'true'
+        run: node scripts/notion-publish-status.mjs failure
+
+  deploy:
+    needs: sync
+    if: needs.sync.outputs.publish == 'true'
+    uses: ./.github/workflows/pages.yml
+    with:
+      report_notion_status: true
+    secrets: inherit
