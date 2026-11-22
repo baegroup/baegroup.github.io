@@ -2,7 +2,6 @@ name: Daily Notion Sync
 
 on:
   schedule:
-    - cron: '30 15 * * *' # Every day 00:30 KST (UTC+9)
     - cron: '2-57/5 * * * *' # Check Notion button requests; GitHub may delay scheduled runs.
   workflow_dispatch:
     inputs:
@@ -47,7 +46,7 @@ jobs:
       - name: Check and claim publish request
         id: request
         env:
-          FORCE_SYNC: ${{ github.event_name != 'schedule' || github.event.schedule == '30 15 * * *' }}
+          FORCE_SYNC: ${{ false }}
           DRY_RUN: ${{ inputs.dry_run == true || github.ref != 'refs/heads/main' }}
         run: node scripts/notion-publish-status.mjs claim
 
