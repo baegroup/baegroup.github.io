@@ -33,6 +33,16 @@ export function statusProperties(page, runId, stage, now, sha) {
   return properties;
 }
 
+export function deploymentProperties(page, runId, now, sha) {
+  // Every Pages deployment updates the actual last success time. An unrelated
+  // deployment must leave the current Notion request's stage and identity alone.
+  return {
+    ...(statusProperties(page, runId, '완료', now, sha) || {}),
+    '마지막 반영 시간': { date: { start: now } },
+    '반영 커밋': richText(sha)
+  };
+}
+
 async function request(method, body) {
   const token = process.env.NOTION_TOKEN;
   if (!token) throw new Error('NOTION_TOKEN is required.');
@@ -76,7 +86,10 @@ export async function main(command) {
   }
   const stages = { waiting: '배포 대기', deploying: '배포 중', success: '완료', failure: '실패' };
   if (!stages[command]) throw new Error(`Unknown status command: ${command}`);
-  const properties = statusProperties(page, runId, stages[command], new Date().toISOString(), process.env.DEPLOYED_SHA || '');
+  const now = new Date().toISOString();
+  const properties = command === 'success'
+    ? deploymentProperties(page, runId, now, process.env.DEPLOYED_SHA || '')
+    : statusProperties(page, runId, stages[command], now, '');
   if (properties) await request('PATCH', { properties });
   else console.log('Status belongs to a different run; leaving it unchanged.');
 }
